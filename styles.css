@@ -1,0 +1,16 @@
+#order-history-title {
+  text-align: center;
+}
+
+.accordion .card-header button::after {
+  content: "\f068";
+  font-family: "FontAwesome";
+  float: left;
+  margin-right: 30px;
+}
+
+.accordion .card-header button.collapsed::after {
+  content: '\f067';
+  font-family: "FontAwesome";
+}
+/*# sourceMappingURL=styles.css.map */
