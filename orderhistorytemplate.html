@@ -1,0 +1,371 @@
+<!--  
+	template.html
+	
+	Austin Schultz (als93978)
+	
+	This page implements WebsiteDesignPrototypeTemplate.png found
+	on the Google Drive.
+	
+	It will act as the base for (most) of the other pages, so that
+	there is a consistent design.
+-->
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" type="text/css" href="orderhistoryTemplateStyle.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		<title>BookBay | [Template]</title>
+		
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+		<script src="https://kit.fontawesome.com/0318fd2bd1.js" crossorigin="anonymous"></script>
+	</head>
+	
+	<body>
+		<div class="mainContainer">
+		
+			<div class="headerContainer">
+ 				<nav class="navbar navbar-expand-lg navbar-custom">
+ 					<a class="navbar-brand" href="#">
+ 						<img src="img/book-stack-256.png">
+ 					</a>
+ 					
+ 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+ 						<span class="navbar-toggler-icon"></span>
+ 					</button>
+ 					
+ 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+ 						<ul class="navbar-nav mr-auto">
+ 							<li>
+ 								<a class="nav-link" href="#">Action</a>
+ 							</li>
+ 							
+ 							<li>
+ 								<a class="nav-link" href="#">Comedy</a>
+ 							</li>
+ 							
+ 							<li>
+ 								<a class="nav-link" href="#">Family</a>
+ 							</li>
+ 							
+ 						    <li>
+ 								<a class="nav-link" href="#">Kids</a>
+ 							</li>
+ 							
+ 							<li>
+ 								<a class="nav-link" href="#">Mystery</a>
+ 							</li>
+ 							
+ 							<li>
+ 								<a class="nav-link" href="#">Horror</a>
+ 							</li>
+ 							
+ 							<li>
+ 								<a class="nav-link" href="#">Romance</a>
+ 							</li>
+ 							
+ 							<li>
+ 								<a class="nav-link" href="#">Thriller</a>
+ 							</li>
+ 						</ul>
+ 						
+ 						<form class="form-inline mr-auto">
+ 							<input class="form-control mr-sm-2" type="search" placeholder="Enter Book Name, ISBN, Genre, etc..." aria-label="Search" size="36">
+ 							<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
+ 						</form>
+ 						
+ 						<ul class="navbar-nav">
+ 							<li>
+ 								<a class="nav-link" href="#">Login</a>
+ 							</li>
+ 							
+ 							<li>
+ 								<a class="nav-link" href="#">Register</a>
+ 							</li>
+ 						</ul>
+ 						
+ 						<a class="nav-link" href="#">
+ 							<i class="fas fa-shopping-cart fa-2x"></i>
+ 						</a>
+ 						
+ 						<!-- <a class="navbar-brand ml-1" href="#">
+							<i class="fas fa-shopping-cart"></i>
+ 						</a> -->
+ 					</div>
+ 				</nav>
+			</div>
+			
+			<div class="contentContainer">
+	      		<div class="content">
+					<br>
+					<h1 id="order-history-title" class="font-weight-bold">Order History</h1>
+				  	<br>
+					<div class="container">
+						<div class="accordion" id="accordionOrderHistory">
+							<div class="card">
+								<div class="card-header" id="headingOne">
+									<h2 class="mb-0">
+										<button class="btn btn-link btn-block text-left text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+											Order #1 (9/27/2020)
+											<label class="price">Total Price: $6.97</label>
+										</button>
+									</h2>
+								</div>
+								<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionOrderHistory">
+									<div class="card-body">
+										<div class="accordion" id="accordionInfo1">
+											<div class="card bg-white">
+												<div class="card-header" id="headingInfo1">
+													<h2 class="mb-0">
+														<button class="btn btn-link btn-block text-left text-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseInfo1" aria-expanded="false" aria-controls="collapseInfo1">
+															Order Information
+														</button>
+													</h2>
+												</div>
+												<div id="collapseInfo1" class="collapse" aria-labelledby="headingInfo1" data-parent="#accordionInfo1">
+													<div class="card-body">
+														<p class="text-center text-dark">Order Status: In Transit</p>
+														<div class="progress">
+															<div class="progress-bar bg-success text-dark" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
+														</div>
+														<br>
+														<ul class="list-group">
+															<li class="list-group-item bg-white text-dark">Customer ID: 200152111</li>
+															<li class="list-group-item bg-white text-dark">Order ID: 9008680768</li>
+															<li class="list-group-item bg-white text-dark">Order Date: September 27, 2020</li>
+															<li class="list-group-item bg-white text-dark">Order Time: 6:32pm</li>
+															<li class="list-group-item bg-white text-dark">Quantity: 1</li>
+															<li class="list-group-item bg-white text-dark">Total Price: $6.97</li>
+															<li class="list-group-item bg-white text-dark">Shipping Address: 1928 Hillhaven Drive, Los Angeles, CA 90046</li>
+															<li class="list-group-item bg-white text-dark">
+																Payment Method:
+																<a href="https://imgur.com/a53Op9j"><img src="https://i.imgur.com/a53Op9j.png" title="source: imgur.com" alt="Credit Card Logos" width="50" height="50" /></a>
+																**** **** **** 8742
+															</li>
+														  </ul>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="accordion" id="accordionBook1">
+											<div class="card bg-white">
+												<div class="card-header" id="headingBook1">
+													<h2 class="mb-0">
+														<button class="btn btn-link btn-block text-left text-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseBook1" aria-expanded="false" aria-controls="collapseBook1">
+															Harry Potter and the Chamber of Secrets
+														</button>
+													</h2>
+												</div>
+												<div id="collapseBook1" class="collapse" aria-labelledby="headingBook1" data-parent="#accordionBook1">
+													<div class="card-body">
+														<div class="container text-center">
+															<img src="bookimages/harry potter CoS.jpg" class="img-fluid book-image" alt="Harry Potter Book Cover">
+														</div>
+														<br>
+														<ul class="list-group">
+															<li class="list-group-item bg-white text-dark">Author: J.K. Rowling</li>
+															<li class="list-group-item bg-white text-dark">Genre: Action</li>
+															<li class="list-group-item bg-white text-dark">ISBN: 1284089185</li>
+															<li class="list-group-item bg-white text-dark">Publisher: Scholastic Paperbacks</li>
+															<li class="list-group-item bg-white text-dark">Publication Year: 1998</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-header" id="headingTwo">
+									<h2 class="mb-0">
+										<button class="btn btn-link btn-block text-left text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+											Order #2 (9/28/2020)
+											<label class="price">Total Price: $12.43</label>
+										</button>
+									</h2>
+								</div>
+								<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionOrderHistory">
+									<div class="card-body">
+										<div class="accordion" id="accordionInfo2">
+											<div class="card bg-white">
+												<div class="card-header" id="headingInfo2">
+													<h2 class="mb-0">
+														<button class="btn btn-link btn-block text-left text-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseInfo2" aria-expanded="false" aria-controls="collapseInfo2">
+															Order Information
+														</button>
+													</h2>
+												</div>
+												<div id="collapseInfo2" class="collapse" aria-labelledby="headingInfo2" data-parent="#accordionInfo2">
+													<div class="card-body">
+														<p class="text-center text-dark">Order Status: In Transit</p>
+														<div class="progress">
+															<div class="progress-bar bg-success text-dark" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
+														</div>
+														<br>
+														<ul class="list-group">
+															<li class="list-group-item bg-white text-dark">Customer ID: 200156893</li>
+															<li class="list-group-item bg-white text-dark">Order ID: 900071258</li>
+															<li class="list-group-item bg-white text-dark">Order Date: September 28, 2020</li>
+															<li class="list-group-item bg-white text-dark">Order Time: 4:14pm</li>
+															<li class="list-group-item bg-white text-dark">Quantity: 2</li>
+															<li class="list-group-item bg-white text-dark">Total Price: $12.43</li>
+															<li class="list-group-item bg-white text-dark">Shipping Address: 560 Perry Street, Pontiac, MI 48342</li>
+															<li class="list-group-item bg-white text-dark">
+																Payment Method:
+																<a href="http://www.credit-card-logos.com/"><img alt="Credit Card Logos" title="Credit Card Logos" src="http://www.credit-card-logos.com/images/visa_credit-card-logos/visa_logo_3.gif" width="35" height="22" /></a>
+																**** **** **** 3655
+															</li>
+														  </ul>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="accordion" id="accordionBook2">
+											<div class="card bg-white">
+												<div class="card-header" id="headingBook2">
+													<h2 class="mb-0">
+														<button class="btn btn-link btn-block text-left text-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseBook2" aria-expanded="false" aria-controls="collapseBook2">
+															The Outsider
+														</button>
+													</h2>
+												</div>
+												<div id="collapseBook2" class="collapse" aria-labelledby="headingBook2" data-parent="#accordionBook2">
+													<div class="card-body">
+														<div class="container text-center">
+															<img src="bookimages/The Outsider.jpg" class="img-fluid book-image" alt="The Outsider Book Cover">
+														</div>
+														<br>
+														<ul class="list-group">
+															<li class="list-group-item bg-white text-dark">Author: Stephen King</li>
+															<li class="list-group-item bg-white text-dark">Genre: Horror</li>
+															<li class="list-group-item bg-white text-dark">ISBN: 1501180989</li>
+															<li class="list-group-item bg-white text-dark">Publisher: Scribner</li>
+															<li class="list-group-item bg-white text-dark">Publication Year: 2018</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="accordion" id="accordionBook4">
+											<div class="card bg-white">
+												<div class="card-header" id="headingBook4">
+													<h2 class="mb-0">
+														<button class="btn btn-link btn-block text-left text-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseBook4" aria-expanded="false" aria-controls="collapseBook4">
+															Crazy Rich Asians
+														</button>
+													</h2>
+												</div>
+												<div id="collapseBook4" class="collapse" aria-labelledby="headingBook4" data-parent="#accordionBook4">
+													<div class="card-body">
+														<div class="container text-center">
+															<img src="bookimages/Crazy Rich Asians.jpg" class="img-fluid book-image" alt="The Outsider Book Cover">
+														</div>
+														<br>
+														<ul class="list-group">
+															<li class="list-group-item bg-white text-dark">Author: Kevin Kwan</li>
+															<li class="list-group-item bg-white text-dark">Genre: Romance</li>
+															<li class="list-group-item bg-white text-dark">ISBN: 0385536974</li>
+															<li class="list-group-item bg-white text-dark">Publisher: Knopf Doubleday Publishing Group</li>
+															<li class="list-group-item bg-white text-dark">Publication Year: 2013</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-header" id="headingThree">
+									<h2 class="mb-0">
+										<button class="btn btn-link btn-block text-left text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+											Order #3 (9/29/2020)
+											<label class="price">Total Price: $9.05</label>
+										</button>
+									</h2>
+								</div>
+								<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionOrderHistory">
+									<div class="card-body">
+										<div class="accordion" id="accordionInfo3">
+											<div class="card bg-white">
+												<div class="card-header" id="headingInfo3">
+													<h2 class="mb-0">
+														<button class="btn btn-link btn-block text-left text-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseInfo3" aria-expanded="false" aria-controls="collapseInfo3">
+															Order Information
+														</button>
+													</h2>
+												</div>
+												<div id="collapseInfo3" class="collapse" aria-labelledby="headingInfo3" data-parent="#accordionInfo3">
+													<div class="card-body">
+														<p class="text-center text-dark">Order Status: Delivered</p>
+														<div class="progress">
+															<div class="progress-bar bg-success text-dark" role="progressbar" style="width: 100%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">100%</div>
+														</div>
+														<br>
+														<ul class="list-group">
+															<li class="list-group-item bg-white text-dark">Customer ID: 2001738810</li>
+															<li class="list-group-item bg-white text-dark">Order ID: 900371968</li>
+															<li class="list-group-item bg-white text-dark">Order Date: September 29, 2020</li>
+															<li class="list-group-item bg-white text-dark">Order Time: 11:11am</li>
+															<li class="list-group-item bg-white text-dark">Quantity: 1</li>
+															<li class="list-group-item bg-white text-dark">Total Price: $9.05</li>
+															<li class="list-group-item bg-white text-dark">Shipping Address: 4912  Stonepot Road, Greenville, TX 75401</li>
+															<li class="list-group-item bg-white text-dark">
+																Payment Method:
+																<a href="http://www.credit-card-logos.com/"><img alt="Credit Card Logos" title="Credit Card Logos" src="http://www.credit-card-logos.com/images/mastercard_credit-card-logos/mastercard_logo_4.gif" width="35" height="22" /></a>
+																**** **** **** 1996
+															</li>
+														  </ul>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="accordion" id="accordionBook3">
+											<div class="card bg-white">
+												<div class="card-header" id="headingBook3">
+													<h2 class="mb-0">
+														<button class="btn btn-link btn-block text-left text-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseBook3" aria-expanded="false" aria-controls="collapseBook3">
+															Little Fires Everywhere
+														</button>
+													</h2>
+												</div>
+												<div id="collapseBook3" class="collapse" aria-labelledby="headingBook2" data-parent="#accordionBook3">
+													<div class="card-body">
+														<div class="container text-center">
+															<img src="bookimages/Little Fires Everywhere.jpg" class="img-fluid book-image" alt="Harry Potter Book Cover">
+														</div>
+														<br>
+														<ul class="list-group">
+															<li class="list-group-item bg-white text-dark">Author: Celeste Ng</li>
+															<li class="list-group-item bg-white text-dark">Genre: Family</li>
+															<li class="list-group-item bg-white text-dark">ISBN: 0735224293</li>
+															<li class="list-group-item bg-white text-dark">Publisher: Penguin Press</li>
+															<li class="list-group-item bg-white text-dark">Publication Year: 2017</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+	      		</div>
+	    	</div>
+	    	
+	    	<div class="footerContainer">
+	     		<footer class="footer">
+					<!-- Stuff here -->
+	      		</footer>
+	    	</div>
+    	
+    	</div>
+	</body>
+</html>
