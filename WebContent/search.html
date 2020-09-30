@@ -16,7 +16,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link rel="stylesheet" type="text/css" href="templateStyle.css">
+		<link rel="stylesheet" type="text/css" href="searchStyle.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 		<title>BookBay | [Template]</title>
 		
@@ -101,9 +101,384 @@
 			<!-- Content  -->
 			<div class="contentContainer">
 				<div class="content">
-					<!-- PUT YOUR QUALITY CONTENT IN HERE  -->
+					<div class="sidebar">
+						<div class="accordion" id="filterAccordion">
+							<div class="card">
+								<div class="card-header" id="genreHeader">
+									<h5 class="mb-0">
+										Genre
+									</h5>
+								</div>
+								
+								<div class="card-body">
+									<input type="radio" id="filterGenre1" name="filterGenre" value="action">
+									<label for="filterGenre1">Action</label>
+										
+									<br/>
+										
+									<input type="radio" id="filterGenre2" name="filterGenre" value="comedy">
+									<label for="filterGenre2">Comedy</label>
+																				
+									<br/>										
+																				
+									<input type="radio" id="filterGenre3" name="filterGenre" value="family">
+									<label for="filterGenre3">Family</label>
+										
+									<br/>
+																														
+									<input type="radio" id="filterGenre4" name="filterGenre" value="kids">
+									<label for="filterGenre4">Kids</label>
+										
+									<br/>
+																													
+									<input type="radio" id="filterGenre5" name="filterGenre" value="mystery">
+									<label for="filterGenre5">Mystery</label>
+											
+									<br/>
+																														
+									<input type="radio" id="filterGenre6" name="filterGenre" value="horror">
+									<label for="filterGenre6">Horror</label>
+											
+									<br/>
+																														
+									<input type="radio" id="filterGenre7" name="filterGenre" value="romance">
+									<label for="filterGenre7">Romance</label>
+											
+									<br/>
+																														
+									<input type="radio" id="filterGenre8" name="filterGenre" value="thriller">
+									<label for="filterGenre8">Thriller</label>
+								</div>
+							</div>
+							
+							<div class="card">
+								<div class="card-header">
+									<h5 class="mb-0">
+										ISBN
+									</h5>
+								</div>
+								
+																
+								<div class="card-body">
+									<input type="number" class="form-control" id="filterISBN" aria-describedby="filterISBN">
+									<small id="filterISBN" class="form-text text-muted">Only ISBN-13 accepted.</small>
+								</div>
+							</div>
+							
+														
+							<div class="card">
+								<div class="card-header">
+									<h5 class="mb-0">
+										Author
+									</h5>
+								</div>
+								
+																
+								<div class="card-body">
+									<input type="text" class="form-control" id="filterAuthor" aria-describedby="filterAuthor">
+								</div>
+							</div>
+							
+														
+							<div class="card">
+								<div class="card-header">
+									<h5 class="mb-0">
+										Book Rating
+									</h5>
+								</div>
+								
+																
+								<div class="card-body">
+									<input type="radio" id="filterRating1" name="filterRating" value="5stars">
+									<label for="filterRating1">5 Stars</label>
+									
+									<br/>
+									
+									<input type="radio" id="filterRating2" name="filterRating" value="4stars">
+									<label for="filterRating2">4 Stars</label>
+									
+									<br/>
+									
+									<input type="radio" id="filterRating3" name="filterRating" value="3stars">
+									<label for="filterRating3">3 Stars</label>
+									
+									<br/>
+									
+									<input type="radio" id="filterRating4" name="filterRating" value="2stars">
+									<label for="filterRating4">2 Stars</label>
+									
+									<br/>
+									
+									<input type="radio" id="filterRating5" name="filterRating" value="1stars">
+									<label for="filterRating5">1 Stars</label>
+									
+									<br/>
+									
+									<input type="radio" id="filterGenre6" name="filterRating" value="0stars">
+									<label for="filterRating6">0 Stars</label>
+								</div>
+							</div>
+							
+														
+							<div class="card">
+								<div class="card-header">
+									<h5 class="mb-0">
+										Price
+									</h5>
+								</div>
+								
+																
+								<div class="card-body">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1">$</span>
+										</div>
+										
+										<input type="number" class="form-control" step="0.01" id="filterPriceFrom" placeholder="From" aria-label="filterPriceFrom" aria-describedby="basic-addon1">
+									</div>
+									
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon2">$</span>
+										</div>
+										
+										<input type="number" class="form-control" step="0.01" id="filterPriceTo" placeholder="To" aria-label="filterPriceTo" aria-describedby="basic-addon2">
+									</div>
+								</div>
+							</div>
+							
+														
+							<div class="card">
+								<div class="card-header">
+									<h5 class="mb-0">
+										Edition
+									</h5>
+								</div>
+								
+																
+								<div class="card-body">
+									<input type="number" class="form-control" id="filterEdition" aria-describedby="filterEdition">
+									<small id="filterEdition" class="form-text text-muted">1 indicates 1st edition, 2 indicates 2nd, etc.</small>
+								</div>
+							</div>
+							
+														
+							<div class="card">
+								<div class="card-header">
+									<h5 class="mb-0">
+										Publisher
+									</h5>
+								</div>
+								
+																
+								<div class="card-body">
+									<input type="text" class="form-control" id="filterPublisher" aria-describedby="filterPublisher">
+								</div>
+							</div>
+							
+														
+							<div class="card">
+								<div class="card-header">
+									<h5 class="mb-0">
+										Publication Year
+									</h5>
+								</div>
+								
+																
+								<div class="card-body">
+									<input type="number" class="form-control" id="filterPublicationYear" aria-describedby="filterPublicationYear">
+								</div>
+							</div>
+						</div>
+					</div>
+	
 				</div>
-	    	</div>
+					
+				<div class="searchArea">
+					<h6>8 Results Found</h6>
+					
+					<div class="searchResultGrid">
+						<div class="row">
+							<div class="col">
+								<div class="card card-searchgrid">
+									<img src="img/bookCover1.jpg" class="card-img-top" width="190" height="220">
+									
+									<div class="card-body">
+										<h5 class="card-title">Head First Web Design</h5>
+										<p>Ethan Watrall, Jeff Siarto</p>
+										
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										
+										<br/>
+										<br/>
+										
+										<p>$9.99</p>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col">
+								<div class="card card-searchgrid">
+									<img src="img/bookCover2.jpg" class="card-img-top" width="190" height="220">
+									
+									<div class="card-body">
+										<h5 class="card-title">The Great Gatsby</h5>
+										<p>F. Scott Fitzgerald</p>
+																				
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										
+										<br/>
+										<br/>
+										
+										<p>$9.99</p>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col">
+								<div class="card card-searchgrid">
+									<img src="img/bookCover3.jpg" class="card-img-top" width="190" height="220">
+									
+									<div class="card-body">
+										<h5 class="card-title">The Catcher in the Rye</h5>
+										<p>J.D. Salinger</p>								
+																				
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										
+										<br/>
+										<br/>
+										
+										<p>$9.99</p>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col">
+								<div class="card card-searchgrid">
+									<img src="img/bookCover4.jpg" class="card-img-top" width="190" height="220">
+									
+									<div class="card-body">
+										<h5 class="card-title">Catch-22</h5>
+										<p>Joseph Heller</p>							
+																				
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										
+										<br/>
+										<br/>
+										
+										<p>$9.99</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">			
+							<div class="col">
+								<div class="card card-searchgrid">
+									<img src="img/bookCover5.jpg" class="card-img-top" width="190" height="220">
+									
+									<div class="card-body">
+										<h5 class="card-title">To Kill a Mockingbird</h5>
+										<p>Harper Lee</p>				
+																				
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										
+										<br/>
+										<br/>
+										
+										<p>$9.99</p>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col">
+								<div class="card card-searchgrid">
+									<img src="img/bookCover6.png" class="card-img-top" width="190" height="220">
+									
+									<div class="card-body">
+										<h5 class="card-title">Harry Potter and the Sorcerer's Stone</h5>
+										<p>J.K. Rowling</p>
+																				
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										
+										<br/>
+										<br/>
+										
+										<p>$9.99</p>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col">
+								<div class="card card-searchgrid">
+									<img src="img/bookCover7.png" class="card-img-top" width="190" height="220">
+									
+									<div class="card-body">
+										<h5 class="card-title">The Outsider</h5>
+										<p>Stephen King</p>
+																				
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										
+										<br/>
+										<br/>
+										
+										<p>$9.99</p>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col">
+								<div class="card card-searchgrid">
+									<img src="img/bookCover8.png" class="card-img-top" width="190" height="220">
+									
+									<div class="card-body">
+										<h5 class="card-title">Crazy Rich Asians</h5>
+										<p>Kevin Kwan</p>		
+																				
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										<i class="fas fa-star fa-xs"></i>
+										
+										<br/>
+										<br/>
+										
+										<p>$9.99</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
 	    	
 	    	<!-- Footer -->
 	     	<div class="footerContainer">
