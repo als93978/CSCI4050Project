@@ -53,6 +53,13 @@ html, body {
 .active {
 	background-color: #4f5cbf !important;
 }
+
+.footer {
+	position: fixed;
+   	left: 0;
+	bottom: 0;
+	width: 100%;
+}
 	
 	.mainContainer {
 		margin: 0;
