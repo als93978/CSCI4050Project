@@ -213,7 +213,7 @@
 						<div class="infoAreaGrid">
  							<div class="row">
  								<div class="col">
- 									<div class="card">
+ 									<div class="card checkoutInfoCard">
  										<div class="card-header">
  											Payment Information
  										</div>
@@ -228,6 +228,11 @@
 			    											**** **** **** 8920
 			    										</p>
 			    										
+			    										<!-- 
+			    											TODO: Name get struched up when too long. I actually want
+			    											it directly below the card number, but Bootstrap isn't letting
+			    											that happen. Fix later.
+			    										 -->
 			    										<p>
 			    											(John Doe Smith)
 			    										</p>
@@ -244,15 +249,15 @@
 		    										
 		    										<div class="media-body">
 			    										<p class="cardNum">
-			    											**** **** **** 8924
+			    											**** **** **** 5673
 			    										</p>
 			    													    										
 			    										<p>
-			    											(Doe John Smith)
+			    											(John Doe Smith)
 			    										</p>
 		    										</div>
 		    										
-		    										<input type="radio" class="paymentInfoRadio" id="paymentInfo1" name="paymentInfo" value="paymentInfo1" checked>
+		    										<input type="radio" class="paymentInfoRadio" id="paymentInfo1" name="paymentInfo" value="paymentInfo1">
 		    										
 		    										<a href="#" class="btn btn-secondary editPaymentInfoBtn">Edit</a>
 		    									</li>
@@ -264,22 +269,61 @@
  										</div>
  									</div>
  								</div>
-								
+ 							</div>
+ 							
+ 							<div class="row">					
  								<div class="col">
-								 	<div class="card">
+								 	<div class="card checkoutInfoCard">
  										<div class="card-header">
  											Shipping Information
  										</div>
 										
  										<div class="card-body">
- 											<p class="card-text">Some Text</p>
+											<div class="shippingInfoItem">
+												<div class="addressInfo">
+													<p>
+														Name: John Doe Smith
+													</p>
+													
+													<p>
+														Address: 3243 John Doe Blvd, Athens, GA, 30606
+													</p>
+												</div>
+												
+												<div class="shippingInputOptions">
+													<input type="radio" class="shippingInfoRadio" id="shippingInfo1" name="shippingInfo" value="shippingInfo1" checked>
+													
+													<a href="#" class="btn btn-secondary editShippingInfoBtn">Edit</a>
+												</div>
+											</div>
+											
+											<div class="shippingInfoItem shippingInfoItemTopMargin">
+												<div class="addressInfo">
+													<p>
+														Name: John Doe Smith
+													</p>
+													
+													<p>
+														Address: 3452 Vacation Drive, Honolulu, HI, 96814
+													</p>
+												</div>
+												
+												<div class="shippingInputOptions">
+													<input type="radio" class="shippingInfoRadio" id="shippingInfo1" name="shippingInfo" value="shippingInfo1">
+													
+													<a href="#" class="btn btn-secondary editShippingInfoBtn">Edit</a>
+												</div>
+											</div>
     										
     										<hr>
     										
      										<a href="#" class="btn btn-primary">Add New Shipping Address</a>
  										</div>
  									</div>
- 								</div>
+ 									
+ 									<div class="nextBtnContainer">
+										<a href="#" class="btn btn-primary btn-lg">Next</a>
+ 									</div>
  							</div>
 						</div>
 					</div>

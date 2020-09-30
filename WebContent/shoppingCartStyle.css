@@ -152,6 +152,22 @@ html, body {
 /* 					height: 100%; */
 				}
 				
+					.checkoutInfoCard {
+						min-width: 60%;
+						max-width: 60%;
+						margin-left: auto;
+						margin-right: auto;
+						margin-top: 5%;
+					}
+					
+					.nextBtnContainer {
+						min-width: 60%;
+						max-width: 60%;
+						margin-left: auto;
+						margin-right: auto;
+						margin-top: 3.5%;
+					}
+				
 					.paymentInfo {
 						width: 100%;
 						display: inline-block;
@@ -168,15 +184,39 @@ html, body {
 						.paymentInfoItem {
 							margin-top: 5%;
 						}
-					
+						
+						.shippingInfoItem {
+							
+						}
+						
+							.shippingInfoItemTopMargin {
+								margin-top: 5%;
+							}
+							
+							.shippingInfoRadio {
+/* 								float: right; */
+/* 								margin-top: -10%; */
+/* 								margin-left: -10%; */
+							}
+							
+							.editShippingInfoBtn {
+/* 								float: right; */
+								margin-left: 5%;
+							}
 					
 						.paymentInfoRadio {
 							margin-left: 5%;
 						}
-						
+
 						.editPaymentInfoBtn {
+							float: right;
 							margin-left: 5%;
+							margin-right: 5%;
 						}
+						
+					.proceedBtn {
+						margin-left: 25%;
+					}
 		
 		.footerContainer {
 /* 			background-color: #4f5cbf; */
