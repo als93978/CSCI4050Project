@@ -109,9 +109,30 @@ html, body {
 /* 				padding: 1em; */
 			}
 			
-			.searchArea {
-				display: inline;
-			}
+				.sidebar {
+					padding: 1em;
+					float: left;
+					width: 15%;
+				}
+				
+				.searchArea {
+					padding: 1em;
+					margin-left: 15%;
+				}
+				
+					.searchResultGrid {
+
+					}
+					
+					.row {
+						margin-top: 3em;
+					}
+					
+					.card-searchgrid {
+						min-width: 13em;
+						max-width: 13em;
+						min-height: 25em;
+					}
 		
 		.footerContainer {
 /* 			background-color: #4f5cbf; */
