@@ -1,13 +1,12 @@
 <!--  
-	template.html
+	search.html
 	
 	Austin Schultz (als93978)
 	
-	This page implements WebsiteDesignPrototypeTemplate.png found
+	This page implements SearchPageDesignPrototype.png found
 	on the Google Drive.
 	
-	It will act as the base for (most) of the other pages, so that
-	there is a consistent design.
+	Allows the user to search for books and filter the results.
 -->
 
 <!DOCTYPE html>
@@ -18,7 +17,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" type="text/css" href="searchStyle.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-		<title>BookBay | [Template]</title>
+		<title>BookBay | Search</title>
 		
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -258,7 +257,7 @@
 																
 								<div class="card-body">
 									<input type="number" class="form-control" id="filterEdition" aria-describedby="filterEdition">
-									<small id="filterEdition" class="form-text text-muted">1 indicates 1st edition, 2 indicates 2nd, etc.</small>
+									<small id="filterEdition" class="form-text text-muted">1 indicates 1st edition, 2 indicates 2nd, etc. Leave blank if N/A.</small>
 								</div>
 							</div>
 							
@@ -520,6 +519,7 @@
  					</div>
  				</nav>
 	     	</div>
+    	</div>
     	</div>
 	</body>
 </html>
