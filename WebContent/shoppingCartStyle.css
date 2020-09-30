@@ -108,7 +108,7 @@ html, body {
 		}
 		
 			.content {
-				padding: 1em;
+/* 				padding: 1em; */
 				width: 100%;
 				height: 100%;
 			}
@@ -117,10 +117,10 @@ html, body {
 					padding: 1em;
 					width: 25%;
 					height: 100%;
+					float: left;
 				}
 			
 					.sidebar {
-						float: left;
 						width: 100%;
 						height: 102%;
 						overflow: auto;
@@ -148,7 +148,35 @@ html, body {
 				.infoArea {
 					padding: 1em;
 					margin-left: 25%;
+/* 					width: 75%; */
+/* 					height: 100%; */
 				}
+				
+					.paymentInfo {
+						width: 100%;
+						display: inline-block;
+					}
+						
+						.cardNum {
+							float: right;
+						}
+						
+						.nameOnCard {
+							clear: both;
+						}
+						
+						.paymentInfoItem {
+							margin-top: 5%;
+						}
+					
+					
+						.paymentInfoRadio {
+							margin-left: 5%;
+						}
+						
+						.editPaymentInfoBtn {
+							margin-left: 5%;
+						}
 		
 		.footerContainer {
 /* 			background-color: #4f5cbf; */
