@@ -113,29 +113,109 @@ html, body {
 				height: 100%;
 			}
 			
-				.sidebar {
+				.shoppingCart {
 					padding: 1em;
+					width: 25%;
+					height: 100%;
 					float: left;
-					width: 15%;
 				}
+			
+					.sidebar {
+						width: 100%;
+						height: 102%;
+						overflow: auto;
+					}
+					
+						.list-group-item {
+	
+						}
+					
+						.cart-img {
+						
+						}
+					
+						.media-body {
+							min-width: 50%;
+							max-width: 50%;
+							float: right;
+							overflow-wrap: break-word;
+						}
+						
+						.cart-item-button {
+							clear: both;
+						}
 				
-				.searchArea {
+				.infoArea {
 					padding: 1em;
-					margin-left: 15%;
+					margin-left: 25%;
+/* 					width: 75%; */
+/* 					height: 100%; */
 				}
 				
-					.searchResultGrid {
+					.checkoutInfoCard {
+						min-width: 60%;
+						max-width: 60%;
+						margin-left: auto;
+						margin-right: auto;
+						margin-top: 5%;
+					}
+					
+					.nextBtnContainer {
+						min-width: 60%;
+						max-width: 60%;
+						margin-left: auto;
+						margin-right: auto;
+						margin-top: 3.5%;
+					}
+				
+					.paymentInfo {
+						width: 100%;
+						display: inline-block;
+					}
+						
+						.cardNum {
+							float: right;
+						}
+						
+						.nameOnCard {
+							clear: both;
+						}
+						
+						.paymentInfoItem {
+							margin-top: 5%;
+						}
+						
+						.shippingInfoItem {
+							
+						}
+						
+							.shippingInfoItemTopMargin {
+								margin-top: 5%;
+							}
+							
+							.shippingInfoRadio {
+/* 								float: right; */
+/* 								margin-top: -10%; */
+/* 								margin-left: -10%; */
+							}
+							
+							.editShippingInfoBtn {
+/* 								float: right; */
+								margin-left: 5%;
+							}
+					
+						.paymentInfoRadio {
+							margin-left: 5%;
+						}
 
-					}
-					
-					.row {
-						margin-top: 3em;
-					}
-					
-					.card-searchgrid {
-						min-width: 13em;
-						max-width: 13em;
-						min-height: 25em;
+						.editPaymentInfoBtn {
+							float: right;
+							margin-left: 5%;
+							margin-right: 5%;
+						}
+						
+					.proceedBtn {
+						margin-left: 25%;
 					}
 		
 		.footerContainer {
