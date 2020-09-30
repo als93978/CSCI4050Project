@@ -113,30 +113,37 @@ html, body {
 				height: 100%;
 			}
 			
-				.sidebar {
+				.shoppingCart {
 					padding: 1em;
-					float: left;
 					width: 25%;
+					height: 100%;
 				}
-				
-					.list-group-item {
-
-					}
-				
-					.cart-img {
-					
-					}
-				
-					.media-body {
-						min-width: 50%;
-						max-width: 50%;
-						float: right;
-						overflow-wrap: break-word;
+			
+					.sidebar {
+						float: left;
+						width: 100%;
+						height: 102%;
+						overflow: auto;
 					}
 					
-					.cart-item-button {
-						clear: both;
-					}
+						.list-group-item {
+	
+						}
+					
+						.cart-img {
+						
+						}
+					
+						.media-body {
+							min-width: 50%;
+							max-width: 50%;
+							float: right;
+							overflow-wrap: break-word;
+						}
+						
+						.cart-item-button {
+							clear: both;
+						}
 				
 				.infoArea {
 					padding: 1em;
