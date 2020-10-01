@@ -1,24 +1,12 @@
-<!--  
-	template.html
-	
-	Austin Schultz (als93978)
-	
-	This page implements WebsiteDesignPrototypeTemplate.png found
-	on the Google Drive.
-	
-	It will act as the base for (most) of the other pages, so that
-	there is a consistent design.
--->
-
 <!DOCTYPE html>
 <html>
 
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link rel="stylesheet" type="text/css" href="registrationTemplateStyle.css">
+		<link rel="stylesheet" type="text/css" href="registrationStyle.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-		<title>BookBay | [Template]</title>
+		<title>BookBay | Login</title>
 		
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -33,7 +21,7 @@
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
  					<a class="navbar-brand" href="#">
- 						<img src="img/book-stack-256.png">
+ 						<img src="img/bookbayLogo.png">
  					</a>
  					
  					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,43 +97,26 @@
 							<div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb--30 mb-lg--0">
 								<ul class="nav nav-tabs justify-content-center">
 									<li class="nav-item">
-										<a class="nav-link active text-white" href="registrationtemplate.html">Registration</a>
+										<a class="nav-link" href="registration.html">Registration</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="logintemplate.html">Login</a>
+										<a class="nav-link active text-white" href="logintemplate.html">Login</a>
 									</li>
 								</ul>
-								<form id="registration">
+								<form id="login">
 									<br>
-									<div class="form-group row">
-										<label for="inputUser" class="col-sm-2 col-form-label">Username:</label>
-										<div class="col-sm-10">
-										  <input type="text" class="form-control" id="inputUser">
-										</div>
+									<div class="form-group">
+										<label for="inputEmailUser">Email/Username</label>
+										<input type="text" class="form-control" id="inputEmailUser">
 									</div>
-									<div class="form-group row">
-										<label for="inputPassword" class="col-sm-2 col-form-label">Password:</label>
-										<div class="col-sm-10">
-										  <input type="password" class="form-control" id="inputPassword">
-										</div>
+									<div class="form-group">
+										<label for="inputPassword">Password</label>
+										<input type="password" class="form-control" id="inputPassword">
 									</div>
-									<div class="form-group row">
-										<label for="inputConfirmPassword" class="col-sm-2 col-form-label">Confirm Password:</label>
-										<div class="col-sm-10">
-										  <input type="password" class="form-control" id="inputConfirmPassword">
-										</div>
+									<div class="form-group">
+										<a href="#">Forget Password?</a>
 									</div>
-									<div class="form-group row">
-										<label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-										<div class="col-sm-10">
-										  <input type="email" class="form-control" id="inputEmail">
-										</div>
-									  </div>
-									  <div class="form-group form-check">
-										<input type="checkbox" class="form-check-input" id="promotionCheck">
-										<label class="form-check-label" for="promotionCheck">Opt-in for email promotions?</label>
-									  </div>
-									  <button type="submit" class="btn btn-white form-btn text-white">Create Account</button>
+									<button type="submit" class="btn btn-white form-btn text-white">Login</button>
 								</form>
 							</div>
 						</div>

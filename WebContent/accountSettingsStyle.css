@@ -114,6 +114,10 @@ button:hover {
 				color: #ffffff;
 			}
 
+			.navbar-custom .navbar-text {
+				color: #ffffff;
+			}
+
 			.navbar .nav-link {
 				color: #ffffff;
 			}
@@ -141,6 +145,10 @@ button:hover {
 /* 			background-color: #4f5cbf; */
 			margin: 0;
 /* 			height: 15%; */
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			width: 100%;
 		}
 
 		h1, h3 {

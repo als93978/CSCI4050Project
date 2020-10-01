@@ -53,6 +53,13 @@ html, body {
 .active {
 	background-color: #4f5cbf !important;
 }
+
+.user-icon {
+	position: relative;
+	width: 30px;
+	height: 15px;
+	top: 8px;
+}
 	
 	.mainContainer {
 		margin: 0;
@@ -81,7 +88,7 @@ html, body {
 			
 			.navbar-custom {
 				background-color: #4f5cbf;
-				overflow: hidden;
+				overflow: visible;
 			}
 			
 			/* 
@@ -89,6 +96,10 @@ html, body {
 				displays properly.
 			*/
 			.navbar-custom .navbar-nav .nav-link {
+				color: #ffffff;
+			}
+			
+			.navbar-custom .navbar-text {
 				color: #ffffff;
 			}
 			
@@ -126,12 +137,6 @@ html, body {
 			font-family: "robotoregular";
 		}
 		
-		/* h3 {
-/* 			float: right; */
-		/* } */
-		img{
-			margin-bottom: 50%;
-		}
 		.center {
 			margin: 0;
 			position: absolute;
