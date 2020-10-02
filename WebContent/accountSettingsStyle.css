@@ -62,6 +62,16 @@ button:hover {
 	font-family: "FontAwesome";
 }
 
+#collapseInfo1 {
+	content: "\f067" !important;
+	font-family: "FontAwesome";
+}
+
+i {
+	float: left;
+	margin-right: 30px;
+}
+
 .price {
 	float: right;
 	margin-right: 5px;
