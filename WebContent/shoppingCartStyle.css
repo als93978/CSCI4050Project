@@ -152,6 +152,10 @@ html, body {
 					height: 100%;
 				}
 				
+					.infoAreaGrid {
+						height: 100%;
+					}
+				
 					.checkoutInfoCard {
 						min-width: 60%;
 						max-width: 60%;
@@ -165,7 +169,7 @@ html, body {
 						max-width: 60%;
 						margin-left: auto;
 						margin-right: auto;
-						margin-top: 3.5%;
+						margin-top: 1%;
 					}
 				
 					.paymentInfo {
