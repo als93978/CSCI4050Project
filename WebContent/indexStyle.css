@@ -91,6 +91,27 @@ html, body {
 				overflow: visible;
 			}
 
+			.navbar-brand {
+/* 				font-family: Coolvetica; */
+				font-weight: bold;
+				color: #ffffff;
+			}
+			
+			.navbar-brand:active, .navbar-brand:hover {
+				color: #c0c0c0;
+			}
+
+			.modalContainer img {
+				float: right;
+				height: 35%;
+				width: 35%;
+			}
+			
+			.modalText {
+				position: relative;
+				top: 50%;
+			}
+
 			/*
 				TODO: Because of these changes, the hamburger menu icon no longer
 				displays properly.
@@ -126,6 +147,10 @@ html, body {
         .content {
             padding: 1em;
         }
+        
+        	.imgFullOpacity {
+        		opacity: 1;
+        	}
 
         .searchArea {
             display: inline;
