@@ -115,6 +115,15 @@ i {
 				background-color: #4f5cbf;
 				overflow: hidden;
 			}
+			
+			.navbar-brand {
+				font-weight: bold;
+				color: #ffffff;
+			}
+			
+			.navbar-brand:active, .navbar-brand:hover {
+				color: #c0c0c0;
+			}
 
 			/*
 				TODO: Because of these changes, the hamburger menu icon no longer

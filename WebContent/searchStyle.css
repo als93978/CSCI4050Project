@@ -75,6 +75,15 @@ html, body {
 				overflow: hidden;
 			}
 			
+			.navbar-brand {
+				font-weight: bold;
+				color: #ffffff;
+			}
+			
+			.navbar-brand:active, .navbar-brand:hover {
+				color: #c0c0c0;
+			}
+			
 			/* 
 				TODO: Because of these changes, the hamburger menu icon no longer
 				displays properly. Fix if time allows.
