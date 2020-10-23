@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS UserType (
     PRIMARY KEY(TypeID),
     # Might not be needed since TypeID will probably
     # be all that is necessary in the actual Java program
-    TypeName varchar(255) UNIQUE
+    TypeName varchar(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS Address (
@@ -19,6 +19,12 @@ CREATE TABLE IF NOT EXISTS Address (
     ZipCode int
 );
 
+CREATE TABLE IF NOT EXISTS `Status` (
+	StatusID int NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY(StatusID),
+    StatusName varchar(255) NOT NULL UNIQUE
+);
+
 CREATE TABLE IF NOT EXISTS `User` (
 	UserID int NOT NULL AUTO_INCREMENT,
     PRIMARY KEY(UserID),
@@ -26,7 +32,8 @@ CREATE TABLE IF NOT EXISTS `User` (
     LastName varchar(255) NOT NULL,
 	Email varchar(255) NOT NULL,
     `Password` varchar(255) NOT NULL UNIQUE,
-    `Status` int UNIQUE, # Based on the Status enumeration
+    StatusID int, # Based on the Status enumeration
+    FOREIGN KEY(StatusID) REFERENCES `Status`(StatusID),
     EnrollmentForPromotions boolean,
     NumOfCards int,
     CHECK (NumOfCards <= 3), # User should have up to 3 cards (or none)
@@ -36,13 +43,21 @@ CREATE TABLE IF NOT EXISTS `User` (
     FOREIGN KEY(AddressID) REFERENCES Address(AddressID)
 );
 
+CREATE TABLE IF NOT EXISTS CardType (
+	CardTypeID int NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY(CardTypeID),
+    CardType varchar(255)
+);
+
 CREATE TABLE IF NOT EXISTS PaymentCard (
 	CardNum int NOT NULL,
     PRIMARY KEY(CardNum),
     `Type` int NOT NULL UNIQUE,
     ExpDate varchar(255) NOT NULL,
-    UserID int UNIQUE,
-    FOREIGN KEY(UserID) REFERENCES `User`(UserID)
+    UserID int NOT NULL UNIQUE,
+    FOREIGN KEY(UserID) REFERENCES `User`(UserID),
+    CardTypeID int NOT NULL,
+    FOREIGN KEY(CardTypeID) REFERENCES CardType(CardTypeID)
 );
 
 CREATE TABLE IF NOT EXISTS Book (
@@ -53,7 +68,7 @@ CREATE TABLE IF NOT EXISTS Book (
     SellingPrice float NOT NULL,
     ISBN int,
     Genre varchar(255),
-    `Description` varchar(255),
+    `Description` text,
     PublicationYear int,
     ImagePath varchar(255),
     BuyPrice float NOT NULL,
@@ -71,8 +86,8 @@ CREATE TABLE IF NOT EXISTS ManageBooks (
 );
 
 CREATE TABLE IF NOT EXISTS Promotion (
-	`Code` int NOT NULL,
-    PRIMARY KEY(`Code`),
+	`PromotionCode` int NOT NULL,
+    PRIMARY KEY(`PromotionCode`),
     Percentage int NOT NULL,
     ExpDate varchar(255),
     StartDate varchar(255)
@@ -89,8 +104,8 @@ CREATE TABLE IF NOT EXISTS `Order` (
     PaymentMethod varchar(255),
     CardNum int,
     FOREIGN KEY(CardNum) REFERENCES PaymentCard(CardNum),
-    `Code` int,
-    FOREIGN KEY(`Code`) REFERENCES Promotion(`Code`)
+    `PromotionCode` int,
+    FOREIGN KEY(`PromotionCode`) REFERENCES Promotion(`PromotionCode`)
 );
 
 CREATE TABLE IF NOT EXISTS OrderItem (
@@ -105,14 +120,14 @@ CREATE TABLE IF NOT EXISTS ShoppingCart (
 	CartID int NOT NULL AUTO_INCREMENT,
     PRIMARY KEY(CartID),
     UserID int NOT NULL UNIQUE,
-    OrderID int,
+    OrderID int UNIQUE,
 	FOREIGN KEY(UserID) REFERENCES `User`(UserID),
     FOREIGN KEY(OrderID) REFERENCES `Order`(OrderID)
 );
 
 CREATE TABLE IF NOT EXISTS ManagePromotions (
-	UserID int,
-    `Code` int,
+	UserID int NOT NULL,
+    `PromotionCode` int,
     FOREIGN KEY(UserID) REFERENCES `User`(UserID),
-    FOREIGN KEY(`Code`) REFERENCES Promotion(`Code`)
+    FOREIGN KEY(`PromotionCode`) REFERENCES Promotion(`PromotionCode`)
 );
