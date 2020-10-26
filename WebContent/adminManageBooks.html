@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" type="text/css" href="adminManageBooksStyle.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		<title>BookBay | (Admin) Manage Books</title>
+		
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+		<script src="https://kit.fontawesome.com/0318fd2bd1.js" crossorigin="anonymous"></script>
+	</head>
+	
+	<body>
+		<!-- Main container  -->
+		<div class="mainContainer">
+		
+			<!-- Header -->
+			<div class="headerContainer">
+ 				<nav class="navbar navbar-expand-lg navbar-custom">
+ 					<a class="navbar-brand" href="#">
+<!--  						<img class="logoImg" src="img/bookbayLogo.png"> -->
+						BookBay
+ 					</a>
+ 					
+ 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+ 						<span class="navbar-toggler-icon"></span>
+ 					</button>
+ 					
+ 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+ 						<ul class="navbar-nav mr-auto">
+ 							<li>
+ 								<a class="nav-link" href="#">Manage Books</a>
+ 							</li>
+ 							
+ 							<li>
+ 								<a class="nav-link" href="#">Manage Users</a>
+ 							</li>
+ 							
+ 							<li>
+ 								<a class="nav-link" href="#">Manage Promotions</a>
+ 							</li>
+ 						</ul>
+ 						
+ 						<form class="form-inline mr-auto">
+ 							<input class="form-control mr-sm-2" type="search" placeholder="Enter Book Name, ISBN, Genre, etc..." aria-label="Search" size="36">
+ 							<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
+ 						</form>
+ 						<b style="margin-right: 3%; font-size: 15pt;">Admin</b>
+ 						<ul class="navbar-nav">
+ 							<li>
+ 								<a class="nav-link" href="#">Logout</a>
+ 							</li>
+ 						</ul>
+ 						
+ 					</div>
+ 				</nav>
+			</div>
+			
+			<!-- Homepage content by Jonah Kim  -->
+			<div class="contentContainer">
+				<div class="content">
+					<div class="row">
+						<div class="col-md-3">
+							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book1" style="background-color: transparent; border: none;">
+								<img src="img/book1.png" class="rounded mx-auto d-block shelfImg">
+							</button>
+						</div>
+						<div class="col-md-3">
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book2" style="background-color: transparent; border: none;">
+								<img src="img/book2.png" class="rounded mx-auto d-block shelfImg">
+							</button>
+						</div>
+						<div class="col-md-3">
+							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book3" style="background-color: transparent; border: none;">
+								<img src="img/book3.png" class="rounded mx-auto d-block shelfImg">
+							</button>
+						</div>
+						<div class="col-md-3">
+							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book4" style="background-color: transparent; border: none;">
+								<img src="img/book4.png" class="rounded mx-auto d-block shelfImg">
+							</button>
+						</div>
+                    </div>
+                    <div class="row">
+						<div class="col-md-3" style="margin-top: 10%; margin-bottom: 10%;">
+                            <button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#addbook" style="background-color: transparent; border: none;">
+                                <img src="img/addbook.png" class="rounded mx-auto d-block shelfImg">
+                            </button>
+                        </div>					
+					</div>
+
+					
+			
+			
+			
+				<!-- MODALS -->
+				<div class="modal fade" id="book1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Harry Potter and the Sorcerer's Stone</h5>
+							</div>
+							<div class="modal-body">
+								<img class="modalImg" src="img/book1.png">
+							
+                                <form>
+                                    <div class="form-group">
+                                      <label for="title">Title</label>
+                                      <input type="text" class="form-control" id="title" placeholder="Harry Potter and the Sorcerer's Stone">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="author">Author</label>
+                                      <input type="text" class="form-control" id="author" placeholder="J.K. Rowling">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price">Price</label>
+                                        <input type="text" class="form-control" id="price" placeholder="19.99">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="genre">Genre</label>
+                                        <input type="text" class="form-control" id="genre" placeholder="Action">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <input type="text" class="form-control" id="description" placeholder="Enter the world of Harry Potter.">
+                                      </div>
+                                  </form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-primary">Delete</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="book2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">The Outsider</h5>
+							</div>
+							<div class="modal-body">
+								<img class="modalImg" src="img/book2.png">
+							
+                                <form>
+                                    <div class="form-group">
+                                      <label for="title">Title</label>
+                                      <input type="text" class="form-control" id="title" placeholder="The Outsider">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="author">Author</label>
+                                      <input type="text" class="form-control" id="author" placeholder="Stephen King">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price">Price</label>
+                                        <input type="text" class="form-control" id="price" placeholder="15.99">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="genre">Genre</label>
+                                        <input type="text" class="form-control" id="genre" placeholder="Horror">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <input type="text" class="form-control" id="description" placeholder="Scary stuff.">
+                                    </div>
+                                </form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-primary">Delete</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="book3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Crazy Rich Asians</h5>
+							</div>
+							<div class="modal-body">
+								<img class="modalImg" src="img/book3.png">
+							
+                                <form>
+                                    <div class="form-group">
+                                      <label for="title">Title</label>
+                                      <input type="text" class="form-control" id="title" placeholder="Crazy Rich Asians">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="author">Author</label>
+                                      <input type="text" class="form-control" id="author" placeholder="Kevin Kwan">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price">Price</label>
+                                        <input type="text" class="form-control" id="price" placeholder="20.99">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="genre">Genre</label>
+                                        <input type="text" class="form-control" id="genre" placeholder="Romance">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <input type="text" class="form-control" id="description" placeholder="Rich asians.">
+                                    </div>
+                                </form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-primary">Delete</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="book4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Little Fires Everywhere</h5>
+							</div>
+							<div class="modal-body">
+								<img class="modalImg" src="img/book4.png">
+							
+                                <form>
+                                    <div class="form-group">
+                                      <label for="title">Title</label>
+                                      <input type="text" class="form-control" id="title" placeholder="Little Fires Everywhere">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="author">Author</label>
+                                      <input type="text" class="form-control" id="author" placeholder="Celeste NG">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price">Price</label>
+                                        <input type="text" class="form-control" id="price" placeholder="9.99">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="genre">Genre</label>
+                                        <input type="text" class="form-control" id="genre" placeholder="Family">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <input type="text" class="form-control" id="description" placeholder="Nature lovers.">
+                                      </div>
+                                  </form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-primary">Delete</button>
+							</div>
+						</div>
+					</div>
+                </div>
+                <div class="modal fade" id="addbook" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Add a new book</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<img src="img/addpicture.png" height="250px">
+								</button>
+							</div>
+							<div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                      <label for="bookTitle">Book Title</label>
+                                      <input type="text" class="form-control" id="bookTitle">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="author">Author</label>
+                                      <input type="text" class="form-control" id="author">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price">Price</label>
+                                        <input type="text" class="form-control" id="price">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="genre">Genre</label>
+                                        <input type="text" class="form-control" id="genre">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <input type="text" class="form-control" id="description">
+                                    </div>
+                                  </form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary">Add book</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+	    	</div>
+	    	
+	    	<br>
+	    	<br>
+	    	
+	    	<!-- Footer -->
+	     	<div class="footerContainer">
+	     		 <nav class="navbar navbar-expand-lg navbar-custom">
+ 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+ 						<span class="navbar-toggler-icon"></span>
+ 					</button>
+ 					
+ 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+ 						<span class="navbar-text mr-auto">
+ 							Team A5 - CSCI4050
+ 						</span>
+ 					
+ 						<ul class="navbar-nav ml-auto">
+ 							<li>
+ 								<a class="nav-link" href="#">About</a>
+ 							</li>
+ 							
+ 							<li>
+ 								<a class="nav-link" href="#">Careers</a>
+ 							</li>
+ 							
+ 							<li>
+ 								<a class="nav-link" href="#">Contact</a>
+ 							</li>
+ 							
+ 						    <li>
+ 								<a class="nav-link" href="#">Privacy</a>
+ 							</li>
+ 							
+ 							<li>
+ 								<a class="nav-link" href="#">Sitemap</a>
+ 							</li>
+ 							
+ 							<li>
+ 								<a class="nav-link" href="#">Terms of Use</a>
+ 							</li>
+ 						</ul>
+ 					</div>
+ 				</nav>
+	     	</div>
+    	</div>
+	</body>
+</html>

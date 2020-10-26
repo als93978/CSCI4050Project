@@ -1,0 +1,244 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'robotoregular';
+    src: url('fonts/roboto_regular_macroman/Roboto-Regular-webfont.eot');
+    src: url('fonts/roboto_regular_macroman/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto_regular_macroman/Roboto-Regular-webfont.woff2') format('woff2'),
+         url('fonts/roboto_regular_macroman/Roboto-Regular-webfont.woff') format('woff'),
+         url('fonts/roboto_regular_macroman/Roboto-Regular-webfont.ttf') format('truetype'),
+         url('fonts/roboto_regular_macroman/Roboto-Regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'robotobold';
+    src: url('fonts/roboto_bold_macroman/Roboto-Bold-webfont.eot');
+    src: url('fonts/roboto_bold_macroman/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto_bold_macroman/Roboto-Bold-webfont.woff2') format('woff2'),
+         url('fonts/roboto_bold_macroman/Roboto-Bold-webfont.woff') format('woff'),
+         url('fonts/roboto_bold_macroman/Roboto-Bold-webfont.ttf') format('truetype'),
+         url('fonts/roboto_bold_macroman/Roboto-Bold-webfont.svg#robotobold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'roboto_condensedbold';
+    src: url('fonts/roboto_boldcondensed_macroman/RobotoCondensed-Bold-webfont.eot');
+    src: url('fonts/roboto_boldcondensed_macroman/RobotoCondensed-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto_boldcondensed_macroman/RobotoCondensed-Bold-webfont.woff2') format('woff2'),
+         url('fonts/roboto_boldcondensed_macroman/RobotoCondensed-Bold-webfont.woff') format('woff'),
+         url('fonts/roboto_boldcondensed_macroman/RobotoCondensed-Bold-webfont.ttf') format('truetype'),
+         url('fonts/roboto_boldcondensed_macroman/RobotoCondensed-Bold-webfont.svg#roboto_condensedbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@media screen and (max-width: 600px) {
+	#navbarSupportedContent {
+		float: left;
+		display: block;
+		text-align: left;
+	}
+
+	.headerContainer {
+		float: left;
+		display: block;
+	}
+}
+  
+@media screen and (max-width: 775px) {
+
+	img {
+		width: 70%;
+		height: 70%;
+	}
+
+	.row {
+		position: relative;
+	}
+
+	#top {
+		height: 800px;
+	}
+
+	#featured {
+		height: 800px;
+	}
+
+	.book-image1 {
+		position: relative;
+		bottom: 650px;
+	}
+	.book-image2 {
+		display: flex;
+  		justify-content: center;
+		align-items: center;
+		position: relative;
+		bottom: 550px;
+	}
+
+	.book-image3 {
+		position: relative;
+		bottom: 450px;
+	}
+
+	.book-image4 {
+		position: relative;
+		bottom: 255px;
+	}
+
+}
+
+html, body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	background-color: whitesmoke !important;
+}
+
+.form-btn {
+    background-color: #4f5cbf !important;
+}
+
+.active {
+	background-color: #4f5cbf !important;
+}
+
+.user-icon {
+	position: relative;
+	width: 30px;
+	height: 15px;
+	top: 10%;
+}
+
+.book-image2 {
+	height: 239px;
+}
+
+	.mainContainer {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+		.headerContainer {
+/* 			background-color: #4f5cbf; */
+			margin: 0;
+/* 			width: 100%; */
+/* 			height: 15%; */
+/* 			overflow: hidden; */
+		}
+
+			.header {
+				display: inline-block;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+
+			.navbar {
+				max-height: 86px;
+			}
+
+			.navbar-custom {
+				background-color: #4f5cbf;
+				overflow: visible;
+			}
+
+			.navbar-brand {
+				font-weight: bold;
+				color: #ffffff;
+			}
+			
+			.navbar-brand:active, .navbar-brand:hover {
+				color: #c0c0c0;
+			}
+
+			.modalContainer img {
+				float: right;
+				height: 35%;
+				width: 35%;
+			}
+			
+			.modalText {
+				position: relative;
+				top: 50%;
+			}
+
+			/*
+				TODO: Because of these changes, the hamburger menu icon no longer
+				displays properly.
+			*/
+			.navbar-custom .navbar-nav .nav-link {
+				color: #ffffff;
+			}
+
+			.navbar-custom .navbar-text {
+				color: #ffffff;
+			}
+
+			.navbar .nav-link {
+				color: #ffffff;
+			}
+
+			.navbar-custom .nav-link:active,
+			.navbar-custom .nav-link:hover {
+				color: #c0c0c0;
+			}
+
+			.navbar-custom .navbar-brand {
+				overflow: hidden;
+			}
+
+		.contentContainer {
+/* 			background-color: #ffffff; */
+			margin: 0;
+/* 			height: 85%; */
+
+		}
+
+        .content {
+            padding: 1em;
+        }
+        
+        	.imgFullOpacity {
+        		opacity: 1;
+        	}
+
+        .searchArea {
+            display: inline;
+        }
+
+			/* .content {
+
+			} */
+
+        .footerContainer {
+    /* 		background-color: #4f5cbf; */
+    		margin: 0;
+    /* 		height: 15%; */
+    		position: fixed;
+    		left: 0;
+    		bottom: 0;
+    		width: 100%;
+    	}
+
+		h1, h3 {
+			margin: 0;
+			font-family: "robotoregular";
+		}
+
+		.center {
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-ms-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+		  }
