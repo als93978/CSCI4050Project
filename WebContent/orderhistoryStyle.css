@@ -110,7 +110,16 @@ button:hover {
 			
 			.navbar-custom {
 				background-color: #4f5cbf;
-				overflow: hidden;
+				overflow: visible;
+			}
+			
+			.navbar-brand {
+				font-weight: bold;
+				color: #ffffff;
+			}
+			
+			.navbar-brand:active, .navbar-brand:hover {
+				color: #c0c0c0;
 			}
 			
 			.navbar-brand {
@@ -142,6 +151,14 @@ button:hover {
 			.navbar-custom .navbar-brand {
 				overflow: hidden;
 			}
+
+			.user-icon {
+				position: relative;
+				width: 30px;
+				height: 15px;
+				top: 10%;
+			}
+	
 		
 		.contentContainer {
 /* 			background-color: #ffffff; */
@@ -177,3 +194,17 @@ button:hover {
 			text-align: center;
 			color: #4f5cbf;
 		}
+
+	.reorder {
+		display: flex;
+  		justify-content: center;
+  		align-items: center;
+	}
+
+	#checkmark {
+		color: forestgreen;
+	}
+
+	/* #cart-notification {
+		text-align: center;
+	} */

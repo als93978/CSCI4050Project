@@ -21,7 +21,7 @@
 			<!-- Header -->
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
- 					<a class="navbar-brand" href="#">
+ 					<a class="navbar-brand" href="index.html">
 <!--  						<img class="logoImg" src="img/bookbayLogo.png"> -->
 						BookBay
  					</a>
@@ -65,23 +65,24 @@
  							</li>
  						</ul>
  						
- 						<form class="form-inline mr-auto">
+ 						<form class="form-inline mr-auto" action="/WebContent/search.html">
  							<input class="form-control mr-sm-2" type="search" placeholder="Enter Book Name, ISBN, Genre, etc..." aria-label="Search" size="36">
- 							<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
+ 							<button class="btn btn-light my-2 my-sm-0" type="submit" href="search.html">Search</button>
  						</form>
  						
  						<ul class="navbar-nav">
  							<li>
- 								<a class="nav-link" href="homepageWithUserIcon.html">Login</a>
+ 								<a class="nav-link" href="login.html">Login</a>
  							</li>
  							
  							<li>
- 								<a class="nav-link" href="#">Register</a>
+ 								<a class="nav-link" href="registration.html">Register</a>
  							</li>
  						</ul>
  						
- 						<a class="nav-link" href="#">
- 							<i class="fas fa-shopping-cart fa-2x"></i>
+ 						<a class="nav-link" href="shoppingCart.html">
+							 <i class="fas fa-shopping-cart fa-2x"></i>
+							 <span class="badge badge-dark badge-pill">4</span>
  						</a>
  					</div>
  				</nav>
@@ -90,51 +91,58 @@
 			<!-- Homepage content by Jonah Kim  -->
 			<div class="contentContainer">
 				<div class="content">
-					<div>
+					<div id="featured">
 						<h1 style="text-align: center;">Featured Books</h1>
 					</div>
 					<div class="row" style="background-image: url(img/shelf.png); background-size: cover; background-repeat: no-repeat; background-position: center;">
-						<div class="col-md-3">
+						<div class="col-md-3 book-image1">
 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book1" style="background-color: transparent; border: none;">
 								<img src="img/book1.png" class="rounded mx-auto d-block">
 							</button>
 						</div>
-						<div class="col-md-3">
+                                                
+						<div class="col-md-3 book-image2">
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book2" style="background-color: transparent; border: none;">
 								<img src="img/book2.png" class="rounded mx-auto d-block">
 							</button>
 						</div>
-						<div class="col-md-3">
+
+						<div class="col-md-3 book-image3">
 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book3" style="background-color: transparent; border: none;">
 								<img src="img/book3.png" class="rounded mx-auto d-block">
 							</button>
 						</div>
-						<div class="col-md-3">
+
+						<div class="col-md-3 book-image4">
 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book4" style="background-color: transparent; border: none;">
 								<img src="img/book4.png" class="rounded mx-auto d-block">
 							</button>
 						</div>
 					</div>
-					<div>
+
+					<div id="top">
 						<h1 style="text-align: center;">Top Sellers</h1>
 					</div>
 					<div class="row" style="background-image: url(img/shelf.png); background-size: cover; background-repeat: no-repeat; background-position: center;">
-						<div class="col-md-3">
+						<div class="col-md-3 book-image1">
 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book1" style="background-color: transparent; border: none;">
 								<img src="img/book1.png" class="rounded mx-auto d-block">
 							</button>
 						</div>
-						<div class="col-md-3">
+
+						<div class="col-md-3 book-image2">
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book2" style="background-color: transparent; border: none;">
 								<img src="img/book2.png" class="rounded mx-auto d-block">
 							</button>
 						</div>
-						<div class="col-md-3">
+
+						<div class="col-md-3 book-image3">
 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book3" style="background-color: transparent; border: none;">
 								<img src="img/book3.png" class="rounded mx-auto d-block">
 							</button>
 						</div>
-						<div class="col-md-3">
+
+						<div class="col-md-3 book-image4">
 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book4" style="background-color: transparent; border: none;">
 								<img src="img/book4.png" class="rounded mx-auto d-block">
 							</button>

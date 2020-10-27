@@ -145,3 +145,10 @@ html, body {
 		/* h3 {
 /* 			float: right; */
 		/* } */
+
+		#confirmation {
+			position: relative;
+			top: 15%;
+			width: 50%;
+			margin: 0 auto;
+		}

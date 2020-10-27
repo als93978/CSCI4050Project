@@ -19,7 +19,7 @@
 		
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
- 					<a class="navbar-brand" href="#">
+ 					<a class="navbar-brand" href="homepageWithUserIcon.html">
 <!--  						<img class="logoImg" src="img/bookbayLogo.png"> -->
 						BookBay
  					</a>
@@ -68,18 +68,20 @@
  							<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
  						</form>
  						
- 						<ul class="navbar-nav">
- 							<li>
- 								<a class="nav-link" href="#">Login</a>
- 							</li>
- 							
- 							<li>
- 								<a class="nav-link" href="#">Register</a>
- 							</li>
- 						</ul>
+ 						<div class="dropdown">
+							<a class="nav-link dropdown-toggle" href="#" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<img src="img/user-icon.png" class="img-fluid user-icon" alt="User Icon">
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<a class="dropdown-item" href="index.html">Log off</a>
+								<a class="dropdown-item" href="orderhistory.html">Order history</a>
+								<a class="dropdown-item" href="accountSettings.html">Account settings</a>
+							</div>
+						</div>
  						
- 						<a class="nav-link" href="#">
- 							<i class="fas fa-shopping-cart fa-2x"></i>
+ 						<a class="nav-link" href="shoppingCart.html">
+							 <i class="fas fa-shopping-cart fa-2x"></i>
+							 <span class="badge badge-dark badge-pill">4</span>
  						</a>
  						
  						<!-- <a class="navbar-brand ml-1" href="#">
@@ -88,7 +90,20 @@
  					</div>
  				</nav>
 			</div>
-			
+
+			<div id="notification" class="toast" data-delay="5000" style="position: absolute; top: 10%; right: 0;">
+				<div class="toast-header">
+					<i id="checkmark" class="fas fa-check rounded mr-2"></i>
+					<strong class="mr-auto">Shopping Cart</strong>
+					<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div id="cart-notification" class="toast-body">
+				  Added to shopping cart!
+				</div>
+			</div>
+
 			<div class="contentContainer">
 	      		<div class="content">
 					<br>
@@ -133,7 +148,7 @@
 															<li class="list-group-item bg-white text-dark">Shipping Address: 1928 Hillhaven Drive, Los Angeles, CA 90046</li>
 															<li class="list-group-item bg-white text-dark">
 																Payment Method:
-																<a href="https://imgur.com/a53Op9j"><img src="https://i.imgur.com/a53Op9j.png" title="source: imgur.com" alt="Credit Card Logos" width="50" height="50" /></a>
+																<a href="https://imgur.com/qkW8Dcz"><img src="https://i.imgur.com/qkW8Dcz.png" title="source: imgur.com" width="35" height="22" /></a>
 																**** **** **** 8742
 															</li>
 														  </ul>
@@ -154,6 +169,11 @@
 													<div class="card-body">
 														<div class="container text-center">
 															<img src="img/harry potter CoS.jpg" class="img-fluid book-image" alt="Harry Potter Book Cover">
+
+														</div>
+														<br>
+														<div class="reorder">
+															<button type="button" class="btn btn-primary">Reorder</button>
 														</div>
 														<br>
 														<ul class="list-group">
@@ -228,6 +248,11 @@
 													<div class="card-body">
 														<div class="container text-center">
 															<img src="img/The Outsider.jpg" class="img-fluid book-image" alt="The Outsider Book Cover">
+
+														</div>
+														<br>
+														<div class="reorder">
+															<button type="button" class="btn btn-primary">Reorder</button>
 														</div>
 														<br>
 														<ul class="list-group">
@@ -254,8 +279,16 @@
 													<div class="card-body">
 														<div class="container text-center">
 															<img src="img/book3.png" class="img-fluid book-image" alt="Crazy Rich Asians Cover">
+
 														</div>
 														<br>
+														<div class="reorder">
+															<button type="button" class="btn btn-primary">Reorder</button>
+														</div>
+														
+														<br>
+														<br>
+														
 														<ul class="list-group">
 															<li class="list-group-item bg-white text-dark">Author: Kevin Kwan</li>
 															<li class="list-group-item bg-white text-dark">Genre: Romance</li>
@@ -328,8 +361,15 @@
 													<div class="card-body">
 														<div class="container text-center">
 															<img src="img/Little Fires Everywhere.jpg" class="img-fluid book-image" alt="Harry Potter Book Cover">
+
 														</div>
 														<br>
+														<div class="reorder">
+															<button type="button" class="btn btn-primary">Reorder</button>
+														</div>
+                                                                                                                
+														<br>
+                                                                                                                
 														<ul class="list-group">
 															<li class="list-group-item bg-white text-dark">Author: Celeste Ng</li>
 															<li class="list-group-item bg-white text-dark">Genre: Family</li>
@@ -346,8 +386,8 @@
 							</div>
 						</div>
 					</div>
-	      		</div>
-	    	</div>
+				</div>
+			</div>
 	    	
 	    	<div class="footerContainer">
 	     		<footer class="footer">
@@ -391,6 +431,7 @@
 	      		</footer>
 	    	</div>
     	
-    	</div>
+		</div>
+		<script type="text/javascript" src="orderhistory.js"></script>
 	</body>
 </html>

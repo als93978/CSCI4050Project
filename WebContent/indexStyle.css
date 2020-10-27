@@ -39,6 +39,62 @@
 
 }
 
+@media screen and (max-width: 600px) {
+	#navbarSupportedContent {
+		float: left;
+		display: block;
+		text-align: left;
+	}
+
+	.headerContainer {
+		float: left;
+		display: block;
+	}
+}
+  
+@media screen and (max-width: 775px) {
+
+	img {
+		width: 70%;
+		height: 70%;
+	}
+
+	.row {
+		position: relative;
+	}
+
+	#top {
+		height: 800px;
+	}
+
+	#featured {
+		height: 800px;
+	}
+
+	.book-image1 {
+		position: relative;
+		bottom: 650px;
+	}
+	.book-image2 {
+		display: flex;
+  		justify-content: center;
+		align-items: center;
+		position: relative;
+		bottom: 550px;
+	}
+
+	.book-image3 {
+		position: relative;
+		bottom: 450px;
+	}
+
+	.book-image4 {
+		position: relative;
+		bottom: 255px;
+	}
+
+}
+
 html, body {
 	margin: 0;
 	width: 100%;
@@ -58,7 +114,11 @@ html, body {
 	position: relative;
 	width: 30px;
 	height: 15px;
-	top: 8px;
+	top: 10%;
+}
+
+.book-image2 {
+	height: 239px;
 }
 
 	.mainContainer {

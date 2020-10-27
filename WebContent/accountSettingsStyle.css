@@ -67,10 +67,10 @@ button:hover {
 	font-family: "FontAwesome";
 }
 
-i {
+/* i {
 	float: left;
 	margin-right: 30px;
-}
+} */
 
 .price {
 	float: right;
@@ -113,7 +113,7 @@ i {
 
 			.navbar-custom {
 				background-color: #4f5cbf;
-				overflow: hidden;
+				overflow: visible;
 			}
 			
 			.navbar-brand {
@@ -191,3 +191,11 @@ i {
 			text-align: center;
 			color: #4f5cbf;
 		}
+                
+		.user-icon {
+			position: relative;
+			width: 30px;
+			height: 15px;
+			top: 10%;
+		}
+                

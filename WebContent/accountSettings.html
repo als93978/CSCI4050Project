@@ -19,7 +19,7 @@
 
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
- 					<a class="navbar-brand" href="#">
+ 					<a class="navbar-brand" href="homepageWithUserIcon.html">
 <!--  						<img class="logoImg" src="img/bookbayLogo.png"> -->
 						BookBay
  					</a>
@@ -68,19 +68,21 @@
  							<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
  						</form>
 
- 						<ul class="navbar-nav">
- 							<li>
- 								<a class="nav-link" href="#">Login</a>
- 							</li>
+ 						<div class="dropdown">
+							<a class="nav-link dropdown-toggle" href="#" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<img src="img/user-icon.png" class="img-fluid user-icon" alt="User Icon">
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<a class="dropdown-item" href="index.html">Log off</a>
+								<a class="dropdown-item" href="orderhistory.html">Order history</a>
+								<a class="dropdown-item" href="accountSettings.html">Account settings</a>
+							</div>
+						</div>
 
- 							<li>
- 								<a class="nav-link" href="#">Register</a>
- 							</li>
- 						</ul>
-
- 						<a class="nav-link" href="#">
- 							<i class="fas fa-shopping-cart fa-2x"></i>
- 						</a>
+ 						<a class="nav-link" href="shoppingCart.html">
+							 <i class="fas fa-shopping-cart fa-2x"></i>
+							 <span class="badge badge-dark badge-pill">4</span>
+						 </a>
  					</div>
  				</nav>
 			</div>
@@ -240,12 +242,14 @@
 											<div class="card bg-white">
 												<div class="card-header" id="headingInfo3">
 													<h2 class="mb-0">
-														<button class="btn btn-link btn-block text-left text-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseInfo3" aria-expanded="false" aria-controls="collapseInfo3">
-															Update Card Information
-														</button>
+
+														<a class="btn btn-link btn-block text-left text-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseInfo3" aria-expanded="false" aria-controls="collapseInfo3">
+															<i class="fa fa-plus"></i>Update Card Information
+														</a>
 													</h2>
 												</div>
-												<div id="collapseInfo3" class="collapse" aria-labelledby="headingInfo3" data-parent="#accordionInfo3">
+												<div id="collapseInfo3" class="collapse show" aria-labelledby="headingInfo3" data-parent="#accordionInfo3">
+
 													<div class="card-body">
                                                         <div class="form-group row">
                     										<label for="inputFirstName" class="col-sm-2 col-form-label">First Name:</label>

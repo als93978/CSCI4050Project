@@ -20,7 +20,7 @@
 		
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
- 					<a class="navbar-brand" href="#">
+ 					<a class="navbar-brand" href="index.html">
 <!--  						<img class="logoImg" src="img/bookbayLogo.png"> -->
 						BookBay
  					</a>
@@ -69,18 +69,15 @@
  							<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
  						</form>
  						
- 						<ul class="navbar-nav">
- 							<li>
- 								<a class="nav-link" href="#">Login</a>
- 							</li>
- 							
+ 						<ul class="navbar-nav">			
  							<li>
  								<a class="nav-link" href="#">Register</a>
  							</li>
  						</ul>
  						
- 						<a class="nav-link" href="#">
- 							<i class="fas fa-shopping-cart fa-2x"></i>
+ 						<a class="nav-link" href="shoppingCart.html">
+							 <i class="fas fa-shopping-cart fa-2x"></i>
+							 <span class="badge badge-dark badge-pill">4</span>
  						</a>
  						
  						<!-- <a class="navbar-brand ml-1" href="#">
@@ -89,7 +86,7 @@
  					</div>
  				</nav>
 			</div>
-			
+
 			<div class="contentContainer">
 	      		<div class="content">
 					<br>
@@ -104,18 +101,24 @@
 										<a class="nav-link active text-white" href="logintemplate.html">Login</a>
 									</li>
 								</ul>
-								<form id="login">
+								<form id="login" class="needs-validation" novalidate>
 									<br>
 									<div class="form-group">
 										<label for="inputEmailUser">Email/Username</label>
-										<input type="text" class="form-control" id="inputEmailUser">
+										<input type="text" class="form-control" id="inputEmailUser" pattern=".{6,}" required>
+										<div class="invalid-feedback">
+											Enter a valid email address or username.
+										</div>
 									</div>
 									<div class="form-group">
 										<label for="inputPassword">Password</label>
-										<input type="password" class="form-control" id="inputPassword">
+										<input type="password" class="form-control" id="inputPassword" pattern=".{6,}" required>
+										<div class="invalid-feedback">
+											The password is either wrong or typed incorrectly.
+										</div>
 									</div>
 									<div class="form-group">
-										<a href="#">Forget Password?</a>
+										<a id="forgot" href="" data-toggle="modal" data-target="#exampleModal">Forget Password?</a>
 									</div>
 									<button type="submit" class="btn btn-white form-btn text-white">Login</button>
 								</form>
@@ -124,7 +127,26 @@
 					</div>
 					<script type="text/javascript" src="main.js"></script>	  
 				</div>
-	    	</div>
+			</div>
+			
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <h5 class="modal-title" id="exampleModalLabel">Password reset</h5>
+					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					  </button>
+					</div>
+					<div class="modal-body">
+					  The password reset link or code has been seent to your email address.
+					</div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				  </div>
+				</div>
+			</div>
 	    	
 	    	<div class="footerContainer">
 	     		<footer class="footer">
