@@ -39,12 +39,88 @@
 
 }
 
+@media screen and (max-width: 600px) {
+	#navbarSupportedContent {
+		float: left;
+		display: block;
+		text-align: left;
+	}
+
+	.headerContainer {
+		float: left;
+		display: block;
+	}
+}
+  
+@media screen and (max-width: 775px) {
+
+	img {
+		width: 70%;
+		height: 70%;
+	}
+
+	.row {
+		position: relative;
+	}
+
+	#top {
+		height: 800px;
+	}
+
+	#featured {
+		height: 800px;
+	}
+
+	.book-image1 {
+		position: relative;
+		bottom: 650px;
+	}
+	.book-image2 {
+		display: flex;
+  		justify-content: center;
+		align-items: center;
+		position: relative;
+		bottom: 550px;
+	}
+
+	.book-image3 {
+		position: relative;
+		bottom: 450px;
+	}
+
+	.book-image4 {
+		position: relative;
+		bottom: 255px;
+	}
+
+}
+
 html, body {
 	margin: 0;
 	width: 100%;
 	height: 100%;
+	background-color: whitesmoke !important;
 }
-	
+
+.form-btn {
+    background-color: #4f5cbf !important;
+}
+
+.active {
+	background-color: #4f5cbf !important;
+}
+
+.user-icon {
+	position: relative;
+	width: 30px;
+	height: 15px;
+	top: 10%;
+}
+
+.book-image2 {
+	height: 239px;
+}
+
 	.mainContainer {
 		margin: 0;
 		width: 100%;
@@ -58,23 +134,23 @@ html, body {
 /* 			height: 15%; */
 /* 			overflow: hidden; */
 		}
-		
+
 			.header {
 				display: inline-block;
 				width: 100%;
 				height: 100%;
 				overflow: hidden;
 			}
-			
+
 			.navbar {
 				max-height: 86px;
 			}
-			
+
 			.navbar-custom {
 				background-color: #4f5cbf;
-				overflow: hidden;
+				overflow: visible;
 			}
-			
+
 			.navbar-brand {
 				font-weight: bold;
 				color: #ffffff;
@@ -83,78 +159,86 @@ html, body {
 			.navbar-brand:active, .navbar-brand:hover {
 				color: #c0c0c0;
 			}
+
+			.modalContainer img {
+				float: right;
+				height: 35%;
+				width: 35%;
+			}
 			
-			/* 
+			.modalText {
+				position: relative;
+				top: 50%;
+			}
+
+			/*
 				TODO: Because of these changes, the hamburger menu icon no longer
-				displays properly. Fix if time allows.
+				displays properly.
 			*/
 			.navbar-custom .navbar-nav .nav-link {
 				color: #ffffff;
 			}
-			
+
 			.navbar-custom .navbar-text {
 				color: #ffffff;
 			}
-			
+
 			.navbar .nav-link {
 				color: #ffffff;
 			}
-			
+
 			.navbar-custom .nav-link:active,
 			.navbar-custom .nav-link:hover {
 				color: #c0c0c0;
 			}
-			
+
 			.navbar-custom .navbar-brand {
 				overflow: hidden;
 			}
-		
+
 		.contentContainer {
 /* 			background-color: #ffffff; */
 			margin: 0;
-			width: 100%;
-			height: 100%;
-		}
-		
-			.content {
-/* 				padding: 1em; */
-				width: 100%;
-				height: 100%;
-			}
-			
-				.sidebar {
-					padding: 1em;
-					float: left;
-					width: 15%;
-				}
-				
-				.searchArea {
-					padding: 1em;
-					margin-left: 15%;
-				}
-				
-					.searchResultGrid {
+/* 			height: 85%; */
 
-					}
-					
-					.row {
-						margin-top: 3em;
-					}
-					
-					.card-searchgrid {
-						min-width: 13em;
-						max-width: 13em;
-						min-height: 25em;
-					}
-		
-		.footerContainer {
-/* 			background-color: #4f5cbf; */
-			margin: 0;
-/* 			height: 15%; */
-			clear: both;
 		}
-		
-		h1, h2, h3, h4, h5, h6 {
+
+        .content {
+            padding: 1em;
+        }
+        
+        	.imgFullOpacity {
+        		opacity: 1;
+        	}
+
+        .searchArea {
+            display: inline;
+        }
+
+			/* .content {
+
+			} */
+
+        .footerContainer {
+    /* 		background-color: #4f5cbf; */
+    		margin: 0;
+    /* 		height: 15%; */
+    		position: fixed;
+    		left: 0;
+    		bottom: 0;
+    		width: 100%;
+    	}
+
+		h1, h3 {
 			margin: 0;
 			font-family: "robotoregular";
 		}
+
+		.center {
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-ms-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+		  }

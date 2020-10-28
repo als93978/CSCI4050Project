@@ -43,6 +43,15 @@ html, body {
 	margin: 0;
 	width: 100%;
 	height: 100%;
+	background-color: whitesmoke !important;
+}
+
+.form-btn {
+    background-color: #4f5cbf !important;
+}
+
+.active {
+	background-color: #4f5cbf !important;
 }
 	
 	.mainContainer {
@@ -75,9 +84,18 @@ html, body {
 				overflow: hidden;
 			}
 			
+			.navbar-brand {
+				font-weight: bold;
+				color: #ffffff;
+			}
+			
+			.navbar-brand:active, .navbar-brand:hover {
+				color: #c0c0c0;
+			}
+			
 			/* 
 				TODO: Because of these changes, the hamburger menu icon no longer
-				displays properly. Fix if time allows.
+				displays properly.
 			*/
 			.navbar-custom .navbar-nav .nav-link {
 				color: #ffffff;
@@ -103,24 +121,42 @@ html, body {
 		.contentContainer {
 /* 			background-color: #ffffff; */
 			margin: 0;
+/* 			height: 85%; */
 		}
 		
-			.content {
-				padding: 1em;
-			}
-			
-			.searchArea {
-				display: inline;
-			}
+			/* .content {
+				
+			} */
 		
 		.footerContainer {
 /* 			background-color: #4f5cbf; */
 			margin: 0;
 /* 			height: 15%; */
-			clear: both;
 		}
 		
-		h1, h2, h3, h4, h5, h6 {
+		h1, h3 {
 			margin: 0;
 			font-family: "robotoregular";
 		}
+		
+		/* h3 {
+/* 			float: right; */
+		/* } */
+		.shelfImg{
+            margin-bottom: 30%;
+            margin-top: 30%;
+		}
+		
+		.modalImg {
+			margin-bottom: 5%;
+			margin-top: 5%;
+		}
+		
+		.center {
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-ms-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+		  }

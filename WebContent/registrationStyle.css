@@ -43,6 +43,22 @@ html, body {
 	margin: 0;
 	width: 100%;
 	height: 100%;
+	background-color: whitesmoke !important;
+}
+
+.form-btn {
+    background-color: #4f5cbf !important;
+}
+
+.active {
+	background-color: #4f5cbf !important;
+}
+
+.footer {
+	position: fixed;
+   	left: 0;
+	bottom: 0;
+	width: 100%;
 }
 	
 	.mainContainer {
@@ -86,13 +102,9 @@ html, body {
 			
 			/* 
 				TODO: Because of these changes, the hamburger menu icon no longer
-				displays properly. Fix if time allows.
+				displays properly.
 			*/
 			.navbar-custom .navbar-nav .nav-link {
-				color: #ffffff;
-			}
-			
-			.navbar-custom .navbar-text {
 				color: #ffffff;
 			}
 			
@@ -112,49 +124,31 @@ html, body {
 		.contentContainer {
 /* 			background-color: #ffffff; */
 			margin: 0;
-			width: 100%;
-			height: 100%;
+/* 			height: 85%; */
 		}
 		
-			.content {
-/* 				padding: 1em; */
-				width: 100%;
-				height: 100%;
-			}
-			
-				.sidebar {
-					padding: 1em;
-					float: left;
-					width: 15%;
-				}
+			/* .content {
 				
-				.searchArea {
-					padding: 1em;
-					margin-left: 15%;
-				}
-				
-					.searchResultGrid {
-
-					}
-					
-					.row {
-						margin-top: 3em;
-					}
-					
-					.card-searchgrid {
-						min-width: 13em;
-						max-width: 13em;
-						min-height: 25em;
-					}
+			} */
 		
 		.footerContainer {
 /* 			background-color: #4f5cbf; */
 			margin: 0;
 /* 			height: 15%; */
-			clear: both;
 		}
 		
-		h1, h2, h3, h4, h5, h6 {
+		h1, h3 {
 			margin: 0;
 			font-family: "robotoregular";
+		}
+		
+		/* h3 {
+/* 			float: right; */
+		/* } */
+
+		#confirmation {
+			position: relative;
+			top: 15%;
+			width: 50%;
+			margin: 0 auto;
 		}

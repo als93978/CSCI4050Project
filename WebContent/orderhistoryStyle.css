@@ -43,6 +43,44 @@ html, body {
 	margin: 0;
 	width: 100%;
 	height: 100%;
+	background-color: whitesmoke !important;
+}
+
+button:hover {
+    background-color: slategrey;
+}
+
+.accordion .card-header button::after {
+	content: "\f068";
+	font-family: "FontAwesome";
+	float: left;
+	margin-right: 30px;
+}
+  
+.accordion .card-header button.collapsed::after {
+	content: '\f067';
+	font-family: "FontAwesome";
+}
+  
+.price {
+	float: right;
+	margin-right: 5px;
+}
+  
+.book-image {
+	height: 50px;
+	width: 20%;
+}
+
+.card {
+	background-color: #4f5cbf !important;
+}
+
+.footer {
+	position: fixed;
+   	left: 0;
+	bottom: 0;
+	width: 100%;
 }
 	
 	.mainContainer {
@@ -72,7 +110,16 @@ html, body {
 			
 			.navbar-custom {
 				background-color: #4f5cbf;
-				overflow: hidden;
+				overflow: visible;
+			}
+			
+			.navbar-brand {
+				font-weight: bold;
+				color: #ffffff;
+			}
+			
+			.navbar-brand:active, .navbar-brand:hover {
+				color: #c0c0c0;
 			}
 			
 			.navbar-brand {
@@ -86,13 +133,9 @@ html, body {
 			
 			/* 
 				TODO: Because of these changes, the hamburger menu icon no longer
-				displays properly. Fix if time allows.
+				displays properly.
 			*/
 			.navbar-custom .navbar-nav .nav-link {
-				color: #ffffff;
-			}
-			
-			.navbar-custom .navbar-text {
 				color: #ffffff;
 			}
 			
@@ -108,44 +151,28 @@ html, body {
 			.navbar-custom .navbar-brand {
 				overflow: hidden;
 			}
+
+			.user-icon {
+				position: relative;
+				width: 30px;
+				height: 15px;
+				top: 10%;
+			}
+	
 		
 		.contentContainer {
 /* 			background-color: #ffffff; */
 			margin: 0;
-			width: 100%;
-			height: 100%;
+/* 			height: 85%; */
 		}
 		
 			.content {
-/* 				padding: 1em; */
-				width: 100%;
-				height: 100%;
+				padding: 1em;
 			}
-			
-				.sidebar {
-					padding: 1em;
-					float: left;
-					width: 15%;
-				}
-				
-				.searchArea {
-					padding: 1em;
-					margin-left: 15%;
-				}
-				
-					.searchResultGrid {
-
-					}
-					
-					.row {
-						margin-top: 3em;
-					}
-					
-					.card-searchgrid {
-						min-width: 13em;
-						max-width: 13em;
-						min-height: 25em;
-					}
+		
+			.searchArea {
+				display: inline;
+			}
 		
 		.footerContainer {
 /* 			background-color: #4f5cbf; */
@@ -158,3 +185,26 @@ html, body {
 			margin: 0;
 			font-family: "robotoregular";
 		}
+		
+		/* h3 {
+/* 			float: right; */
+		/* } */
+
+		#order-history-title {
+			text-align: center;
+			color: #4f5cbf;
+		}
+
+	.reorder {
+		display: flex;
+  		justify-content: center;
+  		align-items: center;
+	}
+
+	#checkmark {
+		color: forestgreen;
+	}
+
+	/* #cart-notification {
+		text-align: center;
+	} */

@@ -72,7 +72,16 @@ html, body {
 			
 			.navbar-custom {
 				background-color: #4f5cbf;
-				overflow: hidden;
+				overflow: visible;
+			}
+			
+			.navbar-brand {
+				font-weight: bold;
+				color: #ffffff;
+			}
+			
+			.navbar-brand:active, .navbar-brand:hover {
+				color: #c0c0c0;
 			}
 			
 			/* 
@@ -152,6 +161,10 @@ html, body {
 					height: 100%;
 				}
 				
+					.infoAreaGrid {
+						height: 100%;
+					}
+				
 					.checkoutInfoCard {
 						min-width: 60%;
 						max-width: 60%;
@@ -165,7 +178,7 @@ html, body {
 						max-width: 60%;
 						margin-left: auto;
 						margin-right: auto;
-						margin-top: 3.5%;
+						margin-top: 1%;
 					}
 				
 					.paymentInfo {
@@ -229,3 +242,11 @@ html, body {
 			margin: 0;
 			font-family: "robotoregular";
 		}
+
+		.user-icon {
+			position: relative;
+			width: 30px;
+			height: 15px;
+			top: 10%;
+		}
+                

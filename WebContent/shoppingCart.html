@@ -30,8 +30,9 @@
 			<!-- Header -->
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
- 					<a class="navbar-brand" href="#">
- 						<img src="img/bookbayLogo.png">
+ 					<a class="navbar-brand" href="homepageWithUserIcon.html">
+<!--  						<img class="logoImg" src="img/bookbayLogo.png"> -->
+						BookBay
  					</a>
  					
  					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,18 +79,20 @@
  							<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
  						</form>
  						
- 						<ul class="navbar-nav">
- 							<li>
- 								<a class="nav-link" href="#">Login</a>
- 							</li>
- 							
- 							<li>
- 								<a class="nav-link" href="#">Register</a>
- 							</li>
- 						</ul>
+ 						<div class="dropdown">
+							<a class="nav-link dropdown-toggle" href="#" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<img src="img/user-icon.png" class="img-fluid user-icon" alt="User Icon">
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<a class="dropdown-item" href="index.html">Log off</a>
+								<a class="dropdown-item" href="orderhistory.html">Order history</a>
+								<a class="dropdown-item" href="accountSettings.html">Account settings</a>
+							</div>
+						</div>
  						
- 						<a class="nav-link" href="#">
- 							<i class="fas fa-shopping-cart fa-2x"></i>
+ 						<a class="nav-link" href="shoppingCart.html">
+							 <i class="fas fa-shopping-cart fa-2x"></i>
+							 <span class="badge badge-dark badge-pill">4</span>
  						</a>
  					</div>
  				</nav>
@@ -99,7 +102,10 @@
 			<div class="contentContainer">
 				<div class="content">
 					<div class="shoppingCart">
-						<h5>Shopping Cart</h5>
+						<h5 class="d-flex justify-content-between mb-3">
+							Shopping Cart
+							<span class="badge badge-dark badge-pill">4</span>
+						</h5>
 						
 						<div class="sidebar">
 							<ul class="list-group">
@@ -322,7 +328,7 @@
  									</div>
  									
  									<div class="nextBtnContainer">
-										<a href="#" class="btn btn-primary btn-lg">Next</a>
+										<a href="orderSummary.html" class="btn btn-primary btn-lg">Next</a>
  									</div>
  							</div>
 						</div>
