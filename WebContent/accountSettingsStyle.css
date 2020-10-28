@@ -64,13 +64,12 @@ button:hover {
 
 #collapseInfo1 {
 	content: "\f067" !important;
-	font-family: "FontAwesome";
 }
 
-/* i {
+.fa {
 	float: left;
 	margin-right: 30px;
-} */
+}
 
 .price {
 	float: right;

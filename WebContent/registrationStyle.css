@@ -54,6 +54,22 @@ html, body {
 	background-color: #4f5cbf !important;
 }
 
+.registrationForm {
+	padding-bottom: 80px;   /* Height of the footer */
+}
+
+#submit-code {
+	position: relative;
+	left: 30%;
+	top: 4px;
+}
+
+#submitBtn {
+	position: relative;
+	left: 30%;
+	top: 4px;
+}
+
 .footer {
 	position: fixed;
    	left: 0;
