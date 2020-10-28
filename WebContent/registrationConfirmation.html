@@ -91,10 +91,17 @@
 
             <div id="confirmation" class="jumbotron">
                 <h1 class="display-4">Welcome to BookBay!</h1>
-                <p class="lead">The next step is check your email address for an email confirmation and verify your account. After confirming your email address, you will become an active BookBay customer.</p>
+                <p class="lead">The next step is to check your email address for an email confirmation code and verify your registered account. After entering the correct confirmation code, you will become an active BookBay customer.</p>
                 <hr class="my-4">
-                <p>Don't see the email confirmation? Click on this button below.</p>
-                <button id="resend" class="btn btn-primary btn-lg form-btn" role="button" data-toggle="popover" data-placement="bottom" title="Email confirmation sent!" data-content="Another confirmation email message has been delivered, and it should be in your inbox soon.">Resend Email Confirmation</button>
+				<p>Don't see the email confirmation code? Click on the resend confirmation button below.</p>
+				<section class="form-inline">
+					<button type="button" id="resend" class="btn btn-primary btn-lg form-btn" role="button" data-toggle="popover" data-placement="bottom" title="Email confirmation sent!" data-content="Another confirmation email message has been delivered, and it should be in your inbox soon.">Resend Email Confirmation</button>
+					<div id="submit-code" class="form-group mx-sm-3 mb-2">
+						<label for="inputEmailCode" class="sr-only">Email Confirmation Code</label>
+						<input type="password" class="form-control" id="inputEmailCode" placeholder="Code">
+					</div>
+					<button id="submitBtn" type="submit" class="btn btn-primary mb-2 form-btn">Submit Code</button>
+				</section>
             </div>
             
             <div class="footerContainer">

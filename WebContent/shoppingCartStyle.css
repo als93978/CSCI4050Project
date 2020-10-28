@@ -142,12 +142,20 @@ html, body {
 						.cart-img {
 						
 						}
+
+						.media {
+							padding: 35px;
+						}
 					
 						.media-body {
 							min-width: 50%;
 							max-width: 50%;
 							float: right;
 							overflow-wrap: break-word;
+						}
+
+						li img {
+							padding-left: 20px;
 						}
 						
 						.cart-item-button {
@@ -219,6 +227,7 @@ html, body {
 					
 						.paymentInfoRadio {
 							margin-left: 5%;
+							float: left;
 						}
 
 						.editPaymentInfoBtn {
