@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -20,7 +24,7 @@
 		
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
- 					<a class="navbar-brand" href="#">
+ 					<a class="navbar-brand" href="index.html">
 <!--  						<img class="logoImg" src="img/bookbayLogo.png"> -->
 						BookBay
  					</a>
@@ -104,25 +108,25 @@
 									<div class="form-group row">
 										<label for="inputUser" class="col-sm-2 col-form-label">Username:</label>
 										<div class="col-sm-10">
-										  <input type="text" class="form-control" id="inputUser">
+										  <input type="text" class="form-control" id="inputUser" required>
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="inputPassword" class="col-sm-2 col-form-label">Password:</label>
 										<div class="col-sm-10">
-										  <input type="password" class="form-control" id="inputPassword">
+										  <input type="password" class="form-control" id="inputPassword" required>
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="inputConfirmPassword" class="col-sm-2 col-form-label">Confirm Password:</label>
 										<div class="col-sm-10">
-										  <input type="password" class="form-control" id="inputConfirmPassword">
+										  <input type="password" class="form-control" id="inputConfirmPassword" required>
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
 										<div class="col-sm-10">
-										  <input type="email" class="form-control" id="inputEmail">
+										  <input type="email" class="form-control" id="inputEmail" required>
 										</div>
 									  </div>
 									  <div class="form-group form-check">
