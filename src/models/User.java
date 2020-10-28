@@ -1,12 +1,14 @@
 package models;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class User {
 	private int userID;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
-	private int statusID;
+	private Status status;
 	private boolean enrollmentForPromotions;
 	private int numOfCards;
 	private int typeID;
@@ -52,12 +54,12 @@ public class User {
 		this.password = password;
 	}
 	
-	public int getStatusID() {
-		return statusID;
+	public Status getStatus() {
+		return status;
 	}
 	
-	public void setStatusID(int statusID) {
-		this.statusID = statusID;
+	public void setStatusID(Status status) {
+		this.status = status;
 	}
 	
 	public boolean isEnrollmentForPromotions() {
@@ -90,5 +92,48 @@ public class User {
 	
 	public void setAddressID(int addressID) {
 		this.addressID = addressID;
+	}
+	
+	// Set user info that was entered on registration page
+	public void initUser(HttpServletRequest request) {
+		firstName = request.getParameter("firstName");
+		lastName = request.getParameter("lastName");
+		email = request.getParameter("email");
+		password = request.getParameter("password");
+		status = Status.inactive;
+		enrollmentForPromotions = request.getParameter("enrollmentForPromotions") != null;
+		numOfCards = 0;
+		
+		boolean paymentInfoEntered = paymentInfoWasEntered(request);
+		boolean shippingInfoEntered = request.getParameter("shippingOption") != null;
+		
+		if(paymentInfoEntered) {
+			initPaymentCard(request);
+		}
+		
+		if(shippingInfoEntered) {
+			
+		}
+	}
+	
+	public PaymentCard initPaymentCard(HttpServletRequest request) {
+		int cardNum = Integer.parseInt(request.getParameter("cardNum"));
+		
+		int cardNumInt = Integer.parseInt(request.getParameter("paymentMethod"));
+		CardType[] cardTypeValues = CardType.values();
+		CardType cardType = cardTypeValues[cardNumInt-1];
+		
+		String expDate = request.getParameter("expDate");
+		
+		return null;
+	}
+	
+	private boolean paymentInfoWasEntered(HttpServletRequest request) {
+		String paymentInfoQuestionValue = request.getParameter("inlineRadioOptions");
+		
+		if(paymentInfoQuestionValue.equals("option1")) // Yes was chosen
+			return true;
+		
+		return false; // Otherwise, No was chosen
 	}
 }
