@@ -8,4 +8,8 @@ $(document).ready(function() {
             $('#resend').popover('hide');
         }, 2000);
     });
+
+    $("#submitBtn").click(function() {
+        $("#notification").toast("show");
+    });
 });
