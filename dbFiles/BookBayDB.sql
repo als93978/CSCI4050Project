@@ -26,12 +26,11 @@ CREATE TABLE IF NOT EXISTS `User` (
     LastName varchar(255) NOT NULL,
 	Email varchar(255) NOT NULL UNIQUE,
     `Password` varchar(255) NOT NULL UNIQUE,
-    Status ENUM('active', 'inactive', 'suspended') NOT NULL,
+    `Status` ENUM('ACTIVE', 'INACTIVE', 'SUSPENDED') NOT NULL,
     EnrollmentForPromotions boolean,
     NumOfCards int DEFAULT 0,
     CHECK (NumOfCards <= 3), # User should have up to 3 cards (or none)
-    TypeID int,
-    FOREIGN KEY(TypeID) REFERENCES UserType(TypeID),
+    `Type` ENUM('ADMIN', 'CUSTOMER') NOT NULL,
     AddressID int,
     FOREIGN KEY(AddressID) REFERENCES Address(AddressID)
 );
@@ -39,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `User` (
 CREATE TABLE IF NOT EXISTS PaymentCard (
 	CardNum int NOT NULL,
     PRIMARY KEY(CardNum),
-    `Type` ENUM('Discover', 'Visa', 'Mastercard', 'AmericanExpress') NOT NULL,
+    `Type` ENUM('DISCOVER', 'VISA', 'MASTERCARD', 'AMERICANEXPRESS') NOT NULL,
     ExpDate varchar(255) NOT NULL,
     UserID int UNIQUE,
     FOREIGN KEY(UserID) REFERENCES `User`(UserID)
