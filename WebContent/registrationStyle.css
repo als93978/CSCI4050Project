@@ -55,7 +55,7 @@ html, body {
 }
 
 .registrationForm {
-	padding-bottom: 80px;   /* Height of the footer */
+	padding-bottom: 80px;
 }
 
 #submit-code {
@@ -167,4 +167,8 @@ html, body {
 			top: 15%;
 			width: 50%;
 			margin: 0 auto;
+		}
+
+		#checkmark {
+			color: forestgreen;
 		}

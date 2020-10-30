@@ -82,5 +82,4 @@ public class JavaTest extends HttpServlet {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Test2.jsp");
 		dispatcher.forward(request, response);
 	}
-
 }

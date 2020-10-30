@@ -74,9 +74,9 @@
  							</li>
  						</ul>
  						
- 						<form class="form-inline mr-auto">
+ 						<form class="form-inline mr-auto" action="/WebContent/search.html">
  							<input class="form-control mr-sm-2" type="search" placeholder="Enter Book Name, ISBN, Genre, etc..." aria-label="Search" size="36">
- 							<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
+ 							<button class="btn btn-light my-2 my-sm-0" type="submit" href="search.html">Search</button>
  						</form>
  						
  						<div class="dropdown">
@@ -228,44 +228,40 @@
  											<ul class="list-unstyled">
  												<li class="media">
 													<input type="radio" class="form-check-input form-check-inline" name="paymentInfo" value="paymentInfo1">
-		 											<img src="img/discoverLogo.png" class="mr-3">
-		    										
-		    										<div class="media-body">
-			    										<p class="cardNum">
-			    											**** **** **** 8920
-			    										</p>
-			    										
-			    										<!-- 
-			    											TODO: Name get struched up when too long. I actually want
-			    											it directly below the card number, but Bootstrap isn't letting
-			    											that happen. Fix later.
-			    										 -->
-			    										<p>
-			    											(John Doe Smith)
-			    										</p>
-			    										
-		    										</div>
-		    										
-		    										<!-- <input type="radio" class="paymentInfoRadio" id="paymentInfo1" name="paymentInfo" value="paymentInfo1" checked> -->
+													<img src="img/discoverLogo.png" class="mr-3">
+												   
+												   <div class="media-body">
+													   <div>
+														   **** **** **** 8920
+													   </div>
+													   
+													   <!-- 
+														   TODO: Name get struched up when too long. I actually want
+														   it directly below the card number, but Bootstrap isn't letting
+														   that happen. Fix later.
+														-->
+													   <p>
+														   (John Doe Smith)
+													   </p>
+													   
+												   </div>
 		    									
 		    										<a href="#" class="btn btn-secondary editPaymentInfoBtn">Edit</a>
 		    									</li>
 		    									
 		    									<li class="media paymentInfoItem">
 													<input type="radio" class="paymentInfoRadio form-check-input" name="paymentInfo" value="paymentInfo2">
-		 											<img src="img/discoverLogo.png" class="mr-3">
-		    										
-		    										<div class="media-body">
-			    										<p class="cardNum">
-			    											**** **** **** 5673
-			    										</p>
-			    													    										
-			    										<p>
-			    											(John Doe Smith)
-			    										</p>
-		    										</div>
-		    										
-		    										<!-- <input type="radio" class="paymentInfoRadio" id="paymentInfo1" name="paymentInfo" value="paymentInfo1"> -->
+													<img src="img/discoverLogo.png" class="mr-3">
+												   
+												   <div class="media-body">
+													   <div>
+														   **** **** **** 5673
+													   </div>
+																											   
+													   <p>
+														   (John Doe Smith)
+													   </p>
+												   </div>
 		    										
 		    										<a href="#" class="btn btn-secondary editPaymentInfoBtn">Edit</a>
 		    									</li>
