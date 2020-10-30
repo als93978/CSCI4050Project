@@ -21,11 +21,12 @@ public class AddressDA {
 		String city = address.getCity();
 		String state = address.getState();
 		int zipCode = address.getZipCode();
+		String country = address.getCountry();
 		
 		String useDBQuery = "USE BookBayDB;";
 		
-		String addUserQuery = "INSERT INTO Address(Street, City, State, ZipCode) "
-							+ "VALUES(?, ?, ?, ?);";
+		String addUserQuery = "INSERT INTO Address(Street, City, State, ZipCode, Country) "
+							+ "VALUES(?, ?, ?, ?, ?);";
 		
 		String dbUsername = "root";
 		String dbPassword = "ajgopattymn7890";
@@ -41,6 +42,7 @@ public class AddressDA {
 			addUserStmt.setString(2, city);
 			addUserStmt.setString(3, state);
 			addUserStmt.setInt(4, zipCode);
+			addUserStmt.setString(5, country);
 			
 			addUserStmt.executeUpdate();
 			
@@ -78,12 +80,14 @@ public class AddressDA {
 		    	String city = lastAddressRS.getString(3);
 		    	String state = lastAddressRS.getString(4);
 		    	int zipCode = lastAddressRS.getInt(5);
+			String country = lastAddressRS.getString(6);
 		    	
 		    	address.setAddressID(addressID);
 		    	address.setStreet(street);
 		    	address.setCity(city);
 		    	address.setState(state);
 		    	address.setZipCode(zipCode);
+			address.setCountry(country);
 		    }
 		    
 		    connection.close();
@@ -110,7 +114,7 @@ public class AddressDA {
 			
 			PreparedStatement addAddressStmt = connection.prepareStatement(addAddressQuery);
 			addAddressStmt.setObject(1, newValue);
-			addAddressStmt.setInt(2, userID);
+			addAddressStmt.setInt(2, addressID);
 			
 			addAddressStmt.executeUpdate();
 			
