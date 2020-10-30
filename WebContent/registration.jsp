@@ -72,9 +72,15 @@
  							<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
  						</form>
  						
- 						<a class="nav-link" href="shoppingCart.html">
-							 <i class="fas fa-shopping-cart fa-2x"></i>
-							 <span class="badge badge-dark badge-pill">4</span>
+ 						<ul class="navbar-nav">
+ 							<li>
+ 								<a class="nav-link" href="#">Login</a>
+ 							</li>
+ 						</ul>
+ 						
+ 						<a class="nav-link" href="#">
+ 							<i class="fas fa-shopping-cart fa-2x"></i>
+ 							<span class="badge badge-dark badge-pill">4</span>
  						</a>
  						
  						<!-- <a class="navbar-brand ml-1" href="#">
@@ -89,7 +95,7 @@
 					<br>
 					<div class="container">
 						<div class="row justify-content-center">
-							<div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb--30 mb-lg--0">
+							<div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb--30 mb-lg--0 registrationForm">
 								<ul class="nav nav-tabs justify-content-center">
 									<li class="nav-item">
 										<a class="nav-link active text-white" href="registration.html">Registration</a>
@@ -125,14 +131,17 @@
 										  <div class="invalid-feedback">
 											Enter a password that is at least 6 characters.
 										  </div>
+										  <div class="alert alert-danger" role="alert">
+											<strong>Make sure Password and Confirm Password have the same input</strong>
+										  </div>
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="inputConfirmPassword" class="col-sm-2 col-form-label">Confirm Password:</label>
 										<div class="col-sm-10">
 										  <input type="password" class="form-control" id="inputConfirmPassword" name="confirmPassword" required>
-										  <div class="invalid-feedback">
-											Re-enter the same password to confirm it.
+										  <div class="alert alert-danger" role="alert">
+											<strong>Password and Confirm Password are not the same</strong>
 										  </div>
 										</div>
 									</div>
@@ -167,7 +176,7 @@
 											<div class="custom-control custom-radio">
 												<input id="discover" name="paymentMethod" type="radio" class="custom-control-input" value="1" required="">
 												<label class="custom-control-label" for="discover">
-													<a href="https://imgur.com/qkW8Dcz"><img src="https://i.imgur.com/qkW8Dcz.png" title="source: imgur.com" width="35" height="22" /></a>
+													<img src="https://i.imgur.com/qkW8Dcz.png" title="source: imgur.com" width="35" height="22" />
 													Discover
 												</label>
 											</div>
@@ -220,7 +229,7 @@
 										<h4 class="mb-3">Shipping address</h4>
 										<div class="mb-3">
 											<label for="address">Address</label>
-											<input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+											<input type="text" class="form-control" id="address" placeholder="1234 Main St" name="street" required="">
 											<div class="invalid-feedback">
 											Please enter your shipping address.
 											</div>
@@ -228,14 +237,14 @@
 										<div class="row">
 											<div class="col-md-3 mb-3">
 											<label for="city">City</label>
-											<input type="text" class="form-control" id="city" placeholder="" required="">
+											<input type="text" class="form-control" id="city" placeholder="" name="city" required="">
 											<div class="invalid-feedback">
 												Please enter a valid city.
 											</div>
 											</div>
 											<div class="col-md-4 mb-3">
 											<label for="state">State</label>
-											<select class="custom-select d-block w-100" id="state" required="">
+											<select class="custom-select d-block w-100" id="state" name="state" required="">
 												<option value="">Choose...</option>
 												<option value="AL">Alabama</option>
 												<option value="AK">Alaska</option>
@@ -295,7 +304,7 @@
 											</div>
 											<div class="col-md-3 mb-3">
 											<label for="zip">Zip</label>
-											<input type="text" class="form-control" id="zip" placeholder="" required="">
+											<input type="text" class="form-control" id="zip" placeholder="" name="zipCode" required="">
 											<div class="invalid-feedback">
 												Zip code required.
 											</div>
