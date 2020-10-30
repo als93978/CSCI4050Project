@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -68,9 +72,15 @@
  							<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
  						</form>
  						
- 						<a class="nav-link" href="shoppingCart.html">
-							 <i class="fas fa-shopping-cart fa-2x"></i>
-							 <span class="badge badge-dark badge-pill">4</span>
+ 						<ul class="navbar-nav">
+ 							<li>
+ 								<a class="nav-link" href="#">Login</a>
+ 							</li>
+ 						</ul>
+ 						
+ 						<a class="nav-link" href="#">
+ 							<i class="fas fa-shopping-cart fa-2x"></i>
+ 							<span class="badge badge-dark badge-pill">4</span>
  						</a>
  						
  						<!-- <a class="navbar-brand ml-1" href="#">
@@ -94,7 +104,7 @@
 										<a class="nav-link" href="login.html">Login</a>
 									</li>
 								</ul>
-								<form id="registration" class="needs-validation" action="registrationConfirmation.html" novalidate>
+								<form id="registration" class="needs-validation" action="Register" method="POST" accept-charset="UTF-8" novalidate>
 									<br>
 									<div class="form-group row">
 										<label for="inputUser" class="col-sm-2 col-form-label">First Name:</label>
@@ -117,7 +127,7 @@
 									<div class="form-group row">
 										<label for="inputPassword" class="col-sm-2 col-form-label">Password:</label>
 										<div class="col-sm-10">
-										  <input type="password" class="form-control" id="inputPassword" pattern=".{6,}" required>
+										  <input type="password" class="form-control" id="inputPassword" pattern=".{6,}" name="password" required>
 										  <div class="invalid-feedback">
 											Enter a password that is at least 6 characters.
 										  </div>
@@ -129,7 +139,7 @@
 									<div class="form-group row">
 										<label for="inputConfirmPassword" class="col-sm-2 col-form-label">Confirm Password:</label>
 										<div class="col-sm-10">
-										  <input type="password" class="form-control" id="inputConfirmPassword" pattern=".{6,}" required>
+										  <input type="password" class="form-control" id="inputConfirmPassword" name="confirmPassword" required>
 										  <div class="alert alert-danger" role="alert">
 											<strong>Password and Confirm Password are not the same</strong>
 										  </div>
@@ -138,14 +148,14 @@
 									<div class="form-group row">
 										<label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
 										<div class="col-sm-10">
-										  <input type="email" class="form-control" id="inputEmail" pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$" required>
+										  <input type="email" class="form-control" id="inputEmail" pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$" name="email" required>
 										  <div class="invalid-feedback">
 											Enter a valid email address.
 										  </div>
 										</div>
 									</div>
 									<div class="form-group form-check">
-										<input type="checkbox" class="form-check-input" id="promotionCheck">
+										<input type="checkbox" class="form-check-input" id="promotionCheck" name="enrollmentForPromotions">
 										<label class="form-check-label" for="promotionCheck">Opt-in for email promotions?</label>
 									</div>
 									<hr class="mb-4">
@@ -164,28 +174,28 @@
 										<h4 class="mb-3">Payment</h4>
 										<div class="d-block my-3">
 											<div class="custom-control custom-radio">
-												<input id="discover" name="paymentMethod" type="radio" class="custom-control-input" required="">
+												<input id="discover" name="paymentMethod" type="radio" class="custom-control-input" value="1" required="">
 												<label class="custom-control-label" for="discover">
-													<a href="https://imgur.com/qkW8Dcz"><img src="https://i.imgur.com/qkW8Dcz.png" title="source: imgur.com" width="35" height="22" /></a>
+													<img src="https://i.imgur.com/qkW8Dcz.png" title="source: imgur.com" width="35" height="22" />
 													Discover
 												</label>
 											</div>
 											<div class="custom-control custom-radio">
-												<input id="visa" name="paymentMethod" type="radio" class="custom-control-input" required="">
+												<input id="visa" name="paymentMethod" type="radio" class="custom-control-input" value="2" required="">
 												<label class="custom-control-label" for="visa">
 													<a href="http://www.credit-card-logos.com/"><img alt="Credit Card Logos" title="Credit Card Logos" src="http://www.credit-card-logos.com/images/visa_credit-card-logos/visa_logo_3.gif" width="35" height="22" /></a>
 													Visa
 												</label>
 											</div>
 											<div class="custom-control custom-radio">
-												<input id="mastercard" name="paymentMethod" type="radio" class="custom-control-input" required="">
+												<input id="mastercard" name="paymentMethod" type="radio" class="custom-control-input" value="3" required="">
 												<label class="custom-control-label" for="mastercard">
 													<a href="http://www.credit-card-logos.com/"><img alt="Credit Card Logos" title="Credit Card Logos" src="http://www.credit-card-logos.com/images/mastercard_credit-card-logos/mastercard_logo_4.gif" width="35" height="22" /></a>
 													Mastercard
 												</label>
 											</div>
 											<div class="custom-control custom-radio">
-												<input id="american-express" name="paymentMethod" type="radio" class="custom-control-input" required="">
+												<input id="american-express" name="paymentMethod" type="radio" class="custom-control-input" value="4" required="">
 												<label class="custom-control-label" for="american-express">
 													<a href="https://imgur.com/zpRZtD6"><img src="https://i.imgur.com/zpRZtD6.png" title="source: imgur.com" width="35" height="22" /></a>
 													American Express
@@ -195,14 +205,14 @@
 										<div class="row">
 											<div class="col-md-6 mb-3">
 												<label for="cc-number">Credit card number</label>
-												<input type="text" class="form-control" id="cc-number" placeholder="" required="">
+												<input type="text" class="form-control" id="cc-number" placeholder="" name="cardNum" required="">
 												<div class="invalid-feedback">
 													Credit card number is required
 												</div>
 											</div>
 											<div class="col-md-3 mb-3">
 												<label for="cc-expiration">Expiration</label>
-												<input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+												<input type="text" class="form-control" id="cc-expiration" placeholder="" name="expDate" required="">
 												<div class="invalid-feedback">
 													Expiration date required
 												</div>
@@ -211,7 +221,7 @@
 									</fieldset>
 									<hr class="mb-4">
 									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" id="enter-shipping">
+										<input type="checkbox" class="custom-control-input" id="enter-shipping" name="shippingOption">
 										<label class="custom-control-label" for="enter-shipping">Enter shipping address</label>
 									</div>
 									<br>
@@ -219,7 +229,7 @@
 										<h4 class="mb-3">Shipping address</h4>
 										<div class="mb-3">
 											<label for="address">Address</label>
-											<input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+											<input type="text" class="form-control" id="address" placeholder="1234 Main St" name="street" required="">
 											<div class="invalid-feedback">
 												Please enter your shipping address.
 											</div>
@@ -227,14 +237,14 @@
 										<div class="row">
 											<div class="col-md-3 mb-3">
 												<label for="city">City</label>
-												<input type="text" class="form-control" id="city" placeholder="" required="">
+												<input type="text" class="form-control" id="city" placeholder="" name="city" required="">
 												<div class="invalid-feedback">
 													Please enter a valid city.
 												</div>
 											</div>
 											<div class="col-md-4 mb-3">
 											<label for="state">State</label>
-											<select class="custom-select d-block w-100" id="state" required="">
+											<select class="custom-select d-block w-100" id="state" name="state" required="">
 												<option value="">Choose...</option>
 												<option value="AL">Alabama</option>
 												<option value="AK">Alaska</option>
@@ -294,7 +304,7 @@
 											</div>
 											<div class="col-md-3 mb-3">
 											<label for="zip">Zip</label>
-											<input type="text" class="form-control" id="zip" placeholder="" required="">
+											<input type="text" class="form-control" id="zip" placeholder="" name="zipCode" required="">
 											<div class="invalid-feedback">
 												Zip code required.
 											</div>

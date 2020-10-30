@@ -19,45 +19,29 @@ CREATE TABLE IF NOT EXISTS Address (
     ZipCode int
 );
 
-CREATE TABLE IF NOT EXISTS `Status` (
-	StatusID int NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY(StatusID),
-    StatusName varchar(255) NOT NULL UNIQUE
-);
-
 CREATE TABLE IF NOT EXISTS `User` (
 	UserID int NOT NULL AUTO_INCREMENT,
     PRIMARY KEY(UserID),
     FirstName varchar(255) NOT NULL,
     LastName varchar(255) NOT NULL,
-	Email varchar(255) NOT NULL,
+	Email varchar(255) NOT NULL UNIQUE,
     `Password` varchar(255) NOT NULL UNIQUE,
-    StatusID int, # Based on the Status enumeration
-    FOREIGN KEY(StatusID) REFERENCES `Status`(StatusID),
+    `Status` ENUM('ACTIVE', 'INACTIVE', 'SUSPENDED') NOT NULL,
     EnrollmentForPromotions boolean,
-    NumOfCards int,
+    NumOfCards int DEFAULT 0,
     CHECK (NumOfCards <= 3), # User should have up to 3 cards (or none)
-    TypeID int,
-    FOREIGN KEY(TypeID) REFERENCES UserType(TypeID),
+    `Type` ENUM('ADMIN', 'CUSTOMER') NOT NULL,
     AddressID int,
     FOREIGN KEY(AddressID) REFERENCES Address(AddressID)
-);
-
-CREATE TABLE IF NOT EXISTS CardType (
-	CardTypeID int NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY(CardTypeID),
-    CardType varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS PaymentCard (
 	CardNum int NOT NULL,
     PRIMARY KEY(CardNum),
-    `Type` int NOT NULL UNIQUE,
+    `Type` ENUM('DISCOVER', 'VISA', 'MASTERCARD', 'AMERICANEXPRESS') NOT NULL,
     ExpDate varchar(255) NOT NULL,
-    UserID int NOT NULL UNIQUE,
-    FOREIGN KEY(UserID) REFERENCES `User`(UserID),
-    CardTypeID int NOT NULL,
-    FOREIGN KEY(CardTypeID) REFERENCES CardType(CardTypeID)
+    UserID int UNIQUE,
+    FOREIGN KEY(UserID) REFERENCES `User`(UserID)
 );
 
 CREATE TABLE IF NOT EXISTS Book (
