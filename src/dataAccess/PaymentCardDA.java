@@ -54,4 +54,30 @@ public class PaymentCardDA {
 		}
 	}
 	
+	public static<T> void editCardValue(int userID, String colName, T newValue) {
+		String useDBQuery = "USE BookBayDB;";
+		
+		String addCardQuery = "UPDATE `PaymentCard` SET " + colName + " = ? WHERE UserID = ?;";
+		
+		String dbUsername = "root";
+		String dbPassword = "ajgopattymn7890";
+		
+		try {
+			Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+			
+			PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+			useDBStmt.executeQuery();
+			
+			PreparedStatement addCardStmt = connection.prepareStatement(addCardQuery);
+			addCardStmt.setObject(1, newValue);
+			addCardStmt.setInt(2, userID);
+			
+			addCardStmt.executeUpdate();
+			
+			connection.close();
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
