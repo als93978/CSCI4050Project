@@ -80,6 +80,7 @@
  						
  						<a class="nav-link" href="#">
  							<i class="fas fa-shopping-cart fa-2x"></i>
+ 							<span class="badge badge-dark badge-pill">4</span>
  						</a>
  						
  						<!-- <a class="navbar-brand ml-1" href="#">
@@ -130,14 +131,17 @@
 										  <div class="invalid-feedback">
 											Enter a password that is at least 6 characters.
 										  </div>
+										  <div class="alert alert-danger" role="alert">
+											<strong>Make sure Password and Confirm Password have the same input</strong>
+										  </div>
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="inputConfirmPassword" class="col-sm-2 col-form-label">Confirm Password:</label>
 										<div class="col-sm-10">
 										  <input type="password" class="form-control" id="inputConfirmPassword" name="confirmPassword" required>
-										  <div class="invalid-feedback">
-											Re-enter the same password to confirm it.
+										  <div class="alert alert-danger" role="alert">
+											<strong>Password and Confirm Password are not the same</strong>
 										  </div>
 										</div>
 									</div>
