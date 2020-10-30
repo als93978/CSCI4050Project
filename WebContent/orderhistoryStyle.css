@@ -76,6 +76,10 @@ button:hover {
 	background-color: #4f5cbf !important;
 }
 
+.reorder-btn {
+    background-color: #4f5cbf !important;
+}
+
 .footer {
 	position: fixed;
    	left: 0;
@@ -111,15 +115,6 @@ button:hover {
 			.navbar-custom {
 				background-color: #4f5cbf;
 				overflow: visible;
-			}
-			
-			.navbar-brand {
-				font-weight: bold;
-				color: #ffffff;
-			}
-			
-			.navbar-brand:active, .navbar-brand:hover {
-				color: #c0c0c0;
 			}
 			
 			.navbar-brand {
