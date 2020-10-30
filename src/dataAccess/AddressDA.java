@@ -94,4 +94,30 @@ public class AddressDA {
 		
 		return address;
 	}
+	public static<T> void editAddressValue(int addressID, String colName, T newValue) {
+		String useDBQuery = "USE BookBayDB;";
+		
+		String addAddressQuery = "UPDATE `Address` SET " + colName + " = ? WHERE AddressID = ?;";
+		
+		String dbUsername = "root";
+		String dbPassword = "ajgopattymn7890";
+		
+		try {
+			Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+			
+			PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+			useDBStmt.executeQuery();
+			
+			PreparedStatement addAddressStmt = connection.prepareStatement(addAddressQuery);
+			addAddressStmt.setObject(1, newValue);
+			addAddressStmt.setInt(2, userID);
+			
+			addAddressStmt.executeUpdate();
+			
+			connection.close();
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
