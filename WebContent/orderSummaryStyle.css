@@ -184,3 +184,12 @@ html, body {
 			margin: 0;
 			font-family: "robotoregular";
 		}
+
+		#bot-remove {
+			padding-bottom: 50px;
+		}
+
+		.quantity {
+			text-align: center !important;
+			width: 25%;
+		}

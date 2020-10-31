@@ -37,6 +37,7 @@ public class PaymentCardDA {
 			useDBStmt.executeQuery();
 			
 			PreparedStatement addPaymentCardStmt = connection.prepareStatement(addPaymentCardQuery);
+
 			addPaymentCardStmt.setString(1, firstName);
 			addPaymentCardStmt.setString(2, lastName);
 			addPaymentCardStmt.setInt(3, cardNum);
@@ -53,7 +54,7 @@ public class PaymentCardDA {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static<T> void editCardValue(int userID, String colName, T newValue) {
 		String useDBQuery = "USE BookBayDB;";
 		

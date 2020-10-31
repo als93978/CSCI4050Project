@@ -231,16 +231,16 @@
 											<label for="address">Address</label>
 											<input type="text" class="form-control" id="address" placeholder="1234 Main St" name="street" required="">
 											<div class="invalid-feedback">
-											Please enter your shipping address.
+												Please enter your shipping address.
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-3 mb-3">
-											<label for="city">City</label>
-											<input type="text" class="form-control" id="city" placeholder="" name="city" required="">
-											<div class="invalid-feedback">
-												Please enter a valid city.
-											</div>
+												<label for="city">City</label>
+												<input type="text" class="form-control" id="city" placeholder="" name="city" required="">
+												<div class="invalid-feedback">
+													Please enter a valid city.
+												</div>
 											</div>
 											<div class="col-md-4 mb-3">
 											<label for="state">State</label>
