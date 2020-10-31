@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `User` (
     EnrollmentForPromotions boolean,
     NumOfCards int DEFAULT 0,
     CHECK (NumOfCards <= 3), # User should have up to 3 cards (or none)
+    ConfirmationCode varchar(255),
     `Type` ENUM('ADMIN', 'CUSTOMER') NOT NULL,
     AddressID int,
     FOREIGN KEY(AddressID) REFERENCES Address(AddressID)

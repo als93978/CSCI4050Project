@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
+    import="models.ErrorMessage"
 %>
 
 <!DOCTYPE html>
@@ -105,6 +106,17 @@
 									</li>
 								</ul>
 								<form id="registration" class="needs-validation" action="Register" method="POST" accept-charset="UTF-8" novalidate>
+									
+									<%
+										ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
+										
+										if(errorMessage != null) {
+											out.println("<div class=\"alert alert-danger\" role=\"alert\" style=\"display: block\">");
+											out.println("\t" + errorMessage.getMessage());
+											out.println("</div>");
+										}
+									%>
+									
 									<br>
 									<div class="form-group row">
 										<label for="inputUser" class="col-sm-2 col-form-label">First Name:</label>
@@ -131,7 +143,7 @@
 										  <div class="invalid-feedback">
 											Enter a password that is at least 6 characters.
 										  </div>
-										  <div class="alert alert-danger" role="alert">
+										  <div id="passwordAlert1" class="alert alert-danger" role="alert">
 											<strong>Make sure Password and Confirm Password have the same input</strong>
 										  </div>
 										</div>
@@ -140,7 +152,7 @@
 										<label for="inputConfirmPassword" class="col-sm-2 col-form-label">Confirm Password:</label>
 										<div class="col-sm-10">
 										  <input type="password" class="form-control" id="inputConfirmPassword" name="confirmPassword" required>
-										  <div class="alert alert-danger" role="alert">
+										  <div id="passwordAlert2" class="alert alert-danger" role="alert">
 											<strong>Password and Confirm Password are not the same</strong>
 										  </div>
 										</div>

@@ -31,7 +31,8 @@ $(document).ready(function() {
       var password = document.getElementById("inputPassword");
       var confirmPassword = document.getElementById("inputConfirmPassword");
 
-      $('.alert').hide();
+      $('#passwordAlert1').hide();
+      $('#passwordAlert2').hide();
 
       // Loop over them and prevent submission
       var validation = Array.prototype.filter.call(forms, function(form) {
@@ -47,13 +48,15 @@ $(document).ready(function() {
           }
 
           if (password.value != confirmPassword.value) {
-            $('.alert').show();
+            $('#passwordAlert1').show();
+            $('#passwordAlert2').show();
             form.classList.remove('was-validated');
           }
 
           else {
             form.classList.add('was-validated');
-            $('.alert').hide();
+            $('#passwordAlert1').hide();
+            $('#passwordAlert2').hide();
           }
         }, false);
       });

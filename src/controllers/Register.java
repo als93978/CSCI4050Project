@@ -1,7 +1,11 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Properties;
 
+import javax.mail.MessagingException;
+import javax.mail.Session;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +18,8 @@ import dataAccess.PaymentCardDA;
 import dataAccess.UserDA;
 import models.Address;
 import models.CardType;
+import models.Email;
+import models.ErrorMessage;
 import models.PaymentCard;
 import models.UserStatus;
 import models.UserType;
@@ -44,6 +50,17 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			User newUser = processUserInfo(request);
+			
+			sendConfirmationEmail(request, newUser);
+		} catch(Exception e) {
+			e.printStackTrace();
+			interpretAndReturnException(request, response, e);
+		}
+	}
+	
+	private User processUserInfo(HttpServletRequest request) throws SQLException {
 		User newUser = initUser(request);
 		
 		//UserDA userDA = new UserDA();
@@ -77,6 +94,28 @@ public class Register extends HttpServlet {
 			// Now go back to newUser and enter the addressID
 			UserDA.editUserValue(newUser.getUserID(), "AddressID", shippingInfo.getAddressID());
 		}
+		
+		newUser = UserDA.getLastUserFromDB();
+		
+		return newUser;
+	}
+	
+	private void sendConfirmationEmail(HttpServletRequest request, User newUser) throws SQLException, MessagingException {
+		String confirmationCode = ConfirmUser.generateConfirmationCode();
+		
+		UserDA.editUserValue(newUser.getUserID(), "ConfirmationCode", confirmationCode);
+		
+		String fromAddress = EmailHelper.fromAddress;
+		String userEmail = newUser.getEmail();
+		
+		Email email = new Email();
+		
+		email.setFromAddress(fromAddress);
+		email.setToAddress(userEmail);
+		email.setBody(email.getBody() + confirmationCode);
+		
+		EmailHelper emailHelper = new EmailHelper();
+		emailHelper.sendConfirmationEmail(email);
 	}
 	
 	// Set user info that was entered on registration page and return the new User
@@ -153,6 +192,24 @@ public class Register extends HttpServlet {
 			return true;
 		
 		return false; // Otherwise, No was chosen
+	}
+	
+	private void interpretAndReturnException(HttpServletRequest request, HttpServletResponse response, Exception e) {
+		ErrorMessage errorMessage = new ErrorMessage();
+		
+		errorMessage.setMessage("An error occurred: " + e.getMessage());
+		
+		request.setAttribute("errorMessage", errorMessage);
+		
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/registration.jsp");
+		
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 }
