@@ -26,8 +26,6 @@ import models.User;
 public class UpdatePassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    private UserDA userDA = new UserDA();
-
     /**
      * Default constructor. 
      */
@@ -50,15 +48,10 @@ public class UpdatePassword extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-        int userID = request.getParameter("userID");
+        int userID = Integer.parseInt(request.getParameter("userID"));
         String password = request.getParameter("password");
 
-        try{
-            userDA.editUserValue(userID, "Password", password);
-        }   catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        UserDA.editUserValue(userID, "Password", password);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WebContent/accountSettings.jsp");
         dispatcher.forward(request, response);

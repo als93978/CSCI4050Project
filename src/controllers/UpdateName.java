@@ -25,8 +25,7 @@ import models.User;
 @WebServlet("/UpdateName")
 public class UpdateName extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    private UserDA userDA = new UserDA();
+	
     /**
      * Default constructor. 
      */
@@ -49,16 +48,12 @@ public class UpdateName extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userID = request.getParameter("userID");
+		int userID = Integer.parseInt(request.getParameter("userID"));
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
 
-        try{
-            userDA.editUserValue(userID, "firstName", firstName);
-            userDA.editUserValue(userID, "lastName", lastName);
-        }   catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        UserDA.editUserValue(userID, "firstName", firstName);
+		UserDA.editUserValue(userID, "lastName", lastName);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WebContent/accountSettings.jsp");
         dispatcher.forward(request, response);

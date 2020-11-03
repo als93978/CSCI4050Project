@@ -25,8 +25,7 @@ import models.User;
 @WebServlet("/UpdateCard")
 public class UpdateCard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    private PaymentCardDA paymentCardDA = new PaymentCardDA();
+	
     /**
      * Default constructor. 
      */
@@ -49,24 +48,24 @@ public class UpdateCard extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userID = request.getParameter("userID");
+		int userID = Integer.parseInt(request.getParameter("userID"));
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
-        int cardNum = request.getParameter("cardNum");
-        int cardSecurityNum = request.getParameter("cardSecurityNum");
-        CardType cardType = request.getParameter("cardType");
+        int cardNum = Integer.parseInt(request.getParameter("cardNum"));
+        int cardSecurityNum = Integer.parseInt(request.getParameter("cardSecurityNum"));
+        
+        int cardTypeNum = Integer.parseInt(request.getParameter("cardType"));
+        CardType[] cardTypeValues = CardType.values();
+        CardType cardType = cardTypeValues[cardTypeNum-1];
+        
         String expDate = request.getParameter("expDate");
 
-        try{
-            paymentCardDA.editCardValue(userID, "firstName", firstName);
-            paymentCardDA.editCardValue(userID, "lastName", lastName);
-            paymentCardDA.editCardValue(userID, "cardNum", cardNum);
-            paymentCardDA.editCardValue(userID, "cardSecurityNum", cardSecurityNum);
-            paymentCardDA.editCardValue(userID, "cardType", cardType);
-            paymentCardDA.editCardValue(userID, "expDate", expDate);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        PaymentCardDA.editCardValue(userID, "firstName", firstName);
+		PaymentCardDA.editCardValue(userID, "lastName", lastName);
+		PaymentCardDA.editCardValue(userID, "cardNum", cardNum);
+		PaymentCardDA.editCardValue(userID, "cardSecurityNum", cardSecurityNum);
+		PaymentCardDA.editCardValue(userID, "cardType", cardType);
+		PaymentCardDA.editCardValue(userID, "expDate", expDate);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WebContent/accountSettings.jsp");
         dispatcher.forward(request, response);

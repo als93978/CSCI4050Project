@@ -26,7 +26,6 @@ import models.User;
 public class UpdateAddress extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    private AddressDA addressDA = new AddressDA();
     /**
      * Default constructor. 
      */
@@ -49,22 +48,18 @@ public class UpdateAddress extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int addressID = request.getParameter("addressID");
+		int addressID = Integer.parseInt(request.getParameter("addressID"));
         String street = request.getParameter("street");
         String city = request.getParameter("city");
         String state = request.getParameter("state");
-        int zipCode = request.getParameter("zipCode");
+        int zipCode = Integer.parseInt(request.getParameter("zipCode"));
         String country = request.getParameter("country");
 
-        try{
-            addressDA.editAddressValue(addressID, "Street", street);
-            addressDA.editAddressValue(addressID, "City", city);
-            addressDA.editAddressValue(addressID, "State", state);
-            addressID.editAddressValue(addressID, "ZipCode", zipCode);
-            addressID.editAddressValue(addressID, "Country", country);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        AddressDA.editAddressValue(addressID, "Street", street);
+		AddressDA.editAddressValue(addressID, "City", city);
+		AddressDA.editAddressValue(addressID, "State", state);
+		AddressDA.editAddressValue(addressID, "ZipCode", zipCode);
+		AddressDA.editAddressValue(addressID, "Country", country);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WebContent/accountSettings.jsp");
         dispatcher.forward(request, response);

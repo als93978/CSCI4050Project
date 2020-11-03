@@ -60,7 +60,7 @@ public class Register extends HttpServlet {
 			
 			PaymentCardDA.addPaymentCardToDB(paymentCard);
 			
-			// Increment NumOfCards
+			// Set NumOfCards to 1
 			UserDA.editUserValue(newUser.getUserID(), "NumOfCards", 1);
 			
 			newUser = UserDA.getLastUserFromDB();
@@ -109,11 +109,11 @@ public class Register extends HttpServlet {
 		PaymentCard paymentCard = new PaymentCard();
 		
 		int cardNum = Integer.parseInt(request.getParameter("cardNum"));
-		int cardNumInt = Integer.parseInt(request.getParameter("paymentMethod"));
 		
+		int cardTypeNum = Integer.parseInt(request.getParameter("paymentMethod"));
 		// Using ints seems to be easiest way to input an enum from html
 		CardType[] cardTypeValues = CardType.values();
-		CardType cardType = cardTypeValues[cardNumInt-1];
+		CardType cardType = cardTypeValues[cardTypeNum-1];
 		
 		String expDate = request.getParameter("expDate");
 		
