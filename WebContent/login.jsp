@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="models.Message"
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -102,6 +107,16 @@
 									</li>
 								</ul>
 								<form id="login" class="needs-validation" novalidate>
+									<%
+										Message message = (Message) request.getAttribute("message");
+										
+										if(message != null) {
+											out.println("<div class=\"alert alert-success\" role=\"alert\" style=\"display: block\">");
+											out.println("\t" + message.getMessage());
+											out.println("</div>");
+										}
+									%>
+								
 									<br>
 									<div class="form-group">
 										<label for="inputEmailUser">Email/Username</label>

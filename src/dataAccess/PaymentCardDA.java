@@ -13,7 +13,7 @@ public class PaymentCardDA {
 	
 	public static void addPaymentCardToDB(PaymentCard paymentCard) {
 		// Get all the values from PaymentCard
-		int cardNum = paymentCard.getCardNum();
+		String cardNum = paymentCard.getCardNum();
 		String cardType = paymentCard.getCardType().name();
 		String expDate = paymentCard.getExpDate();
 		int userID = paymentCard.getUserID();
@@ -34,7 +34,7 @@ public class PaymentCardDA {
 			useDBStmt.executeQuery();
 			
 			PreparedStatement addPaymentCardStmt = connection.prepareStatement(addPaymentCardQuery);
-			addPaymentCardStmt.setInt(1, cardNum);
+			addPaymentCardStmt.setString(1, cardNum);
 			addPaymentCardStmt.setString(2, cardType);
 			addPaymentCardStmt.setString(3, expDate);
 			addPaymentCardStmt.setInt(4, userID);

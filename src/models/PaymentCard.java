@@ -1,15 +1,15 @@
 package models;
 
 public class PaymentCard {
-	private int cardNum;
+	private String cardNum;
 	private CardType cardType;
 	private String expDate;
 	private int userID;
 	
-	public int getCardNum() {
+	public String getCardNum() {
 		return cardNum;
 	}
-	public void setCardNum(int cardNum) {
+	public void setCardNum(String cardNum) {
 		this.cardNum = cardNum;
 	}
 	public CardType getCardType() {

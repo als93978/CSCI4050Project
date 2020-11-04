@@ -7,7 +7,7 @@ public class Email {
 	private String subject = "BookBay Account Confirmation";
 	private String body = "Welcome to BookBay! Please confirm your"
 			+ " account by entering the following confirmation code"
-			+ " at http://localhost:8080/CSCI4050Project/registrationConfirmation.html: ";
+			+ " at http://localhost:8080/CSCI4050Project/registrationConfirmation.jsp: ";
 	
 	public String getFromAddress() {
 		return fromAddress;

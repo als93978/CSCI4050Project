@@ -54,6 +54,8 @@ public class Register extends HttpServlet {
 			User newUser = processUserInfo(request);
 			
 			sendConfirmationEmail(request, newUser);
+			
+			redirectToPage(request, response, "registrationConfirmation.jsp");
 		} catch(Exception e) {
 			e.printStackTrace();
 			interpretAndReturnException(request, response, e);
@@ -147,7 +149,7 @@ public class Register extends HttpServlet {
 	private PaymentCard initPaymentCard(HttpServletRequest request, User newUser) {
 		PaymentCard paymentCard = new PaymentCard();
 		
-		int cardNum = Integer.parseInt(request.getParameter("cardNum"));
+		String cardNum = request.getParameter("cardNum");
 		int cardNumInt = Integer.parseInt(request.getParameter("paymentMethod"));
 		
 		// Using ints seems to be easiest way to input an enum from html
@@ -201,7 +203,11 @@ public class Register extends HttpServlet {
 		
 		request.setAttribute("errorMessage", errorMessage);
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/registration.jsp");
+		redirectToPage(request, response, "registration.jsp");
+	}
+	
+	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + page);
 		
 		try {
 			dispatcher.forward(request, response);

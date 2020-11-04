@@ -128,4 +128,33 @@ public class UserDA {
 		connection.close();
 	}
 	
+	public static<T> T getUserValue(String colName, String identifier, String identifierValue) throws SQLException {
+		String useDBQuery = "USE BookBayDB;";
+		
+		String getUserValueQuery = "SELECT " + colName + " FROM User "
+								 + "WHERE " + identifier + " = ?;";
+		
+		String dbUsername = "root";
+		String dbPassword = "ajgopattymn7890";
+		
+		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement getUserValueStmt = connection.prepareStatement(getUserValueQuery);
+		getUserValueStmt.setString(1, identifierValue);
+		
+		ResultSet userValueRS = getUserValueStmt.executeQuery();
+		
+		T value = null;
+		while(userValueRS.next()) {
+			value = (T) userValueRS.getObject(1);
+		}
+		    
+		connection.close();
+		
+		return value;
+	}
+	
 }
