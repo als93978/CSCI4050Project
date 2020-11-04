@@ -43,7 +43,8 @@ public class Login extends HttpServlet {
 			String userID = validateLoginInformation(request, response);
 			setSessionCookie(request, response, userID);
 		} catch(Exception e) {
-			interpretAndReturnException(request, response, e);
+			//interpretAndReturnException(request, response, e);
+			e.printStackTrace();
 		}
 	}
 	
@@ -66,7 +67,7 @@ public class Login extends HttpServlet {
 		else {
 			String email = emailAccountID;
 			
-			userID = UserDA.getUserValue("UserID", "Email", email);
+			userID = String.valueOf((int) UserDA.getUserValue("UserID", "Email", email));
 			
 			String dbPassword = UserDA.getUserValue("`Password`", "UserID", userID);
 			
@@ -76,10 +77,12 @@ public class Login extends HttpServlet {
 		return userID;
 	}
 	
-	private void setSessionCookie(HttpServletRequest request, HttpServletResponse response, String userID) {
+	private void setSessionCookie(HttpServletRequest request, HttpServletResponse response, String userID) throws IOException {
 		Cookie sessionCookie = new Cookie("userID", userID);
 		
 		response.addCookie(sessionCookie);
+		
+		response.sendRedirect(request.getContextPath() + "/index.html");
 	}
 	
 	private boolean isAccountID(String emailAccountID) {
