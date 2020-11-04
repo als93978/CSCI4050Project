@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `User` (
 );
 
 CREATE TABLE IF NOT EXISTS PaymentCard (
-	CardNum int NOT NULL,
+	CardNum varchar(255) NOT NULL,
     PRIMARY KEY(CardNum),
     `Type` ENUM('DISCOVER', 'VISA', 'MASTERCARD', 'AMERICANEXPRESS') NOT NULL,
     ExpDate varchar(255) NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `Order` (
     promoID int,
     OrderDateTime varchar(255),
     PaymentMethod varchar(255),
-    CardNum int,
+    CardNum varchar(255),
     FOREIGN KEY(CardNum) REFERENCES PaymentCard(CardNum),
     `PromotionCode` int,
     FOREIGN KEY(`PromotionCode`) REFERENCES Promotion(`PromotionCode`)
