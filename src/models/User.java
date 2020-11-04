@@ -9,6 +9,7 @@ public class User {
 	private UserStatus status;
 	private boolean enrollmentForPromotions;
 	private int numOfCards;
+	private String confirmationCode;
 	private UserType type;
 	private int addressID;
 	
@@ -74,6 +75,14 @@ public class User {
 	
 	public void setNumOfCards(int numOfCards) {
 		this.numOfCards = numOfCards;
+	}
+	
+	public String getConfirmationCode() {
+		return confirmationCode;
+	}
+	
+	public void setConfirmationCode(String confirmationCode) {
+		this.confirmationCode = confirmationCode;
 	}
 	
 	public UserType getType() {

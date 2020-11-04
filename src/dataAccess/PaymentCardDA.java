@@ -13,10 +13,7 @@ public class PaymentCardDA {
 	
 	public static void addPaymentCardToDB(PaymentCard paymentCard) {
 		// Get all the values from PaymentCard
-		String firstName = paymentCard.getFirstName();
-		String lastName = paymentCard.getLastName();
-		int cardNum = paymentCard.getCardNum();
-		int cardSecurityNum = paymentCard.getCardSecurityNum();
+		String cardNum = paymentCard.getCardNum();
 		String cardType = paymentCard.getCardType().name();
 		String expDate = paymentCard.getExpDate();
 		int userID = paymentCard.getUserID();
@@ -37,14 +34,10 @@ public class PaymentCardDA {
 			useDBStmt.executeQuery();
 			
 			PreparedStatement addPaymentCardStmt = connection.prepareStatement(addPaymentCardQuery);
-
-			addPaymentCardStmt.setString(1, firstName);
-			addPaymentCardStmt.setString(2, lastName);
-			addPaymentCardStmt.setInt(3, cardNum);
-			addPaymentCardStmt.setInt(4, cardSecurityNum);
-			addPaymentCardStmt.setString(5, cardType);
-			addPaymentCardStmt.setString(6, expDate);
-			addPaymentCardStmt.setInt(7, userID);
+			addPaymentCardStmt.setString(1, cardNum);
+			addPaymentCardStmt.setString(2, cardType);
+			addPaymentCardStmt.setString(3, expDate);
+			addPaymentCardStmt.setInt(4, userID);
 			
 			addPaymentCardStmt.executeUpdate();
 			

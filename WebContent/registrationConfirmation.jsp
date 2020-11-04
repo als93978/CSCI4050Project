@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="models.ErrorMessage"
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -101,13 +106,23 @@
 	                <section class="form-group">
 						<button type="button" id="resend" class="btn btn-primary btn-lg form-btn" role="button" data-toggle="popover" data-placement="bottom" title="Email confirmation code sent!" data-content="Another email confirmation code has been delivered to your email address, and it should be in your inbox soon.">Resend confirmation code</button>
 						<div id="submit-code" class="form-group mx-sm-3 mb-2">
+							<%
+								ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
+										
+								if(errorMessage != null) {
+									out.println("<div class=\"alert alert-danger\" role=\"alert\" style=\"display: block\">");
+									out.println("\t" + errorMessage.getMessage());
+									out.println("</div>");
+								}
+							%>
+						
 							<label for="inputEmailCode" class="sr-only">Email Address:</label>
-							<input type="text" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email Address">
+							<input type="text" class="form-control" id="inputEmail" name="email" placeholder="Email Address">
 						
 							<label for="inputEmailCode" class="sr-only">Email Confirmation Code</label>
-							<input type="password" class="form-control" id="inputEmailCode" placeholder="Confirmation Code">
+							<input type="password" class="form-control" id="inputEmailCode" name="code" placeholder="Code">
 						</div>
-						<button id="submitBtn" type="submit" class="btn btn-primary mb-2 form-btn">Submit</button>
+						<button id="submitBtn" type="submit" class="btn btn-primary mb-2 form-btn">Submit Code</button>
 					</section>
 				</form>
             </div>
