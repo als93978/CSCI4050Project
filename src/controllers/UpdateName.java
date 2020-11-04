@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -52,8 +53,12 @@ public class UpdateName extends HttpServlet {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
 
-        UserDA.editUserValue(userID, "firstName", firstName);
-		UserDA.editUserValue(userID, "lastName", lastName);
+        try {
+			UserDA.editUserValue(userID, "firstName", firstName);
+			UserDA.editUserValue(userID, "lastName", lastName);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WebContent/accountSettings.jsp");
         dispatcher.forward(request, response);

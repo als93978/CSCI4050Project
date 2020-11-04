@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -51,7 +52,11 @@ public class UpdatePassword extends HttpServlet {
         int userID = Integer.parseInt(request.getParameter("userID"));
         String password = request.getParameter("password");
 
-        UserDA.editUserValue(userID, "Password", password);
+        try {
+			UserDA.editUserValue(userID, "Password", password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WebContent/accountSettings.jsp");
         dispatcher.forward(request, response);

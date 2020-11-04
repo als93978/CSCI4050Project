@@ -9,27 +9,27 @@ public class PaymentCard {
 	public String getCardNum() {
 		return cardNum;
 	}
+	
 	public void setCardNum(String cardNum) {
 		this.cardNum = cardNum;
 	}
-	public int getCardSecurityNum(){
-		return cardSecurityNum;
-	}
-	public void setCardSecurityNum(){
-		this.cardSecurityNum = cardSecurityNum;
-	}
+	
 	public CardType getCardType() {
 		return cardType;
 	}
+	
 	public void setCardType(CardType cardType) {
 		this.cardType = cardType;
 	}
+	
 	public String getExpDate() {
 		return expDate;
 	}
+	
 	public void setExpDate(String expDate) {
 		this.expDate = expDate;
 	}
+	
 	public int getUserID() {
 		return userID;
 	}
