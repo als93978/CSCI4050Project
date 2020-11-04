@@ -82,7 +82,7 @@ public class Login extends HttpServlet {
 		
 		response.addCookie(sessionCookie);
 		
-		response.sendRedirect(request.getContextPath() + "/index.html");
+		response.sendRedirect(request.getContextPath() + "/Index");
 	}
 	
 	private boolean isAccountID(String emailAccountID) {
@@ -121,11 +121,7 @@ public class Login extends HttpServlet {
 	}
 	
 	private void checkPassword(HttpServletRequest request, HttpServletResponse response, String inputPassword, String dbPassword) {
-		if(inputPassword.equals(dbPassword)) {
-			System.out.println("Correct login combination!");
-		}
-		
-		else {
+		if(!inputPassword.equals(dbPassword)) {
 			String wrongLoginMsg = "The email/account ID and/or password you entered was incorrect.";
 			
 			returnError(request, response, wrongLoginMsg);
