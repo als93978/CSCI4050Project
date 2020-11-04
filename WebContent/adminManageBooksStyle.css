@@ -53,6 +53,13 @@ html, body {
 .active {
 	background-color: #4f5cbf !important;
 }
+
+.footer {
+	position: fixed;
+   	left: 0;
+	bottom: 0;
+	width: 100%;
+}
 	
 	.mainContainer {
 		margin: 0;
@@ -121,12 +128,13 @@ html, body {
 		.contentContainer {
 /* 			background-color: #ffffff; */
 			margin: 0;
-/* 			height: 85%; */
+			max-width: 100%;
+			height: 85%;
 		}
 		
-			/* .content {
-				
-			} */
+		.content {
+			padding: 1em;
+		}
 		
 		.footerContainer {
 /* 			background-color: #4f5cbf; */
@@ -159,4 +167,14 @@ html, body {
 			left: 50%;
 			-ms-transform: translate(-50%, -50%);
 			transform: translate(-50%, -50%);
-		  }
+		}
+
+		#added {
+			margin: auto !important;
+			padding-left: 300px;
+		}
+
+		#adding {
+			margin: auto !important;
+			padding-left: 55px;
+		}

@@ -197,3 +197,7 @@ button:hover {
 			height: 15px;
 			top: 10%;
 		}
+
+		#logoutBtn {
+			cursor: pointer !important;
+		}
