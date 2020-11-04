@@ -2,31 +2,29 @@ package controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dataAccess.UserDA;
 import models.ErrorMessage;
-import models.Message;
-import models.UserStatus;
 
 /**
- * Servlet implementation class ConfirmUser
+ * Servlet implementation class Login
  */
-@WebServlet("/ConfirmUser")
-public class ConfirmUser extends HttpServlet {
+@WebServlet("/Login")
+public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ConfirmUser() {
+    public Login() {
         super();
     }
 
@@ -41,34 +39,56 @@ public class ConfirmUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {	
-			checkConfirmationCode(request, response);
+		try {
+			String userID = validateLoginInformation(request, response);
+			setSessionCookie(request, response, userID);
 		} catch(Exception e) {
-			e.printStackTrace();
 			interpretAndReturnException(request, response, e);
 		}
 	}
 	
-	private void checkConfirmationCode(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-		String inputEmail = request.getParameter("email");
-		String inputConfirmationCode = request.getParameter("code");
+	private String validateLoginInformation(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		String emailAccountID = request.getParameter("emailAccountID");
+		String inputPassword = request.getParameter("password");
 		
-		String dbConfirmationCode = UserDA.getUserValue("ConfirmationCode", "Email", inputEmail);
+		boolean isAccountID = isAccountID(emailAccountID);
 		
-		if(inputConfirmationCode.equals(dbConfirmationCode)) {
-			int userID = UserDA.getUserValue("UserID", "Email", inputEmail);
+		String userID = "";
+		
+		if(isAccountID) {
+			userID = emailAccountID;
 			
-			UserDA.editUserValue(userID, "Status", UserStatus.ACTIVE.name());
+			String dbPassword = UserDA.getUserValue("`Password`", "UserID", userID);
 			
-			String message = "You have successfully confirmed your registration. You can now login.";
-			returnMessage(request, response, message);
+			checkPassword(request, response, inputPassword, dbPassword);
 		}
 		
 		else {
-			String wrongConfirmationCodeMsg = "The confirmation code and/or the email address you entered was incorrect.";
+			String email = emailAccountID;
 			
-			returnError(request, response, wrongConfirmationCodeMsg);
+			userID = UserDA.getUserValue("UserID", "Email", email);
+			
+			String dbPassword = UserDA.getUserValue("`Password`", "UserID", userID);
+			
+			checkPassword(request, response, inputPassword, dbPassword);
 		}
+		
+		return userID;
+	}
+	
+	private void setSessionCookie(HttpServletRequest request, HttpServletResponse response, String userID) {
+		Cookie sessionCookie = new Cookie("userID", userID);
+		
+		response.addCookie(sessionCookie);
+	}
+	
+	private boolean isAccountID(String emailAccountID) {
+		int indexOfEmailAccountID = emailAccountID.indexOf('@');
+		
+		if(indexOfEmailAccountID == -1)
+			return true;
+		
+		return false;
 	}
 	
 	private void interpretAndReturnException(HttpServletRequest request, HttpServletResponse response, Exception e) {
@@ -81,16 +101,6 @@ public class ConfirmUser extends HttpServlet {
 		errorMessage.setMessage("An error occurred: " + message);
 		
 		request.setAttribute("errorMessage", errorMessage);
-		
-		redirectToPage(request, response, "registrationConfirmation.jsp");
-	}
-	
-	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
-		Message message = new Message();
-		
-		message.setMessage(messageStr);
-		
-		request.setAttribute("message", message);
 		
 		redirectToPage(request, response, "login.jsp");
 	}
@@ -107,14 +117,16 @@ public class ConfirmUser extends HttpServlet {
 		}
 	}
 	
-	public static String generateConfirmationCode() {
-		String code = "";
+	private void checkPassword(HttpServletRequest request, HttpServletResponse response, String inputPassword, String dbPassword) {
+		if(inputPassword.equals(dbPassword)) {
+			System.out.println("Correct login combination!");
+		}
 		
-		Random random = new Random();
-		for(int i = 0; i < 4; i++) // Generates 4-digit random number code
-			code += String.valueOf(random.nextInt(10));
-		
-		return code;
+		else {
+			String wrongLoginMsg = "The email/account ID and/or password you entered was incorrect.";
+			
+			returnError(request, response, wrongLoginMsg);
+		}
 	}
 
 }
