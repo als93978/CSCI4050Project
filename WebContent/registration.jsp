@@ -105,7 +105,7 @@
 										<a class="nav-link active text-white" href="registration.html">Registration</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="login.html">Login</a>
+										<a class="nav-link" href="login.jsp">Login</a>
 									</li>
 								</ul>
 								<form id="registration" class="needs-validation" action="Register" method="POST" accept-charset="UTF-8" novalidate>

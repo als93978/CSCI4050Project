@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="models.Message"
+    import="models.ErrorMessage"
 %>
 
 <!DOCTYPE html>
@@ -109,28 +109,28 @@
 										<a class="nav-link active text-white" href="logintemplate.html">Login</a>
 									</li>
 								</ul>
-								<form id="login" class="needs-validation" novalidate>
+								<form id="login" class="needs-validation" action="Login" method="POST" accept-charset="UTF-8" novalidate>
 									<%
-										Message message = (Message) request.getAttribute("message");
+										ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
 										
-										if(message != null) {
-											out.println("<div class=\"alert alert-success\" role=\"alert\" style=\"display: block\">");
-											out.println("\t" + message.getMessage());
+										if(errorMessage != null) {
+											out.println("<div class=\"alert alert-danger\" role=\"alert\" style=\"display: block\">");
+											out.println("\t" + errorMessage.getMessage());
 											out.println("</div>");
 										}
 									%>
 								
 									<br>
 									<div class="form-group">
-										<label for="inputEmailUser">Email/Username</label>
-										<input type="text" class="form-control" id="inputEmailUser" pattern=".{6,}" required>
+										<label for="inputEmailUser">Email/Account ID</label>
+										<input type="text" class="form-control" id="inputEmailUser" pattern=".{1,}" name="emailAccountID" required>
 										<div class="invalid-feedback">
-											Enter a valid email address or username.
+											Enter a valid email address or Account ID.
 										</div>
 									</div>
 									<div class="form-group">
 										<label for="inputPassword">Password</label>
-										<input type="password" class="form-control" id="inputPassword" pattern=".{6,}" required>
+										<input type="password" class="form-control" id="inputPassword" pattern=".{6,}" name="password" required>
 										<div class="invalid-feedback">
 											The password is either wrong or typed incorrectly.
 										</div>
@@ -157,7 +157,7 @@
 					  </button>
 					</div>
 					<div class="modal-body">
-					  The password reset link or code has been seent to your email address.
+					  The password reset link or code has been sent to your email address.
 					</div>
 					<div class="modal-footer">
 					  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
