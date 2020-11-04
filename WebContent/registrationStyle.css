@@ -60,14 +60,14 @@ html, body {
 
 #submit-code {
 	position: relative;
-	left: 30%;
-	top: 4px;
+	left: 50%;
+	bottom: 50px;
 }
 
 #submitBtn {
 	position: relative;
-	left: 30%;
-	top: 4px;
+	left: 51.7%;
+	bottom: 50px;
 }
 
 .footer {
@@ -166,6 +166,7 @@ html, body {
 			position: relative;
 			top: 15%;
 			width: 50%;
+			height: 50%;
 			margin: 0 auto;
 		}
 

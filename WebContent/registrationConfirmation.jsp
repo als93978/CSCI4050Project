@@ -105,8 +105,8 @@
                 <form id="submitConfirmationCode" action="ConfirmUser" method="POST" accept-charset="UTF-8">
 	                <section class="form-group">
 						<button type="button" id="resend" class="btn btn-primary btn-lg form-btn" role="button" data-toggle="popover" data-placement="bottom" title="Email confirmation code sent!" data-content="Another email confirmation code has been delivered to your email address, and it should be in your inbox soon.">Resend confirmation code</button>
-						<div id="submit-code" class="form-group mx-sm-3 mb-2">
-							<%
+						<div id="submit-code" class="form-group col-md-4 mb-4">
+							<!-- <%
 								ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
 										
 								if(errorMessage != null) {
@@ -114,8 +114,8 @@
 									out.println("\t" + errorMessage.getMessage());
 									out.println("</div>");
 								}
-							%>
-						
+							     %> -->
+
 							<label for="inputEmailCode" class="sr-only">Email Address:</label>
 							<input type="text" class="form-control" id="inputEmail" name="email" placeholder="Email Address">
 						

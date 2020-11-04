@@ -203,3 +203,7 @@ button:hover {
 	/* #cart-notification {
 		text-align: center;
 	} */
+
+	#logoutBtn {
+		cursor: pointer !important;
+	}
