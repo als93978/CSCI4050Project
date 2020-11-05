@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="models.ErrorMessage"
+    import="models.Message"
 %>
 
 <!DOCTYPE html>
@@ -102,6 +103,16 @@
 					<h1 id="edit-profile-title" class="font-weight-bold">Edit Profile</h1>
 				  	<br>
 					<div class="container">
+					
+						<%
+							Message message = (Message) request.getAttribute("message");
+										
+							if(message != null) {
+								out.println("<div class=\"alert alert-success\" role=\"alert\" style=\"display: block\">");
+								out.println("\t" + message.getMessage());
+								out.println("</div>");
+							}
+						%>
 					
 						<%
 							ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");

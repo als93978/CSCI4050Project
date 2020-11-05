@@ -16,6 +16,7 @@ import dataAccess.UserDA;
 import models.Address;
 import models.CardType;
 import models.ErrorMessage;
+import models.Message;
 import models.PaymentCard;
 import models.UserStatus;
 import models.UserType;
@@ -77,8 +78,8 @@ public class UpdateCard extends HttpServlet {
 	        	PaymentCardDA.editCardValue(Integer.parseInt(userID), "UserID", userID);
 	        }
 	        	
-	        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/accountSettings.jsp");
-	        dispatcher.forward(request, response);
+	        String message = "Payment Card changes saved.";
+	        returnMessage(request, response, message);
 		} catch(Exception e) {
 			e.printStackTrace();
 			//interpretAndReturnException(request, response, e);
@@ -87,6 +88,16 @@ public class UpdateCard extends HttpServlet {
 	
 	private void interpretAndReturnException(HttpServletRequest request, HttpServletResponse response, Exception e) {
 		returnError(request, response, e.getMessage());
+	}
+	
+	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
+		Message message = new Message();
+		
+		message.setMessage(messageStr);
+		
+		request.setAttribute("message", message);
+		
+		redirectToPage(request, response, "accountSettings.jsp");
 	}
 	
 	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {
