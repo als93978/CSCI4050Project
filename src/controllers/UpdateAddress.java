@@ -48,7 +48,18 @@ public class UpdateAddress extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int addressID = Integer.parseInt(request.getParameter("addressID"));
+	Cookie userCookie = null;
+	Cookie[] = cookies = request.getCookies();
+	if (cookies != null) {
+	    	for(Cookie cookie : cookies) {
+	    		if(cookie.getName().equals("userID")) {
+	    			userCookie = cookie;
+	    			break;
+	    		}
+	    	}
+    	}
+	int userID = userCookie.getValue();
+	int addressID = UserDA.getUserValue("AddressID", "UserID", userID);
         String street = request.getParameter("street");
         String city = request.getParameter("city");
         String state = request.getParameter("state");
