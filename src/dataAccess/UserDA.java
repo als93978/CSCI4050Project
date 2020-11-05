@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import controllers.CryptoHelper;
 import models.User;
 import models.UserStatus;
 import models.UserType;
@@ -14,11 +15,12 @@ public class UserDA {
 	
 	private static String dbURL = "jdbc:mysql://localhost:3306/BookBayDB?serverTimezone=UTC";
 	
-	public static void addUserToDB(User user) throws SQLException {
+	public static void addUserToDB(User user) throws Exception {
 		// Get all the values from User
 		String firstName = user.getFirstName();
 		String lastName = user.getLastName();
 		String email = user.getEmail();
+		
 		String password = user.getPassword();
 		// Using strings seems to be easiest way to insert enum to DB
 		String status = user.getStatus().name();
@@ -55,7 +57,7 @@ public class UserDA {
 		connection.close();
 	}
 	
-	public static User getLastUserFromDB() throws SQLException {
+	public static User getLastUserFromDB() throws Exception {
 		User user = new User();
 		
 		String useDBQuery = "USE BookBayDB;";
@@ -81,6 +83,7 @@ public class UserDA {
 		    String lastName = lastUserRS.getString(3);
 		    String email = lastUserRS.getString(4);
 		    String password = lastUserRS.getString(5);
+		    
 		    UserStatus status = UserStatus.valueOf(lastUserRS.getString(6));
 		    boolean enrollmentForPromotions = lastUserRS.getBoolean(7);
 		    int numOfCards = lastUserRS.getInt(8);

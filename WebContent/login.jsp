@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="models.ErrorMessage"
+    import="models.Message"
 %>
 
 <!DOCTYPE html>
@@ -110,6 +111,17 @@
 									</li>
 								</ul>
 								<form id="login" class="needs-validation" action="Login" method="POST" accept-charset="UTF-8" novalidate>
+															
+									<%
+										Message message = (Message) request.getAttribute("message");
+													
+										if(message != null) {
+											out.println("<div class=\"alert alert-success\" role=\"alert\" style=\"display: block\">");
+											out.println("\t" + message.getMessage());
+											out.println("</div>");
+										}
+									%>
+									
 									<%
 										ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
 

@@ -49,9 +49,15 @@ public class Index extends HttpServlet {
 	private Cookie checkUserLoggedIn(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		Cookie[] cookies = request.getCookies();
 		
-		if(cookies.length > 1) {
-			if(cookies[1].getName().equals("userID")) {
-				processSessionCookie(request, response, cookies[1]);
+		if(cookies != null) {
+			if(cookies.length > 1) {
+				if(cookies[1].getName().equals("userID")) {
+					processSessionCookie(request, response, cookies[1]);
+				}
+				
+				else {
+					response.sendRedirect(request.getContextPath() + "/index.jsp");
+				}
 			}
 			
 			else {

@@ -3,15 +3,17 @@ package dataAccess;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import controllers.CryptoHelper;
 import models.PaymentCard;
 
 public class PaymentCardDA {
 	
 	public static String dbURL = "jdbc:mysql://localhost:3306/BookBayDB?serverTimezone=UTC";
 	
-	public static void addPaymentCardToDB(PaymentCard paymentCard) {
+	public static void addPaymentCardToDB(PaymentCard paymentCard) throws Exception {
 		// Get all the values from PaymentCard
 		String cardNum = paymentCard.getCardNum();
 		String cardType = paymentCard.getCardType().name();
@@ -21,8 +23,8 @@ public class PaymentCardDA {
 		
 		String useDBQuery = "USE BookBayDB";
 		
-		String addPaymentCardQuery = "INSERT INTO PaymentCard(FirstName, LastName, CardNum, CardSecurityNum, `Type`, ExpDate, UserID) "
-								   + "VALUES(?, ?, ?, ?, ?, ?, ?)";
+		String addPaymentCardQuery = "INSERT INTO PaymentCard(CardNum, `Type`, ExpDate, UserID) "
+								   + "VALUES(?, ?, ?, ?)";
 		
 		String dbUsername = "root";
 		String dbPassword = "ajgopattymn7890";
@@ -74,11 +76,12 @@ public class PaymentCardDA {
 			e.printStackTrace();
 		}
 	}
-		public static<T> T getCardValue(String colName, String identifier, String identifierValue) throws SQLException {
+	
+	public static<T> T getPaymentCardValue(String colName, String identifier, String identifierValue) throws SQLException {
 		String useDBQuery = "USE BookBayDB;";
 		
-		String getCardValueQuery = "SELECT " + colName + " FROM PaymentCard "
-								 + "WHERE " + identifier + " = ?;";
+		String getPaymentCardValueQuery = "SELECT " + colName + " FROM PaymentCard "
+								        + "WHERE " + identifier + " = ?;";
 		
 		String dbUsername = "root";
 		String dbPassword = "ajgopattymn7890";
@@ -88,14 +91,14 @@ public class PaymentCardDA {
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
 		
-		PreparedStatement getCardValueStmt = connection.prepareStatement(getCardValueQuery);
-		getCardValueStmt.setString(1, identifierValue);
+		PreparedStatement getPaymentCardValueStmt = connection.prepareStatement(getPaymentCardValueQuery);
+		getPaymentCardValueStmt.setString(1, identifierValue);
 		
-		ResultSet cardValueRS = getCardValueStmt.executeQuery();
+		ResultSet paymentCardValueRS = getPaymentCardValueStmt.executeQuery();
 		
 		T value = null;
-		while(cardValueRS.next()) {
-			value = (T) cardValueRS.getObject(1);
+		while(paymentCardValueRS.next()) {
+			value = (T) paymentCardValueRS.getObject(1);
 		}
 		    
 		connection.close();

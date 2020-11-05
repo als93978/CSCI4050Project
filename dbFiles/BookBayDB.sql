@@ -118,3 +118,6 @@ CREATE TABLE IF NOT EXISTS ManagePromotions (
     FOREIGN KEY(UserID) REFERENCES `User`(UserID),
     FOREIGN KEY(`PromotionCode`) REFERENCES Promotion(`PromotionCode`)
 );
+
+INSERT INTO `User`(FirstName, LastName, Email, Password, `Status`, `Type`)
+VALUES("Austin", "Schultz", "aschultz086@gmail.com", "lordfarquaad", "ACTIVE", "ADMIN");

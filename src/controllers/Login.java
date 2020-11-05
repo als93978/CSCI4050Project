@@ -43,12 +43,11 @@ public class Login extends HttpServlet {
 			String userID = validateLoginInformation(request, response);
 			setSessionCookie(request, response, userID);
 		} catch(Exception e) {
-			//interpretAndReturnException(request, response, e);
-			e.printStackTrace();
+			interpretAndReturnException(request, response, e);
 		}
 	}
 	
-	private String validateLoginInformation(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	private String validateLoginInformation(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String emailAccountID = request.getParameter("emailAccountID");
 		String inputPassword = request.getParameter("password");
 		
