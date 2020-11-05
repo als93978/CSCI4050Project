@@ -14,23 +14,20 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class Logout
  */
 @WebServlet("/Logout")
-public class LogoutServlet extends HttpServlet {
+public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutServlet() {
+    public Logout() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
 		doPost(request,response);
 	}
 
@@ -39,12 +36,11 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
-//		String url = "/homepageWithUserIcon.html";
 		Cookie loginCookie = null;
     	Cookie[] cookies = request.getCookies();
     	if (cookies != null) {
 	    	for(Cookie cookie : cookies) {
-	    		if(cookie.getName().equals("userEmail")) {
+	    		if(cookie.getName().equals("userID")) {
 	    			loginCookie = cookie;
 	    			break;
 	    		}
@@ -55,11 +51,9 @@ public class LogoutServlet extends HttpServlet {
     		loginCookie.setMaxAge(0);
         	response.addCookie(loginCookie);
     	}
-//		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-//		dispatcher.forward(request, response);
+
 		try {
-			response.sendRedirect("index.html");
-			System.out.println("Logged off");
+			response.sendRedirect(request.getContextPath() + "/Index");
 		}
 		
 		catch(Exception error) {

@@ -43,8 +43,7 @@ public class Login extends HttpServlet {
 			String userID = validateLoginInformation(request, response);
 			setSessionCookie(request, response, userID);
 		} catch(Exception e) {
-			//interpretAndReturnException(request, response, e);
-			e.printStackTrace();
+			interpretAndReturnException(request, response, e);
 		}
 	}
 	

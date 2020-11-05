@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="models.ErrorMessage"
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -77,7 +82,7 @@
 								<img src="img/user-icon.png" class="img-fluid user-icon" alt="User Icon">
 							</a>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" href="index.html">Log off</a>
+								<a class="dropdown-item" href="Logout">Log off</a>
 								<a class="dropdown-item" href="orderhistory.html">Order history</a>
 								<a class="dropdown-item" href="accountSettings.html">Account settings</a>
 							</div>
@@ -97,6 +102,17 @@
 					<h1 id="edit-profile-title" class="font-weight-bold">Edit Profile</h1>
 				  	<br>
 					<div class="container">
+					
+						<%
+							ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
+										
+							if(errorMessage != null) {
+								out.println("<div class=\"alert alert-danger\" role=\"alert\" style=\"display: block\">");
+								out.println("\t" + errorMessage.getMessage());
+								out.println("</div>");
+							}
+						%>
+					
 						<div class="accordion" id="accordionEditAccount">
 							<div class="card">
 								<div class="card-header" id="headingOne">
@@ -124,7 +140,7 @@
                                                         <div class="form-group row">
 															<label for="inputPassword" class="col-sm-2 col-form-label">Password:</label>
 															<div class="col-sm-10">
-																<input type="password" class="form-control" id="inputPassword" pattern=".{6,}" required>
+																<input type="password" class="form-control" id="inputPassword" name="password" pattern=".{6,}" required>
 																 <div class="invalid-feedback">
 																	Enter a password that is at least 6 characters.
 										  						</div>
@@ -176,7 +192,7 @@
                                                         <div class="form-group row">
 										<label for="inputFirstName" class="col-sm-2 col-form-label">First Name:</label>
 										<div class="col-sm-10">
-										  <input type="firstName" class="form-control" id="inputFirstName" pattern=".{1,}" required>
+										  <input type="firstName" class="form-control" id="inputFirstName" pattern=".{1,}" name="firstName" required>
 										  <div class="invalid-feedback">
 											Please provide a valid first name that is at least 1 characters or more.
 										  </div>
@@ -185,7 +201,7 @@
 									<div class="form-group row">
 										<label for="inputLastName" class="col-sm-2 col-form-label">Last Name:</label>
 										<div class="col-sm-10">
-										  <input type="lastName" class="form-control" id="inputLastName" pattern=".{1,}" required>
+										  <input type="lastName" class="form-control" id="inputLastName" pattern=".{1,}" name="lastName" required>
 										  <div class="invalid-feedback">
 											Please provide a valid last name that is at least 1 characters or more.
 										  </div>
@@ -212,7 +228,7 @@
 									<div class="form-group row">
 										<label for="inputStreet" class="col-sm-2 col-form-label">Street:</label>
 										<div class="col-sm-10">
-										  <input type="street" class="form-control" id="inputStreet" required="">
+										  <input type="street" class="form-control" id="inputStreet" name="street" required="">
 										  <div class="invalid-feedback">
 											Please enter your shipping address.
 											</div>
@@ -221,7 +237,7 @@
                                     <div class="form-group row">
 										<label for="inputCity" class="col-sm-2 col-form-label">City:</label>
 										<div class="col-sm-10">
-										  <input type="city" class="form-control" id="inputCity" required="">
+										  <input type="city" class="form-control" id="inputCity" name="city" required="">
 										  <div class="invalid-feedback">
 												Please enter a valid city.
 											</div>
@@ -292,21 +308,12 @@
                                     <div class="form-group row">
 										<label for="inputZipCode" class="col-sm-2 col-form-label">Zip Code:</label>
 										<div class="col-sm-10">
-										  <input type="zipCode" class="form-control" id="inputZipCode" required="">
+										  <input type="zipCode" class="form-control" id="inputZipCode" name="zipCode" required="">
 										  <div class="invalid-feedback">
 												Zip code required.
 											</div>
 										</div>
 									</div>
-                                    <div class="form-group row">
-                                        <label for="inputCountry" class="col-sm-2 col-form-label">Country:</label>
-                                        <div class="col-sm-10">
-                                          <input type="country" class="form-control" id="inputCountry" required="">
-										  <div class="invalid-feedback">
-												Country required.
-											</div>
-                                        </div>
-                                    </div>
                                     <button type="submit" class="btn btn-white form-btn text-white" style="background-color:#4f5cbf">Save Changes</button>
                                     </form>
 													</div>
@@ -341,45 +348,18 @@
 													<div class="card-body">
                                                     <form action="<%= request.getContextPath() %>/UpdateCard" method="post" name = "cardForm" class="needs-validation" novalidate>
                                                         <div class="form-group row">
-                    										<label for="inputFirstName" class="col-sm-2 col-form-label">First Name:</label>
-                    										<div class="col-sm-10">
-                    										  <input type="firstName" class="form-control" id="inputFirstName" pattern=".{1,}" required>
-															  <div class="invalid-feedback">
-																Please provide a valid first name that is at least 1 characters or more.
-										  						</div>
-                    										</div>
-                    									</div>
-                    									<div class="form-group row">
-                    										<label for="inputLastName" class="col-sm-2 col-form-label">Last Name:</label>
-                    										<div class="col-sm-10">
-                    										  <input type="lastName" class="form-control" id="inputLastName" pattern=".{1,}" required>
-															  <div class="invalid-feedback">
-																Please provide a valid last name that is at least 1 characters or more.
-										  						</div>
-                    										</div>
-                    									</div>
-                                                        <div class="form-group row">
                     										<label for="inputCardNumber" class="col-sm-2 col-form-label">Card Number:</label>
                     										<div class="col-sm-10">
-                    										  <input type="cardNumber" class="form-control" id="inputCardNumber" required="">
+                    										  <input type="cardNumber" class="form-control" id="inputCardNumber" name="cardNum" required="">
 															  <div class="invalid-feedback">
 																	Credit card number is required
 																</div>
                     										</div>
                     									</div>
                                                         <div class="form-group row">
-                    										<label for="inputSecurityNumber" class="col-sm-2 col-form-label">Card Security Number:</label>
-                    										<div class="col-sm-10">
-                    										  <input type="securityNumber" class="form-control" id="inputSecurityNumber" required="">
-															  <div class="invalid-feedback">
-																	Security number is required
-																</div>
-                    										</div>
-                    									</div>
-                                                        <div class="form-group row">
                     										<label for="inputExpiration" class="col-sm-2 col-form-label">Card Expiration Date:</label>
                     										<div class="col-sm-10">
-                    										  <input type="cardExpiration" class="form-control" id="inputExpiration" required="">
+                    										  <input type="cardExpiration" class="form-control" id="inputExpiration" name="expDate" required="">
 															  <div class="invalid-feedback">
 																	Expiration date required
 																</div>
