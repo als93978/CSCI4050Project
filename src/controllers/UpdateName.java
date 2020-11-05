@@ -49,7 +49,17 @@ public class UpdateName extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userID = Integer.parseInt(request.getParameter("userID"));
+	Cookie userCookie = null;
+	Cookie[] = cookies = request.getCookies();
+	if (cookies != null) {
+	    for(Cookie cookie : cookies) {
+	    	if(cookie.getName().equals("userID")) {
+	    		userCookie = cookie;
+	    		break;
+	    	}
+	    }
+    	}
+	int userID = userCookie.getValue();
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
 
