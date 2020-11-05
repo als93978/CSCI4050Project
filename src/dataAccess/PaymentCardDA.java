@@ -74,4 +74,32 @@ public class PaymentCardDA {
 			e.printStackTrace();
 		}
 	}
+		public static<T> T getCardValue(String colName, String identifier, String identifierValue) throws SQLException {
+		String useDBQuery = "USE BookBayDB;";
+		
+		String getCardValueQuery = "SELECT " + colName + " FROM PaymentCard "
+								 + "WHERE " + identifier + " = ?;";
+		
+		String dbUsername = "root";
+		String dbPassword = "ajgopattymn7890";
+		
+		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement getCardValueStmt = connection.prepareStatement(getCardValueQuery);
+		getCardValueStmt.setString(1, identifierValue);
+		
+		ResultSet cardValueRS = getCardValueStmt.executeQuery();
+		
+		T value = null;
+		while(cardValueRS.next()) {
+			value = (T) cardValueRS.getObject(1);
+		}
+		    
+		connection.close();
+		
+		return value;
+	}
 }
