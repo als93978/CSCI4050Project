@@ -49,7 +49,7 @@ public class UpdateAddress extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	Cookie userCookie = null;
-	Cookie[] = cookies = request.getCookies();
+	Cookie[] cookies = request.getCookies();
 	if (cookies != null) {
 	    	for(Cookie cookie : cookies) {
 	    		if(cookie.getName().equals("userID")) {
