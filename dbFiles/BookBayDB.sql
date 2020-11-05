@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS Address (
     Street varchar(255),
     City varchar(255),
     State varchar(255),
-    ZipCode int
+    ZipCode int,
+    Country varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS `User` (
@@ -41,6 +42,7 @@ CREATE TABLE IF NOT EXISTS PaymentCard (
     PRIMARY KEY(CardNum),
     `Type` ENUM('DISCOVER', 'VISA', 'MASTERCARD', 'AMERICANEXPRESS') NOT NULL,
     ExpDate varchar(255) NOT NULL,
+    SecurityNum varchar(255) NOT NULL,
     UserID int UNIQUE,
     FOREIGN KEY(UserID) REFERENCES `User`(UserID)
 );
