@@ -1,12 +1,19 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dataAccess.UserDA;
+import models.ErrorMessage;
+import models.UserType;
 
 /**
  * Servlet implementation class EditProfile
@@ -33,7 +40,80 @@ public class EditProfile extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			checkUserLoggedIn(request, response);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private Cookie checkUserLoggedIn(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+		Cookie[] cookies = request.getCookies();
 		
+		if(cookies.length > 1) {
+			if(cookies[1].getName().equals("userID")) {
+				processSessionCookie(request, response, cookies[1]);
+			}
+			
+			else {
+				String mustBeLoggedInMsg = "You must be logged in to access this page.";
+				
+				returnError(request, response, mustBeLoggedInMsg);			
+			}
+		}
+		
+		else {
+			String mustBeLoggedInMsg = "You must be logged in to access this page.";
+			
+			returnError(request, response, mustBeLoggedInMsg);			
+		}
+		
+		return null;
+	}
+	
+	private void processSessionCookie(HttpServletRequest request, HttpServletResponse response, Cookie sessionCookie) throws SQLException, IOException {
+		boolean isUserAdmin = checkUserIsAdmin(sessionCookie);
+		
+		if(isUserAdmin) {
+			response.sendRedirect(request.getContextPath() + "/adminManageBooks.html");
+		}
+		
+		else {
+			response.sendRedirect(request.getContextPath() + "/accountSettings.jsp");
+		}
+	}
+	
+	private boolean checkUserIsAdmin(Cookie sessionCookie) throws SQLException {
+		String userID = sessionCookie.getValue();
+		
+		UserType userType = UserType.valueOf((String) UserDA.getUserValue("`Type`", "UserID", userID));
+		
+		if(userType.equals(UserType.ADMIN))
+			return true;
+		
+		return false;
+	}
+	
+	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {
+		ErrorMessage errorMessage = new ErrorMessage();
+		
+		errorMessage.setMessage("An error occurred: " + message);
+		
+		request.setAttribute("errorMessage", errorMessage);
+		
+		redirectToPage(request, response, "login.jsp");
+	}
+	
+	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + page);
+		
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 }

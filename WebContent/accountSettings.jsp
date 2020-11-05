@@ -85,7 +85,7 @@
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 								<a class="dropdown-item" href="Logout">Log off</a>
 								<a class="dropdown-item" href="orderhistory.html">Order history</a>
-								<a class="dropdown-item" href="accountSettings.html">Account settings</a>
+								<a class="dropdown-item" href="EditProfile">Account settings</a>
 							</div>
 						</div>
 
