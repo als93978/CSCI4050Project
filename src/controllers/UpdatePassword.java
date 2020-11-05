@@ -53,7 +53,7 @@ public class UpdatePassword extends HttpServlet {
 	        int userID = Integer.parseInt(cookies[1].getValue());
 			
 	        String password = request.getParameter("password");
-	
+	        
 			UserDA.editUserValue(userID, "Password", password);
 	
 	        String message = "Password changes saved.";

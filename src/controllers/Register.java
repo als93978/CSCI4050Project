@@ -62,7 +62,7 @@ public class Register extends HttpServlet {
 		}
 	}
 	
-	private User processUserInfo(HttpServletRequest request) throws SQLException {
+	private User processUserInfo(HttpServletRequest request) throws Exception {
 		User newUser = initUser(request);
 		
 		//UserDA userDA = new UserDA();

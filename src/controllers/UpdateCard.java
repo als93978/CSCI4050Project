@@ -82,7 +82,7 @@ public class UpdateCard extends HttpServlet {
 	        returnMessage(request, response, message);
 		} catch(Exception e) {
 			e.printStackTrace();
-			//interpretAndReturnException(request, response, e);
+			interpretAndReturnException(request, response, e);
 		}
 	}
 	

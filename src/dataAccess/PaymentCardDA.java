@@ -6,13 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import controllers.CryptoHelper;
 import models.PaymentCard;
 
 public class PaymentCardDA {
 	
 	public static String dbURL = "jdbc:mysql://localhost:3306/BookBayDB?serverTimezone=UTC";
 	
-	public static void addPaymentCardToDB(PaymentCard paymentCard) {
+	public static void addPaymentCardToDB(PaymentCard paymentCard) throws Exception {
 		// Get all the values from PaymentCard
 		String cardNum = paymentCard.getCardNum();
 		String cardType = paymentCard.getCardType().name();

@@ -47,7 +47,7 @@ public class Login extends HttpServlet {
 		}
 	}
 	
-	private String validateLoginInformation(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	private String validateLoginInformation(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String emailAccountID = request.getParameter("emailAccountID");
 		String inputPassword = request.getParameter("password");
 		
