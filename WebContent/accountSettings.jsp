@@ -3,7 +3,35 @@
     import="javax.servlet.http.Cookie, dataAccess.*"
     import="models.ErrorMessage"
     import="models.Message"
+    import="models.User"
+    import="models.Address"
+    import="models.PaymentCard"
 %>
+
+<%
+	User user = (User) request.getAttribute("user");
+	if(user != null) {	
+		String firstName = user.getFirstName();
+		String lastName = user.getLastName();
+		String password = user.getPassword();	
+	}
+
+	Address address = (Address) request.getAttribute("address");
+	if(address != null) {
+		String street = address.getStreet();
+		String city = address.getCity();
+		String state = address.getState();
+		int zipCode = address.getZipCode();
+	}
+	
+	PaymentCard paymentCard = (PaymentCard) request.getAttribute("paymentCard");
+	if(paymentCard != null) {
+		String cardNum = paymentCard.getCardNum();
+		String cardType = paymentCard.getCardType().name();
+		String expDate = paymentCard.getExpDate();
+	}
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -147,6 +175,15 @@
 
 												<div id="collapseInfo1" class="collapse show" aria-labelledby="headingInfo1" data-parent="#accordionInfo1">
 													<div class="card-body">
+														<%
+															out.println("<div class=\"alert alert-primary\" role=\"alert\" style=\"display: block\">");
+															if(user != null)	
+																out.println("\t" + "Current Password: " + user.getPassword());
+															else
+																out.println("\t" + "No current password found.");
+															out.println("</div>");
+														%>
+													
                                                         <form action="<%= request.getContextPath() %>/UpdatePassword" method="post" name="passwordForm" class="needs-validation" novalidate>
                                                         <div class="form-group row">
 															<label for="inputPassword" class="col-sm-2 col-form-label">Password:</label>
@@ -200,6 +237,19 @@
 												</div>
 												<div id="collapseInfo2" class="collapse" aria-labelledby="headingInfo2" data-parent="#accordionInfo2">
 													<div class="card-body">
+													
+														<%
+															out.println("<div class=\"alert alert-primary\" role=\"alert\" style=\"display: block\">");
+															if(user != null) {	
+																out.println("<p>" + "Current first name: " + user.getFirstName() + "</p>");
+																out.println("<p>" + "Current last name: " + user.getLastName() + "</p>");
+															}
+															else {
+																out.println("\t" + "No current name information found.");
+															}
+															out.println("</div>");
+														%>
+													
                                                     <form action="<%= request.getContextPath() %>/UpdateName" method="post" name = "nameForm" class="needs-validation" novalidate>
                                                         <div class="form-group row">
 										<label for="inputFirstName" class="col-sm-2 col-form-label">First Name:</label>
@@ -236,6 +286,21 @@
 												</div>
 												<div id="collapseBook2" class="collapse" aria-labelledby="headingBook2" data-parent="#accordionBook2">
 													<div class="card-body">
+													
+														<%
+															out.println("<div class=\"alert alert-primary\" role=\"alert\" style=\"display: block\">");
+															if(address != null) {	
+																out.println("<p>" + "Current Street: " + address.getStreet() + "</p>");
+																out.println("<p>" + "Current City: " + address.getCity() + "</p>");
+																out.println("<p>" + "Current State: " + address.getState() + "</p>");
+																out.println("<p>" + "Current ZipCode: " + address.getZipCode() + "</p>");
+															}
+															else {
+																out.println("\t" + "No current address information found.");
+															}
+															out.println("</div>");
+														%>
+													
                                                     <form action="<%= request.getContextPath() %>/UpdateAddress" method="post" name = "addressForm" class="needs-validation" novalidate>
 									<div class="form-group row">
 										<label for="inputStreet" class="col-sm-2 col-form-label">Street:</label>
@@ -358,6 +423,20 @@
 												<div id="collapseInfo3" class="collapse show" aria-labelledby="headingInfo3" data-parent="#accordionInfo3">
 
 													<div class="card-body">
+													
+													   <%
+															out.println("<div class=\"alert alert-primary\" role=\"alert\" style=\"display: block\">");
+															if(paymentCard != null) {	
+													  			out.println("<p>" + "Current Card Number: " + paymentCard.getCardNum() + "</p>");
+																out.println("<p>" + "Current Card Expiration Date: " + paymentCard.getExpDate() + "</p>");
+																out.println("<p>" + "Current Card Type: " + paymentCard.getCardType().name() + "</p>");
+															}
+															else {
+																out.println("\t" + "No current payment card information found.");
+															}
+															out.println("</div>");
+														%>
+													
                                                     <form action="<%= request.getContextPath() %>/UpdateCard" method="post" name = "cardForm" class="needs-validation" novalidate>
                                                         <div class="form-group row">
                     										<label for="inputCardNumber" class="col-sm-2 col-form-label">Card Number:</label>

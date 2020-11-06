@@ -77,25 +77,80 @@ public class UserDA {
 		    
 		PreparedStatement getLastUserPstmt = connection.prepareStatement(getLastUserQuery);
 		    
-		ResultSet lastUserRS = getLastUserPstmt.executeQuery();
+		ResultSet userRS = getLastUserPstmt.executeQuery();
 		    
-		while(lastUserRS.next()) {
-			int userID = lastUserRS.getInt(1);
-		    String firstName = lastUserRS.getString(2);
-		    String lastName = lastUserRS.getString(3);
-		    String email = lastUserRS.getString(4);
+		while(userRS.next()) {
+			int userID = userRS.getInt(1);
+		    String firstName = userRS.getString(2);
+		    String lastName = userRS.getString(3);
+		    String email = userRS.getString(4);
 		    
-		    String passwordEncrypted = lastUserRS.getString(5);
+		    String passwordEncrypted = userRS.getString(5);
 		    String password = CryptoHelper.decrypt(passwordEncrypted);
 		    
-		    UserStatus status = UserStatus.valueOf(lastUserRS.getString(6));
-		    boolean enrollmentForPromotions = lastUserRS.getBoolean(7);
-		    int numOfCards = lastUserRS.getInt(8);
-		    String confirmationCode = lastUserRS.getString(9);
-		    UserType type = UserType.valueOf(lastUserRS.getString(10));
-		    int addressID = lastUserRS.getInt(11);
+		    UserStatus status = UserStatus.valueOf(userRS.getString(6));
+		    boolean enrollmentForPromotions = userRS.getBoolean(7);
+		    int numOfCards = userRS.getInt(8);
+		    String confirmationCode = userRS.getString(9);
+		    UserType type = UserType.valueOf(userRS.getString(10));
+		    int addressID = userRS.getInt(11);
 		    	
 		    user.setUserID(userID);
+		    user.setFirstName(firstName);
+		    user.setLastName(lastName);
+		    user.setEmail(email);
+		    user.setPassword(password);
+		    user.setStatusID(status);
+		    user.setEnrollmentForPromotions(enrollmentForPromotions);
+		    user.setNumOfCards(numOfCards);
+		    user.setConfirmationCode(confirmationCode);
+		    user.setType(type);
+		    user.setAddressID(addressID);
+		}
+		    
+		connection.close();
+		
+		return user;
+	}
+	
+	public static User getUser(int userID) throws Exception {
+		User user = new User();
+		
+		String useDBQuery = "USE BookBayDB;";
+		
+		String getUserQuery = "SELECT * FROM User "
+							    + "WHERE UserID = ?;";
+		
+		String dbUsername = "root";
+		String dbPassword = "ajgopattymn7890";
+		
+		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+			
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		    
+		PreparedStatement getUserPstmt = connection.prepareStatement(getUserQuery);
+		getUserPstmt.setInt(1, userID);    
+		
+		ResultSet userRS = getUserPstmt.executeQuery();
+		    
+		while(userRS.next()) {
+			int dbUserID = userRS.getInt(1);
+		    String firstName = userRS.getString(2);
+		    String lastName = userRS.getString(3);
+		    String email = userRS.getString(4);
+		    
+		    String passwordEncrypted = userRS.getString(5);
+		    String password = CryptoHelper.decrypt(passwordEncrypted);
+		    
+		    UserStatus status = UserStatus.valueOf(userRS.getString(6));
+		    boolean enrollmentForPromotions = userRS.getBoolean(7);
+		    int numOfCards = userRS.getInt(8);
+		    String confirmationCode = userRS.getString(9);
+		    UserType type = UserType.valueOf(userRS.getString(10));
+		    int addressID = userRS.getInt(11);
+		    
+		    user.setUserID(dbUserID);
 		    user.setFirstName(firstName);
 		    user.setLastName(lastName);
 		    user.setEmail(email);

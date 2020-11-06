@@ -64,16 +64,59 @@ public class AddressDA {
 		    
 		PreparedStatement getLastAddressPstmt = connection.prepareStatement(getLastAddressQuery);
 		    
-		ResultSet lastAddressRS = getLastAddressPstmt.executeQuery();
+		ResultSet addressRS = getLastAddressPstmt.executeQuery();
 		    
-		while(lastAddressRS.next()) {
-			int addressID = lastAddressRS.getInt(1);
-		    String street = lastAddressRS.getString(2);
-		    String city = lastAddressRS.getString(3);
-		    String state = lastAddressRS.getString(4);
-		    int zipCode = lastAddressRS.getInt(5);
+		while(addressRS.next()) {
+			int addressID = addressRS.getInt(1);
+		    String street = addressRS.getString(2);
+		    String city = addressRS.getString(3);
+		    String state = addressRS.getString(4);
+		    int zipCode = addressRS.getInt(5);
 		    	
 		    address.setAddressID(addressID);
+		    address.setStreet(street);
+		    address.setCity(city);
+		    address.setState(state);
+		    address.setZipCode(zipCode);
+		}
+		    
+		connection.close();
+		 
+		
+		return address;
+	}
+	
+	public static Address getAddress(int addressID) throws SQLException {
+		Address address = null;
+		
+		String useDBQuery = "USE BookBayDB;";
+		
+		String getAddressQuery = "SELECT * FROM Address "
+							       + "WHERE AddressID = ?;";
+		
+		String dbUsername = "root";
+		String dbPassword = "ajgopattymn7890";
+		
+		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+			
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		    
+		PreparedStatement getAddressPstmt = connection.prepareStatement(getAddressQuery);
+		getAddressPstmt.setInt(1, addressID);    
+		
+		ResultSet addressRS = getAddressPstmt.executeQuery();
+		    
+		while(addressRS.next()) {
+			address = new Address();
+			
+			int dbAddressID = addressRS.getInt(1);
+		    String street = addressRS.getString(2);
+		    String city = addressRS.getString(3);
+		    String state = addressRS.getString(4);
+		    int zipCode = addressRS.getInt(5);
+		    	
+		    address.setAddressID(dbAddressID);
 		    address.setStreet(street);
 		    address.setCity(city);
 		    address.setState(state);

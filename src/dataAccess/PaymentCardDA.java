@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import controllers.CryptoHelper;
+import models.Address;
+import models.CardType;
 import models.PaymentCard;
 
 public class PaymentCardDA {
@@ -50,6 +52,49 @@ public class PaymentCardDA {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static PaymentCard getPaymentCard(int userID) throws Exception {
+		PaymentCard paymentCard = null;
+		
+		String useDBQuery = "USE BookBayDB;";
+		
+		String getPaymentCardQuery = "SELECT * FROM PaymentCard "
+							       + "WHERE UserID = ?";
+		
+		String dbUsername = "root";
+		String dbPassword = "ajgopattymn7890";
+		
+		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+			
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		    
+		PreparedStatement getPaymentCardPstmt = connection.prepareStatement(getPaymentCardQuery);
+		getPaymentCardPstmt.setInt(1, userID);    
+		
+		ResultSet paymentCardRS = getPaymentCardPstmt.executeQuery();
+		    
+		while(paymentCardRS.next()) {
+			paymentCard = new PaymentCard();
+			
+			String cardNumEncrypted = paymentCardRS.getString(1);
+			String cardNum = CryptoHelper.decrypt(cardNumEncrypted);
+			
+			CardType cardType = CardType.valueOf(paymentCardRS.getString(2));
+			String expDate = paymentCardRS.getString(3);
+			int dbUserID = paymentCardRS.getInt(4);
+			
+			paymentCard.setCardNum(cardNum);
+			paymentCard.setCardType(cardType);
+			paymentCard.setExpDate(expDate);
+			paymentCard.setUserID(dbUserID);
+		}
+		    
+		connection.close();
+		 
+		
+		return paymentCard;
 	}
 
 	public static<T> void editCardValue(int userID, String colName, T newValue) {
