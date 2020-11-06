@@ -178,31 +178,7 @@
 									</div>
 								</div>
 							</div>
-							<%
-											Cookie userCookie = null;
-											Cookie[] cookies = request.getCookies();
-											if (cookies != null) {
-	    										for(Cookie cookie : cookies) {
-	    											if(cookie.getName().equals("userID")) {
-	    												userCookie = cookie;
-	    												break;
-	    											}
-	    										}
-    										}
-											String userID = userCookie.getValue();
-											int addressID = UserDA.getUserValue("AddressID", "UserID", userID);
-											String currFirstName = UserDA.getUserValue("FirstName", "UserID", userID);
-											String currLastName = UserDA.getUserValue("LastName", "UserID", userID);
-											String currStreet = AddressDA.getAddressValue("Street", "AddressID", addressID);
-											String currCity = AddressDA.getAddressValue("City", "AddressID", addressID);
-											String currZipCode = AddressDA.getAddressValue("ZipCode", "AddressID", addressID);
-											String currCountry = AddressDA.getAddressValue("Country", "AddressID", addressID);
-											String currCardFirstName = currFirstName;
-											String currCardLastName = currLastName;
-											String currCardNumber = CardDA.getCardValue("CardNum", "UserID", userID);
-											String currSecurityNumber = CardDA.getCardValue("SecurityNum", "UserID", userID);
-											String currCardExpiration = CardDA.getCardValue("ExpDate", "UserID", userID);
-										%>
+							
 							<div class="card">
 								<div class="card-header" id="headingTwo">
 									<h2 class="mb-0">
@@ -228,7 +204,7 @@
                                                         <div class="form-group row">
 										<label for="inputFirstName" class="col-sm-2 col-form-label">First Name:</label>
 										<div class="col-sm-10">
-										  <input type="firstName" class="form-control" id="inputFirstName" pattern=".{1,}" name="firstName" required placeholder=<%= currFirstName %>>
+										  <input type="firstName" class="form-control" id="inputFirstName" pattern=".{1,}" name="firstName" required placeholder="">
 										  <div class="invalid-feedback">
 											Please provide a valid first name that is at least 1 characters or more.
 										  </div>
@@ -237,7 +213,7 @@
 									<div class="form-group row">
 										<label for="inputLastName" class="col-sm-2 col-form-label">Last Name:</label>
 										<div class="col-sm-10">
-										  <input type="lastName" class="form-control" id="inputLastName" pattern=".{1,}" name="lastName" required placeholder=<%= currLastName %>>
+										  <input type="lastName" class="form-control" id="inputLastName" pattern=".{1,}" name="lastName" required placeholder="">
 										  <div class="invalid-feedback">
 											Please provide a valid last name that is at least 1 characters or more.
 										  </div>
@@ -264,7 +240,7 @@
 									<div class="form-group row">
 										<label for="inputStreet" class="col-sm-2 col-form-label">Street:</label>
 										<div class="col-sm-10">
-										  <input type="street" class="form-control" id="inputStreet" required="" name="street" placeholder=<%= currStreet %>>
+										  <input type="street" class="form-control" id="inputStreet" required="" name="street" placeholder="">
 										  <div class="invalid-feedback">
 											Please enter your shipping address.
 											</div>
@@ -273,7 +249,7 @@
                                     <div class="form-group row">
 										<label for="inputCity" class="col-sm-2 col-form-label">City:</label>
 										<div class="col-sm-10">
-										  <input type="city" class="form-control" id="inputCity" required="" name="city" placeholder=<%= currCity %>>
+										  <input type="city" class="form-control" id="inputCity" required="" name="city" placeholder="">
 										  <div class="invalid-feedback">
 												Please enter a valid city.
 											</div>
@@ -344,7 +320,7 @@
                                     <div class="form-group row">
 										<label for="inputZipCode" class="col-sm-2 col-form-label">Zip Code:</label>
 										<div class="col-sm-10">
-										  <input type="zipCode" class="form-control" id="inputZipCode" required="" name="zipCode" placeholder=<%= currZipCode %>>
+										  <input type="zipCode" class="form-control" id="inputZipCode" required="" name="zipCode" placeholder="">
 										  <div class="invalid-feedback">
 												Zip code required.
 											</div>
@@ -386,7 +362,7 @@
                                                         <div class="form-group row">
                     										<label for="inputCardNumber" class="col-sm-2 col-form-label">Card Number:</label>
                     										<div class="col-sm-10">
-                    										  <input type="cardNumber" class="form-control" id="inputCardNumber" required="" name="cardNum" placeholder=<%= currCardNumber %>>
+                    										  <input type="cardNumber" class="form-control" id="inputCardNumber" required="" name="cardNum" placeholder="">
 															  <div class="invalid-feedback">
 																	Credit card number is required
 																</div>
@@ -395,7 +371,7 @@
                                                         <div class="form-group row">
                     										<label for="inputExpiration" class="col-sm-2 col-form-label">Card Expiration Date:</label>
                     										<div class="col-sm-10">
-                    										  <input type="cardExpiration" class="form-control" id="inputExpiration" name="expDate" required="" placeholder=<%= currCardExpiration %>>
+                    										  <input type="cardExpiration" class="form-control" id="inputExpiration" name="expDate" required="" placeholder="">
 															  <div class="invalid-feedback">
 																	Expiration date required
 																</div>

@@ -159,8 +159,6 @@
 				</div>
 			</div>
 
-			<a href="/ResetPassword">I forgot my password</a>
-
 	    	<div class="footerContainer">
 	     		<footer class="footer">
 					<nav class="navbar navbar-expand-lg navbar-custom">

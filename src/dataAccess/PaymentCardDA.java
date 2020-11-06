@@ -16,6 +16,8 @@ public class PaymentCardDA {
 	public static void addPaymentCardToDB(PaymentCard paymentCard) throws Exception {
 		// Get all the values from PaymentCard
 		String cardNum = paymentCard.getCardNum();
+		String cardNumEncrypted = CryptoHelper.encrypt(cardNum);
+		
 		String cardType = paymentCard.getCardType().name();
 		String expDate = paymentCard.getExpDate();
 		int userID = paymentCard.getUserID();
@@ -36,7 +38,7 @@ public class PaymentCardDA {
 			useDBStmt.executeQuery();
 			
 			PreparedStatement addPaymentCardStmt = connection.prepareStatement(addPaymentCardQuery);
-			addPaymentCardStmt.setString(1, cardNum);
+			addPaymentCardStmt.setString(1, cardNumEncrypted);
 			addPaymentCardStmt.setString(2, cardType);
 			addPaymentCardStmt.setString(3, expDate);
 			addPaymentCardStmt.setInt(4, userID);
@@ -77,6 +79,36 @@ public class PaymentCardDA {
 		}
 	}
 	
+	public static<T> void editCardValueEncrypt(int userID, String colName, String newValue) throws Exception {
+		String useDBQuery = "USE BookBayDB;";
+		
+		String addCardQuery = "UPDATE `PaymentCard` SET " + colName + " = ? WHERE UserID = ?;";
+		
+		String dbUsername = "root";
+		String dbPassword = "ajgopattymn7890";
+		
+		try {
+			Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+			
+			PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+			useDBStmt.executeQuery();
+			
+			PreparedStatement addCardStmt = connection.prepareStatement(addCardQuery);
+			
+			String newValueEncrypted = CryptoHelper.encrypt(newValue);
+			
+			addCardStmt.setString(1, newValueEncrypted);
+			addCardStmt.setInt(2, userID);
+			
+			addCardStmt.executeUpdate();
+			
+			connection.close();
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static<T> T getPaymentCardValue(String colName, String identifier, String identifierValue) throws SQLException {
 		String useDBQuery = "USE BookBayDB;";
 		
@@ -101,6 +133,36 @@ public class PaymentCardDA {
 			value = (T) paymentCardValueRS.getObject(1);
 		}
 		    
+		connection.close();
+		
+		return value;
+	}
+	
+	public static String getPaymentCardValueEncrypted(String colName, String identifier, String identifierValue) throws Exception {
+		String useDBQuery = "USE BookBayDB;";
+		
+		String getPaymentCardValueQuery = "SELECT " + colName + " FROM PaymentCard "
+								        + "WHERE " + identifier + " = ?;";
+		
+		String dbUsername = "root";
+		String dbPassword = "ajgopattymn7890";
+		
+		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement getPaymentCardValueStmt = connection.prepareStatement(getPaymentCardValueQuery);
+		getPaymentCardValueStmt.setString(1, identifierValue);
+		
+		ResultSet paymentCardValueRS = getPaymentCardValueStmt.executeQuery();
+		
+		String value = "";
+		while(paymentCardValueRS.next()) {
+			String valueEncrypted = paymentCardValueRS.getString(1);
+			value = CryptoHelper.decrypt(valueEncrypted);
+		}
+		
 		connection.close();
 		
 		return value;

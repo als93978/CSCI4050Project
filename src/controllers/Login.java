@@ -58,7 +58,7 @@ public class Login extends HttpServlet {
 		if(isAccountID) {
 			userID = emailAccountID;
 			
-			String dbPassword = UserDA.getUserValue("`Password`", "UserID", userID);
+			String dbPassword = UserDA.getUserValueEncrypted("`Password`", "UserID", userID);
 			
 			checkPassword(request, response, inputPassword, dbPassword);
 		}
@@ -68,7 +68,7 @@ public class Login extends HttpServlet {
 			
 			userID = String.valueOf((int) UserDA.getUserValue("UserID", "Email", email));
 			
-			String dbPassword = UserDA.getUserValue("`Password`", "UserID", userID);
+			String dbPassword = UserDA.getUserValueEncrypted("`Password`", "UserID", userID);
 			
 			checkPassword(request, response, inputPassword, dbPassword);
 		}
@@ -120,6 +120,9 @@ public class Login extends HttpServlet {
 	}
 	
 	private void checkPassword(HttpServletRequest request, HttpServletResponse response, String inputPassword, String dbPassword) {
+		System.out.println("inputPassword: " + inputPassword);
+		System.out.println("dbPassword: " + dbPassword);
+		
 		if(!inputPassword.equals(dbPassword)) {
 			String wrongLoginMsg = "The email/account ID and/or password you entered was incorrect.";
 			

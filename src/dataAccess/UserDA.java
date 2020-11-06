@@ -22,6 +22,8 @@ public class UserDA {
 		String email = user.getEmail();
 		
 		String password = user.getPassword();
+		String passwordEncrypted = CryptoHelper.encrypt(password);
+		
 		// Using strings seems to be easiest way to insert enum to DB
 		String status = user.getStatus().name();
 		boolean enrollmentForPromotions = user.getEnrollmentForPromotions();
@@ -46,7 +48,7 @@ public class UserDA {
 		addUserStmt.setString(1, firstName);
 		addUserStmt.setString(2, lastName);
 		addUserStmt.setString(3, email);
-		addUserStmt.setString(4, password);
+		addUserStmt.setString(4, passwordEncrypted);
 		addUserStmt.setString(5, status);
 		addUserStmt.setBoolean(6, enrollmentForPromotions);
 		addUserStmt.setInt(7, numOfCards);
@@ -82,7 +84,9 @@ public class UserDA {
 		    String firstName = lastUserRS.getString(2);
 		    String lastName = lastUserRS.getString(3);
 		    String email = lastUserRS.getString(4);
-		    String password = lastUserRS.getString(5);
+		    
+		    String passwordEncrypted = lastUserRS.getString(5);
+		    String password = CryptoHelper.decrypt(passwordEncrypted);
 		    
 		    UserStatus status = UserStatus.valueOf(lastUserRS.getString(6));
 		    boolean enrollmentForPromotions = lastUserRS.getBoolean(7);
@@ -123,7 +127,33 @@ public class UserDA {
 		useDBStmt.executeQuery();
 			
 		PreparedStatement addUserStmt = connection.prepareStatement(addUserQuery);
+		
 		addUserStmt.setObject(1, newValue);
+		addUserStmt.setInt(2, userID);
+			
+		addUserStmt.executeUpdate();
+			
+		connection.close();
+	}
+	
+	public static void editUserValueEncrypt(int userID, String colName, String newValue) throws Exception {
+		String useDBQuery = "USE BookBayDB;";
+		
+		String addUserQuery = "UPDATE `User` SET " + colName + " = ? WHERE UserID = ?;";
+		
+		String dbUsername = "root";
+		String dbPassword = "ajgopattymn7890";
+		
+		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+			
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+			
+		PreparedStatement addUserStmt = connection.prepareStatement(addUserQuery);
+		
+		String newValueEncrypted = CryptoHelper.encrypt(newValue);
+		
+		addUserStmt.setString(1, newValueEncrypted);
 		addUserStmt.setInt(2, userID);
 			
 		addUserStmt.executeUpdate();
@@ -153,6 +183,36 @@ public class UserDA {
 		T value = null;
 		while(userValueRS.next()) {
 			value = (T) userValueRS.getObject(1);
+		}
+		    
+		connection.close();
+		
+		return value;
+	}
+	
+	public static String getUserValueEncrypted(String colName, String identifier, String identifierValue) throws Exception {
+		String useDBQuery = "USE BookBayDB;";
+		
+		String getUserValueQuery = "SELECT " + colName + " FROM User "
+								 + "WHERE " + identifier + " = ?;";
+		
+		String dbUsername = "root";
+		String dbPassword = "ajgopattymn7890";
+		
+		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement getUserValueStmt = connection.prepareStatement(getUserValueQuery);
+		getUserValueStmt.setString(1, identifierValue);
+		
+		ResultSet userValueRS = getUserValueStmt.executeQuery();
+		
+		String value = "";
+		while(userValueRS.next()) {
+			String valueEncrypted = userValueRS.getString(1);
+			value = CryptoHelper.decrypt(valueEncrypted);
 		}
 		    
 		connection.close();

@@ -137,32 +137,4 @@ public class AddressDA {
 		return value;
 	}
 	
-	public static<T> T getAddressValue(String colName, String identifier, String identifierValue) throws SQLException {
-		String useDBQuery = "USE BookBayDB;";
-		
-		String getAddressValueQuery = "SELECT " + colName + " FROM Address "
-								 + "WHERE " + identifier + " = ?;";
-		
-		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
-		
-		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
-		
-		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
-		useDBStmt.executeQuery();
-		
-		PreparedStatement getAddressValueStmt = connection.prepareStatement(getAddressValueQuery);
-		getAddressValueStmt.setString(1, identifierValue);
-		
-		ResultSet addressValueRS = getAddressValueStmt.executeQuery();
-		
-		T value = null;
-		while(addressValueRS.next()) {
-			value = (T) addressValueRS.getObject(1);
-		}
-		    
-		connection.close();
-		
-		return value;
-	}
 }
