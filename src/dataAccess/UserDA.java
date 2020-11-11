@@ -37,7 +37,7 @@ public class UserDA {
 							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 	
 		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 			
@@ -68,7 +68,7 @@ public class UserDA {
 							    + "ORDER BY UserID DESC LIMIT 1;";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 			
@@ -122,7 +122,7 @@ public class UserDA {
 							    + "WHERE UserID = ?;";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 			
@@ -174,7 +174,7 @@ public class UserDA {
 		String addUserQuery = "UPDATE `User` SET " + colName + " = ? WHERE UserID = ?;";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 			
@@ -197,7 +197,7 @@ public class UserDA {
 		String addUserQuery = "UPDATE `User` SET " + colName + " = ? WHERE UserID = ?;";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 			
@@ -223,7 +223,7 @@ public class UserDA {
 								 + "WHERE " + identifier + " = ?;";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 		
@@ -252,7 +252,7 @@ public class UserDA {
 								 + "WHERE " + identifier + " = ?;";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 		
