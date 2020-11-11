@@ -28,7 +28,7 @@ public class AddressDA {
 							+ "VALUES(?, ?, ?, ?);";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 			
@@ -55,7 +55,7 @@ public class AddressDA {
 							       + "ORDER BY AddressID DESC LIMIT 1;";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 			
@@ -95,7 +95,7 @@ public class AddressDA {
 							       + "WHERE AddressID = ?;";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 			
@@ -135,7 +135,7 @@ public class AddressDA {
 		String addAddressQuery = "UPDATE `Address` SET " + colName + " = ? WHERE AddressID = ?;";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 			
@@ -158,7 +158,7 @@ public class AddressDA {
 								 + "WHERE " + identifier + " = ?;";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 		
