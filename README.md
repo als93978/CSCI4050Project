@@ -13,5 +13,3 @@ installation directory. The WAR file is in the zip file submitted.
 
 Servlet source code can be found in the "src" folder in "CSCI4050Project". JSP, HTML, CSS, and JS source code can be found in the "WebContent" folder
 in "CSCI4050Project".
-
-test
