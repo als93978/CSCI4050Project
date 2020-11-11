@@ -31,7 +31,7 @@ public class PaymentCardDA {
 								   + "VALUES(?, ?, ?, ?)";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		try {
 			Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
@@ -63,7 +63,7 @@ public class PaymentCardDA {
 							       + "WHERE UserID = ?";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 			
@@ -103,7 +103,7 @@ public class PaymentCardDA {
 		String addCardQuery = "UPDATE `PaymentCard` SET " + colName + " = ? WHERE UserID = ?;";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		try {
 			Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
@@ -130,7 +130,7 @@ public class PaymentCardDA {
 		String addCardQuery = "UPDATE `PaymentCard` SET " + colName + " = ? WHERE UserID = ?;";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		try {
 			Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
@@ -161,7 +161,7 @@ public class PaymentCardDA {
 								        + "WHERE " + identifier + " = ?;";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 		
@@ -190,7 +190,7 @@ public class PaymentCardDA {
 								        + "WHERE " + identifier + " = ?;";
 		
 		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		String dbPassword = "runningislife15";
 		
 		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 		
