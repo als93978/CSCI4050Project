@@ -1,22 +1,26 @@
 package controllers;
 
-import org.jasypt.util.text.BasicTextEncryptor;
+import org.jasypt.util.password.ConfigurablePasswordEncryptor;
 
 public class CryptoHelper {
 	
-	private static String encryptionPassword = "xn4#lWd7!eg8H4Ps@0eyBA7jB";
+	private static ConfigurablePasswordEncryptor passwordEncryptor;
 	
-	public static String encrypt(String plainText) throws Exception {
-		BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
-		textEncryptor.setPassword(encryptionPassword);
+	public static ConfigurablePasswordEncryptor getPasswordEncryptor() {
+		if(passwordEncryptor == null) {
+			passwordEncryptor = new ConfigurablePasswordEncryptor();
+			passwordEncryptor.setAlgorithm("SHA-256");
+			passwordEncryptor.setPlainDigest(true);
+			passwordEncryptor.setStringOutputType("hexadecimal");
+		}
 		
-		return textEncryptor.encrypt(plainText);
+		return passwordEncryptor;
 	}
 	
-	public static String decrypt(String encryptedText) throws Exception {
-		BasicTextEncryptor textDecryptor = new BasicTextEncryptor();
-		textDecryptor.setPassword(encryptionPassword);
+	public static String encryptPassword(String plainTextPassword) {
+		ConfigurablePasswordEncryptor passwordEncryptor = getPasswordEncryptor();
 		
-		return textDecryptor.decrypt(encryptedText);
+		return passwordEncryptor.encryptPassword(plainTextPassword);
 	}
+
 }

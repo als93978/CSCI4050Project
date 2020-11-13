@@ -70,7 +70,7 @@ public class EditProfile extends HttpServlet {
 		else {
 			String mustBeLoggedInMsg = "You must be logged in to access this page.";
 			
-			returnError(request, response, mustBeLoggedInMsg);			
+			returnError(request, response, mustBeLoggedInMsg);
 		}
 	}
 	
@@ -131,7 +131,7 @@ public class EditProfile extends HttpServlet {
 		
 		request.setAttribute("errorMessage", errorMessage);
 		
-		redirectToPage(request, response, "login.jsp");
+		redirectToPage(request, response, "EditProfile");
 	}
 	
 	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {

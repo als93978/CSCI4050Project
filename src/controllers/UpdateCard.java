@@ -97,7 +97,7 @@ public class UpdateCard extends HttpServlet {
 		
 		request.setAttribute("message", message);
 		
-		redirectToPage(request, response, "accountSettings.jsp");
+		redirectToPage(request, response, "EditProfile");
 	}
 	
 	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {
@@ -107,7 +107,7 @@ public class UpdateCard extends HttpServlet {
 		
 		request.setAttribute("errorMessage", errorMessage);
 		
-		redirectToPage(request, response, "accountSettings.jsp");
+		redirectToPage(request, response, "EditProfile");
 	}
 	
 	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {

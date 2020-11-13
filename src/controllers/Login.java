@@ -43,6 +43,7 @@ public class Login extends HttpServlet {
 			String userID = validateLoginInformation(request, response);
 			setSessionCookie(request, response, userID);
 		} catch(Exception e) {
+			e.printStackTrace();
 			interpretAndReturnException(request, response, e);
 		}
 	}
@@ -58,7 +59,7 @@ public class Login extends HttpServlet {
 		if(isAccountID) {
 			userID = emailAccountID;
 			
-			String dbPassword = UserDA.getUserValueEncrypted("`Password`", "UserID", userID);
+			String dbPassword = UserDA.getUserValue("`Password`", "UserID", userID);
 			
 			checkPassword(request, response, inputPassword, dbPassword);
 		}
@@ -68,7 +69,7 @@ public class Login extends HttpServlet {
 			
 			userID = String.valueOf((int) UserDA.getUserValue("UserID", "Email", email));
 			
-			String dbPassword = UserDA.getUserValueEncrypted("`Password`", "UserID", userID);
+			String dbPassword = UserDA.getUserValue("`Password`", "UserID", userID);
 			
 			checkPassword(request, response, inputPassword, dbPassword);
 		}
@@ -123,7 +124,7 @@ public class Login extends HttpServlet {
 		System.out.println("inputPassword: " + inputPassword);
 		System.out.println("dbPassword: " + dbPassword);
 		
-		if(!inputPassword.equals(dbPassword)) {
+		if(!CryptoHelper.getPasswordEncryptor().checkPassword(inputPassword, dbPassword)) {
 			String wrongLoginMsg = "The email/account ID and/or password you entered was incorrect.";
 			
 			returnError(request, response, wrongLoginMsg);

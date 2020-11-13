@@ -22,7 +22,7 @@ public class UserDA {
 		String email = user.getEmail();
 		
 		String password = user.getPassword();
-		String passwordEncrypted = CryptoHelper.encrypt(password);
+		String passwordEncrypted = CryptoHelper.encryptPassword(password);
 		
 		// Using strings seems to be easiest way to insert enum to DB
 		String status = user.getStatus().name();
@@ -84,9 +84,7 @@ public class UserDA {
 		    String firstName = userRS.getString(2);
 		    String lastName = userRS.getString(3);
 		    String email = userRS.getString(4);
-		    
-		    String passwordEncrypted = userRS.getString(5);
-		    String password = CryptoHelper.decrypt(passwordEncrypted);
+		    String password = userRS.getString(5);
 		    
 		    UserStatus status = UserStatus.valueOf(userRS.getString(6));
 		    boolean enrollmentForPromotions = userRS.getBoolean(7);
@@ -139,9 +137,7 @@ public class UserDA {
 		    String firstName = userRS.getString(2);
 		    String lastName = userRS.getString(3);
 		    String email = userRS.getString(4);
-		    
-		    String passwordEncrypted = userRS.getString(5);
-		    String password = CryptoHelper.decrypt(passwordEncrypted);
+		    String password = userRS.getString(5);
 		    
 		    UserStatus status = UserStatus.valueOf(userRS.getString(6));
 		    boolean enrollmentForPromotions = userRS.getBoolean(7);
@@ -206,7 +202,7 @@ public class UserDA {
 			
 		PreparedStatement addUserStmt = connection.prepareStatement(addUserQuery);
 		
-		String newValueEncrypted = CryptoHelper.encrypt(newValue);
+		String newValueEncrypted = CryptoHelper.encryptPassword(newValue);
 		
 		addUserStmt.setString(1, newValueEncrypted);
 		addUserStmt.setInt(2, userID);
@@ -238,36 +234,6 @@ public class UserDA {
 		T value = null;
 		while(userValueRS.next()) {
 			value = (T) userValueRS.getObject(1);
-		}
-		    
-		connection.close();
-		
-		return value;
-	}
-	
-	public static String getUserValueEncrypted(String colName, String identifier, String identifierValue) throws Exception {
-		String useDBQuery = "USE BookBayDB;";
-		
-		String getUserValueQuery = "SELECT " + colName + " FROM User "
-								 + "WHERE " + identifier + " = ?;";
-		
-		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
-		
-		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
-		
-		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
-		useDBStmt.executeQuery();
-		
-		PreparedStatement getUserValueStmt = connection.prepareStatement(getUserValueQuery);
-		getUserValueStmt.setString(1, identifierValue);
-		
-		ResultSet userValueRS = getUserValueStmt.executeQuery();
-		
-		String value = "";
-		while(userValueRS.next()) {
-			String valueEncrypted = userValueRS.getString(1);
-			value = CryptoHelper.decrypt(valueEncrypted);
 		}
 		    
 		connection.close();

@@ -56,7 +56,7 @@ public class UpdateAddress extends HttpServlet {
 	        String state = request.getParameter("state");
 	        int zipCode = Integer.parseInt(request.getParameter("zipCode"));
 	        
-	        String addressID = UserDA.getUserValue("AddressID", "UserID", userID);
+	        Integer addressID = (Integer) UserDA.getUserValue("AddressID", "UserID", userID);
 	        
 	        if(addressID == null) {
 	        	Address address = new Address();
@@ -67,20 +67,22 @@ public class UpdateAddress extends HttpServlet {
 	        	
 	        	AddressDA.addAddressToDB(address);
 	        	
-	        	UserDA.editUserValue(Integer.parseInt(userID), "AddressID", "1");
+	        	Address newAddress = AddressDA.getLastAddressFromDB();
+	        	
+	        	UserDA.editUserValue(Integer.parseInt(userID), "AddressID", newAddress.getAddressID());
 	        }
 	        
 	        else {
-	        	AddressDA.editAddressValue(Integer.parseInt(addressID), "Street", street);
-	        	AddressDA.editAddressValue(Integer.parseInt(addressID), "City", city);
-	        	AddressDA.editAddressValue(Integer.parseInt(addressID), "State", state);
-	        	AddressDA.editAddressValue(Integer.parseInt(addressID), "ZipCode", zipCode);
+	        	AddressDA.editAddressValue(addressID, "Street", street);
+	        	AddressDA.editAddressValue(addressID, "City", city);
+	        	AddressDA.editAddressValue(addressID, "State", state);
+	        	AddressDA.editAddressValue(addressID, "ZipCode", zipCode);
 	        }
 	
 	        String message = "Address changes saved.";
 	        returnMessage(request, response, message);
 		} catch(Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			interpretAndReturnException(request, response, e);
 		}
 	}
@@ -96,7 +98,7 @@ public class UpdateAddress extends HttpServlet {
 		
 		request.setAttribute("message", message);
 		
-		redirectToPage(request, response, "accountSettings.jsp");
+		redirectToPage(request, response, "EditProfile");
 	}
 	
 	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {
@@ -106,7 +108,7 @@ public class UpdateAddress extends HttpServlet {
 		
 		request.setAttribute("errorMessage", errorMessage);
 		
-		redirectToPage(request, response, "accountSettings.jsp");
+		redirectToPage(request, response, "EditProfile");
 	}
 	
 	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {

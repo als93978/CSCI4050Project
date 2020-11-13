@@ -18,7 +18,7 @@ public class PaymentCardDA {
 	public static void addPaymentCardToDB(PaymentCard paymentCard) throws Exception {
 		// Get all the values from PaymentCard
 		String cardNum = paymentCard.getCardNum();
-		String cardNumEncrypted = CryptoHelper.encrypt(cardNum);
+		String cardNumEncrypted = CryptoHelper.encryptPassword(cardNum);
 		
 		String cardType = paymentCard.getCardType().name();
 		String expDate = paymentCard.getExpDate();
@@ -77,10 +77,8 @@ public class PaymentCardDA {
 		    
 		while(paymentCardRS.next()) {
 			paymentCard = new PaymentCard();
-			
-			String cardNumEncrypted = paymentCardRS.getString(1);
-			String cardNum = CryptoHelper.decrypt(cardNumEncrypted);
-			
+	
+			String cardNum = paymentCardRS.getString(1);
 			CardType cardType = CardType.valueOf(paymentCardRS.getString(2));
 			String expDate = paymentCardRS.getString(3);
 			int dbUserID = paymentCardRS.getInt(4);
@@ -140,7 +138,7 @@ public class PaymentCardDA {
 			
 			PreparedStatement addCardStmt = connection.prepareStatement(addCardQuery);
 			
-			String newValueEncrypted = CryptoHelper.encrypt(newValue);
+			String newValueEncrypted = CryptoHelper.encryptPassword(newValue);
 			
 			addCardStmt.setString(1, newValueEncrypted);
 			addCardStmt.setInt(2, userID);
@@ -204,8 +202,7 @@ public class PaymentCardDA {
 		
 		String value = "";
 		while(paymentCardValueRS.next()) {
-			String valueEncrypted = paymentCardValueRS.getString(1);
-			value = CryptoHelper.decrypt(valueEncrypted);
+			value = paymentCardValueRS.getString(1);
 		}
 		
 		connection.close();

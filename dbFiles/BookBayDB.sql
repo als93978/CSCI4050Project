@@ -118,4 +118,4 @@ CREATE TABLE IF NOT EXISTS ManagePromotions (
 );
 
 INSERT INTO `User`(FirstName, LastName, Email, Password, `Status`, `Type`)
-VALUES("Austin", "Schultz", "aschultz086@gmail.com", "lordfarquaad", "ACTIVE", "ADMIN");
+VALUES("Austin", "Schultz", "aschultz086@gmail.com", sha2("lordfarquaad", 256), "ACTIVE", "ADMIN");
