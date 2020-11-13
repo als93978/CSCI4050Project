@@ -54,7 +54,7 @@ public class UpdatePassword extends HttpServlet {
 			
 	        String password = request.getParameter("password");
 	        
-			UserDA.editUserValueEncrypt(userID, "Password", password);
+			UserDA.editUserPassword(userID, password);
 	
 	        String message = "Password changes saved.";
 	        returnMessage(request, response, message);

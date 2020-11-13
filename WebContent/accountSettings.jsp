@@ -10,26 +10,10 @@
 
 <%
 	User user = (User) request.getAttribute("user");
-	if(user != null) {	
-		String firstName = user.getFirstName();
-		String lastName = user.getLastName();
-		String password = user.getPassword();	
-	}
 
 	Address address = (Address) request.getAttribute("address");
-	if(address != null) {
-		String street = address.getStreet();
-		String city = address.getCity();
-		String state = address.getState();
-		int zipCode = address.getZipCode();
-	}
 	
 	PaymentCard paymentCard = (PaymentCard) request.getAttribute("paymentCard");
-	if(paymentCard != null) {
-		String cardNum = paymentCard.getCardNum();
-		String cardType = paymentCard.getCardType().name();
-		String expDate = paymentCard.getExpDate();
-	}
 %>
 
 <!DOCTYPE html>
@@ -175,15 +159,6 @@
 
 												<div id="collapseInfo1" class="collapse show" aria-labelledby="headingInfo1" data-parent="#accordionInfo1">
 													<div class="card-body">
-														<%
-															out.println("<div class=\"alert alert-primary\" role=\"alert\" style=\"display: block\">");
-															if(user != null)	
-																out.println("\t" + "Current Password: " + user.getPassword());
-															else
-																out.println("\t" + "No current password found.");
-															out.println("</div>");
-														%>
-													
                                                         <form action="<%= request.getContextPath() %>/UpdatePassword" method="post" name="passwordForm" class="needs-validation" novalidate>
                                                         <div class="form-group row">
 															<label for="inputPassword" class="col-sm-2 col-form-label">Password:</label>
@@ -426,8 +401,9 @@
 													
 													   <%
 															out.println("<div class=\"alert alert-primary\" role=\"alert\" style=\"display: block\">");
-															if(paymentCard != null) {	
-													  			out.println("<p>" + "Current Card Number: " + paymentCard.getCardNum() + "</p>");
+															if(paymentCard != null) {
+																String cardNum = paymentCard.getCardNum();
+													  			out.println("<p>" + "Current Card Number: **** **** **** " + cardNum.substring(cardNum.length() - 4) + "</p>");
 																out.println("<p>" + "Current Card Expiration Date: " + paymentCard.getExpDate() + "</p>");
 																out.println("<p>" + "Current Card Type: " + paymentCard.getCardType().name() + "</p>");
 															}

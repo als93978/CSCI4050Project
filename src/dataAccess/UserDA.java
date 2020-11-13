@@ -187,10 +187,10 @@ public class UserDA {
 		connection.close();
 	}
 	
-	public static void editUserValueEncrypt(int userID, String colName, String newValue) throws Exception {
+	public static void editUserPassword(int userID, String newValue) throws Exception {
 		String useDBQuery = "USE BookBayDB;";
 		
-		String addUserQuery = "UPDATE `User` SET " + colName + " = ? WHERE UserID = ?;";
+		String addUserQuery = "UPDATE `User` SET `Password` = ? WHERE UserID = ?;";
 		
 		String dbUsername = "root";
 		String dbPassword = "ajgopattymn7890";
@@ -241,4 +241,32 @@ public class UserDA {
 		return value;
 	}
 	
+//	public static String getUserPassword(int userID) throws SQLException {
+//		String useDBQuery = "USE BookBayDB;";
+//		
+//		String getUserValueQuery = "SELECT `Password` FROM User "
+//								 + "WHERE UserID = ?;";
+//		
+//		String dbUsername = "root";
+//		String dbPassword = "ajgopattymn7890";
+//		
+//		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+//		
+//		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+//		useDBStmt.executeQuery();
+//		
+//		PreparedStatement getUserValueStmt = connection.prepareStatement(getUserValueQuery);
+//		getUserValueStmt.setInt(1, userID);
+//		
+//		ResultSet userValueRS = getUserValueStmt.executeQuery();
+//		
+//		String value = null;
+//		while(userValueRS.next()) {
+//			value = userValueRS.getString(1);
+//		}
+//		    
+//		connection.close();
+//		
+//		return value;
+//	}
 }

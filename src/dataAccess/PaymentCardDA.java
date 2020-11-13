@@ -18,7 +18,7 @@ public class PaymentCardDA {
 	public static void addPaymentCardToDB(PaymentCard paymentCard) throws Exception {
 		// Get all the values from PaymentCard
 		String cardNum = paymentCard.getCardNum();
-		String cardNumEncrypted = CryptoHelper.encryptPassword(cardNum);
+		String cardNumEncrypted = CryptoHelper.encryptText(cardNum);
 		
 		String cardType = paymentCard.getCardType().name();
 		String expDate = paymentCard.getExpDate();
@@ -78,7 +78,7 @@ public class PaymentCardDA {
 		while(paymentCardRS.next()) {
 			paymentCard = new PaymentCard();
 	
-			String cardNum = paymentCardRS.getString(1);
+			String cardNum = CryptoHelper.decryptText(paymentCardRS.getString(1));
 			CardType cardType = CardType.valueOf(paymentCardRS.getString(2));
 			String expDate = paymentCardRS.getString(3);
 			int dbUserID = paymentCardRS.getInt(4);
@@ -122,10 +122,10 @@ public class PaymentCardDA {
 		}
 	}
 	
-	public static<T> void editCardValueEncrypt(int userID, String colName, String newValue) throws Exception {
+	public static<T> void editPaymentCardNum(int userID, String newValue) throws Exception {
 		String useDBQuery = "USE BookBayDB;";
 		
-		String addCardQuery = "UPDATE `PaymentCard` SET " + colName + " = ? WHERE UserID = ?;";
+		String addCardQuery = "UPDATE `PaymentCard` SET CardNum = ? WHERE UserID = ?;";
 		
 		String dbUsername = "root";
 		String dbPassword = "ajgopattymn7890";
@@ -138,7 +138,7 @@ public class PaymentCardDA {
 			
 			PreparedStatement addCardStmt = connection.prepareStatement(addCardQuery);
 			
-			String newValueEncrypted = CryptoHelper.encryptPassword(newValue);
+			String newValueEncrypted = CryptoHelper.encryptText(newValue);
 			
 			addCardStmt.setString(1, newValueEncrypted);
 			addCardStmt.setInt(2, userID);
@@ -181,11 +181,11 @@ public class PaymentCardDA {
 		return value;
 	}
 	
-	public static String getPaymentCardValueEncrypted(String colName, String identifier, String identifierValue) throws Exception {
+	public static String getPaymentCardNum(int userID) throws Exception {
 		String useDBQuery = "USE BookBayDB;";
 		
-		String getPaymentCardValueQuery = "SELECT " + colName + " FROM PaymentCard "
-								        + "WHERE " + identifier + " = ?;";
+		String getPaymentCardValueQuery = "SELECT CardNum FROM PaymentCard "
+								        + "WHERE UserID = ?;";
 		
 		String dbUsername = "root";
 		String dbPassword = "ajgopattymn7890";
@@ -196,13 +196,13 @@ public class PaymentCardDA {
 		useDBStmt.executeQuery();
 		
 		PreparedStatement getPaymentCardValueStmt = connection.prepareStatement(getPaymentCardValueQuery);
-		getPaymentCardValueStmt.setString(1, identifierValue);
+		getPaymentCardValueStmt.setInt(1, userID);
 		
 		ResultSet paymentCardValueRS = getPaymentCardValueStmt.executeQuery();
 		
 		String value = "";
 		while(paymentCardValueRS.next()) {
-			value = paymentCardValueRS.getString(1);
+			value = CryptoHelper.decryptText(paymentCardValueRS.getString(1));
 		}
 		
 		connection.close();

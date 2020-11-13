@@ -59,7 +59,7 @@ public class UpdateCard extends HttpServlet {
 	        
 	        String expDate = request.getParameter("expDate");
 	
-	        String dbCardNum = PaymentCardDA.getPaymentCardValueEncrypted("CardNum", "UserID", userID);
+	        String dbCardNum = PaymentCardDA.getPaymentCardNum(Integer.parseInt(userID));
 	        
 	        if(dbCardNum == null || dbCardNum == "") {
 	        	PaymentCard paymentCard = new PaymentCard();
@@ -72,7 +72,7 @@ public class UpdateCard extends HttpServlet {
 	        }
 	        
 	        else {
-	        	PaymentCardDA.editCardValueEncrypt(Integer.parseInt(userID), "CardNum", cardNum);
+	        	PaymentCardDA.editPaymentCardNum(Integer.parseInt(userID), cardNum);
 	        	PaymentCardDA.editCardValue(Integer.parseInt(userID), "`Type`", cardType);
 	        	PaymentCardDA.editCardValue(Integer.parseInt(userID), "ExpDate", expDate);
 	        	PaymentCardDA.editCardValue(Integer.parseInt(userID), "UserID", userID);
