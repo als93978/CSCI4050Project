@@ -31,7 +31,15 @@ import models.User;
 @WebServlet("/Register")
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    
+	private UserDA userDA = new UserDA();
+	private AddressDA addressDA = new AddressDA();
+	private PaymentCardDA paymentCardDA = new PaymentCardDA();
+	
+	private User user = null;
+	private Address address = null;
+	private PaymentCard paymentCard = null;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -51,9 +59,9 @@ public class Register extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			User newUser = processUserInfo(request);
+			processUserInfo(request);
 			
-			sendConfirmationEmail(request, newUser);
+			sendConfirmationEmail(request);
 			
 			redirectToPage(request, response, "registrationConfirmation.jsp");
 		} catch(Exception e) {
@@ -62,53 +70,52 @@ public class Register extends HttpServlet {
 		}
 	}
 	
-	private User processUserInfo(HttpServletRequest request) throws Exception {
-		User newUser = initUser(request);
+	private void processUserInfo(HttpServletRequest request) throws Exception {
+		user = initUser(request);
 		
-		//UserDA userDA = new UserDA();
-		UserDA.addUserToDB(newUser);
-		
-		// Update newUser model so we don't have to read from DB for paymentInfo and shippingInfo below
-		newUser = UserDA.getLastUserFromDB();
+		userDA.createUser(user);
 		
 		boolean paymentInfoEntered = paymentInfoWasEntered(request);
 		boolean shippingInfoEntered = request.getParameter("shippingOption") != null;
 		
 		if(paymentInfoEntered) {
-			PaymentCard paymentCard = initPaymentCard(request, newUser);
+			paymentCard = initPaymentCard(request, user);
 			
-			PaymentCardDA.addPaymentCardToDB(paymentCard);
+			paymentCardDA.createPaymentCard(paymentCard);
 			
 			// Set NumOfCards to 1
-			UserDA.editUserValue(newUser.getUserID(), "NumOfCards", 1);
-			
-			newUser = UserDA.getLastUserFromDB();
+//			UserDAOld.editUserValue(newUser.getUserID(), "NumOfCards", 1);
+			user.setNumOfCards(1);
+			userDA.updateUser(user);
 		}
 		
 		if(shippingInfoEntered) {
-			Address shippingInfo = initShippingInfo(request);
+			address = initShippingInfo(request);
 			
-			AddressDA.addAddressToDB(shippingInfo);
+			addressDA.createAddress(address);
 			
 			// Update shippingInfo model to get AddressID
-			shippingInfo = AddressDA.getLastAddressFromDB();
+			address = addressDA.getLastAddress();
 			
 			// Now go back to newUser and enter the addressID
-			UserDA.editUserValue(newUser.getUserID(), "AddressID", shippingInfo.getAddressID());
+//			UserDAOld.editUserValue(newUser.getUserID(), "AddressID", shippingInfo.getAddressID());
+			user.setAddressID(address.getAddressID());
+			userDA.updateUser(user);
 		}
-		
-		newUser = UserDA.getLastUserFromDB();
-		
-		return newUser;
 	}
 	
-	private void sendConfirmationEmail(HttpServletRequest request, User newUser) throws SQLException, MessagingException {
+	private void sendConfirmationEmail(HttpServletRequest request) throws SQLException, MessagingException {
+		user = userDA.getLastUser();
+		
 		String confirmationCode = ConfirmUser.generateConfirmationCode();
 		
-		UserDA.editUserValue(newUser.getUserID(), "ConfirmationCode", confirmationCode);
+//		UserDAOld.editUserValue(newUser.getUserID(), "ConfirmationCode", confirmationCode);
+		
+		user.setConfirmationCode(confirmationCode);
+		userDA.updateUser(user);
 		
 		String fromAddress = EmailHelper.fromAddress;
-		String userEmail = newUser.getEmail();
+		String userEmail = user.getEmail();
 		
 		Email email = new Email();
 		

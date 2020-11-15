@@ -30,6 +30,10 @@ import models.User;
 public class UpdatePassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private UserDA userDA = new UserDA();
+	
+	private User user = null;
+	
     /**
      * Default constructor. 
      */
@@ -52,9 +56,13 @@ public class UpdatePassword extends HttpServlet {
 			Cookie[] cookies = request.getCookies();
 	        int userID = Integer.parseInt(cookies[1].getValue());
 			
+	        user = userDA.getUserByID(userID);
+	        
 	        String password = request.getParameter("password");
 	        
-			UserDA.editUserPassword(userID, password);
+//			UserDAOld.editUserPassword(userID, password);
+	        user.setPassword(password);
+	        userDA.updatePassword(user);
 	
 	        String message = "Password changes saved.";
 	        returnMessage(request, response, message);

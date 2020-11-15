@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dataAccess.UserDA;
 import models.ErrorMessage;
+import models.User;
 
 /**
  * Servlet implementation class Login
@@ -20,6 +21,10 @@ import models.ErrorMessage;
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private UserDA userDA = new UserDA();
+	
+	private User user = null;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -40,26 +45,26 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String userID = validateLoginInformation(request, response);
-			setSessionCookie(request, response, userID);
+			validateLoginInformation(request, response);
+			setSessionCookie(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();
 			interpretAndReturnException(request, response, e);
 		}
 	}
 	
-	private String validateLoginInformation(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private void validateLoginInformation(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String emailAccountID = request.getParameter("emailAccountID");
 		String inputPassword = request.getParameter("password");
 		
 		boolean isAccountID = isAccountID(emailAccountID);
 		
-		String userID = "";
-		
 		if(isAccountID) {
-			userID = emailAccountID;
+			int userID = Integer.parseInt(emailAccountID);
 			
-			String dbPassword = UserDA.getUserValue("`Password`", "UserID", userID);
+			user = userDA.getUserByID(userID);
+			
+			String dbPassword = user.getPassword();
 			
 			checkPassword(request, response, inputPassword, dbPassword);
 		}
@@ -67,18 +72,16 @@ public class Login extends HttpServlet {
 		else {
 			String email = emailAccountID;
 			
-			userID = String.valueOf((int) UserDA.getUserValue("UserID", "Email", email));
+			user = userDA.getUserByEmail(email);
 			
-			String dbPassword = UserDA.getUserValue("`Password`", "UserID", userID);
+			String dbPassword = user.getPassword();
 			
 			checkPassword(request, response, inputPassword, dbPassword);
 		}
-		
-		return userID;
 	}
 	
-	private void setSessionCookie(HttpServletRequest request, HttpServletResponse response, String userID) throws IOException {
-		Cookie sessionCookie = new Cookie("userID", userID);
+	private void setSessionCookie(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Cookie sessionCookie = new Cookie("userID", String.valueOf(user.getUserID()));
 		
 		response.addCookie(sessionCookie);
 		

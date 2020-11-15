@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import dataAccess.UserDA;
 import models.ErrorMessage;
 import models.Message;
+import models.User;
 import models.UserStatus;
 
 /**
@@ -22,6 +23,10 @@ import models.UserStatus;
 @WebServlet("/ConfirmUser")
 public class ConfirmUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private UserDA userDA = new UserDA();
+	
+	private User user = null;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -53,12 +58,19 @@ public class ConfirmUser extends HttpServlet {
 		String inputEmail = request.getParameter("email");
 		String inputConfirmationCode = request.getParameter("code");
 		
-		String dbConfirmationCode = UserDA.getUserValue("ConfirmationCode", "Email", inputEmail);
+		user = userDA.getUserByEmail(inputEmail);
+		
+//		String dbConfirmationCode = UserDAOld.getUserValue("ConfirmationCode", "Email", inputEmail);
+		String dbConfirmationCode = user.getConfirmationCode();
 		
 		if(inputConfirmationCode.equals(dbConfirmationCode)) {
-			int userID = UserDA.getUserValue("UserID", "Email", inputEmail);
+//			int userID = UserDAOld.getUserValue("UserID", "Email", inputEmail);
+//			
+//			UserDAOld.editUserValue(userID, "Status", UserStatus.ACTIVE.name());
 			
-			UserDA.editUserValue(userID, "Status", UserStatus.ACTIVE.name());
+			user.setStatusID(UserStatus.ACTIVE);
+			
+			userDA.updateUser(user);
 			
 			String message = "You have successfully confirmed your registration. You can now login.";
 			returnMessage(request, response, message);

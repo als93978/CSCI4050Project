@@ -30,6 +30,10 @@ import models.User;
 public class UpdateName extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	private UserDA userDA = new UserDA();
+	
+	private User user = null;
+	
     /**
      * Default constructor. 
      */
@@ -51,11 +55,17 @@ public class UpdateName extends HttpServlet {
 		try {
 			Cookie[] cookies = request.getCookies();
 	        int userID = Integer.parseInt(cookies[1].getValue());
+	        
+	        user = userDA.getUserByID(userID);
+	        
 	        String firstName = request.getParameter("firstName");
 	        String lastName = request.getParameter("lastName");
 	
-			UserDA.editUserValue(userID, "FirstName", firstName);
-			UserDA.editUserValue(userID, "LastName", lastName);
+//			UserDAOld.editUserValue(userID, "FirstName", firstName);
+//			UserDAOld.editUserValue(userID, "LastName", lastName);
+	        user.setFirstName(firstName);
+	        user.setLastName(lastName);
+	        userDA.updateUser(user);
 	
 	        String message = "Name changes saved.";
 	        returnMessage(request, response, message);

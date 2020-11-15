@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dataAccess.UserDA;
+import models.User;
 import models.UserType;
 
 /**
@@ -21,7 +22,11 @@ import models.UserType;
 @WebServlet("/Index")
 public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    
+	private UserDA userDA = new UserDA();
+	
+	private User user = null;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -74,7 +79,11 @@ public class Index extends HttpServlet {
 	}
 	
 	private void processSessionCookie(HttpServletRequest request, HttpServletResponse response, Cookie sessionCookie) throws SQLException, IOException {
-		boolean isUserAdmin = checkUserIsAdmin(sessionCookie);
+		int userID = Integer.parseInt(sessionCookie.getValue());
+		
+		user = userDA.getUserByID(userID);
+		
+		boolean isUserAdmin = checkUserIsAdmin();
 		
 		if(isUserAdmin) {
 			response.sendRedirect(request.getContextPath() + "/adminManageBooks.html");
@@ -85,10 +94,8 @@ public class Index extends HttpServlet {
 		}
 	}
 	
-	private boolean checkUserIsAdmin(Cookie sessionCookie) throws SQLException {
-		String userID = sessionCookie.getValue();
-		
-		UserType userType = UserType.valueOf((String) UserDA.getUserValue("`Type`", "UserID", userID));
+	private boolean checkUserIsAdmin() throws SQLException {
+		UserType userType = user.getType();
 		
 		if(userType.equals(UserType.ADMIN))
 			return true;

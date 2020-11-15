@@ -29,6 +29,12 @@ import models.User;
 public class UpdateAddress extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private UserDA userDA = new UserDA();
+	private AddressDA addressDA = new AddressDA();
+	
+	private User user = null;
+	private Address address = null;
+	
     /**
      * Default constructor. 
      */
@@ -49,34 +55,42 @@ public class UpdateAddress extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			Cookie[] cookies = request.getCookies();
-	        String userID = cookies[1].getValue();
+	        int userID = Integer.parseInt(cookies[1].getValue());
+	        
+	        user = userDA.getUserByID(userID);
 	        
 	        String street = request.getParameter("street");
 	        String city = request.getParameter("city");
 	        String state = request.getParameter("state");
 	        int zipCode = Integer.parseInt(request.getParameter("zipCode"));
 	        
-	        Integer addressID = (Integer) UserDA.getUserValue("AddressID", "UserID", userID);
+	        int addressID = user.getAddressID();
 	        
-	        if(addressID == null) {
-	        	Address address = new Address();
+	        address = addressDA.getAddressByID(addressID);
+	        
+	        if(address == null) {
+	        	address = new Address();
+	        	
 	        	address.setStreet(street);
 	        	address.setCity(city);
 	        	address.setState(state);
 	        	address.setZipCode(zipCode);
 	        	
-	        	AddressDA.addAddressToDB(address);
+	        	addressDA.createAddress(address);
 	        	
-	        	Address newAddress = AddressDA.getLastAddressFromDB();
+	        	address = addressDA.getLastAddress();
 	        	
-	        	UserDA.editUserValue(Integer.parseInt(userID), "AddressID", newAddress.getAddressID());
+	        	user.setAddressID(address.getAddressID());
+	        	userDA.updateUser(user);
 	        }
 	        
 	        else {
-	        	AddressDA.editAddressValue(addressID, "Street", street);
-	        	AddressDA.editAddressValue(addressID, "City", city);
-	        	AddressDA.editAddressValue(addressID, "State", state);
-	        	AddressDA.editAddressValue(addressID, "ZipCode", zipCode);
+	        	address.setStreet(street);
+	        	address.setCity(city);
+	        	address.setState(state);
+	        	address.setZipCode(zipCode);
+	        	
+	        	addressDA.updateAddress(address);
 	        }
 	
 	        String message = "Address changes saved.";

@@ -1,7 +1,6 @@
 package dataAccess;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,36 +10,56 @@ import models.User;
 import models.UserStatus;
 import models.UserType;
 
-public class UserDA {
+public class UserDA implements IUserDA {
+
+	private static final String useDBQuery = "USE BookBayDB";
 	
-	private static String dbURL = "jdbc:mysql://localhost:3306/BookBayDB?serverTimezone=UTC";
+	private static final String addUserQuery = "INSERT INTO `User`(FirstName, LastName, Email, `Password`,"
+			+ "`Status`, EnrollmentForPromotions, NumOfCards, Type) "
+			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
 	
-	public static void addUserToDB(User user) throws Exception {
-		// Get all the values from User
+	private static final String getUserByIDQuery = "SELECT * FROM User "
+												 + "WHERE UserID = ?;";
+	
+	private static final String getUserByEmailQuery = "SELECT * FROM User "
+			 								        + "WHERE Email = ?;";
+	
+	private static final String getLastUserQuery = "SELECT * FROM User "
+		    									 + "ORDER BY UserID DESC LIMIT 1;";
+	
+	private static final String updateUserQuery = "UPDATE `User` "
+			 									+ "SET FirstName = ?,"
+			 									+ "LastName = ?,"
+			 									+ "Email = ?,"
+			 									+ "`Password` = ?,"
+			 									+ "`Status` = ?,"
+			 									+ "EnrollmentForPromotions = ?,"
+			 									+ "NumOfCards = ?,"
+			 									+ "ConfirmationCode = ?,"
+			 									+ "`Type` = ?,"
+			 									+ "AddressID = ? "
+			 									+ "WHERE UserID = ?;";
+	
+	private static String updatePasswordQuery = "UPDATE `User` SET `Password` = ? WHERE UserID = ?;";
+	
+	private static String deleteUserQuery = "DELETE FROM `User` WHERE UserID = ?;";
+	
+	@Override
+	public void createUser(User user) throws SQLException {
 		String firstName = user.getFirstName();
 		String lastName = user.getLastName();
 		String email = user.getEmail();
 		
 		String password = user.getPassword();
 		String passwordEncrypted = CryptoHelper.encryptPassword(password);
-		
-		// Using strings seems to be easiest way to insert enum to DB
+
 		String status = user.getStatus().name();
 		boolean enrollmentForPromotions = user.getEnrollmentForPromotions();
 		int numOfCards = user.getNumOfCards();
 		String type = user.getType().name();
 		
-		String useDBQuery = "USE BookBayDB;";
+		Connection connection = DataAccessHelper.getConnection();
 		
-		String addUserQuery = "INSERT INTO `User`(FirstName, LastName, Email, `Password`,"
-							+ "`Status`, EnrollmentForPromotions, NumOfCards, Type) "
-							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
-		
-		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
-	
-		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
-			
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
 			
@@ -58,81 +77,24 @@ public class UserDA {
 		
 		connection.close();
 	}
-	
-	public static User getLastUserFromDB() throws Exception {
-		User user = new User();
+
+	@Override
+	public User getUserByID(int userID) throws SQLException {
+		User user = null;
 		
-		String useDBQuery = "USE BookBayDB;";
+		Connection connection = DataAccessHelper.getConnection();
 		
-		String getLastUserQuery = "SELECT * FROM User "
-							    + "ORDER BY UserID DESC LIMIT 1;";
-		
-		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
-		
-		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
-			
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
 		    
-		PreparedStatement getLastUserPstmt = connection.prepareStatement(getLastUserQuery);
-		    
-		ResultSet userRS = getLastUserPstmt.executeQuery();
+		PreparedStatement getUserByIDPstmt = connection.prepareStatement(getUserByIDQuery);
+		getUserByIDPstmt.setInt(1, userID);    
+		
+		ResultSet userRS = getUserByIDPstmt.executeQuery();
 		    
 		while(userRS.next()) {
-			int userID = userRS.getInt(1);
-		    String firstName = userRS.getString(2);
-		    String lastName = userRS.getString(3);
-		    String email = userRS.getString(4);
-		    String password = userRS.getString(5);
-		    
-		    UserStatus status = UserStatus.valueOf(userRS.getString(6));
-		    boolean enrollmentForPromotions = userRS.getBoolean(7);
-		    int numOfCards = userRS.getInt(8);
-		    String confirmationCode = userRS.getString(9);
-		    UserType type = UserType.valueOf(userRS.getString(10));
-		    int addressID = userRS.getInt(11);
-		    	
-		    user.setUserID(userID);
-		    user.setFirstName(firstName);
-		    user.setLastName(lastName);
-		    user.setEmail(email);
-		    user.setPassword(password);
-		    user.setStatusID(status);
-		    user.setEnrollmentForPromotions(enrollmentForPromotions);
-		    user.setNumOfCards(numOfCards);
-		    user.setConfirmationCode(confirmationCode);
-		    user.setType(type);
-		    user.setAddressID(addressID);
-		}
-		    
-		connection.close();
-		
-		return user;
-	}
-	
-	public static User getUser(int userID) throws Exception {
-		User user = new User();
-		
-		String useDBQuery = "USE BookBayDB;";
-		
-		String getUserQuery = "SELECT * FROM User "
-							    + "WHERE UserID = ?;";
-		
-		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
-		
-		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+			user = new User();
 			
-		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
-		useDBStmt.executeQuery();
-		    
-		PreparedStatement getUserPstmt = connection.prepareStatement(getUserQuery);
-		getUserPstmt.setInt(1, userID);    
-		
-		ResultSet userRS = getUserPstmt.executeQuery();
-		    
-		while(userRS.next()) {
 			int dbUserID = userRS.getInt(1);
 		    String firstName = userRS.getString(2);
 		    String lastName = userRS.getString(3);
@@ -157,6 +119,10 @@ public class UserDA {
 		    user.setConfirmationCode(confirmationCode);
 		    user.setType(type);
 		    user.setAddressID(addressID);
+		    
+		    connection.close();
+		    
+		    return user;
 		}
 		    
 		connection.close();
@@ -164,109 +130,191 @@ public class UserDA {
 		return user;
 	}
 	
-	public static<T> void editUserValue(int userID, String colName, T newValue) throws SQLException {
-		String useDBQuery = "USE BookBayDB;";
+	@Override
+	public User getUserByEmail(String email) throws SQLException {
+		User user = null;
 		
-		String addUserQuery = "UPDATE `User` SET " + colName + " = ? WHERE UserID = ?;";
-		
-		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
-		
-		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
-			
-		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
-		useDBStmt.executeQuery();
-			
-		PreparedStatement addUserStmt = connection.prepareStatement(addUserQuery);
-		
-		addUserStmt.setObject(1, newValue);
-		addUserStmt.setInt(2, userID);
-			
-		addUserStmt.executeUpdate();
-			
-		connection.close();
-	}
-	
-	public static void editUserPassword(int userID, String newValue) throws Exception {
-		String useDBQuery = "USE BookBayDB;";
-		
-		String addUserQuery = "UPDATE `User` SET `Password` = ? WHERE UserID = ?;";
-		
-		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
-		
-		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
-			
-		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
-		useDBStmt.executeQuery();
-			
-		PreparedStatement addUserStmt = connection.prepareStatement(addUserQuery);
-		
-		String newValueEncrypted = CryptoHelper.encryptPassword(newValue);
-		
-		addUserStmt.setString(1, newValueEncrypted);
-		addUserStmt.setInt(2, userID);
-			
-		addUserStmt.executeUpdate();
-			
-		connection.close();
-	}
-	
-	public static<T> T getUserValue(String colName, String identifier, String identifierValue) throws SQLException {
-		String useDBQuery = "USE BookBayDB;";
-		
-		String getUserValueQuery = "SELECT " + colName + " FROM User "
-								 + "WHERE " + identifier + " = ?;";
-		
-		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
-		
-		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+		Connection connection = DataAccessHelper.getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
+		    
+		PreparedStatement getUserByEmailPstmt = connection.prepareStatement(getUserByEmailQuery);
+		getUserByEmailPstmt.setString(1, email);    
 		
-		PreparedStatement getUserValueStmt = connection.prepareStatement(getUserValueQuery);
-		getUserValueStmt.setString(1, identifierValue);
-		
-		ResultSet userValueRS = getUserValueStmt.executeQuery();
-		
-		T value = null;
-		while(userValueRS.next()) {
-			value = (T) userValueRS.getObject(1);
+		ResultSet userRS = getUserByEmailPstmt.executeQuery();
+		    
+		while(userRS.next()) {
+			user = new User();
+			
+			int dbUserID = userRS.getInt(1);
+		    String firstName = userRS.getString(2);
+		    String lastName = userRS.getString(3);
+		    String dbEmail = userRS.getString(4);
+		    String password = userRS.getString(5);
+		    
+		    UserStatus status = UserStatus.valueOf(userRS.getString(6));
+		    boolean enrollmentForPromotions = userRS.getBoolean(7);
+		    int numOfCards = userRS.getInt(8);
+		    String confirmationCode = userRS.getString(9);
+		    UserType type = UserType.valueOf(userRS.getString(10));
+		    int addressID = userRS.getInt(11);
+		    
+		    user.setUserID(dbUserID);
+		    user.setFirstName(firstName);
+		    user.setLastName(lastName);
+		    user.setEmail(dbEmail);
+		    user.setPassword(password);
+		    user.setStatusID(status);
+		    user.setEnrollmentForPromotions(enrollmentForPromotions);
+		    user.setNumOfCards(numOfCards);
+		    user.setConfirmationCode(confirmationCode);
+		    user.setType(type);
+		    user.setAddressID(addressID);
+		    
+		    connection.close();
+		    
+		    return user;
 		}
 		    
 		connection.close();
 		
-		return value;
+		return user;
 	}
 	
-//	public static String getUserPassword(int userID) throws SQLException {
-//		String useDBQuery = "USE BookBayDB;";
-//		
-//		String getUserValueQuery = "SELECT `Password` FROM User "
-//								 + "WHERE UserID = ?;";
-//		
-//		String dbUsername = "root";
-//		String dbPassword = "ajgopattymn7890";
-//		
-//		Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
-//		
-//		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
-//		useDBStmt.executeQuery();
-//		
-//		PreparedStatement getUserValueStmt = connection.prepareStatement(getUserValueQuery);
-//		getUserValueStmt.setInt(1, userID);
-//		
-//		ResultSet userValueRS = getUserValueStmt.executeQuery();
-//		
-//		String value = null;
-//		while(userValueRS.next()) {
-//			value = userValueRS.getString(1);
-//		}
-//		    
-//		connection.close();
-//		
-//		return value;
-//	}
+	@Override
+	public User getLastUser() throws SQLException {
+		User user = null;
+		
+		Connection connection = DataAccessHelper.getConnection();
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		    
+		PreparedStatement getLastUserPstmt = connection.prepareStatement(getLastUserQuery); 
+		
+		ResultSet userRS = getLastUserPstmt.executeQuery();
+		    
+		while(userRS.next()) {
+			user = new User();
+			
+			int dbUserID = userRS.getInt(1);
+		    String firstName = userRS.getString(2);
+		    String lastName = userRS.getString(3);
+		    String email = userRS.getString(4);
+		    String password = userRS.getString(5);
+		    
+		    UserStatus status = UserStatus.valueOf(userRS.getString(6));
+		    boolean enrollmentForPromotions = userRS.getBoolean(7);
+		    int numOfCards = userRS.getInt(8);
+		    String confirmationCode = userRS.getString(9);
+		    UserType type = UserType.valueOf(userRS.getString(10));
+		    int addressID = userRS.getInt(11);
+		    
+		    user.setUserID(dbUserID);
+		    user.setFirstName(firstName);
+		    user.setLastName(lastName);
+		    user.setEmail(email);
+		    user.setPassword(password);
+		    user.setStatusID(status);
+		    user.setEnrollmentForPromotions(enrollmentForPromotions);
+		    user.setNumOfCards(numOfCards);
+		    user.setConfirmationCode(confirmationCode);
+		    user.setType(type);
+		    user.setAddressID(addressID);
+		    
+		    connection.close();
+		    
+		    return user;
+		}
+		    
+		connection.close();
+		
+		return user;
+	}
+
+	@Override
+	public void updateUser(User user) throws SQLException {
+		int userID = user.getUserID();
+		String firstName = user.getFirstName();
+		String lastName = user.getLastName();
+		String email = user.getEmail();
+		String password = user.getPassword();
+		String status = user.getStatus().name();
+		boolean enrollmentForPromotions = user.getEnrollmentForPromotions();
+		int numOfCards = user.getNumOfCards();
+		String confirmationCode = user.getConfirmationCode();
+		String type = user.getType().name();
+		int addressID = user.getAddressID();
+		
+		Connection connection = DataAccessHelper.getConnection();
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement updateUserStmt = connection.prepareStatement(updateUserQuery);
+		
+		updateUserStmt.setString(1, firstName);
+		updateUserStmt.setString(2, lastName);
+		updateUserStmt.setString(3, email);
+		updateUserStmt.setString(4, password);
+		updateUserStmt.setString(5, status);
+		updateUserStmt.setBoolean(6, enrollmentForPromotions);
+		updateUserStmt.setInt(7, numOfCards);
+		updateUserStmt.setString(8, confirmationCode);
+		updateUserStmt.setString(9, type);
+		
+		if(addressID != 0) {
+			updateUserStmt.setInt(10, addressID);
+			updateUserStmt.setInt(11, userID);
+		}
+		
+		else {
+			updateUserStmt.setObject(10, null);
+			updateUserStmt.setInt(11, userID);
+		}
+		
+		updateUserStmt.executeUpdate();
+		
+		connection.close();
+	}
+
+	@Override
+	public void updatePassword(User user) throws SQLException {
+		String password = user.getPassword();
+		int userID = user.getUserID();
+		
+		Connection connection = DataAccessHelper.getConnection();
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement updatePasswordStmt = connection.prepareStatement(updatePasswordQuery);
+		
+		String passwordEncrypted = CryptoHelper.encryptPassword(password);
+		updatePasswordStmt.setString(1, passwordEncrypted);
+		updatePasswordStmt.setInt(2, userID);
+		
+		updatePasswordStmt.executeUpdate();
+		
+		connection.close();
+	}
+	
+	@Override
+	public void deleteUser(User user) throws SQLException {
+		int userID = user.getUserID();
+		
+		Connection connection = DataAccessHelper.getConnection();
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement deleteUserStmt = connection.prepareStatement(deleteUserQuery);
+		deleteUserStmt.setInt(1, userID);
+		
+		deleteUserStmt.executeUpdate();
+		
+		connection.close();
+	}
+
 }

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import dataAccess.AddressDA;
 import dataAccess.PaymentCardDA;
-import dataAccess.UserDA;
 import models.Address;
 import models.CardType;
 import models.ErrorMessage;
@@ -28,6 +27,10 @@ import models.User;
 @WebServlet("/UpdateCard")
 public class UpdateCard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private PaymentCardDA paymentCardDA = new PaymentCardDA();
+	
+	private PaymentCard paymentCard = null;
 	
     /**
      * Default constructor. 
@@ -49,7 +52,7 @@ public class UpdateCard extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			Cookie[] cookies = request.getCookies();
-	        String userID = cookies[1].getValue();
+	        int userID = Integer.parseInt(cookies[1].getValue());
 	        
 	        String cardNum = request.getParameter("cardNum");
 	        
@@ -59,23 +62,25 @@ public class UpdateCard extends HttpServlet {
 	        
 	        String expDate = request.getParameter("expDate");
 	
-	        String dbCardNum = PaymentCardDA.getPaymentCardNum(Integer.parseInt(userID));
+	        paymentCard = paymentCardDA.getPaymentCardByUserID(userID);
 	        
-	        if(dbCardNum == null || dbCardNum == "") {
-	        	PaymentCard paymentCard = new PaymentCard();
+	        if(paymentCard == null) {
+	        	paymentCard = new PaymentCard();
 	        	paymentCard.setCardNum(cardNum);
 	        	paymentCard.setCardType(cardType);
 	        	paymentCard.setExpDate(expDate);
-	        	paymentCard.setUserID(Integer.parseInt(userID));
+	        	paymentCard.setUserID(userID);
 	        	
-	        	PaymentCardDA.addPaymentCardToDB(paymentCard);
+	        	paymentCardDA.createPaymentCard(paymentCard);
 	        }
 	        
 	        else {
-	        	PaymentCardDA.editPaymentCardNum(Integer.parseInt(userID), cardNum);
-	        	PaymentCardDA.editCardValue(Integer.parseInt(userID), "`Type`", cardType);
-	        	PaymentCardDA.editCardValue(Integer.parseInt(userID), "ExpDate", expDate);
-	        	PaymentCardDA.editCardValue(Integer.parseInt(userID), "UserID", userID);
+	        	paymentCard.setCardNum(cardNum);
+	        	paymentCard.setCardType(cardType);
+	        	paymentCard.setExpDate(expDate);
+	        	paymentCard.setUserID(userID);
+	        	
+	        	paymentCardDA.updateCardNum(paymentCard);
 	        }
 	        	
 	        String message = "Payment Card changes saved.";

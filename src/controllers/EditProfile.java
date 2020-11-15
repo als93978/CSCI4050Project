@@ -26,6 +26,14 @@ import models.UserType;
 @WebServlet("/EditProfile")
 public class EditProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private UserDA userDA = new UserDA();
+	private AddressDA addressDA = new AddressDA();
+	private PaymentCardDA paymentCardDA = new PaymentCardDA();
+	
+	private User user = null;
+	private Address address = null;
+	private PaymentCard paymentCard = null;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -57,6 +65,8 @@ public class EditProfile extends HttpServlet {
 		
 		if(cookies.length > 1) {
 			if(cookies[1].getName().equals("userID")) {
+				user = userDA.getUserByID(Integer.parseInt(cookies[1].getValue()));
+				
 				processSessionCookie(request, response, cookies[1]);
 			}
 			
@@ -75,17 +85,16 @@ public class EditProfile extends HttpServlet {
 	}
 	
 	private void loadExistingUserInformation(HttpServletRequest request, HttpServletResponse response, Cookie sessionCookie) throws NumberFormatException, Exception {
-		String userID = sessionCookie.getValue();
+		int userID = Integer.parseInt(sessionCookie.getValue());
 		
-		User user = UserDA.getUser(Integer.parseInt(userID));
+//		User user = UserDAOld.getUser(Integer.parseInt(userID));
 		
-		Integer addressID = UserDA.getUserValue("AddressID", "UserID", userID);
+//		Integer addressID = UserDAOld.getUserValue("AddressID", "UserID", userID);
+		int addressID = user.getAddressID();
 		
-		Address address = null;
-		if(addressID != null)
-			address = AddressDA.getAddress(addressID);
+		address = addressDA.getAddressByID(addressID);
 		
-		PaymentCard paymentCard = PaymentCardDA.getPaymentCard(Integer.parseInt(userID));
+		paymentCard = paymentCardDA.getPaymentCardByUserID(userID);
 		
 		request.setAttribute("user", user);
 		
@@ -101,7 +110,7 @@ public class EditProfile extends HttpServlet {
 	}
 	
 	private void processSessionCookie(HttpServletRequest request, HttpServletResponse response, Cookie sessionCookie) throws NumberFormatException, Exception {
-		boolean isUserAdmin = checkUserIsAdmin(sessionCookie);
+		boolean isUserAdmin = checkUserIsAdmin();
 		
 		if(isUserAdmin) {
 			//response.sendRedirect(request.getContextPath() + "/adminManageBooks.html");
@@ -113,10 +122,8 @@ public class EditProfile extends HttpServlet {
 		}
 	}
 	
-	private boolean checkUserIsAdmin(Cookie sessionCookie) throws SQLException {
-		String userID = sessionCookie.getValue();
-		
-		UserType userType = UserType.valueOf((String) UserDA.getUserValue("`Type`", "UserID", userID));
+	private boolean checkUserIsAdmin() throws SQLException {
+		UserType userType = user.getType();
 		
 		if(userType.equals(UserType.ADMIN))
 			return true;
