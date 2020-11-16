@@ -1,29 +1,17 @@
 $(document).ready(function() {
-    $(".user-row").click(function() {
-        $('#user-ban').modal('show');
+    $(".suspended").click(function() {
+        $('#user-suspended').modal('show');
     });
 
-    $("#banned").click(function() {
-        $('#user-banned').modal('show');
-        $('#user-ban').modal('hide');
+    $(".unsuspended").click(function() {
+        $('#user-unsuspended').modal('show');
     });
 
-    $("#unbanned").click(function() {
-        $('#user-unbanned').modal('show');
-        $('#user-ban').modal('hide');
-    });
-
-    $(".employee-row").click(function() {
-        $('#employee-promote').modal('show');
-    });
-
-    $("#promoted").click(function() {
+    $(".promoted").click(function() {
         $('#employee-promoted').modal('show');
-        $('#employee-promote').modal('hide');
     });
 
-    $("#demoted").click(function() {
-        $('#employee-demoted').modal('show');
-        $('#employee-promote').modal('hide');
+    $(".demoted").click(function() {
+        $('#admin-demoted').modal('show');
     });
 });
