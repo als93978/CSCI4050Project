@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,34 +12,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataAccess.AddressDA;
-import dataAccess.PaymentCardDA;
 import dataAccess.UserDA;
-import models.Address;
 import models.ErrorMessage;
-import models.PaymentCard;
 import models.User;
 import models.UserType;
 
 /**
- * Servlet implementation class EditProfile
+ * Servlet implementation class ManageUsers
  */
-@WebServlet("/EditProfile")
-public class EditProfile extends HttpServlet {
+@WebServlet("/ManageUsers")
+public class ManageUsers extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+       
 	private UserDA userDA = new UserDA();
-	private AddressDA addressDA = new AddressDA();
-	private PaymentCardDA paymentCardDA = new PaymentCardDA();
 	
 	private User user = null;
-	private Address address = null;
-	private PaymentCard paymentCard = null;
-       
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditProfile() {
+    public ManageUsers() {
         super();
     }
 
@@ -84,44 +77,41 @@ public class EditProfile extends HttpServlet {
 		}
 	}
 	
-	private void loadExistingUserInformation(HttpServletRequest request, HttpServletResponse response, Cookie sessionCookie) throws NumberFormatException, Exception {
-		int userID = Integer.parseInt(sessionCookie.getValue());
-		
-//		User user = UserDAOld.getUser(Integer.parseInt(userID));
-		
-//		Integer addressID = UserDAOld.getUserValue("AddressID", "UserID", userID);
-		int addressID = user.getAddressID();
-		
-		address = addressDA.getAddressByID(addressID);
-		
-		paymentCard = paymentCardDA.getPaymentCardByUserID(userID);
-		
-		request.setAttribute("user", user);
-		
-		if(address != null) {
-			request.setAttribute("address", address);
-		}
-		
-		if(paymentCard != null) {
-			request.setAttribute("paymentCard", paymentCard);
-		}
-			
-		redirectToPage(request, response, "accountSettings.jsp");
-	}
-	
 	private void processSessionCookie(HttpServletRequest request, HttpServletResponse response, Cookie sessionCookie) throws NumberFormatException, Exception {
-		if(isUserAnAdmin()) {
-			String isAdminMsg = "Admins cannot edit their profiles. Please login as a customer.";
-			
-			returnError(request, response, isAdminMsg, "login.jsp");		
+		boolean isUserAdmin = checkUserIsAdmin();
+		
+		if(isUserAdmin) {
+			loadAllUsersInfo(request, response);		
 		}
 		
 		else {
-			loadExistingUserInformation(request, response, sessionCookie);
+			String isNotAdminMsg = "You do not have permission to view this page.";
+			
+			returnError(request, response, isNotAdminMsg, "login.jsp");	
 		}
 	}
 	
-	private boolean isUserAnAdmin() throws SQLException {
+	private void loadAllUsersInfo(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		List<User> customers = userDA.getAllCustomerUsers();
+		List<User> admins = userDA.getAllAdminUsers();
+		List<User> employees = userDA.getAllEmployeeUsers();
+		
+		if(customers != null) {
+			request.setAttribute("customers", customers);
+		}
+		
+		if(admins != null) {
+			request.setAttribute("admins", admins);
+		}
+		
+		if(employees != null) {
+			request.setAttribute("employees", employees);
+		}
+		
+		redirectToPage(request, response, "manageUsers.jsp");
+	}
+	
+	private boolean checkUserIsAdmin() throws SQLException {
 		UserType userType = user.getType();
 		
 		if(userType.equals(UserType.ADMIN))

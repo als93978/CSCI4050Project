@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import controllers.CryptoHelper;
 import models.User;
@@ -17,6 +19,14 @@ public class UserDA implements IUserDA {
 	private static final String addUserQuery = "INSERT INTO `User`(FirstName, LastName, Email, `Password`,"
 			+ "`Status`, EnrollmentForPromotions, NumOfCards, Type) "
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+	
+	private static final String getAllUsersQuery = "SELECT * FROM User";
+	
+	private static final String getAllAdminUsersQuery = "SELECT * FROM User WHERE `TYPE` = 'ADMIN';";
+	
+	private static final String getAllEmployeeUsersQuery = "SELECT * FROM User WHERE `TYPE` = 'EMPLOYEE';";
+	
+	private static final String getAllCustomerUsersQuery = "SELECT * FROM User WHERE `TYPE` = 'CUSTOMER';";
 	
 	private static final String getUserByIDQuery = "SELECT * FROM User "
 												 + "WHERE UserID = ?;";
@@ -76,6 +86,202 @@ public class UserDA implements IUserDA {
 		addUserStmt.executeUpdate();
 		
 		connection.close();
+	}
+	
+	@Override
+	public List<User> getAllUsers() throws SQLException {
+		List<User> users = new ArrayList<User>();
+		
+		Connection connection = DataAccessHelper.getConnection();
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement getAllUsersStmt = connection.prepareStatement(getAllUsersQuery);
+		
+		ResultSet allUsersRS = getAllUsersStmt.executeQuery();
+		
+		while(allUsersRS.next()) {
+			User user = new User();
+			
+			int dbUserID = allUsersRS.getInt(1);
+		    String firstName = allUsersRS.getString(2);
+		    String lastName = allUsersRS.getString(3);
+		    String email = allUsersRS.getString(4);
+		    String password = allUsersRS.getString(5);
+		    
+		    UserStatus status = UserStatus.valueOf(allUsersRS.getString(6));
+		    boolean enrollmentForPromotions = allUsersRS.getBoolean(7);
+		    int numOfCards = allUsersRS.getInt(8);
+		    String confirmationCode = allUsersRS.getString(9);
+		    UserType type = UserType.valueOf(allUsersRS.getString(10));
+		    int addressID = allUsersRS.getInt(11);
+		    
+		    user.setUserID(dbUserID);
+		    user.setFirstName(firstName);
+		    user.setLastName(lastName);
+		    user.setEmail(email);
+		    user.setPassword(password);
+		    user.setStatusID(status);
+		    user.setEnrollmentForPromotions(enrollmentForPromotions);
+		    user.setNumOfCards(numOfCards);
+		    user.setConfirmationCode(confirmationCode);
+		    user.setType(type);
+		    user.setAddressID(addressID);
+		    
+		    users.add(user);
+		}
+		
+		connection.close();
+		
+		return users;
+	}
+	
+	@Override
+	public List<User> getAllAdminUsers() throws SQLException {
+		List<User> users = new ArrayList<User>();
+		
+		Connection connection = DataAccessHelper.getConnection();
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement getAllAdminUsersStmt = connection.prepareStatement(getAllAdminUsersQuery);
+		
+		ResultSet allAdminUsersRS = getAllAdminUsersStmt.executeQuery();
+		
+		while(allAdminUsersRS.next()) {
+			User user = new User();
+			
+			int dbUserID = allAdminUsersRS.getInt(1);
+		    String firstName = allAdminUsersRS.getString(2);
+		    String lastName = allAdminUsersRS.getString(3);
+		    String email = allAdminUsersRS.getString(4);
+		    String password = allAdminUsersRS.getString(5);
+		    
+		    UserStatus status = UserStatus.valueOf(allAdminUsersRS.getString(6));
+		    boolean enrollmentForPromotions = allAdminUsersRS.getBoolean(7);
+		    int numOfCards = allAdminUsersRS.getInt(8);
+		    String confirmationCode = allAdminUsersRS.getString(9);
+		    UserType type = UserType.valueOf(allAdminUsersRS.getString(10));
+		    int addressID = allAdminUsersRS.getInt(11);
+		    
+		    user.setUserID(dbUserID);
+		    user.setFirstName(firstName);
+		    user.setLastName(lastName);
+		    user.setEmail(email);
+		    user.setPassword(password);
+		    user.setStatusID(status);
+		    user.setEnrollmentForPromotions(enrollmentForPromotions);
+		    user.setNumOfCards(numOfCards);
+		    user.setConfirmationCode(confirmationCode);
+		    user.setType(type);
+		    user.setAddressID(addressID);
+		    
+		    users.add(user);
+		}
+		
+		connection.close();
+		
+		return users;
+	}
+	
+	@Override
+	public List<User> getAllEmployeeUsers() throws SQLException {
+		List<User> users = new ArrayList<User>();
+		
+		Connection connection = DataAccessHelper.getConnection();
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement getAllEmployeeUsersStmt = connection.prepareStatement(getAllEmployeeUsersQuery);
+		
+		ResultSet allEmployeeUsersRS = getAllEmployeeUsersStmt.executeQuery();
+		
+		while(allEmployeeUsersRS.next()) {
+			User user = new User();
+			
+			int dbUserID = allEmployeeUsersRS.getInt(1);
+		    String firstName = allEmployeeUsersRS.getString(2);
+		    String lastName = allEmployeeUsersRS.getString(3);
+		    String email = allEmployeeUsersRS.getString(4);
+		    String password = allEmployeeUsersRS.getString(5);
+		    
+		    UserStatus status = UserStatus.valueOf(allEmployeeUsersRS.getString(6));
+		    boolean enrollmentForPromotions = allEmployeeUsersRS.getBoolean(7);
+		    int numOfCards = allEmployeeUsersRS.getInt(8);
+		    String confirmationCode = allEmployeeUsersRS.getString(9);
+		    UserType type = UserType.valueOf(allEmployeeUsersRS.getString(10));
+		    int addressID = allEmployeeUsersRS.getInt(11);
+		    
+		    user.setUserID(dbUserID);
+		    user.setFirstName(firstName);
+		    user.setLastName(lastName);
+		    user.setEmail(email);
+		    user.setPassword(password);
+		    user.setStatusID(status);
+		    user.setEnrollmentForPromotions(enrollmentForPromotions);
+		    user.setNumOfCards(numOfCards);
+		    user.setConfirmationCode(confirmationCode);
+		    user.setType(type);
+		    user.setAddressID(addressID);
+		    
+		    users.add(user);
+		}
+		
+		connection.close();
+		
+		return users;
+	}
+	
+	@Override
+	public List<User> getAllCustomerUsers() throws SQLException {
+		List<User> users = new ArrayList<User>();
+		
+		Connection connection = DataAccessHelper.getConnection();
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement getAllCustomerUsersStmt = connection.prepareStatement(getAllCustomerUsersQuery);
+		
+		ResultSet allCustomerUsersRS = getAllCustomerUsersStmt.executeQuery();
+		
+		while(allCustomerUsersRS.next()) {
+			User user = new User();
+			
+			int dbUserID = allCustomerUsersRS.getInt(1);
+		    String firstName = allCustomerUsersRS.getString(2);
+		    String lastName = allCustomerUsersRS.getString(3);
+		    String email = allCustomerUsersRS.getString(4);
+		    String password = allCustomerUsersRS.getString(5);
+		    
+		    UserStatus status = UserStatus.valueOf(allCustomerUsersRS.getString(6));
+		    boolean enrollmentForPromotions = allCustomerUsersRS.getBoolean(7);
+		    int numOfCards = allCustomerUsersRS.getInt(8);
+		    String confirmationCode = allCustomerUsersRS.getString(9);
+		    UserType type = UserType.valueOf(allCustomerUsersRS.getString(10));
+		    int addressID = allCustomerUsersRS.getInt(11);
+		    
+		    user.setUserID(dbUserID);
+		    user.setFirstName(firstName);
+		    user.setLastName(lastName);
+		    user.setEmail(email);
+		    user.setPassword(password);
+		    user.setStatusID(status);
+		    user.setEnrollmentForPromotions(enrollmentForPromotions);
+		    user.setNumOfCards(numOfCards);
+		    user.setConfirmationCode(confirmationCode);
+		    user.setType(type);
+		    user.setAddressID(addressID);
+		    
+		    users.add(user);
+		}
+		
+		connection.close();
+		
+		return users;
 	}
 
 	@Override

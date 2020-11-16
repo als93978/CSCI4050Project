@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `User` (
     NumOfCards int DEFAULT 0,
     CHECK (NumOfCards <= 3), # User should have up to 3 cards (or none)
     ConfirmationCode varchar(255),
-    `Type` ENUM('ADMIN', 'CUSTOMER') NOT NULL,
+    `Type` ENUM('ADMIN', 'CUSTOMER', 'EMPLOYEE') NOT NULL,
     AddressID int,
     FOREIGN KEY(AddressID) REFERENCES Address(AddressID)
 );
@@ -119,3 +119,5 @@ CREATE TABLE IF NOT EXISTS ManagePromotions (
 
 INSERT INTO `User`(FirstName, LastName, Email, Password, `Status`, `Type`)
 VALUES("Austin", "Schultz", "aschultz086@gmail.com", sha2("lordfarquaad", 256), "ACTIVE", "ADMIN");
+INSERT INTO `User`(FirstName, LastName, Email, Password, `Status`, `Type`)
+VALUES("Captain", "Alex", "sojey61001@0335g.com", sha2("whokilledme", 256), "ACTIVE", "EMPLOYEE");
