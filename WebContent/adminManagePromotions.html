@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" type="text/css" href="adminManagePromotionsStyle.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		<title>BookBay | (Admin) Manage Promotions</title>
+		
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+		<script src="https://kit.fontawesome.com/0318fd2bd1.js" crossorigin="anonymous"></script>
+	</head>
+	
+	<body>
+        	<!-- Main container  -->
+		<div class="mainContainer">
+		
+			<!-- Header -->
+			<div class="headerContainer">
+ 				<nav class="navbar navbar-expand-lg navbar-custom">
+ 					<a class="navbar-brand" href="homepageWithUserIcon.html">
+<!--  						<img class="logoImg" src="img/bookbayLogo.png"> -->
+						BookBay
+ 					</a>
+ 					
+ 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+ 						<span class="navbar-toggler-icon"></span>
+ 					</button>
+ 					
+ 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+ 						<ul class="navbar-nav mr-auto">
+ 							<li>
+ 								<a class="nav-link" href="#">Manage Books</a>
+ 							</li>
+ 							
+ 							<li>
+ 								<a class="nav-link" href="#">Manage Users</a>
+ 							</li>
+ 							
+ 							<li>
+ 								<a class="nav-link" href="#">Manage Promotions</a>
+ 							</li>
+ 						</ul>
+ 						
+ 						<form class="form-inline mr-auto" action="/WebContent/search.html">
+ 							<input class="form-control mr-sm-2" type="search" placeholder="Enter Book Name, ISBN, Genre, etc..." aria-label="Search" size="36">
+ 							<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
+ 						</form>
+ 						<b style="margin-right: 3%; font-size: 15pt;">Admin</b>
+ 						<ul class="navbar-nav">
+ 							<li>
+ 								<a class="nav-link" href="index.html">Logout</a>
+ 							</li>
+ 						</ul>
+ 						
+ 					</div>
+ 				</nav>
+            </div>
+
+            <!-- Homepage content by Jonah Kim  -->
+			<div class="contentContainer">
+				<div class="content">
+					<div id="added" class="row row-cols-5">
+						<div class="col-3">
+                            <button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#coupon1" style="background-color: transparent; border: none;">
+                                <div class="coupon">
+                                    <div class="coupon-container bg-danger">
+                                        <h2 class="coupon-header"><b>20% OFF</b></h2>
+                                    </div>
+                                </div>
+							</button>
+						</div>
+						<div class="col-2">
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#coupon2" style="background-color: transparent; border: none;">
+                                <div class="coupon">
+                                    <div class="coupon-container bg-success">
+                                        <h2 class="coupon-header"><b>30% OFF</b></h2>
+                                    </div>
+                                </div>
+							</button>
+						</div>
+						<div class="col-2">
+							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#coupon3" style="background-color: transparent; border: none;">
+								<div class="coupon">
+                                    <div class="coupon-container bg-warning">
+                                        <h2 class="coupon-header"><b>40% OFF</b></h2>
+                                    </div>
+                                </div>
+							</button>
+						</div>
+						<div class="col">
+							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#coupon4" style="background-color: transparent; border: none;">
+								<div class="coupon">
+                                    <div class="coupon-container bg-primary">
+                                        <h2 class="coupon-header"><b>50% OFF</b></h2>
+                                    </div>
+                                </div>
+							</button>
+						</div>
+                    </div>
+                    <div id="adding" class="row row-cols-2">
+						<div class="col" style="margin-top: 10%; margin-bottom: 10%;">
+                            <button type="button" id="promotion" class="btn btn-primary center" data-toggle="modal" data-target="#addcoupon" style="background-color: transparent; border: none;">
+                                <img src="img/addcoupon.png" class="rounded mx-auto d-block" alt="New Ticket icon by Icons8">
+                            </button>
+                        </div>					
+					</div>
+			
+                    <!-- MODALS -->
+                    <div class="modal fade" id="coupon1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">20% off coupon</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="code">Code</label>
+                                            <input type="text" class="form-control" id="code" value="20OFFCOUP">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="amount">Coupon Amount</label>
+                                            <input type="text" class="form-control" id="amount" value="10">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="limit">Usage Limit</label>
+                                            <input type="text" class="form-control" id="limit" value="1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="expire">Expiration Date</label>
+                                            <input type="text" class="form-control" id="expire" value="11/26/2020">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Description</label>
+                                            <input type="text" class="form-control" id="description" value="This coupon applies a 20% discount.">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save</button>
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="coupon2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">30% off coupon</h5>
+                                </div>
+                                <div class="modal-body">                              
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="code">Code</label>
+                                            <input type="text" class="form-control" id="code" value="30OFFCOUP">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="amount">Coupon Amount</label>
+                                            <input type="text" class="form-control" id="amount" value="10">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="limit">Usage Limit</label>
+                                            <input type="text" class="form-control" id="limit" value="1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="expire">Expiration Date</label>
+                                            <input type="text" class="form-control" id="expire" value="12/05/2020">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Description</label>
+                                            <input type="text" class="form-control" id="description" value="This coupon applies a 30% discount.">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save</button>
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="coupon3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">40% off coupon</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="code">Code</label>
+                                            <input type="text" class="form-control" id="code" value="40OFFCOUP">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="amount">Coupon Amount</label>
+                                            <input type="text" class="form-control" id="amount" value="10">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="limit">Usage Limit</label>
+                                            <input type="text" class="form-control" id="limit" value="1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="expire">Expiration Date</label>
+                                            <input type="text" class="form-control" id="expire" value="01/15/2021">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Description</label>
+                                            <input type="text" class="form-control" id="description" value="This coupon applies a 40% discount.">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save</button>
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="coupon4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">50% off coupon</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="code">Code</label>
+                                            <input type="text" class="form-control" id="code" value="50OFFCOUP">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="amount">Coupon Amount</label>
+                                            <input type="text" class="form-control" id="amount" value="10">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="limit">Usage Limit</label>
+                                            <input type="text" class="form-control" id="limit" value="1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="expire">Expiration Date</label>
+                                            <input type="text" class="form-control" id="expire" value="02/23/2021">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Description</label>
+                                            <input type="text" class="form-control" id="description" value="This coupon applies a 50% discount.">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save</button>
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="addcoupon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title mx-auto" id="exampleModalLabel">Add a new coupon</h5>
+                                </div>
+                                <img src="img/addpicture.png" id="added-picture" class="mx-auto">
+                                <form novalidate>
+                                    <div class="modal-body">
+                                        <div id="image-input" class="form-group">
+                                            <input type="file" name="filePhoto" value="" id="filePhoto" accept="image/*" required hidden>
+                                            <input id='upload-image' type='button' class="btn btn-info" value='Upload Image' />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="code">Code</label>
+                                            <input type="text" class="form-control" id="code">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="amount">Coupon Amount</label>
+                                            <input type="text" class="form-control" id="amount">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="limit">Usage Limit</label>
+                                            <input type="text" class="form-control" id="limit">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="date">Expiration Date</label>
+                                            <input type="text" class="form-control" id="date">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Description</label>
+                                            <input type="text" class="form-control" id="description">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Add coupon</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+	    	</div>
+	    	
+	    	<br>
+	    	<br>
+	    	
+	    	<!-- Footer -->
+	     	<div class="footerContainer">
+				 <footer class="footer">
+					<nav class="navbar navbar-expand-lg navbar-custom">
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						
+						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							<span class="navbar-text mr-auto">
+								Team A5 - CSCI4050
+							</span>
+						
+							<ul class="navbar-nav ml-auto">
+								<li>
+									<a class="nav-link" href="#">About</a>
+								</li>
+								
+								<li>
+									<a class="nav-link" href="#">Careers</a>
+								</li>
+								
+								<li>
+									<a class="nav-link" href="#">Contact</a>
+								</li>
+								
+								<li>
+									<a class="nav-link" href="#">Privacy</a>
+								</li>
+								
+								<li>
+									<a class="nav-link" href="#">Sitemap</a>
+								</li>
+								
+								<li>
+									<a class="nav-link" href="#">Terms of Use</a>
+								</li>
+							</ul>
+						</div>
+					</nav>
+				</footer>
+	     	</div>
+        </div>
+        <script type="text/javascript" src="adminManagePromotions.js"></script>
+	</body>
+</html>

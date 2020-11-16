@@ -21,13 +21,11 @@ public class AddressDA {
 		String city = address.getCity();
 		String state = address.getState();
 		int zipCode = address.getZipCode();
-    
-		String country = address.getCountry();
 		
 		String useDBQuery = "USE BookBayDB;";
 		
-		String addUserQuery = "INSERT INTO Address(Street, City, State, ZipCode, Country) "
-							+ "VALUES(?, ?, ?, ?, ?);";
+		String addUserQuery = "INSERT INTO Address(Street, City, State, ZipCode) "
+							+ "VALUES(?, ?, ?, ?);";
 		
 		String dbUsername = "root";
 		String dbPassword = "ajgopattymn7890";
@@ -43,7 +41,6 @@ public class AddressDA {
 			addUserStmt.setString(2, city);
 			addUserStmt.setString(3, state);
 			addUserStmt.setInt(4, zipCode);
-			addUserStmt.setString(5, country);
 			
 			addUserStmt.executeUpdate();
 			
@@ -81,14 +78,12 @@ public class AddressDA {
 		    	String city = lastAddressRS.getString(3);
 		    	String state = lastAddressRS.getString(4);
 		    	int zipCode = lastAddressRS.getInt(5);
-			    String country = lastAddressRS.getString(6);
 		    	
 		    	address.setAddressID(addressID);
 		    	address.setStreet(street);
 		    	address.setCity(city);
 		    	address.setState(state);
 		    	address.setZipCode(zipCode);
-			    address.setCountry(country);
 		    }
 		    
 		    connection.close();
@@ -98,32 +93,5 @@ public class AddressDA {
 		}
 		
 		return address;
-	}
-
-	public static<T> void editAddressValue(int addressID, String colName, T newValue) {
-		String useDBQuery = "USE BookBayDB;";
-		
-		String addAddressQuery = "UPDATE `Address` SET " + colName + " = ? WHERE AddressID = ?;";
-		
-		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
-		
-		try {
-			Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
-			
-			PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
-			useDBStmt.executeQuery();
-			
-			PreparedStatement addAddressStmt = connection.prepareStatement(addAddressQuery);
-			addAddressStmt.setObject(1, newValue);
-			addAddressStmt.setInt(2, addressID);
-			
-			addAddressStmt.executeUpdate();
-			
-			connection.close();
-			
-		} catch(SQLException e) {
-			e.printStackTrace();
-		}
 	}
 }
