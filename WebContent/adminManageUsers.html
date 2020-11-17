@@ -59,28 +59,8 @@
  					</div>
  				</nav>
 			</div>
-			
-			<div id="user-ban" class="modal fade">
-				<div class="modal-dialog modal-dialog-centered">
-				  <div class="modal-content">
-					<div class="modal-header">
-					  <h5 class="modal-title">User Management</h5>
-					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					  </button>
-					</div>
-					<div class="modal-body">
-					  <p>What would you like to do with this user?</p>
-					</div>
-					<div class="modal-footer">
-					  <button id="banned" type="button" class="btn btn-danger">Ban user</button>
-					  <button id="unbanned" type="button" class="btn btn-success">Unban user</button>
-					</div>
-				  </div>
-				</div>
-			</div>
 
-			<div id="user-banned" class="modal fade">
+			<div id="user-suspended" class="modal fade">
 				<div class="modal-dialog modal-dialog-centered">
 				  <div class="modal-content">
 					<div class="modal-header">
@@ -90,7 +70,7 @@
 					  </button>
 					</div>
 					<div class="modal-body">
-					  <p>User has been banned.</p>
+					  <p>User has been suspended.</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -99,7 +79,7 @@
 				</div>
 			</div>
 
-			<div id="user-unbanned" class="modal fade">
+			<div id="user-unsuspended" class="modal fade">
 				<div class="modal-dialog modal-dialog-centered">
 				  <div class="modal-content">
 					<div class="modal-header">
@@ -109,7 +89,7 @@
 					  </button>
 					</div>
 					<div class="modal-body">
-					  <p>User has been unbanned.</p>
+					  <p>User has been unsuspended.</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -119,14 +99,16 @@
 			</div>
 
             <h1 id="user-title" class="font-weight-bold">Users</h1>
-            <table id="user" class="table table-hover table-responsive-sm">
-                <thead>
+            <table id="user" class="table table-responsive-sm table-sm">
+                <thead class="thead-dark">
                   <tr>
                     <th scope="col">ID</th>
                     <th scope="col">First</th>
                     <th scope="col">Last</th>
 					<th scope="col">Customer Status</th>
+					<th scope="col">Account Status</th>
 					<th scope="col">Email Address</th>
+					<th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -135,82 +117,100 @@
                     <td>Mark</td>
                     <td>Otto</td>
 					<td>Inactive</td>
+					<td>Unsuspended</td>
 					<td>markotto@gmail.com</td>
+					<td>
+						<button type="button" class="btn btn-danger suspended">Suspend user</button>
+					  	<button type="button" class="btn btn-success unsuspended">Unsuspend user</button>
+					</td>
                   </tr>
                   <tr class="user-row">
                     <th scope="row">2</th>
                     <td>Jacob</td>
                     <td>Thornton</td>
 					<td>Inactive</td>
+					<td>Unsuspended</td>
 					<td>JacobThron@yahoo.com</td>
+					<td>
+						<button type="button" class="btn btn-danger suspended">Suspend user</button>
+					  	<button type="button" class="btn btn-success unsuspended">Unsuspend user</button>
+					</td>
                   </tr>
                   <tr class="user-row">
                     <th scope="row">3</th>
                     <td>Larry</td> 
                     <td>Bird</td>
 					<td>Active</td>
+					<td>Suspended</td>
 					<td>Lbird@gmail.com</td>
-                  </tr>
-                </tbody>
-            </table>
-            <br>
-
-			<h1 id="admin-title" class="font-weight-bold">Admins</h1>
-            <table id="admin" class="table table-hover table-responsive-sm">
-                <thead>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-					<th scope="col">Customer Status</th>
-					<th scope="col">Email Address</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-					<td>Inactive</td>
-					<td>markotto@gmail.com</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-					<td>Active</td>
-					<td>JacobThron@yahoo.com</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td> 
-                    <td>Bird</td>
-					<td>Active</td>
-					<td>Lbird@gmail.com</td>
+					<td>
+						<button type="button" class="btn btn-danger suspended">Suspend user</button>
+					  	<button type="button" class="btn btn-success unsuspended">Unsuspend user</button>
+					</td>
                   </tr>
                 </tbody>
             </table>
 			<br>
-
-			<div id="employee-promote" class="modal fade">
+			
+			<div id="admin-demoted" class="modal fade">
 				<div class="modal-dialog modal-dialog-centered">
 				  <div class="modal-content">
 					<div class="modal-header">
-					  <h5 class="modal-title">Employee Management</h5>
+					  <h5 class="modal-title">Admin Management</h5>
 					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					  </button>
 					</div>
 					<div class="modal-body">
-					  <p>What would you like to do with this employee?</p>
+					  <p>This admin has received a depromotion!</p>
 					</div>
 					<div class="modal-footer">
-					  <button id="promoted" type="button" class="btn btn-success">Promote employee</button>
-					  <button id="demoted" type="button" class="btn btn-danger">Demote employee</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 				  </div>
 				</div>
 			</div>
+
+			<h1 id="admin-title" class="font-weight-bold">Admins</h1>
+            <table id="admin" class="table table-responsive-sm table-sm">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+					<th scope="col">Customer Status</th>
+					<th scope="col">Email Address</th>
+					<th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+					<td>Inactive</td>
+					<td>markotto@gmail.com</td>
+					<td><button type="button" class="btn btn-danger demoted">Depromote admin</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+					<td>Active</td>
+					<td>JacobThron@yahoo.com</td>
+					<td><button type="button" class="btn btn-danger demoted">Depromote admin</button></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td> 
+                    <td>Bird</td>
+					<td>Active</td>
+					<td>Lbird@gmail.com</td>
+					<td><button type="button" class="btn btn-danger demoted">Depromote admin</button></td>
+                  </tr>
+                </tbody>
+            </table>
+			<br>
 
 			<div id="employee-promoted" class="modal fade">
 				<div class="modal-dialog modal-dialog-centered">
@@ -230,35 +230,17 @@
 				  </div>
 				</div>
 			</div>
-
-			<div id="employee-demoted" class="modal fade">
-				<div class="modal-dialog modal-dialog-centered">
-				  <div class="modal-content">
-					<div class="modal-header">
-					  <h5 class="modal-title">Employee Management</h5>
-					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					  </button>
-					</div>
-					<div class="modal-body">
-					  <p>This employee has received a demotion!</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					</div>
-				  </div>
-				</div>
-			</div>
 			
 			<h1 id="employee-title" class="font-weight-bold">Employees</h1>
-            <table id="employee" class="table table-hover table-responsive-sm">
-                <thead>
+            <table id="employee" class="table table-responsive-sm table-sm">
+                <thead class="thead-dark">
                   <tr>
                     <th scope="col">ID</th>
                     <th scope="col">First</th>
                     <th scope="col">Last</th>
 					<th scope="col">Customer Status</th>
 					<th scope="col">Email Address</th>
+					<th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -268,6 +250,7 @@
                     <td>Otto</td>
 					<td>Inactive</td>
 					<td>markotto@gmail.com</td>
+					<td><button type="button" class="btn btn-success promoted">Promote employee</button></td>
                   </tr>
                   <tr class="employee-row">
                     <th scope="row">2</th>
@@ -275,6 +258,7 @@
                     <td>Thornton</td>
 					<td>Active</td>
 					<td>JacobThron@yahoo.com</td>
+					<td><button type="button" class="btn btn-success promoted">Promote employee</button></td>
                   </tr>
                   <tr class="employee-row">
                     <th scope="row">3</th>
@@ -282,6 +266,7 @@
                     <td>Bird</td>
 					<td>Inactive</td>
 					<td>Lbird@gmail.com</td>
+					<td><button type="button" class="btn btn-success promoted">Promote employee</button></td>
                   </tr>
                 </tbody>
             </table>
