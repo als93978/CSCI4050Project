@@ -12,13 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import dataAccess.UserDA;
 import models.User;
+import models.UserStatus;
 import models.UserType;
 
 /**
- * Servlet implementation class PromoteEmployee
+ * Servlet implementation class SuspendUser
  */
-@WebServlet("/DepromoteAdmin")
-public class DepromoteAdmin extends HttpServlet {
+@WebServlet("/SuspendUser")
+public class SuspendUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private UserDA userDA = new UserDA();
@@ -28,7 +29,7 @@ public class DepromoteAdmin extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DepromoteAdmin() {
+    public SuspendUser() {
         super();
     }
 
@@ -44,18 +45,18 @@ public class DepromoteAdmin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			depromoteAdmin(request, response);
+			suspendUser(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void depromoteAdmin(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	private void suspendUser(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		int userID = Integer.parseInt(request.getParameter("userID"));
 		
 		user = userDA.getUserByID(userID);
 		
-		user.setType(UserType.EMPLOYEE);
+		user.setStatusID(UserStatus.SUSPENDED);
 		userDA.updateUser(user);
 		
 		redirectToPage(request, response, "ManageUsers");

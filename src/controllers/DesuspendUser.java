@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import dataAccess.UserDA;
 import models.User;
-import models.UserType;
+import models.UserStatus;
 
 /**
- * Servlet implementation class PromoteEmployee
+ * Servlet implementation class DesuspendUser
  */
-@WebServlet("/DepromoteAdmin")
-public class DepromoteAdmin extends HttpServlet {
+@WebServlet("/DesuspendUser")
+public class DesuspendUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private UserDA userDA = new UserDA();
@@ -28,7 +28,7 @@ public class DepromoteAdmin extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DepromoteAdmin() {
+    public DesuspendUser() {
         super();
     }
 
@@ -44,18 +44,22 @@ public class DepromoteAdmin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			depromoteAdmin(request, response);
+			desuspendUser(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void depromoteAdmin(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	private void desuspendUser(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		int userID = Integer.parseInt(request.getParameter("userID"));
 		
 		user = userDA.getUserByID(userID);
 		
-		user.setType(UserType.EMPLOYEE);
+		// **********************************
+		// !!!!!! NOTE: This sets UserStatus to ACTIVE, but it could have been INACTIVE.
+		// Leaving this for now, but it needs to be fixed at some point.
+		// **********************************
+		user.setStatusID(UserStatus.ACTIVE);
 		userDA.updateUser(user);
 		
 		redirectToPage(request, response, "ManageUsers");

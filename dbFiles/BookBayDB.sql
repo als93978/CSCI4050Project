@@ -119,5 +119,15 @@ CREATE TABLE IF NOT EXISTS ManagePromotions (
 
 INSERT INTO `User`(FirstName, LastName, Email, Password, `Status`, `Type`)
 VALUES("Austin", "Schultz", "aschultz086@gmail.com", sha2("lordfarquaad", 256), "ACTIVE", "ADMIN");
+
+INSERT INTO `User`(FirstName, LastName, Email, Password, `Status`, `Type`)
+VALUES("David", "Doan", "daviddoan@bookbay.com", sha2("daviddoanpassword", 256), "ACTIVE", "ADMIN");
+
+INSERT INTO `User`(FirstName, LastName, Email, Password, `Status`, `Type`)
+VALUES("Devin", "Hajjari", "devinhajjari@bookbay.com", sha2("devinhajjaripassword", 256), "ACTIVE", "ADMIN");
+
+INSERT INTO `User`(FirstName, LastName, Email, Password, `Status`, `Type`)
+VALUES("Jonah", "Kim", "jonahkim@bookbay.com", sha2("jonahkimpassword", 256), "ACTIVE", "ADMIN");
+
 INSERT INTO `User`(FirstName, LastName, Email, Password, `Status`, `Type`)
 VALUES("Captain", "Alex", "sojey61001@0335g.com", sha2("whokilledme", 256), "ACTIVE", "EMPLOYEE");
