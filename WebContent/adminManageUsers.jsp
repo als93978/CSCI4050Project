@@ -62,7 +62,7 @@
  						<b style="margin-right: 3%; font-size: 15pt;">Admin</b>
  						<ul class="navbar-nav">
  							<li>
- 								<a class="nav-link" href="index.html">Logout</a>
+ 								<a class="nav-link" href="Logout">Logout</a>
  							</li>
  						</ul>
  						

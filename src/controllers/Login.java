@@ -66,9 +66,17 @@ public class Login extends HttpServlet {
 			
 			user = userDA.getUserByID(userID);
 			
-			String dbPassword = user.getPassword();
+			if(user == null) {
+				String wrongLoginMsg = "The email/account ID and/or password you entered was incorrect.";
 			
-			checkPassword(request, response, inputPassword, dbPassword);
+				returnError(request, response, wrongLoginMsg);
+			}
+			
+			else {
+				String dbPassword = user.getPassword();
+				
+				checkPassword(request, response, inputPassword, dbPassword);
+			}
 		}
 		
 		else {
