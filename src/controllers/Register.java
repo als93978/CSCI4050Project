@@ -121,7 +121,7 @@ public class Register extends HttpServlet {
 		
 		email.setFromAddress(fromAddress);
 		email.setToAddress(userEmail);
-		email.setBody(email.getBody() + confirmationCode);
+		email.setBody(email.getConfirmationBody() + confirmationCode);
 		
 		EmailHelper emailHelper = new EmailHelper();
 		emailHelper.sendConfirmationEmail(email);
