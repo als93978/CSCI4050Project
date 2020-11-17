@@ -108,7 +108,7 @@ public class ManageUsers extends HttpServlet {
 			request.setAttribute("employees", employees);
 		}
 		
-		redirectToPage(request, response, "manageUsers.jsp");
+		redirectToPage(request, response, "adminManageUsers.jsp");
 	}
 	
 	private boolean checkUserIsAdmin() throws SQLException {
