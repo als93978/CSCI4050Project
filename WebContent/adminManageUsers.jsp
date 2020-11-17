@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"
     import="models.User"
     import="models.UserStatus"
+    import="models.ErrorMessage"
+    import="models.Message"
     import="java.util.List"
     import="java.lang.Integer"
 %>

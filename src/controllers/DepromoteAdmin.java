@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dataAccess.UserDA;
+import models.ErrorMessage;
+import models.Message;
 import models.User;
 import models.UserType;
 
@@ -47,6 +49,7 @@ public class DepromoteAdmin extends HttpServlet {
 			depromoteAdmin(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();
+			returnError(request, response, e.getMessage());
 		}
 	}
 	
@@ -57,6 +60,27 @@ public class DepromoteAdmin extends HttpServlet {
 		
 		user.setType(UserType.EMPLOYEE);
 		userDA.updateUser(user);
+		
+		String depromotedMsg = "Admin successfully depromoted. (UserID: " + userID + ")";
+		returnMessage(request, response, depromotedMsg);
+	}
+	
+	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
+		Message message = new Message();
+		
+		message.setMessage(messageStr);
+		
+		request.setAttribute("message", message);
+		
+		redirectToPage(request, response, "ManageUsers");
+	}
+	
+	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {
+		ErrorMessage errorMessage = new ErrorMessage();
+		
+		errorMessage.setMessage("An error occurred: " + message);
+		
+		request.setAttribute("errorMessage", errorMessage);
 		
 		redirectToPage(request, response, "ManageUsers");
 	}
