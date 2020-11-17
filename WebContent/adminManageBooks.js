@@ -8,7 +8,7 @@ $(document).ready(function() {
         changeImage(this);
     });
 
-    $("#add-coupon").click(function(event) {
+    $("#add-book").click(function(event) {
         if (imageFile.files.length == 0) {
             event.preventDefault();
             event.stopPropagation();
