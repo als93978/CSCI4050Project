@@ -47,10 +47,6 @@
  							</li>
  							
  							<li>
- 								<a class="nav-link" href="#">Manage Users</a>
- 							</li>
- 							
- 							<li>
  								<a class="nav-link" href="#">Manage Promotions</a>
  							</li>
  						</ul>

@@ -1,3 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="javax.servlet.http.Cookie, dataAccess.*"
+    import="models.ErrorMessage"
+    import="models.Message"
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -87,6 +94,26 @@
  					</div>
  				</nav>
             </div>
+            
+            			<%
+							Message message = (Message) request.getAttribute("message");
+										
+							if(message != null) {
+								out.println("<div class=\"alert alert-success\" role=\"alert\" style=\"display: block\">");
+								out.println("\t" + message.getMessage());
+								out.println("</div>");
+							}
+						%>
+					
+						<%
+							ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
+										
+							if(errorMessage != null) {
+								out.println("<div class=\"alert alert-danger\" role=\"alert\" style=\"display: block\">");
+								out.println("\t" + errorMessage.getMessage());
+								out.println("</div>");
+							}
+						%>
             
             <main role="main" class="text-center">
                 <h1 class="font-weight-bold">Forgot your password?</h1>

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import dataAccess.UserDA;
 import models.Email;
 import models.ErrorMessage;
+import models.Message;
 import models.User;
 
 /**
@@ -88,10 +89,23 @@ public class ForgotPassword extends HttpServlet {
 		
 		email.setFromAddress(fromAddress);
 		email.setToAddress(userEmail);
-		email.setBody(email.getRecoveryBody() + "?code=" + confirmationCode);
+		email.setBody(email.getRecoveryBody() + "?code=" + confirmationCode + "&email=" + userEmail);
 		
 		EmailHelper emailHelper = new EmailHelper();
 		emailHelper.sendConfirmationEmail(email);
+		
+		String sentRecoveryMsg = "The recovery email has been sent. Please check your email.";
+		returnMessage(request, response, sentRecoveryMsg);
+	}
+	
+	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
+		Message message = new Message();
+		
+		message.setMessage(messageStr);
+		
+		request.setAttribute("message", message);
+		
+		redirectToPage(request, response, "forgetPassword.jsp");
 	}
 	
 	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {

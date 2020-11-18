@@ -148,7 +148,7 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<a id="forgot" href="" data-toggle="modal" data-target="#exampleModal">Forgot Password?</a>
+										<a id="forgot" href="forgetPassword.jsp">Forgot Password?</a>
 									</div>
 									<button type="submit" class="btn btn-white form-btn text-white">Login</button>
 								</form>
