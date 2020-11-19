@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS Book (
     Title varchar(255) NOT NULL,
     Author varchar(255) NOT NULL,
     SellingPrice float NOT NULL,
-    ISBN int,
+    ISBN varchar(255) UNIQUE,
     Genre varchar(255),
     `Description` text,
     PublicationYear int,
@@ -140,3 +140,21 @@ VALUES("George", "Costanza", "georgeconstanza@seinfeld.com", sha2("lordoftheidio
 
 INSERT INTO `User`(FirstName, LastName, Email, Password, `Status`, `Type`)
 VALUES("Cosmo", "Kramer", "kramer@kramericaindustries.com", sha2("kramerica", 256), "ACTIVE", "CUSTOMER");
+
+INSERT INTO Book(Title, Author, SellingPrice, ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice,
+				 Publisher, Quantity, MinThreshold)
+VALUES("Harry Potter and the Sorcerer's Stone", "J. K. Rowling", 4.99, "0-7475-3269-9", "Fantasy", 
+"The first novel of the Harry Potter series.",
+1998, "img/book1.png", 2.99, "Scholastic", 50, 10);
+
+INSERT INTO Book(Title, Author, SellingPrice, ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice,
+				 Publisher, Quantity, MinThreshold)
+VALUES("The Outsider", "Stephen King", 14.99, "978-1501180989", "Horror", 
+"A thrilling crime novel by Stephen King.",
+2018, "img/book2.png", 7.99, "Scribner", 15, 5);
+
+INSERT INTO Book(Title, Author, SellingPrice, ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice,
+				 Publisher, Quantity, MinThreshold)
+VALUES("Little Fires Everywhere", "Celeste Ng", 11.99, "0735224293", "Fiction", 
+"An interesting and dramatic novel set in a small Ohio town.",
+2017, "img/book4.png", 5.99, "Penguin Press", 20, 5);
