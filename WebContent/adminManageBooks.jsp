@@ -97,7 +97,15 @@
 					
 						int booksPerRow = 4;
 						
-						int numOfRows = books.size() / booksPerRow;
+						int numOfRows = 0;
+						
+						if((books.size() < booksPerRow) && (books.size() > 0)) {
+							numOfRows = 1;
+						}
+						
+						else
+							numOfRows = books.size() / booksPerRow;
+						
 						int numOfLeftovers = books.size() % 4;
 						
 						for(int i = 0; i < numOfRows; i++) {

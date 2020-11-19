@@ -60,7 +60,8 @@ CREATE TABLE IF NOT EXISTS Book (
     Edition int,
     Publisher varchar(255),
     Quantity int NOT NULL,
-    MinThreshold int
+    MinThreshold int,
+    Archived boolean NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS ManageBooks (
@@ -142,19 +143,25 @@ INSERT INTO `User`(FirstName, LastName, Email, Password, `Status`, `Type`)
 VALUES("Cosmo", "Kramer", "kramer@kramericaindustries.com", sha2("kramerica", 256), "ACTIVE", "CUSTOMER");
 
 INSERT INTO Book(Title, Author, SellingPrice, ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice,
-				 Publisher, Quantity, MinThreshold)
+				 Publisher, Quantity, MinThreshold, Archived)
 VALUES("Harry Potter and the Sorcerer's Stone", "J. K. Rowling", 4.99, "0-7475-3269-9", "Fantasy", 
 "The first novel of the Harry Potter series.",
-1998, "img/book1.png", 2.99, "Scholastic", 50, 10);
+1998, "img/book1.png", 2.99, "Scholastic", 50, 10, false);
 
 INSERT INTO Book(Title, Author, SellingPrice, ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice,
-				 Publisher, Quantity, MinThreshold)
+				 Publisher, Quantity, MinThreshold, Archived)
 VALUES("The Outsider", "Stephen King", 14.99, "978-1501180989", "Horror", 
 "A thrilling crime novel by Stephen King.",
-2018, "img/book2.png", 7.99, "Scribner", 15, 5);
+2018, "img/book2.png", 7.99, "Scribner", 15, 5, false);
 
 INSERT INTO Book(Title, Author, SellingPrice, ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice,
-				 Publisher, Quantity, MinThreshold)
+				 Publisher, Quantity, MinThreshold, Archived)
+VALUES("Crazy Rich Asians", "Kevin Kwan", 10.99, "978-0-385-53697-4", "Romantic Comedy", 
+"A comedic novel about contemporary Asian culture.",
+2013, "img/book3.png", 4.99, "Anchor", 50, 10, false);
+
+INSERT INTO Book(Title, Author, SellingPrice, ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice,
+				 Publisher, Quantity, MinThreshold, Archived)
 VALUES("Little Fires Everywhere", "Celeste Ng", 11.99, "0735224293", "Fiction", 
 "An interesting and dramatic novel set in a small Ohio town.",
-2017, "img/book4.png", 5.99, "Penguin Press", 20, 5);
+2017, "img/book4.png", 5.99, "Penguin Press", 20, 5, false);

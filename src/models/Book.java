@@ -15,6 +15,7 @@ public class Book {
 	private String publisher;
 	private int quantity;
 	private int minThreshold;
+	private boolean archived;
 	
 	public int getBookID() {
 		return bookID;
@@ -126,5 +127,13 @@ public class Book {
 	
 	public void setMinThreshold(int minThreshold) {
 		this.minThreshold = minThreshold;
+	}
+	
+	public boolean getArchived() {
+		return archived;
+	}
+	
+	public void setArchived(boolean archived) {
+		this.archived = archived;
 	}
 }

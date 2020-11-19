@@ -1,11 +1,19 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dataAccess.BookDA;
+import models.Book;
+import models.ErrorMessage;
+import models.Message;
 
 /**
  * Servlet implementation class DeleteBook
@@ -14,6 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	private BookDA bookDA = new BookDA();
+	
+	private Book book = null;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -32,7 +44,57 @@ public class DeleteBook extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			deleteBook(request, response);
+		} catch(Exception e) {
+			e.printStackTrace();
+			returnError(request, response, e.getMessage());
+		}
+	}
+	
+	private void deleteBook(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		int bookID = Integer.parseInt(request.getParameter("bookID"));
+
+		book = bookDA.getBookByID(bookID);
 		
+		book.setArchived(true);
+		
+		bookDA.updateBook(book);
+		
+		String bookDeletedMsg = "Book successfully deleted. (BookID: " + bookID + ")";
+		returnMessage(request, response, bookDeletedMsg);
+	}
+	
+	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
+		Message message = new Message();
+		
+		message.setMessage(messageStr);
+		
+		request.setAttribute("message", message);
+		
+		redirectToPage(request, response, "ManageBooks");
+	}
+	
+	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {
+		ErrorMessage errorMessage = new ErrorMessage();
+		
+		errorMessage.setMessage("An error occurred: " + message);
+		
+		request.setAttribute("errorMessage", errorMessage);
+		
+		redirectToPage(request, response, "ManageBooks");
+	}
+	
+	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + page);
+		
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 }

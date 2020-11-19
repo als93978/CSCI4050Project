@@ -19,8 +19,8 @@ public class BookDA implements IBookDA {
 	
 	private static final String addBookQuery = "INSERT INTO Book(Title, Author, SellingPrice,"
 			+ " ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice, Edition, Publisher,"
-			+ " Quantity, MinThreshold) "
-			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			+ " Quantity, MinThreshold, Archived) "
+			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
 	private static final String getAllBooksQuery = "SELECT * FROM Book";
 	
@@ -46,7 +46,8 @@ public class BookDA implements IBookDA {
 			 									+ "Edition = ?,"
 			 									+ "Publisher = ?,"
 			 									+ "Quantity = ?,"
-			 									+ "MinThreshold = ? "
+			 									+ "MinThreshold = ?,"
+			 									+ "Archived = ? "
 			 									+ "WHERE BookID = ?;";
 
 	private static String deleteBookQuery = "DELETE FROM Book WHERE BookID = ?;";
@@ -66,6 +67,7 @@ public class BookDA implements IBookDA {
 		String publisher = book.getPublisher();
 		int quantity = book.getQuantity();
 		int minThreshold = book.getMinThreshold();
+		boolean archived = book.getArchived();
 		
 		Connection connection = DataAccessHelper.getConnection();
 		
@@ -86,6 +88,7 @@ public class BookDA implements IBookDA {
 		addBookStmt.setString(11, publisher);
 		addBookStmt.setInt(12, quantity);
 		addBookStmt.setInt(13, minThreshold);
+		addBookStmt.setBoolean(14, archived);
 		
 		addBookStmt.executeUpdate();
 		
@@ -122,7 +125,8 @@ public class BookDA implements IBookDA {
 			String publisher = allBooksRS.getString(12);
 			int quantity = allBooksRS.getInt(13);
 			int minThreshold = allBooksRS.getInt(14);
-		    
+		    boolean archived = allBooksRS.getBoolean(15);
+			
 			book.setBookID(bookID);
 			book.setTitle(title);
 			book.setAuthor(author);
@@ -137,8 +141,10 @@ public class BookDA implements IBookDA {
 			book.setPublisher(publisher);
 			book.setQuantity(quantity);
 			book.setMinThreshold(minThreshold);
+			book.setArchived(archived);
 			
-		    books.add(book);
+			if(!book.getArchived())
+				books.add(book);
 		}
 		
 		connection.close();
@@ -177,7 +183,8 @@ public class BookDA implements IBookDA {
 			String publisher = bookRS.getString(12);
 			int quantity = bookRS.getInt(13);
 			int minThreshold = bookRS.getInt(14);
-		    
+		    boolean archived = bookRS.getBoolean(15);
+			
 			book.setBookID(dbBookID);
 			book.setTitle(title);
 			book.setAuthor(author);
@@ -192,6 +199,7 @@ public class BookDA implements IBookDA {
 			book.setPublisher(publisher);
 			book.setQuantity(quantity);
 			book.setMinThreshold(minThreshold);
+			book.setArchived(archived);
 		    
 		    connection.close();
 		    
@@ -234,7 +242,8 @@ public class BookDA implements IBookDA {
 			String publisher = bookRS.getString(12);
 			int quantity = bookRS.getInt(13);
 			int minThreshold = bookRS.getInt(14);
-		    
+		    boolean archived = bookRS.getBoolean(15);
+			
 			book.setBookID(dbBookID);
 			book.setTitle(title);
 			book.setAuthor(author);
@@ -249,7 +258,8 @@ public class BookDA implements IBookDA {
 			book.setPublisher(publisher);
 			book.setQuantity(quantity);
 			book.setMinThreshold(minThreshold);
-		    
+		    book.setArchived(archived);
+			
 		    connection.close();
 		    
 		    return book;
@@ -290,7 +300,8 @@ public class BookDA implements IBookDA {
 			String publisher = bookRS.getString(12);
 			int quantity = bookRS.getInt(13);
 			int minThreshold = bookRS.getInt(14);
-		    
+		    boolean archived = bookRS.getBoolean(15);
+			
 			book.setBookID(dbBookID);
 			book.setTitle(title);
 			book.setAuthor(author);
@@ -305,7 +316,8 @@ public class BookDA implements IBookDA {
 			book.setPublisher(publisher);
 			book.setQuantity(quantity);
 			book.setMinThreshold(minThreshold);
-		    
+		    book.setArchived(archived);
+			
 		    connection.close();
 		    
 		    return book;
@@ -332,6 +344,7 @@ public class BookDA implements IBookDA {
 		String publisher = book.getPublisher();
 		int quantity = book.getQuantity();
 		int minThreshold = book.getMinThreshold();
+		boolean archived = book.getArchived();
 		
 		Connection connection = DataAccessHelper.getConnection();
 		
@@ -353,7 +366,8 @@ public class BookDA implements IBookDA {
 		updateBookStmt.setString(11, publisher);
 		updateBookStmt.setInt(12, quantity);
 		updateBookStmt.setInt(13, minThreshold);
-		updateBookStmt.setInt(14, bookID);
+		updateBookStmt.setBoolean(14, archived);
+		updateBookStmt.setInt(15, bookID);
 		
 		updateBookStmt.executeUpdate();
 		
