@@ -86,7 +86,7 @@ public class Index extends HttpServlet {
 		boolean isUserAdmin = checkUserIsAdmin();
 		
 		if(isUserAdmin) {
-			response.sendRedirect(request.getContextPath() + "/adminManageBooks.html");
+			response.sendRedirect(request.getContextPath() + "/ManageBooks");
 		}
 		
 		else {
