@@ -109,8 +109,25 @@ html, body {
 	top: 10%;
 }
 
-.book-image2 {
+/* .book-image2 {
 	height: 239px;
+} */
+
+.book-image3 {
+	position: relative;
+	left: 8%;
+}
+
+.book {
+	position: relative;
+	bottom: 40px;
+}
+
+.shelf {
+	background-image: url(img/shelf.png);
+	background-size: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 	.mainContainer {
@@ -196,12 +213,13 @@ html, body {
 		}
 
         .content {
-            padding: 1em;
+			padding-right: 1em;
+			padding-top: 5%;
         }
         
-        	.imgFullOpacity {
-        		opacity: 1;
-        	}
+		.imgFullOpacity {
+			opacity: 1;
+		}
 
         .searchArea {
             display: inline;
