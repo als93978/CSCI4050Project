@@ -97,16 +97,12 @@
 					
 						int booksPerRow = 4;
 						
-						int numOfRows = 0;
+						int numOfRows = books.size() / booksPerRow;
 						
-						if((books.size() < booksPerRow) && (books.size() > 0)) {
-							numOfRows = 1;
-						}
+						int numOfLeftovers = books.size() % booksPerRow;
 						
-						else
-							numOfRows = books.size() / booksPerRow;
-						
-						int numOfLeftovers = books.size() % 4;
+						if(books.size() < booksPerRow)
+							booksPerRow = books.size();
 						
 						for(int i = 0; i < numOfRows; i++) {
 							out.println("<div id=\"added\" class=\"row row-cols-" + booksPerRow + "\">");
@@ -133,11 +129,10 @@
 							
 							out.println("</div>");
 						}
-						
-						for(int i = 0; i < numOfLeftovers; i++) {
-							out.println("<div id=\"added\" class=\"row row-cols-" + booksPerRow + "\">");
-							
-							int index = (booksPerRow * numOfRows) + i;
+
+						out.println("<div id=\"added\" class=\"row row-cols-" + booksPerRow + "\">");
+						for(int k = 0; k < numOfLeftovers; k++) {
+							int index = (booksPerRow * numOfRows) + k;
 							Book currentBook = books.get(index);
 							
 							out.println("<div class=\"col\">");
@@ -154,9 +149,8 @@
 							out.println("</div>");
 							
 							out.println("</div>");
-							
-							out.println("</div>");
 						}
+						out.println("</div>");
 					%>
 				
 <!-- 					<div id="added" class="row row-cols-5"> -->
@@ -470,36 +464,36 @@
 									<h5 class="modal-title" id="exampleModalLabel">Add a new book</h5>
 								</div>
 								<img src="img/addpicture.png" id="added-picture" class="mx-auto">
-								<form novalidate>
+								<form id="addNewBookModal" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" novalidate>
 									<div class="modal-body">
 										<div id="image-input" class="form-group">
-                                            <input type="file" name="filePhoto" value="" id="filePhoto" accept="image/*" required hidden>
-                                            <input id='upload-image' type='button' class="btn btn-info" value='Upload Image' />
+                                            <input type="file" value="" id="filePhoto" accept="image/*" required hidden>
+                                            <input id='upload-image' type='button' class="btn btn-info" value='Upload Image'/>
                                         </div>
 										<div class="form-group">
 											<label for="bookTitle">Book Title</label>
-											<input type="text" class="form-control" id="bookTitle">
+											<input type="text" class="form-control" id="bookTitle" name="title">
 										</div>
 										<div class="form-group">
 											<label for="author">Author</label>
-											<input type="text" class="form-control" id="author">
+											<input type="text" class="form-control" id="author" name="author">
 										</div>
 										<div class="form-group">
 											<label for="price">Price</label>
-											<input type="text" class="form-control" id="price">
+											<input type="text" class="form-control" id="price" name="price">
 										</div>
 										<div class="form-group">
 											<label for="genre">Genre</label>
-											<input type="text" class="form-control" id="genre">
+											<input type="text" class="form-control" id="genre" name="genre">
 										</div>
 										<div class="form-group">
 											<label for="description">Description</label>
-											<input type="text" class="form-control" id="description">
+											<input type="text" class="form-control" id="description" name="description">
 										</div>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-										<button id="add-book" type="submit" class="btn btn-primary">Add book</button>
+										<button id="add-book" type="submit" class="btn btn-primary" formaction="AddNewBook">Add book</button>
 									</div>
 								</form>
 							</div>
