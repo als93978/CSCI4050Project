@@ -30,7 +30,7 @@
 			<!-- Header -->
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
- 					<a class="navbar-brand" href="#">
+ 					<a class="navbar-brand" href="Index">
 						<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-book-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 						  <path fill-rule="evenodd" d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
 						</svg>
@@ -104,6 +104,9 @@
 						if(books.size() < booksPerRow)
 							booksPerRow = books.size();
 						
+						String imgWidth = "158";
+						String imgHeight = "239";
+						
 						for(int i = 0; i < numOfRows; i++) {
 							out.println("<div id=\"added\" class=\"row row-cols-" + booksPerRow + "\">");
 							
@@ -142,7 +145,7 @@
 							out.println("<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\""
 									+ " data-target=\"#book" + (index+1) + "\" style=\"background-color: transparent; border: none;\">");
 							
-							out.println("<img src=\"" + currentBook.getImagePath() + "\" class=\"rounded mx-auto d-block shelfImg\">");
+							out.println("<img width=\"" + imgWidth + "\" height=\"" + imgHeight + "\" src=\"" + currentBook.getImagePath() + "\" class=\"rounded mx-auto d-block shelfImg\">");
 							
 							out.println("</button>");
 							
@@ -220,7 +223,7 @@
 							
 							out.println("</div>");
 							
-							out.println("<img class=\"modalImg mx-auto\" src=\"" + currentBook.getImagePath() + "\">");
+							out.println("<img class=\"modalImg mx-auto\" width=\"" + imgWidth + "\" height=\"" + imgHeight + "\" src=\"" + currentBook.getImagePath() + "\">");
 							
 							out.println("<form id=\"book" + (i+1) + "ModalForm\" method=\"POST\" accept-charset=\"UTF-8\">");
 							
@@ -467,7 +470,7 @@
 								<form id="addNewBookModal" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" novalidate>
 									<div class="modal-body">
 										<div id="image-input" class="form-group">
-                                            <input type="file" value="" id="filePhoto" accept="image/*" required hidden>
+                                            <input type="file" value="" id="filePhoto" accept="image/*" name="image" required hidden>
                                             <input id='upload-image' type='button' class="btn btn-info" value='Upload Image'/>
                                         </div>
 										<div class="form-group">

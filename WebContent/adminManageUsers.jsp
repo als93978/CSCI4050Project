@@ -31,7 +31,7 @@
 			<!-- Header -->
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
- 					<a class="navbar-brand" href="homepageWithUserIcon.html">
+ 					<a class="navbar-brand" href="Index">
 <!--  						<img class="logoImg" src="img/bookbayLogo.png"> -->
 						BookBay
  					</a>

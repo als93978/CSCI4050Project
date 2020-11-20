@@ -28,7 +28,7 @@
 			<!-- Header -->
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
- 					<a class="navbar-brand" href="index.html">
+ 					<a class="navbar-brand" href="Index">
                     <!--<img class="logoImg" src="img/bookbayLogo.png"> -->
 						BookBay
  					</a>
@@ -79,7 +79,7 @@
  						
  						<ul class="navbar-nav">
  							<li>
- 								<a class="nav-link" href="login.html">Login</a>
+ 								<a class="nav-link" href="login.jsp">Login</a>
  							</li>
  							
  							<li>

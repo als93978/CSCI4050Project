@@ -1,6 +1,10 @@
 package controllers;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import dataAccess.BookDA;
 import models.Book;
@@ -53,21 +58,52 @@ public class AddNewBook extends HttpServlet {
 		}
 	}
 	
-	private void processUpload(HttpServletRequest request, HttpServletResponse response) {
+	private void processUpload(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
 		book = new Book();
 		
-		// image
+		Part uploadedImgPart = request.getPart("image");
+		String uploadedImgFileName = uploadedImgPart.getSubmittedFileName();
+		InputStream uploadedImgInputStream = uploadedImgPart.getInputStream();
+		File imgFolderPath = new File(System.getProperty("catalina.base") + "/imgStorage/");
+		
+		imgFolderPath.mkdir();
+		//System.out.println(System.getProperty("catalina.base"));
+		
+		File uploadedImgSaveFile = new File(imgFolderPath, uploadedImgFileName);
+		
+		if(!uploadedImgSaveFile.exists()) {
+			try(uploadedImgInputStream) {
+				Files.copy(uploadedImgInputStream, uploadedImgSaveFile.toPath());
+			}
+		}
+		
 		String title = request.getParameter("title");
+		
 		String author = request.getParameter("author");
-		float price = Float.parseFloat(request.getParameter("price"));
+		
+		float price;
+		if(request.getParameter("price").equals("") || request.getParameter("price") == null)
+			price = 0.0f;
+		else
+			price = Float.parseFloat(request.getParameter("price"));
+		
 		String genre = request.getParameter("genre");
+		
 		String description = request.getParameter("description");
+		
+		String imagePath = "imgStorage/" + uploadedImgFileName;
 		
 		book.setTitle(title);
 		book.setAuthor(author);
 		book.setSellingPrice(price);
 		book.setGenre(genre);
 		book.setDescription(description);
+		book.setImagePath(imagePath);
+		
+		bookDA.createBook(book);
+		
+		String bookCreatedMsg = "Book successfully created.";
+		returnMessage(request, response, bookCreatedMsg);
 	}
 	
 	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
