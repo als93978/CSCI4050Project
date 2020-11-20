@@ -121,7 +121,7 @@
 								out.println("<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\""
 										+ " data-target=\"#book" + (index+1) + "\" style=\"background-color: transparent; border: none;\">");
 								
-								out.println("<img src=\"" + currentBook.getImagePath() + "\" class=\"rounded mx-auto d-block shelfImg\">");
+								out.println("<img width=\"" + imgWidth + "\" height=\"" + imgHeight + "\" src=\"" + currentBook.getImagePath() + "\" class=\"rounded mx-auto d-block shelfImg\">");
 								
 								out.println("</button>");
 								
