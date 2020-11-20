@@ -255,24 +255,36 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title mx-auto" id="exampleModalLabel">Add a new coupon</h5>
                                 </div>
-                                <form id="promotion" action="SendPromotion" method="POST" accept-charset="UTF-8" novalidate>
+                                <form id="promotion" class="needs-validation" action="SendPromotion" method="POST" accept-charset="UTF-8" novalidate>
                                     <div class="modal-body">
                                         
                                         <div class="form-group">
                                             <label for="code">Code</label>
-                                            <input type="text" class="form-control" name="promotionCode">
+                                            <input type="text" class="form-control" name="promotionCode" required>
+                                            <div class="invalid-feedback">
+											Please provide a valid code that is unique and is less than 100.
+										  </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="amount">Discount</label>
-                                            <input type="text" class="form-control" name="percentage">
+                                            <input type="text" class="form-control" name="percentage" required>
+                                            <div class="invalid-feedback">
+											Please choose 20, 30, 40, or 50.
+										  </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="limit">Start Date</label>
-                                            <input type="text" class="form-control" name="startDate">
+                                            <input type="text" class="form-control" name="startDate" required>
+                                            <div class="invalid-feedback">
+											Please provide a start date.
+										  </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="date">Expiration Date</label>
-                                            <input type="text" class="form-control" name="expDate">
+                                            <input type="text" class="form-control" name="expDate" required>
+                                            <div class="invalid-feedback">
+											Please provide an expiration date.
+										  </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -285,7 +297,7 @@
                     </div>
 				</div>
 	    	</div>
-	    	
+	    	<script type="text/javascript" src="main.js"></script>	
 	    	<br>
 	    	<br>
 	    	

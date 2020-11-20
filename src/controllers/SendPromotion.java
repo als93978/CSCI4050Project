@@ -98,9 +98,10 @@ public class SendPromotion extends HttpServlet {
 			Email email = new Email();
 			email.setFromAddress(fromAddress);
 			email.setToAddress(userEmail);
-			email.setBody(email.getBody() + "Promotion Code: " + promotion.getPromotionCode() + "\n" + promotion.getPercentage()
+			email.setBody("Promotion Code: " + promotion.getPromotionCode() + "\n" + promotion.getPercentage()
 				+ "% off any purchase\n" + "Expiration Date: " + promotion.getExpDate()
 				+ "\nStart Date: " + promotion.getStartDate());
+			email.setSubject("New Promotion");
 			EmailHelper emailHelper = new EmailHelper();
 			emailHelper.sendConfirmationEmail(email);
 		}
