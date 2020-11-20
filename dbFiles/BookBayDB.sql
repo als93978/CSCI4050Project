@@ -134,7 +134,7 @@ INSERT INTO `User`(FirstName, LastName, Email, Password, `Status`, `Type`)
 VALUES("Captain", "Alex", "sojey61001@0335g.com", sha2("whokilledme", 256), "ACTIVE", "EMPLOYEE");
 
 INSERT INTO `User`(FirstName, LastName, Email, Password, `Status`, `Type`)
-VALUES("Marcus", "Aurelius", "marcusaurelius@spqr.com", sha2("amorfati", 256), "ACTIVE", "CUSTOMER");
+VALUES("Princess", "Fiona", "fiona@shrek.com", sha2("theperfectbridefortheperfectgroom", 256), "ACTIVE", "CUSTOMER");
 
 INSERT INTO `User`(FirstName, LastName, Email, Password, `Status`, `Type`)
 VALUES("George", "Costanza", "georgeconstanza@seinfeld.com", sha2("lordoftheidiots", 256), "ACTIVE", "CUSTOMER");
