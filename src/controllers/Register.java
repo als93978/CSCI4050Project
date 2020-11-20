@@ -75,11 +75,13 @@ public class Register extends HttpServlet {
 		
 		userDA.createUser(user);
 		
+		user = userDA.getLastUser(); // So we can get the userID, b/c we don't necessarily know it beforehand
+		
 		boolean paymentInfoEntered = paymentInfoWasEntered(request);
 		boolean shippingInfoEntered = request.getParameter("shippingOption") != null;
 		
 		if(paymentInfoEntered) {
-			paymentCard = initPaymentCard(request, user);
+			paymentCard = initPaymentCard(request);
 			
 			paymentCardDA.createPaymentCard(paymentCard);
 			
@@ -153,7 +155,7 @@ public class Register extends HttpServlet {
 	}
 	
 	// Set payment info user optionally entered on registration page and return the PaymentCard
-	private PaymentCard initPaymentCard(HttpServletRequest request, User newUser) {
+	private PaymentCard initPaymentCard(HttpServletRequest request) {
 		PaymentCard paymentCard = new PaymentCard();
 		
 		String cardNum = request.getParameter("cardNum");
@@ -169,7 +171,7 @@ public class Register extends HttpServlet {
 		// Need to read previously added user to get its userID
 //		User newUser = UserDA.getLastUserFromDB();
 //		int userID = newUser.getUserID();
-		int userID = newUser.getUserID();
+		int userID = user.getUserID();
 		
 		paymentCard.setCardNum(cardNum);
 		paymentCard.setCardType(cardType);
