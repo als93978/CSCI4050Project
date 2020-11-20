@@ -47,7 +47,7 @@
  							</li>
  							
  							<li>
- 								<a class="nav-link" href="#">Manage Promotions</a>
+ 								<a class="nav-link" href="adminManagePromotions.html">Manage Promotions</a>
  							</li>
  						</ul>
  						

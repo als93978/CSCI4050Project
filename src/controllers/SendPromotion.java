@@ -2,10 +2,8 @@ package controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Properties;
 
 import javax.mail.MessagingException;
-import javax.mail.Session;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.ArrayList;
 
 import dataAccess.PromotionDA;
 import dataAccess.UserDA;
@@ -21,8 +18,6 @@ import models.Email;
 import models.ErrorMessage;
 import models.Promotion;
 import models.User;
-import models.UserStatus;
-import models.UserType;
 
 /**
  * Servlet implementation class SendPromotion
@@ -34,7 +29,6 @@ public class SendPromotion extends HttpServlet {
 	private UserDA userDA = new UserDA();
 	
 	private Promotion promotion = null;
-	private User user = null;
        
     /**
      * @see HttpServlet#HttpServlet()

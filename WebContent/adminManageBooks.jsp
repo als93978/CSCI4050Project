@@ -49,7 +49,7 @@
  							</li>
  							
  							<li>
- 								<a class="nav-link" href="adminManagePromotions.html">Manage Promotions</a>
+ 								<a class="nav-link" href="adminManagePromotions.jsp">Manage Promotions</a>
  							</li>
  						</ul>
  						
