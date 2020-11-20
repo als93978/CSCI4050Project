@@ -86,12 +86,12 @@ public class PromotionDA implements IPromotionDA {
 		while(promotionRS.next()) {
 			promotion = new Promotion();
 			
-			int dbPromotionCode = promotionRS.getInt(1);
+			int DBpromotionCode = promotionRS.getInt(1);
 		    int percentage = promotionRS.getInt(2);
 		    String expDate = promotionRS.getString(3);
 		    String startDate = promotionRS.getString(4);
 		    
-		    promotion.setPromotionCode(dbPromotionCode);
+		    promotion.setPromotionCode(DBpromotionCode);
 		    promotion.setPercentage(percentage);
 		    promotion.setExpDate(expDate);
 		    promotion.setStartDate(startDate);

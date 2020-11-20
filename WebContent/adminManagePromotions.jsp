@@ -1,3 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="javax.servlet.http.Cookie, dataAccess.*"
+    import="models.ErrorMessage"
+    import="models.Message"
+    import="models.User"
+    import="models.Address"
+    import="models.PaymentCard"
+    import="models.Promotion"
+%>
+
+<%
+	User user = (User) request.getAttribute("user");
+
+	Promotion promotion = (Promotion) request.getAttribute("promotion");
+	PromotionDA promotionDA = new PromotionDA();
+%>
 <!DOCTYPE html>
 <html>
 
@@ -114,36 +131,30 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">20% off coupon</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">20% off coupons</h5>
                                 </div>
                                 <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="code">Code</label>
-                                            <input type="text" class="form-control" id="code" value="20OFFCOUP">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="amount">Coupon Amount</label>
-                                            <input type="text" class="form-control" id="amount" value="10">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="limit">Usage Limit</label>
-                                            <input type="text" class="form-control" id="limit" value="1">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="expire">Expiration Date</label>
-                                            <input type="text" class="form-control" id="expire" value="11/26/2020">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="description">Description</label>
-                                            <input type="text" class="form-control" id="description" value="This coupon applies a 20% discount.">
-                                        </div>
-                                    </form>
+                                
+                               <%
+                               Promotion promotion20 = new Promotion();
+                               int couponCount20 = 0;
+
+                               for (int i = 0; i < 100; i++){
+                            	   promotion20 = promotionDA.getPromotionByCode(i);
+                            	   if (promotion20 != null && promotion20.getPercentage() == 20){
+                            		   out.println("<p>Promotion " + promotion20.getPromotionCode() + ": Discount=" + promotion20.getPercentage()
+   									+ "% Expiration=" + promotion20.getExpDate() + " Start=" + promotion20.getStartDate() + "</p>");
+                            		   couponCount20++;
+                            	   }
+                               }
+                               if (couponCount20 == 0) {
+                            	   out.println("No active coupons");
+                               }
+								%>
+								
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save</button>
-                                    <button type="button" class="btn btn-danger">Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -152,36 +163,28 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">30% off coupon</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">30% off coupons</h5>
                                 </div>
                                 <div class="modal-body">                              
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="code">Code</label>
-                                            <input type="text" class="form-control" id="code" value="30OFFCOUP">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="amount">Coupon Amount</label>
-                                            <input type="text" class="form-control" id="amount" value="10">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="limit">Usage Limit</label>
-                                            <input type="text" class="form-control" id="limit" value="1">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="expire">Expiration Date</label>
-                                            <input type="text" class="form-control" id="expire" value="12/05/2020">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="description">Description</label>
-                                            <input type="text" class="form-control" id="description" value="This coupon applies a 30% discount.">
-                                        </div>
-                                    </form>
+							<%
+                               Promotion promotion30 = new Promotion();
+                               int couponCount30 = 0;
+
+                               for (int i = 0; i < 100; i++){
+                            	   promotion30 = promotionDA.getPromotionByCode(i);
+                            	   if (promotion30 != null && promotion30.getPercentage() == 30){
+                            		   out.println("<p>Promotion " + promotion30.getPromotionCode() + ": Discount=" + promotion30.getPercentage()
+   									+ "% Expiration=" + promotion30.getExpDate() + " Start=" + promotion30.getStartDate() + "</p>");
+                            		   couponCount30++;
+                            	   }
+                               }
+                               if (couponCount30 == 0) {
+                            	   out.println("No active coupons");
+                               }
+							%>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save</button>
-                                    <button type="button" class="btn btn-danger">Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -190,36 +193,28 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">40% off coupon</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">40% off coupons</h5>
                                 </div>
                                 <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="code">Code</label>
-                                            <input type="text" class="form-control" id="code" value="40OFFCOUP">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="amount">Coupon Amount</label>
-                                            <input type="text" class="form-control" id="amount" value="10">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="limit">Usage Limit</label>
-                                            <input type="text" class="form-control" id="limit" value="1">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="expire">Expiration Date</label>
-                                            <input type="text" class="form-control" id="expire" value="01/15/2021">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="description">Description</label>
-                                            <input type="text" class="form-control" id="description" value="This coupon applies a 40% discount.">
-                                        </div>
-                                    </form>
+                            <%
+                               Promotion promotion40 = new Promotion();
+                               int couponCount40 = 0;
+
+                               for (int i = 0; i < 100; i++){
+                            	   promotion40 = promotionDA.getPromotionByCode(i);
+                            	   if (promotion40 != null && promotion40.getPercentage() == 40){
+                            		   out.println("<p>Promotion " + promotion40.getPromotionCode() + ": Discount=" + promotion40.getPercentage()
+   									+ "% Expiration=" + promotion40.getExpDate() + " Start=" + promotion40.getStartDate() + "</p>");
+                            		   couponCount40++;
+                            	   }
+                               }
+                               if (couponCount40 == 0) {
+                            	   out.println("No active coupons");
+                               }
+							%>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save</button>
-                                    <button type="button" class="btn btn-danger">Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -228,36 +223,28 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">50% off coupon</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">50% off coupons</h5>
                                 </div>
                                 <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="code">Code</label>
-                                            <input type="text" class="form-control" id="code" value="50OFFCOUP">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="amount">Coupon Amount</label>
-                                            <input type="text" class="form-control" id="amount" value="10">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="limit">Usage Limit</label>
-                                            <input type="text" class="form-control" id="limit" value="1">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="expire">Expiration Date</label>
-                                            <input type="text" class="form-control" id="expire" value="02/23/2021">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="description">Description</label>
-                                            <input type="text" class="form-control" id="description" value="This coupon applies a 50% discount.">
-                                        </div>
-                                    </form>
+                               <%
+                               Promotion promotion50 = new Promotion();
+                               int couponCount50 = 0;
+
+                               for (int i = 0; i < 100; i++){
+                            	   promotion50 = promotionDA.getPromotionByCode(i);
+                            	   if (promotion50 != null && promotion50.getPercentage() == 50){
+                            		   out.println("<p>Promotion " + promotion50.getPromotionCode() + ": Discount=" + promotion50.getPercentage()
+   									+ "% Expiration=" + promotion50.getExpDate() + " Start=" + promotion50.getStartDate() + "</p>");
+                            		   couponCount50++;
+                            	   }
+                               }
+                               if (couponCount50 == 0) {
+                            	   out.println("No active coupons");
+                               }
+								%>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save</button>
-                                    <button type="button" class="btn btn-danger">Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -268,13 +255,9 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title mx-auto" id="exampleModalLabel">Add a new coupon</h5>
                                 </div>
-                                <img src="img/addpicture.png" id="added-picture" class="mx-auto">
                                 <form id="promotion" action="SendPromotion" method="POST" accept-charset="UTF-8" novalidate>
                                     <div class="modal-body">
-                                        <div id="image-input" class="form-group">
-                                            <input type="file" name="filePhoto" value="" id="filePhoto" accept="image/*" required hidden>
-                                            <input id='upload-image' type='button' class="btn btn-info" value='Upload Image' />
-                                        </div>
+                                        
                                         <div class="form-group">
                                             <label for="code">Code</label>
                                             <input type="text" class="form-control" name="promotionCode">
