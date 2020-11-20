@@ -20,4 +20,6 @@ public interface IPromotionDA {
 	public List<Promotion> getAllPromotions() throws SQLException;
 
 	public Promotion getPromotionByCode(int promotionCode) throws SQLException;
+	
+	public Promotion getLastPromotion() throws SQLException;
 }

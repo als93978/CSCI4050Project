@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
 
 	<head>
 		<meta charset="UTF-8">
@@ -16,7 +13,7 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 		<script src="https://kit.fontawesome.com/0318fd2bd1.js" crossorigin="anonymous"></script>
 	</head>
-
+	
 	<body>
         	<!-- Main container  -->
 		<div class="mainContainer">
@@ -63,6 +60,7 @@
  				</nav>
             </div>
 
+            <!-- Homepage content by Jonah Kim  -->
 			<div class="contentContainer">
 				<div class="content">
 					<div id="added" class="row row-cols-5">
@@ -271,7 +269,7 @@
                                     <h5 class="modal-title mx-auto" id="exampleModalLabel">Add a new coupon</h5>
                                 </div>
                                 <img src="img/addpicture.png" id="added-picture" class="mx-auto">
-                                <form novalidate>
+                                <form id="promotion" action="SendPromotion" method="POST" accept-charset="UTF-8" novalidate>
                                     <div class="modal-body">
                                         <div id="image-input" class="form-group">
                                             <input type="file" name="filePhoto" value="" id="filePhoto" accept="image/*" required hidden>
@@ -279,23 +277,19 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="code">Code</label>
-                                            <input type="text" class="form-control" id="code">
+                                            <input type="text" class="form-control" name="promotionCode">
                                         </div>
                                         <div class="form-group">
-                                            <label for="amount">Coupon Amount</label>
-                                            <input type="text" class="form-control" id="amount">
+                                            <label for="amount">Discount</label>
+                                            <input type="text" class="form-control" name="percentage">
                                         </div>
                                         <div class="form-group">
-                                            <label for="limit">Usage Limit</label>
-                                            <input type="text" class="form-control" id="limit">
+                                            <label for="limit">Start Date</label>
+                                            <input type="text" class="form-control" name="startDate">
                                         </div>
                                         <div class="form-group">
                                             <label for="date">Expiration Date</label>
-                                            <input type="text" class="form-control" id="date">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="description">Description</label>
-                                            <input type="text" class="form-control" id="description">
+                                            <input type="text" class="form-control" name="expDate">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -357,6 +351,4 @@
         </div>
         <script type="text/javascript" src="adminManagePromotions.js"></script>
 	</body>
-	
-	
 </html>

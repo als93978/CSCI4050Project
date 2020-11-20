@@ -18,6 +18,8 @@ public class PromotionDA implements IPromotionDA {
 	private static final String getAllPromotionsQuery = "SELECT * FROM Promotion";
 	
 	private static final String getPromotionByCodeQuery = "SELECT * FROM Promotion WHERE PromotionCode = ?;";
+	
+	private static final String getLastPromotionQuery = "SELECT * FROM Promotion ORDER BY PromotionCode DESC LIMIT 1;";
 
 	@Override
 	public void createPromotion(Promotion promotion) throws SQLException {
@@ -90,6 +92,38 @@ public class PromotionDA implements IPromotionDA {
 		    String startDate = promotionRS.getString(4);
 		    
 		    promotion.setPromotionCode(dbPromotionCode);
+		    promotion.setPercentage(percentage);
+		    promotion.setExpDate(expDate);
+		    promotion.setStartDate(startDate);
+		    
+		    connection.close();
+		    
+		    return promotion;
+		}
+		    
+		connection.close();
+		
+		return promotion;
+	}
+	
+	@Override
+	public Promotion getLastPromotion() throws SQLException {
+		Promotion promotion = null;
+		Connection connection = DataAccessHelper.getConnection();
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		PreparedStatement getLastPromotionPstmt = connection.prepareStatement(getLastPromotionQuery);
+		ResultSet promotionRS = getLastPromotionPstmt.executeQuery();
+		
+		while(promotionRS.next()) {
+			promotion = new Promotion();
+			
+			int promotionCode = promotionRS.getInt(1);
+		    int percentage = promotionRS.getInt(2);
+		    String expDate = promotionRS.getString(3);
+		    String startDate = promotionRS.getString(4);
+
+		    promotion.setPromotionCode(promotionCode);
 		    promotion.setPercentage(percentage);
 		    promotion.setExpDate(expDate);
 		    promotion.setStartDate(startDate);
