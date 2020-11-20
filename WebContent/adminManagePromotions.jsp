@@ -80,6 +80,27 @@
             <!-- Homepage content by Jonah Kim  -->
 			<div class="contentContainer">
 				<div class="content">
+				
+					<%
+						Message message = (Message) request.getAttribute("message");
+													
+						if(message != null) {
+							out.println("<div class=\"alert alert-success\" role=\"alert\" style=\"display: block\">");
+							out.println("\t" + message.getMessage());
+							out.println("</div>");
+						}
+					%>
+									
+					<%
+						ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
+
+						if(errorMessage != null) {
+							out.println("<div class=\"alert alert-danger\" role=\"alert\" style=\"display: block\">");
+							out.println("\t" + errorMessage.getMessage());
+							out.println("</div>");
+						}
+					%>
+				
 					<div id="added" class="row row-cols-5">
 						<div class="col-3">
                             <button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#coupon1" style="background-color: transparent; border: none;">

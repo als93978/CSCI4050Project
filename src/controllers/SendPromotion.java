@@ -16,6 +16,7 @@ import dataAccess.PromotionDA;
 import dataAccess.UserDA;
 import models.Email;
 import models.ErrorMessage;
+import models.Message;
 import models.Promotion;
 import models.User;
 
@@ -51,12 +52,11 @@ public class SendPromotion extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			processPromotion(request);
-			sendPromotionEmail(request);
-			redirectToPage(request, response, "adminManagePromotions.jsp");
+			sendPromotionEmail(request, response);
 			
-		}catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
-			interpretAndReturnException(request, response, e);
+			returnError(request, response, e.getMessage());
 		}
 	}
 	
@@ -81,7 +81,7 @@ public class SendPromotion extends HttpServlet {
 		return promotion;
 	}
 	
-	private void sendPromotionEmail(HttpServletRequest request) throws SQLException, MessagingException {
+	private void sendPromotionEmail(HttpServletRequest request, HttpServletResponse response) throws SQLException, MessagingException {
 		promotion = promotionDA.getLastPromotion();
 		List<User> allUsers = userDA.getAllUsers();
 		
@@ -99,16 +99,29 @@ public class SendPromotion extends HttpServlet {
 			EmailHelper emailHelper = new EmailHelper();
 			emailHelper.sendConfirmationEmail(email);
 		}
+		
+		String addedPromotionMsg = "Promotion successfully added.";
+		returnMessage(request, response, addedPromotionMsg);
 	}
 	
-	private void interpretAndReturnException(HttpServletRequest request, HttpServletResponse response, Exception e) {
+	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
+		Message message = new Message();
+		
+		message.setMessage(messageStr);
+		
+		request.setAttribute("message", message);
+		
+		redirectToPage(request, response, "adminManagePromotions.jsp");
+	}
+	
+	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {
 		ErrorMessage errorMessage = new ErrorMessage();
 		
-		errorMessage.setMessage("An error occurred: " + e.getMessage());
+		errorMessage.setMessage("An error occurred: " + message);
 		
 		request.setAttribute("errorMessage", errorMessage);
 		
-		redirectToPage(request, response, "registration.jsp");
+		redirectToPage(request, response, "adminManagePromotions.jsp");
 	}
 	
 	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {
