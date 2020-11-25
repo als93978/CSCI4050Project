@@ -102,7 +102,7 @@
 			<div class="contentContainer">
 				<div class="content">
 					<div id="featured">
-						<h1 style="text-align: center;">Featured Books</h1>
+						<h1 style="text-align: center; margin-bottom: 5%;">Featured Books</h1>
 					</div>
 					<!-- <div id="shelf" class="row" style="background-image: url(img/shelf.png); background-size: cover; background-repeat: no-repeat; background-position: center;">
 						<div class="col-md-3 book-image1 book">
@@ -134,43 +134,53 @@
 							List<Book> featuredBooks = (List<Book>) request.getAttribute("featuredBooks");
 							List<Book> topSellingBooks = (List<Book>) request.getAttribute("topSellingBooks");
 							
-							int numOfBooks = 4;
+							int numOfBooksPerShelf = 4;
 							
 							String imgWidth = "158";
 							String imgHeight = "239";
 							
-							for(int i = 0; i < numOfBooks; i++) {
+							for(int i = 0; i < numOfBooksPerShelf; i++) {
 								Book currentBook = featuredBooks.get(i);
 								
-								out.println("<div class=\"col-3 book-image" + (i+1) + " book\">");
+								out.println("<div class=\"col book\">");
 								
-								out.println("<button type=\"button\" class=\"btn btn-primary center\" data-toggle=\"modal\" data-target=\"#book" + (i+1) + "\" style=\"background-color: transparent; border: none;\">");
-								out.println("<img width=\"" + imgWidth + "\" height=\"" + imgHeight + "\" src=\"" + currentBook.getImagePath() + "\" class=\"rounded mx-auto d-block\">");
+								out.println("<div class=\"bookContainer\">");
+								out.println("<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#book" + (i+1) + "\" style=\"background-color: transparent; border: none;\">");
+								out.println("<img width=\"" + imgWidth + "\" height=\"" + imgHeight + "\" src=\"" + currentBook.getImagePath() + "\" class=\"rounded mx-auto\">");
 								out.println("</button>");
+								out.println("</div>");
 								
 								out.println("</div>");
 							}
 						%>
-					
-<!-- 						<div class="col-3 book-image1 book"> -->
-<!-- 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book1" style="background-color: transparent; border: none;"> -->
-<!-- 								<img width="158" height="239" src="img/book1.png" class="rounded mx-auto d-block"> -->
-<!-- 							</button> -->
+						
+<!-- 						<div class="col book"> -->
+<!-- 							<div class="bookContainer"> -->
+<!-- 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book1" style="background-color: transparent; border: none;"> -->
+<!-- 									<img width="158" height="239" src="img/book1.png" class="rounded mx-auto"> -->
+<!-- 								</button> -->
+<!-- 							</div> -->
 <!-- 						</div> -->
-<!-- 						<div class="col-3 book-image2 book"> -->
-<!-- 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book2" style="background-color: transparent; border: none;"> -->
-<!-- 								<img width="158" height="239" src="img/book2.png" class="rounded mx-auto d-block"> -->
-<!-- 							</button> -->
+<!-- 						<div class="col book"> -->
+<!-- 							<div class="bookContainer"> -->
+<!-- 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book2" style="background-color: transparent; border: none;"> -->
+<!-- 									<img width="158" height="239" src="img/book2.png" class="rounded mx-auto"> -->
+<!-- 								</button> -->
+<!-- 							</div> -->
 <!-- 						</div> -->
-<!-- 						<div class="col-3 book-image3 book"> -->
-<!-- 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book3" style="background-color: transparent; border: none;"> -->
-<!-- 								<img width="158" height="239" src="img/book3.png" class="rounded mx-auto d-block"> -->
-<!-- 							</button> -->
+<!-- 						<div class="col book"> -->
+<!-- 							<div class="bookContainer"> -->
+<!-- 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book3" style="background-color: transparent; border: none;"> -->
+<!-- 									<img width="158" height="239" src="img/book3.png" class="rounded mx-auto"> -->
+<!-- 								</button> -->
+<!-- 							</div> -->
 <!-- 						</div> -->
-<!-- 						<div class="col-3 book-image4 book"> -->
-<!-- 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book4" style="background-color: transparent; border: none;"> -->
-<!-- 								<img width="158" height="239" src="img/book4.png" class="rounded mx-auto d-block"> -->
-<!-- 							</button> -->
+<!-- 						<div class="col book"> -->
+<!-- 							<div class="bookContainer"> -->
+<!-- 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book4" style="background-color: transparent; border: none;"> -->
+<!-- 									<img width="158" height="239" src="img/book4.png" class="rounded mx-auto"> -->
+<!-- 								</button> -->
+<!-- 							</div> -->
 <!-- 						</div> -->
 					</div>
 					<!-- <div class="col-md-3 book-image1 book">
@@ -195,164 +205,251 @@
 					</div> -->
 					<br>
 					<div id="top">
-						<h1 style="text-align: center;">Top Sellers</h1>
+						<h1 style="text-align: center; margin-bottom: 5%;">Top Sellers</h1>
 					</div>
 					
 					<!-- TOP SELLERS -->
 					<div class="row row-cols-4 shelf">
 					
 						<%
-							for(int i = 0; i < numOfBooks; i++) {
+							for(int i = 0; i < numOfBooksPerShelf; i++) {
 								Book currentBook = topSellingBooks.get(i);
 								
-								out.println("<div class=\"col-3 book-image" + (i+1) + " book\">");
+								out.println("<div class=\"col book\">");
 								
-								out.println("<button type=\"button\" class=\"btn btn-primary center\" data-toggle=\"modal\" data-target=\"#book" + (i+1) + "\" style=\"background-color: transparent; border: none;\">");
-								out.println("<img width=\"" + imgWidth + "\" height=\"" + imgHeight + "\" src=\"" + currentBook.getImagePath() + "\" class=\"rounded mx-auto d-block\">");
+								out.println("<div class=\"bookContainer\">");
+								out.println("<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#book" + (numOfBooksPerShelf + (i+1)) + "\" style=\"background-color: transparent; border: none;\">");
+								out.println("<img width=\"" + imgWidth + "\" height=\"" + imgHeight + "\" src=\"" + currentBook.getImagePath() + "\" class=\"rounded mx-auto\">");
 								out.println("</button>");
+								out.println("</div>");
 								
 								out.println("</div>");
 							}
 						%>
 					
-<!-- 						<div class="col-3 book-image1 book"> -->
-<!-- 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book1" style="background-color: transparent; border: none;"> -->
-<!-- 								<img width="158" height="239" src="img/book1.png" class="rounded mx-auto d-block"> -->
-<!-- 							</button> -->
+<!-- 						<div class="col book"> -->
+<!-- 							<div class="bookContainer"> -->
+<!-- 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book1" style="background-color: transparent; border: none;"> -->
+<!-- 									<img width="158" height="239" src="img/book1.png" class="rounded mx-auto"> -->
+<!-- 								</button> -->
+<!-- 							</div> -->
 <!-- 						</div> -->
-<!-- 						<div class="col-3 book-image2 book"> -->
-<!-- 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book2" style="background-color: transparent; border: none;"> -->
-<!-- 								<img width="158" height="239" src="img/book2.png" class="rounded mx-auto d-block"> -->
-<!-- 							</button> -->
+<!-- 						<div class="col book"> -->
+<!-- 							<div class="bookContainer"> -->
+<!-- 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book2" style="background-color: transparent; border: none;"> -->
+<!-- 									<img width="158" height="239" src="img/book2.png" class="rounded mx-auto"> -->
+<!-- 								</button> -->
+<!-- 							</div> -->
 <!-- 						</div> -->
-<!-- 						<div class="col-3 book-image3 book"> -->
-<!-- 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book3" style="background-color: transparent; border: none;"> -->
-<!-- 								<img width="158" height="239" src="img/book3.png" class="rounded mx-auto d-block"> -->
-<!-- 							</button> -->
+<!-- 						<div class="col book"> -->
+<!-- 							<div class="bookContainer"> -->
+<!-- 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book3" style="background-color: transparent; border: none;"> -->
+<!-- 									<img width="158" height="239" src="img/book3.png" class="rounded mx-auto"> -->
+<!-- 								</button> -->
+<!-- 							</div> -->
 <!-- 						</div> -->
-<!-- 						<div class="col-3 book-image4 book"> -->
-<!-- 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book4" style="background-color: transparent; border: none;"> -->
-<!-- 								<img width="158" height="239" src="img/book4.png" class="rounded mx-auto d-block"> -->
-<!-- 							</button> -->
+<!-- 						<div class="col book"> -->
+<!-- 							<div class="bookContainer"> -->
+<!-- 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book4" style="background-color: transparent; border: none;"> -->
+<!-- 									<img width="158" height="239" src="img/book4.png" class="rounded mx-auto"> -->
+<!-- 								</button> -->
+<!-- 							</div> -->
 <!-- 						</div> -->
 					</div>			
 			
 					<!-- MODALS -->
 					<div class="modalContainer">
-						<div class="modal fade" id="book1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Harry Potter and the Sorcerer's Stone by J.K. Rowling</h5>
-									</div>
-									<div class="modal-body">
-										<img src="img/book1.png">
-										
-										<p class="modalText">
-											Author: J.K. Rowling
-											<br>
-											Genre: Action
-											<br>
-											Price: $19.99
-											<br>
-											ISBN: 876543456
-											<br>
-											Description: Enter the world of Harry Potter.
-										</p>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Add to cart</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="modal fade" id="book2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">The Outsider by Stephen King</h5>
-									</div>
+					
+						<%
+							// Featured books modals
+							for(int i = 0; i < numOfBooksPerShelf; i++) {
+								Book currentBook = featuredBooks.get(i);
+								
+								out.println("<div class=\"modal fade\" id=\"book" + (i+1) + "\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">");
+								out.println("<div class=\"modal-dialog\">");
+								out.println("<div class=\"modal-content\">");
+								out.println("<div class=\"modal-header\">");
+								out.println("<h5 class=\"modal-title\" id=\"exampleModalLabel\">" + currentBook.getTitle() + "</h5>");
+								out.println("</div>");
+								out.println("<form id=\"book1ModalForm\" method=\"POST\" accept-charset=\"UTF-8\">");
+								out.println("<input type=\"hidden\" name=\"bookID\" value=\"" + currentBook.getBookID() + "\"/>");
+								out.println("<div class=\"modal-body\">");
+								out.println("<img width=\"" + imgWidth + "\" height=\"" + imgHeight + "\" src=\"" + currentBook.getImagePath() + "\">");
+								out.println("<p class=\"modalText\">");
+								out.println("Author: " + currentBook.getAuthor());
+								out.println("<br><br>");
+								out.println("Genre: " + currentBook.getGenre());
+								out.println("<br><br>");
+								out.println("Price: $" + currentBook.getSellingPrice());
+								out.println("<br><br>");
+								out.println("ISBN: " + currentBook.getIsbn());
+								out.println("<br><br>");
+								out.println("Description: " + currentBook.getDescription());
+								out.println("</p>");
+								out.println("</div>");
+								out.println("<div class=\"modal-footer\">");
+								out.println("<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>");
+								out.println("<button type=\"button\" class=\"btn btn-primary\" formaction=\"\">Add to cart</button>");
+								out.println("</div>");
+								out.println("</form>");
+								out.println("</div>");
+								out.println("</div>");
+								out.println("</div>");
+							}
+						
+							// Top Selling books modals
+							for(int i = 0; i < numOfBooksPerShelf; i++) {
+								Book currentBook = topSellingBooks.get(i);
+								
+								out.println("<div class=\"modal fade\" id=\"book" + (numOfBooksPerShelf + (i+1)) + "\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">");
+								out.println("<div class=\"modal-dialog\">");
+								out.println("<div class=\"modal-content\">");
+								out.println("<div class=\"modal-header\">");
+								out.println("<h5 class=\"modal-title\" id=\"exampleModalLabel\">" + currentBook.getTitle() + "</h5>");
+								out.println("</div>");
+								out.println("<form id=\"book1ModalForm\" method=\"POST\" accept-charset=\"UTF-8\">");
+								out.println("<input type=\"hidden\" name=\"bookID\" value=\"" + currentBook.getBookID() + "\"/>");
+								out.println("<div class=\"modal-body\">");
+								out.println("<img width=\"" + imgWidth + "\" height=\"" + imgHeight + "\" src=\"" + currentBook.getImagePath() + "\">");
+								out.println("<p class=\"modalText\">");
+								out.println("Author: " + currentBook.getAuthor());
+								out.println("<br><br>");
+								out.println("Genre: " + currentBook.getGenre());
+								out.println("<br><br>");
+								out.println("Price: $" + currentBook.getSellingPrice());
+								out.println("<br><br>");
+								out.println("ISBN: " + currentBook.getIsbn());
+								out.println("<br><br>");
+								out.println("Description: " + currentBook.getDescription());
+								out.println("</p>");
+								out.println("</div>");
+								out.println("<div class=\"modal-footer\">");
+								out.println("<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>");
+								out.println("<button type=\"button\" class=\"btn btn-primary\" formaction=\"\">Add to cart</button>");
+								out.println("</div>");
+								out.println("</form>");
+								out.println("</div>");
+								out.println("</div>");
+								out.println("</div>");
+							}
+						%>
+					
+<!-- 						<div class="modal fade" id="book1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!-- 							<div class="modal-dialog"> -->
+<!-- 								<div class="modal-content"> -->
+<!-- 									<div class="modal-header"> -->
+<!-- 										<h5 class="modal-title" id="exampleModalLabel">Harry Potter and the Sorcerer's Stone by J.K. Rowling</h5> -->
+<!-- 									</div> -->
+<!-- 									<form id="book1ModalForm" method="POST" accept-charset="UTF-8"> -->
+<!-- 										<div class="modal-body"> -->
+<!-- 											<img src="img/book1.png"> -->
+											
+<!-- 											<p class="modalText"> -->
+<!-- 												Author: J.K. Rowling -->
+<!-- 												<br> -->
+<!-- 												Genre: Action -->
+<!-- 												<br> -->
+<!-- 												Price: $19.99 -->
+<!-- 												<br> -->
+<!-- 												ISBN: 876543456 -->
+<!-- 												<br> -->
+<!-- 												Description: Enter the world of Harry Potter. -->
+<!-- 											</p> -->
+<!-- 										</div> -->
+<!-- 										<div class="modal-footer"> -->
+<!-- 											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+<!-- 											<button type="button" class="btn btn-primary" formaction="">Add to cart</button> -->
+<!-- 										</div> -->
+<!-- 									</form> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="modal fade" id="book2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!-- 							<div class="modal-dialog"> -->
+<!-- 								<div class="modal-content"> -->
+<!-- 									<div class="modal-header"> -->
+<!-- 										<h5 class="modal-title" id="exampleModalLabel">The Outsider by Stephen King</h5> -->
+<!-- 									</div> -->
 									
-									<div class="modal-body">
-										<img src="img/book2.png">
+<!-- 									<div class="modal-body"> -->
+<!-- 										<img src="img/book2.png"> -->
 										
-										<p class="modalText">
-											Author: Stephen King
-											<br>
-											Genre: Horror
-											<br>
-											Price: $15.99
-											<br>
-											ISBN: 828765678
-											<br>
-											Description: Scary stuff.
-										</p>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Add to cart</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="modal fade" id="book3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Crazy Rich Asians by Kevin Kwan</h5>
-									</div>
-									<div class="modal-body">
-										<img src="img/book3.png">
+<!-- 										<p class="modalText"> -->
+<!-- 											Author: Stephen King -->
+<!-- 											<br> -->
+<!-- 											Genre: Horror -->
+<!-- 											<br> -->
+<!-- 											Price: $15.99 -->
+<!-- 											<br> -->
+<!-- 											ISBN: 828765678 -->
+<!-- 											<br> -->
+<!-- 											Description: Scary stuff. -->
+<!-- 										</p> -->
+<!-- 									</div> -->
+<!-- 									<div class="modal-footer"> -->
+<!-- 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+<!-- 										<button type="button" class="btn btn-primary">Add to cart</button> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="modal fade" id="book3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!-- 							<div class="modal-dialog"> -->
+<!-- 								<div class="modal-content"> -->
+<!-- 									<div class="modal-header"> -->
+<!-- 										<h5 class="modal-title" id="exampleModalLabel">Crazy Rich Asians by Kevin Kwan</h5> -->
+<!-- 									</div> -->
+<!-- 									<div class="modal-body"> -->
+<!-- 										<img src="img/book3.png"> -->
 										
-										<p class="modal-text">
-											Author: Kevin Kwan
-											<br>
-											Genre: Romance
-											<br>
-											Price: $20.99
-											<br>
-											ISBN: 876543445
-											<br>
-											Description: Rich asians.
-										</p>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Add to cart</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="modal fade" id="book4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Little Fires Everywhere by Celeste NG</h5>
-									</div>
-									<div class="modal-body">
-										<img src="img/book4.png">
+<!-- 										<p class="modal-text"> -->
+<!-- 											Author: Kevin Kwan -->
+<!-- 											<br> -->
+<!-- 											Genre: Romance -->
+<!-- 											<br> -->
+<!-- 											Price: $20.99 -->
+<!-- 											<br> -->
+<!-- 											ISBN: 876543445 -->
+<!-- 											<br> -->
+<!-- 											Description: Rich asians. -->
+<!-- 										</p> -->
+<!-- 									</div> -->
+<!-- 									<div class="modal-footer"> -->
+<!-- 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+<!-- 										<button type="button" class="btn btn-primary">Add to cart</button> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="modal fade" id="book4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!-- 							<div class="modal-dialog"> -->
+<!-- 								<div class="modal-content"> -->
+<!-- 									<div class="modal-header"> -->
+<!-- 										<h5 class="modal-title" id="exampleModalLabel">Little Fires Everywhere by Celeste NG</h5> -->
+<!-- 									</div> -->
+<!-- 									<div class="modal-body"> -->
+<!-- 										<img src="img/book4.png"> -->
 										
-										<p class="modal-text">
-											Author: Celeste NG
-											<br>
-											Genre: Family
-											<br>
-											Price: $9.99
-											<br>
-											ISBN: 876543444
-											<br>
-											Description: Nature lovers.
-										</p>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Add to cart</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+<!-- 										<p class="modal-text"> -->
+<!-- 											Author: Celeste NG -->
+<!-- 											<br> -->
+<!-- 											Genre: Family -->
+<!-- 											<br> -->
+<!-- 											Price: $9.99 -->
+<!-- 											<br> -->
+<!-- 											ISBN: 876543444 -->
+<!-- 											<br> -->
+<!-- 											Description: Nature lovers. -->
+<!-- 										</p> -->
+<!-- 									</div> -->
+<!-- 									<div class="modal-footer"> -->
+<!-- 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+<!-- 										<button type="button" class="btn btn-primary">Add to cart</button> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 		    	</div>
 		    	
 		    	<br>

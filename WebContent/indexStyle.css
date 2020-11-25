@@ -136,6 +136,11 @@ html, body {
 	background-repeat: no-repeat;
 }
 
+	.shelfImg {
+		margin-bottom: 30%;
+        margin-top: 30%;
+	}
+
 	.mainContainer {
 		margin: 0;
 		width: 100%;
@@ -219,8 +224,7 @@ html, body {
 		}
 
         .content {
-			padding-right: 1em;
-			padding-top: 5%;
+			padding: 1em;
         }
         
 		.imgFullOpacity {
@@ -258,6 +262,10 @@ html, body {
 			-ms-transform: translate(-50%, -50%);
 			transform: translate(-50%, -50%);
 		  }
+		  
+		.bookContainer {
+			text-align: center;
+		}
 
 		#logoutBtn {
 			cursor: pointer !important;
