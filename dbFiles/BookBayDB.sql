@@ -61,7 +61,8 @@ CREATE TABLE IF NOT EXISTS Book (
     Publisher varchar(255),
     Quantity int NOT NULL,
     MinThreshold int,
-    Archived boolean NOT NULL
+    Archived boolean NOT NULL,
+    MarketingAttribute ENUM('FEATURED', 'TOPSELLER')
 );
 
 CREATE TABLE IF NOT EXISTS ManageBooks (
@@ -143,25 +144,49 @@ INSERT INTO `User`(FirstName, LastName, Email, Password, `Status`, `Type`)
 VALUES("Cosmo", "Kramer", "kramer@kramericaindustries.com", sha2("kramerica", 256), "ACTIVE", "CUSTOMER");
 
 INSERT INTO Book(Title, Author, SellingPrice, ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice,
-				 Publisher, Quantity, MinThreshold, Archived)
+				 Publisher, Quantity, MinThreshold, Archived, MarketingAttribute)
 VALUES("Harry Potter and the Sorcerer's Stone", "J. K. Rowling", 4.99, "0-7475-3269-9", "Fantasy", 
 "The first novel of the Harry Potter series.",
-1998, "img/book1.png", 2.99, "Scholastic", 50, 10, false);
+1998, "img/book1.png", 2.99, "Scholastic", 50, 10, false, 'FEATURED');
 
 INSERT INTO Book(Title, Author, SellingPrice, ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice,
-				 Publisher, Quantity, MinThreshold, Archived)
+				 Publisher, Quantity, MinThreshold, Archived, MarketingAttribute)
 VALUES("The Outsider", "Stephen King", 14.99, "978-1501180989", "Horror", 
 "A thrilling crime novel by Stephen King.",
-2018, "img/book2.png", 7.99, "Scribner", 15, 5, false);
+2018, "img/book2.png", 7.99, "Scribner", 15, 5, false, 'FEATURED');
 
 INSERT INTO Book(Title, Author, SellingPrice, ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice,
-				 Publisher, Quantity, MinThreshold, Archived)
+				 Publisher, Quantity, MinThreshold, Archived, MarketingAttribute)
 VALUES("Crazy Rich Asians", "Kevin Kwan", 10.99, "978-0-385-53697-4", "Romantic Comedy", 
 "A comedic novel about contemporary Asian culture.",
-2013, "img/book3.png", 4.99, "Anchor", 50, 10, false);
+2013, "img/book3.png", 4.99, "Anchor", 50, 10, false, 'FEATURED');
 
 INSERT INTO Book(Title, Author, SellingPrice, ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice,
-				 Publisher, Quantity, MinThreshold, Archived)
+				 Publisher, Quantity, MinThreshold, Archived, MarketingAttribute)
 VALUES("Little Fires Everywhere", "Celeste Ng", 11.99, "0735224293", "Fiction", 
 "An interesting and dramatic novel set in a small Ohio town.",
-2017, "img/book4.png", 5.99, "Penguin Press", 20, 5, false);
+2017, "img/book4.png", 5.99, "Penguin Press", 20, 5, false, 'FEATURED');
+
+INSERT INTO Book(Title, Author, SellingPrice, ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice,
+				 Publisher, Quantity, MinThreshold, Archived, MarketingAttribute)
+VALUES("The Answer Is...: Reflections on My Life", "Alex Trebek", 22.00, "9781982157999", "Autobiography", 
+"The late Jeopardy! host writes on his life and career.",
+2020, "img/book5.jpg", 11.00, "Simon & Schuster", 50, 10, false, 'TOPSELLER');
+
+INSERT INTO Book(Title, Author, SellingPrice, ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice,
+				 Publisher, Quantity, MinThreshold, Archived, MarketingAttribute)
+VALUES("Shrek!", "William Steig", 10.00, "9780312384494", "Children's Fantasy", 
+"An ogre leaves his swamp to explore the world.",
+1990, "img/book6.jpg", 4.99, "Farrar, Straus, and Giroux", 50, 10, false, 'TOPSELLER');
+
+INSERT INTO Book(Title, Author, SellingPrice, ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice,
+				 Publisher, Quantity, MinThreshold, Archived, MarketingAttribute)
+VALUES("Ready Player Two", "Ernest Cline", 15.99, "9781524761332", "Science Fiction", 
+"The sequel to the blockbuster Ready Player One.",
+2020, "img/book7.jpg", 7.99, "Ballantine Books", 50, 10, false, 'TOPSELLER');
+
+INSERT INTO Book(Title, Author, SellingPrice, ISBN, Genre, `Description`, PublicationYear, ImagePath, BuyPrice,
+				 Publisher, Quantity, MinThreshold, Archived, MarketingAttribute)
+VALUES("Dune", "Frank Herbert", 10.99, "9780441172719", "Science Fiction", 
+"The 1966 Hugo Award winning novel.",
+1965, "img/book8.jpg", 4.99, "Chilton Books", 50, 10, false, 'TOPSELLER');

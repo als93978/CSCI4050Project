@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataAccess.BookDA;
 import dataAccess.UserDA;
+import models.Book;
 import models.User;
 import models.UserType;
 
@@ -24,6 +27,7 @@ public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	private UserDA userDA = new UserDA();
+	private BookDA bookDA = new BookDA();
 	
 	private User user = null;
 	
@@ -60,20 +64,11 @@ public class Index extends HttpServlet {
 				if(cookies[1].getName().equals("userID")) {
 					processSessionCookie(request, response, cookies[1]);
 				}
-				
-				else {
-					response.sendRedirect(request.getContextPath() + "/index.jsp");
-				}
-			}
-			
-			else {
-				response.sendRedirect(request.getContextPath() + "/index.jsp");
 			}
 		}
-		
-		else {
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
-		}
+
+		// If the above fails
+		loadHomepageBooks(request, response, "index.jsp");
 		
 		return null;
 	}
@@ -90,8 +85,21 @@ public class Index extends HttpServlet {
 		}
 		
 		else {
-			response.sendRedirect(request.getContextPath() + "/homepageWithUserIcon.html");
+			loadHomepageBooks(request, response, "homepageWithUserIcon.html");
 		}
+	}
+	
+	private void loadHomepageBooks(HttpServletRequest request, HttpServletResponse response, String redirectPage) throws SQLException {
+		List<Book> featuredBooks = bookDA.getAllFeaturedBooks();
+		List<Book> topSellingBooks = bookDA.getAllTopSellingBooks();
+		
+		if(featuredBooks != null)
+			request.setAttribute("featuredBooks", featuredBooks);
+		
+		if(topSellingBooks != null)
+			request.setAttribute("topSellingBooks", topSellingBooks);
+		
+		redirectToPage(request, response, redirectPage);
 	}
 	
 	private boolean checkUserIsAdmin() throws SQLException {
@@ -101,6 +109,18 @@ public class Index extends HttpServlet {
 			return true;
 		
 		return false;
+	}
+	
+	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + page);
+		
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 }

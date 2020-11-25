@@ -16,6 +16,7 @@ public class Book {
 	private int quantity;
 	private int minThreshold;
 	private boolean archived;
+	private BookMarketingAttribute marketingAttribute;
 	
 	public int getBookID() {
 		return bookID;
@@ -135,5 +136,13 @@ public class Book {
 	
 	public void setArchived(boolean archived) {
 		this.archived = archived;
+	}
+	
+	public BookMarketingAttribute getMarketingAttribute() {
+		return marketingAttribute;
+	}
+	
+	public void setMarketingAttribute(BookMarketingAttribute marketingAttribute) {
+		this.marketingAttribute = marketingAttribute;
 	}
 }

@@ -92,6 +92,11 @@
 		position: relative;
 		bottom: 255px;
 	}
+	
+	.bookImg {
+		width: 158px;
+		height: 239px;
+	}
 
 }
 

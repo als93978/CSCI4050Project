@@ -1,3 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="javax.servlet.http.Cookie, dataAccess.*"
+    import="java.util.List"
+    import="models.Book"
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -119,27 +126,52 @@
 							</button>
 						</div>
 					</div> -->
+					
+					<!-- FEATURED BOOKS -->
 					<div class="row row-cols-4 shelf">
-						<div class="col-3 book-image1 book">
-							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book1" style="background-color: transparent; border: none;">
-								<img src="img/book1.png" class="rounded mx-auto d-block">
-							</button>
-						</div>
-						<div class="col-3 book-image2 book">
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book2" style="background-color: transparent; border: none;">
-								<img src="img/book2.png" class="rounded mx-auto d-block">
-							</button>
-						</div>
-						<div class="col-3 book-image3 book">
-							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book3" style="background-color: transparent; border: none;">
-								<img src="img/book3.png" class="rounded mx-auto d-block">
-							</button>
-						</div>
-						<div class="col-3 book-image4 book">
-							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book4" style="background-color: transparent; border: none;">
-								<img src="img/book4.png" class="rounded mx-auto d-block">
-							</button>
-						</div>
+					
+						<%
+							List<Book> featuredBooks = (List<Book>) request.getAttribute("featuredBooks");
+							List<Book> topSellingBooks = (List<Book>) request.getAttribute("topSellingBooks");
+							
+							int numOfBooks = 4;
+							
+							String imgWidth = "158";
+							String imgHeight = "239";
+							
+							for(int i = 0; i < numOfBooks; i++) {
+								Book currentBook = featuredBooks.get(i);
+								
+								out.println("<div class=\"col-3 book-image" + (i+1) + " book\">");
+								
+								out.println("<button type=\"button\" class=\"btn btn-primary center\" data-toggle=\"modal\" data-target=\"#book" + (i+1) + "\" style=\"background-color: transparent; border: none;\">");
+								out.println("<img width=\"" + imgWidth + "\" height=\"" + imgHeight + "\" src=\"" + currentBook.getImagePath() + "\" class=\"rounded mx-auto d-block\">");
+								out.println("</button>");
+								
+								out.println("</div>");
+							}
+						%>
+					
+<!-- 						<div class="col-3 book-image1 book"> -->
+<!-- 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book1" style="background-color: transparent; border: none;"> -->
+<!-- 								<img width="158" height="239" src="img/book1.png" class="rounded mx-auto d-block"> -->
+<!-- 							</button> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-3 book-image2 book"> -->
+<!-- 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book2" style="background-color: transparent; border: none;"> -->
+<!-- 								<img width="158" height="239" src="img/book2.png" class="rounded mx-auto d-block"> -->
+<!-- 							</button> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-3 book-image3 book"> -->
+<!-- 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book3" style="background-color: transparent; border: none;"> -->
+<!-- 								<img width="158" height="239" src="img/book3.png" class="rounded mx-auto d-block"> -->
+<!-- 							</button> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-3 book-image4 book"> -->
+<!-- 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book4" style="background-color: transparent; border: none;"> -->
+<!-- 								<img width="158" height="239" src="img/book4.png" class="rounded mx-auto d-block"> -->
+<!-- 							</button> -->
+<!-- 						</div> -->
 					</div>
 					<!-- <div class="col-md-3 book-image1 book">
 						<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book1" style="background-color: transparent; border: none;">
@@ -165,30 +197,45 @@
 					<div id="top">
 						<h1 style="text-align: center;">Top Sellers</h1>
 					</div>
+					
+					<!-- TOP SELLERS -->
 					<div class="row row-cols-4 shelf">
-						<div class="col-3 book-image1 book">
-							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book1" style="background-color: transparent; border: none;">
-								<img src="img/book1.png" class="rounded mx-auto d-block">
-							</button>
-						</div>
-						<div class="col-3 book-image2 book">
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book2" style="background-color: transparent; border: none;">
-								<img src="img/book2.png" class="rounded mx-auto d-block">
-							</button>
-						</div>
-						<div class="col-3 book-image3 book">
-							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book3" style="background-color: transparent; border: none;">
-								<img src="img/book3.png" class="rounded mx-auto d-block">
-							</button>
-						</div>
-						<div class="col-3 book-image4 book">
-							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book4" style="background-color: transparent; border: none;">
-								<img src="img/book4.png" class="rounded mx-auto d-block">
-							</button>
-						</div>
-					</div>
-			
-			
+					
+						<%
+							for(int i = 0; i < numOfBooks; i++) {
+								Book currentBook = topSellingBooks.get(i);
+								
+								out.println("<div class=\"col-3 book-image" + (i+1) + " book\">");
+								
+								out.println("<button type=\"button\" class=\"btn btn-primary center\" data-toggle=\"modal\" data-target=\"#book" + (i+1) + "\" style=\"background-color: transparent; border: none;\">");
+								out.println("<img width=\"" + imgWidth + "\" height=\"" + imgHeight + "\" src=\"" + currentBook.getImagePath() + "\" class=\"rounded mx-auto d-block\">");
+								out.println("</button>");
+								
+								out.println("</div>");
+							}
+						%>
+					
+<!-- 						<div class="col-3 book-image1 book"> -->
+<!-- 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book1" style="background-color: transparent; border: none;"> -->
+<!-- 								<img width="158" height="239" src="img/book1.png" class="rounded mx-auto d-block"> -->
+<!-- 							</button> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-3 book-image2 book"> -->
+<!-- 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book2" style="background-color: transparent; border: none;"> -->
+<!-- 								<img width="158" height="239" src="img/book2.png" class="rounded mx-auto d-block"> -->
+<!-- 							</button> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-3 book-image3 book"> -->
+<!-- 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book3" style="background-color: transparent; border: none;"> -->
+<!-- 								<img width="158" height="239" src="img/book3.png" class="rounded mx-auto d-block"> -->
+<!-- 							</button> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-3 book-image4 book"> -->
+<!-- 							<button type="button" class="btn btn-primary center" data-toggle="modal" data-target="#book4" style="background-color: transparent; border: none;"> -->
+<!-- 								<img width="158" height="239" src="img/book4.png" class="rounded mx-auto d-block"> -->
+<!-- 							</button> -->
+<!-- 						</div> -->
+					</div>			
 			
 					<!-- MODALS -->
 					<div class="modalContainer">
