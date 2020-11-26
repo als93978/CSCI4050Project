@@ -29,6 +29,24 @@ public class BookDA implements IBookDA {
 	
 	private static final String getAllTopSellingBooksQuery = "SELECT * FROM Book WHERE MarketingAttribute = 'TOPSELLER';";
 	
+	private static final String getBooksByKeywordQuery = "SELECT * FROM Book"
+													   + "WHERE BookID like ? "
+													   + "or Title like ? "
+													   + "or Author like ? "
+													   + "or SellingPrice like ? "
+													   + "or ISBN like ? "
+													   + "or Genre like ? "
+													   + "or `Description` like ? "
+													   + "or PublicationYear like ? "
+													   + "or ImagePath like ? "
+													   + "or BuyPrice like ? "
+													   + "or Edition like ? "
+													   + "or Publisher like ? "
+													   + "or Quantity like ? "
+													   + "or MinThreshold like ? "
+													   + "or Archived like ? "
+													   + "or MarketingAttribute ?;";
+	
 	private static final String getBookByIDQuery = "SELECT * FROM Book "
 												 + "WHERE BookID = ?;";
 	
@@ -229,6 +247,65 @@ public class BookDA implements IBookDA {
 		useDBStmt.executeQuery();
 		
 		PreparedStatement getAllBooksStmt = connection.prepareStatement(getAllTopSellingBooksQuery);
+		
+		ResultSet allBooksRS = getAllBooksStmt.executeQuery();
+		
+		while(allBooksRS.next()) {
+			Book book = new Book();
+			
+			int bookID = allBooksRS.getInt(1);
+			String title = allBooksRS.getString(2);
+			String author = allBooksRS.getString(3);
+			float sellingPrice = allBooksRS.getFloat(4);
+			String isbn = allBooksRS.getString(5);
+			String genre = allBooksRS.getString(6);
+			String description = allBooksRS.getString(7);
+			int publicationYear = allBooksRS.getInt(8);
+			String imagePath = allBooksRS.getString(9);
+			float buyPrice = allBooksRS.getFloat(10);
+			int edition = allBooksRS.getInt(11);
+			String publisher = allBooksRS.getString(12);
+			int quantity = allBooksRS.getInt(13);
+			int minThreshold = allBooksRS.getInt(14);
+		    boolean archived = allBooksRS.getBoolean(15);
+			BookMarketingAttribute marketingAttribute = BookMarketingAttribute.valueOf(allBooksRS.getString(16));
+		    
+			book.setBookID(bookID);
+			book.setTitle(title);
+			book.setAuthor(author);
+			book.setSellingPrice(sellingPrice);
+			book.setIsbn(isbn);
+			book.setGenre(genre);
+			book.setDescription(description);
+			book.setPublicationYear(publicationYear);
+			book.setImagePath(imagePath);
+			book.setBuyPrice(buyPrice);
+			book.setEdition(edition);
+			book.setPublisher(publisher);
+			book.setQuantity(quantity);
+			book.setMinThreshold(minThreshold);
+			book.setArchived(archived);
+			book.setMarketingAttribute(marketingAttribute);
+			
+			if(!book.getArchived())
+				books.add(book);
+		}
+		
+		connection.close();
+		
+		return books;
+	}
+	
+	@Override
+	public List<Book> getBooksByKeyword(String keyword) throws SQLException {
+		List<Book> books = new ArrayList<Book>();
+		
+		Connection connection = DataAccessHelper.getConnection();
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement getAllBooksStmt = connection.prepareStatement(getBooksByKeywordQuery);
 		
 		ResultSet allBooksRS = getAllBooksStmt.executeQuery();
 		

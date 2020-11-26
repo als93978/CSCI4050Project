@@ -9,6 +9,13 @@
 	Allows the user to search for books and filter the results.
 -->
 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="javax.servlet.http.Cookie, dataAccess.*"
+    import="java.util.List"
+    import="models.Book"
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -304,7 +311,7 @@
 						<div class="row">
 							<div class="col">
 								<div class="card card-searchgrid">
-									<img src="img/bookCover1.jpg" class="card-img-top" width="190" height="220">
+									<img src="img/bookCover1.jpg" class="card-img-top" width="158" height="239">
 									
 									<div class="card-body">
 										<h5 class="card-title">Head First Web Design</h5>
@@ -315,7 +322,7 @@
 										<i class="fas fa-star fa-xs"></i>
 										<i class="fas fa-star fa-xs"></i>
 										<i class="fas fa-star fa-xs"></i>
-										
+
 										<br/>
 										<br/>
 										
@@ -326,7 +333,7 @@
 							
 							<div class="col">
 								<div class="card card-searchgrid">
-									<img src="img/bookCover2.jpg" class="card-img-top" width="190" height="220">
+									<img src="img/bookCover2.jpg" class="card-img-top" width="158" height="239">
 									
 									<div class="card-body">
 										<h5 class="card-title">The Great Gatsby</h5>
@@ -348,7 +355,7 @@
 							
 							<div class="col">
 								<div class="card card-searchgrid">
-									<img src="img/bookCover3.jpg" class="card-img-top" width="190" height="220">
+									<img src="img/bookCover3.jpg" class="card-img-top" width="158" height="239">
 									
 									<div class="card-body">
 										<h5 class="card-title">The Catcher in the Rye</h5>
@@ -370,7 +377,7 @@
 							
 							<div class="col">
 								<div class="card card-searchgrid">
-									<img src="img/bookCover4.jpg" class="card-img-top" width="190" height="220">
+									<img src="img/bookCover4.jpg" class="card-img-top" width="158" height="239">
 									
 									<div class="card-body">
 										<h5 class="card-title">Catch-22</h5>
@@ -394,7 +401,7 @@
 						<div class="row">			
 							<div class="col">
 								<div class="card card-searchgrid">
-									<img src="img/bookCover5.jpg" class="card-img-top" width="190" height="220">
+									<img src="img/bookCover5.jpg" class="card-img-top" width="158" height="239">
 									
 									<div class="card-body">
 										<h5 class="card-title">To Kill a Mockingbird</h5>
@@ -416,7 +423,7 @@
 							
 							<div class="col">
 								<div class="card card-searchgrid">
-									<img src="img/bookCover6.png" class="card-img-top" width="190" height="220">
+									<img src="img/bookCover6.png" class="card-img-top" width="158" height="239">
 									
 									<div class="card-body">
 										<h5 class="card-title">Harry Potter and the Sorcerer's Stone</h5>
@@ -438,7 +445,7 @@
 							
 							<div class="col">
 								<div class="card card-searchgrid">
-									<img src="img/bookCover7.png" class="card-img-top" width="190" height="220">
+									<img src="img/bookCover7.png" class="card-img-top" width="158" height="239">
 									
 									<div class="card-body">
 										<h5 class="card-title">The Outsider</h5>
@@ -460,7 +467,7 @@
 							
 							<div class="col">
 								<div class="card card-searchgrid">
-									<img src="img/bookCover8.png" class="card-img-top" width="190" height="220">
+									<img src="img/bookCover8.png" class="card-img-top" width="158" height="239">
 									
 									<div class="card-body">
 										<h5 class="card-title">Crazy Rich Asians</h5>
