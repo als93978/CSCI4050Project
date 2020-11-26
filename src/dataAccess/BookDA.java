@@ -29,7 +29,7 @@ public class BookDA implements IBookDA {
 	
 	private static final String getAllTopSellingBooksQuery = "SELECT * FROM Book WHERE MarketingAttribute = 'TOPSELLER';";
 	
-	private static final String getBooksByKeywordQuery = "SELECT * FROM Book"
+	private static final String getBooksByKeywordQuery = "SELECT * FROM Book "
 													   + "WHERE BookID like ? "
 													   + "or Title like ? "
 													   + "or Author like ? "
@@ -45,7 +45,7 @@ public class BookDA implements IBookDA {
 													   + "or Quantity like ? "
 													   + "or MinThreshold like ? "
 													   + "or Archived like ? "
-													   + "or MarketingAttribute ?;";
+													   + "or MarketingAttribute like ?;";
 	
 	private static final String getBookByIDQuery = "SELECT * FROM Book "
 												 + "WHERE BookID = ?;";
@@ -298,6 +298,11 @@ public class BookDA implements IBookDA {
 	
 	@Override
 	public List<Book> getBooksByKeyword(String keyword) throws SQLException {
+		if(keyword == null)
+			keyword = "";
+		
+		keyword = "%" + keyword + "%";
+		
 		List<Book> books = new ArrayList<Book>();
 		
 		Connection connection = DataAccessHelper.getConnection();
@@ -305,29 +310,45 @@ public class BookDA implements IBookDA {
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
 		
-		PreparedStatement getAllBooksStmt = connection.prepareStatement(getBooksByKeywordQuery);
+		PreparedStatement getBooksByKeywordStmt = connection.prepareStatement(getBooksByKeywordQuery);
+		getBooksByKeywordStmt.setString(1, keyword);
+		getBooksByKeywordStmt.setString(2, keyword);
+		getBooksByKeywordStmt.setString(3, keyword);
+		getBooksByKeywordStmt.setString(4, keyword);
+		getBooksByKeywordStmt.setString(5, keyword);
+		getBooksByKeywordStmt.setString(6, keyword);
+		getBooksByKeywordStmt.setString(7, keyword);
+		getBooksByKeywordStmt.setString(8, keyword);
+		getBooksByKeywordStmt.setString(9, keyword);
+		getBooksByKeywordStmt.setString(10, keyword);
+		getBooksByKeywordStmt.setString(11, keyword);
+		getBooksByKeywordStmt.setString(12, keyword);
+		getBooksByKeywordStmt.setString(13, keyword);
+		getBooksByKeywordStmt.setString(14, keyword);
+		getBooksByKeywordStmt.setString(15, keyword);
+		getBooksByKeywordStmt.setString(16, keyword);
 		
-		ResultSet allBooksRS = getAllBooksStmt.executeQuery();
+		ResultSet keywordBooksRS = getBooksByKeywordStmt.executeQuery();
 		
-		while(allBooksRS.next()) {
+		while(keywordBooksRS.next()) {
 			Book book = new Book();
 			
-			int bookID = allBooksRS.getInt(1);
-			String title = allBooksRS.getString(2);
-			String author = allBooksRS.getString(3);
-			float sellingPrice = allBooksRS.getFloat(4);
-			String isbn = allBooksRS.getString(5);
-			String genre = allBooksRS.getString(6);
-			String description = allBooksRS.getString(7);
-			int publicationYear = allBooksRS.getInt(8);
-			String imagePath = allBooksRS.getString(9);
-			float buyPrice = allBooksRS.getFloat(10);
-			int edition = allBooksRS.getInt(11);
-			String publisher = allBooksRS.getString(12);
-			int quantity = allBooksRS.getInt(13);
-			int minThreshold = allBooksRS.getInt(14);
-		    boolean archived = allBooksRS.getBoolean(15);
-			BookMarketingAttribute marketingAttribute = BookMarketingAttribute.valueOf(allBooksRS.getString(16));
+			int bookID = keywordBooksRS.getInt(1);
+			String title = keywordBooksRS.getString(2);
+			String author = keywordBooksRS.getString(3);
+			float sellingPrice = keywordBooksRS.getFloat(4);
+			String isbn = keywordBooksRS.getString(5);
+			String genre = keywordBooksRS.getString(6);
+			String description = keywordBooksRS.getString(7);
+			int publicationYear = keywordBooksRS.getInt(8);
+			String imagePath = keywordBooksRS.getString(9);
+			float buyPrice = keywordBooksRS.getFloat(10);
+			int edition = keywordBooksRS.getInt(11);
+			String publisher = keywordBooksRS.getString(12);
+			int quantity = keywordBooksRS.getInt(13);
+			int minThreshold = keywordBooksRS.getInt(14);
+		    boolean archived = keywordBooksRS.getBoolean(15);
+			BookMarketingAttribute marketingAttribute = BookMarketingAttribute.valueOf(keywordBooksRS.getString(16));
 		    
 			book.setBookID(bookID);
 			book.setTitle(title);

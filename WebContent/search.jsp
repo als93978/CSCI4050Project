@@ -122,43 +122,7 @@
 								</div>
 								
 								<div class="card-body">
-									<input type="radio" id="filterGenre1" name="filterGenre" value="action">
-									<label for="filterGenre1">Action</label>
-										
-									<br/>
-										
-									<input type="radio" id="filterGenre2" name="filterGenre" value="comedy">
-									<label for="filterGenre2">Comedy</label>
-																				
-									<br/>										
-																				
-									<input type="radio" id="filterGenre3" name="filterGenre" value="family">
-									<label for="filterGenre3">Family</label>
-										
-									<br/>
-																														
-									<input type="radio" id="filterGenre4" name="filterGenre" value="kids">
-									<label for="filterGenre4">Kids</label>
-										
-									<br/>
-																													
-									<input type="radio" id="filterGenre5" name="filterGenre" value="mystery">
-									<label for="filterGenre5">Mystery</label>
-											
-									<br/>
-																														
-									<input type="radio" id="filterGenre6" name="filterGenre" value="horror">
-									<label for="filterGenre6">Horror</label>
-											
-									<br/>
-																														
-									<input type="radio" id="filterGenre7" name="filterGenre" value="romance">
-									<label for="filterGenre7">Romance</label>
-											
-									<br/>
-																														
-									<input type="radio" id="filterGenre8" name="filterGenre" value="thriller">
-									<label for="filterGenre8">Thriller</label>
+									<input type="text" class="form-control" id="filterGenre" aria-describedby="filterGenre">
 								</div>
 							</div>
 							
@@ -189,47 +153,6 @@
 									<input type="text" class="form-control" id="filterAuthor" aria-describedby="filterAuthor">
 								</div>
 							</div>
-							
-														
-							<div class="card">
-								<div class="card-header">
-									<h5 class="mb-0">
-										Book Rating
-									</h5>
-								</div>
-								
-																
-								<div class="card-body">
-									<input type="radio" id="filterRating1" name="filterRating" value="5stars">
-									<label for="filterRating1">5 Stars</label>
-									
-									<br/>
-									
-									<input type="radio" id="filterRating2" name="filterRating" value="4stars">
-									<label for="filterRating2">4 Stars</label>
-									
-									<br/>
-									
-									<input type="radio" id="filterRating3" name="filterRating" value="3stars">
-									<label for="filterRating3">3 Stars</label>
-									
-									<br/>
-									
-									<input type="radio" id="filterRating4" name="filterRating" value="2stars">
-									<label for="filterRating4">2 Stars</label>
-									
-									<br/>
-									
-									<input type="radio" id="filterRating5" name="filterRating" value="1stars">
-									<label for="filterRating5">1 Stars</label>
-									
-									<br/>
-									
-									<input type="radio" id="filterGenre6" name="filterRating" value="0stars">
-									<label for="filterRating6">0 Stars</label>
-								</div>
-							</div>
-							
 														
 							<div class="card">
 								<div class="card-header">
@@ -305,194 +228,253 @@
 					
 										
 				<div class="searchArea">
-					<h6>8 Results Found</h6>
+					<%
+						List<Book> keywordBooks = (List<Book>) request.getAttribute("keywordBooks");
+					%>
+				
+					<h6><b><%= keywordBooks.size() %></b> Results Found</h6>
 					
 					<div class="searchResultGrid">
-						<div class="row">
-							<div class="col">
-								<div class="card card-searchgrid">
-									<img src="img/bookCover1.jpg" class="card-img-top" width="158" height="239">
+					
+						<!-- Result books -->
+						<%											
+							int booksPerRow = 4;
+											
+							int numOfRows = keywordBooks.size() / booksPerRow;
+							
+							int numOfLeftovers = keywordBooks.size() % booksPerRow;
+							
+							if(keywordBooks.size() < booksPerRow)
+								booksPerRow = keywordBooks.size();
+							
+							String imgWidth = "158";
+							String imgHeight = "239";
+							
+							for(int i = 0; i < numOfRows; i++) {
+								out.println("<div class=\"row\">");
+								
+								for(int j = 0; j < booksPerRow; j++) {
+									int index = (booksPerRow * i) + j;
+									Book currentBook = keywordBooks.get(index);
 									
-									<div class="card-body">
-										<h5 class="card-title">Head First Web Design</h5>
-										<p>Ethan Watrall, Jeff Siarto</p>
-										
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
+									out.println("<div class=\"col\">");
+									
+									out.println("<div class=\"card card-searchgrid\">");
+									out.println("<img src=\"" + currentBook.getImagePath() + "\" class=\"card-img-top\" width=\"" + imgWidth + "\" height=\"" + imgHeight + "\">");
+									out.println("<div class=\"card-body\">");
+									out.println("<h5 class=\"card-title\">" + currentBook.getTitle() + "</h5>");
+									out.println("<p>" + currentBook.getAuthor() + "</p>");
+									out.println("<br/>");
+									out.println("<p>$" + currentBook.getSellingPrice() + "</p>");
+									out.println("</div>");
+									out.println("</div>");
+									
+									out.println("</div>");
+								}
+								
+								out.println("</div>");
+							}
+							
+							out.println("<div class=\"row\">");
+							for(int k = 0; k < numOfLeftovers; k++) {
+								int index = (booksPerRow * numOfRows) + k;
+								Book currentBook = keywordBooks.get(index);
+								
+								out.println("<div class=\"col\">");
+								
+								out.println("<div class=\"card card-searchgrid\">");
+								out.println("<img src=\"" + currentBook.getImagePath() + "\" class=\"card-img-top\" width=\"" + imgWidth + "\" height=\"" + imgHeight + "\">");
+								out.println("<div class=\"card-body\">");
+								out.println("<h5 class=\"card-title\">" + currentBook.getTitle() + "</h5>");
+								out.println("<p>" + currentBook.getAuthor() + "</p>");
+								out.println("<br/>");
+								out.println("<p>$" + currentBook.getSellingPrice() + "</p>");
+								out.println("</div>");
+								out.println("</div>");
+								
+								out.println("</div>");
+							}
+							out.println("</div>");
+						%>
+					
+<!-- 						<div class="row"> -->
+<!-- 							<div class="col"> -->
+<!-- 								<div class="card card-searchgrid"> -->
+<!-- 									<img src="img/bookCover1.jpg" class="card-img-top" width="158" height="239"> -->
+									
+<!-- 									<div class="card-body"> -->
+<!-- 										<h5 class="card-title">Head First Web Design</h5> -->
+<!-- 										<p>Ethan Watrall, Jeff Siarto</p> -->
 
-										<br/>
-										<br/>
+<!-- 										<br/> -->
+<!-- 										<br/> -->
 										
-										<p>$9.99</p>
-									</div>
-								</div>
-							</div>
+<!-- 										<p>$9.99</p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							
-							<div class="col">
-								<div class="card card-searchgrid">
-									<img src="img/bookCover2.jpg" class="card-img-top" width="158" height="239">
+<!-- 							<div class="col"> -->
+<!-- 								<div class="card card-searchgrid"> -->
+<!-- 									<img src="img/bookCover2.jpg" class="card-img-top" width="158" height="239"> -->
 									
-									<div class="card-body">
-										<h5 class="card-title">The Great Gatsby</h5>
-										<p>F. Scott Fitzgerald</p>
-																				
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
+<!-- 									<div class="card-body"> -->
+<!-- 										<h5 class="card-title">The Great Gatsby</h5> -->
+<!-- 										<p>F. Scott Fitzgerald</p> -->
 										
-										<br/>
-										<br/>
+<!-- 										<br/> -->
+<!-- 										<br/> -->
 										
-										<p>$9.99</p>
-									</div>
-								</div>
-							</div>
+<!-- 										<p>$9.99</p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							
-							<div class="col">
-								<div class="card card-searchgrid">
-									<img src="img/bookCover3.jpg" class="card-img-top" width="158" height="239">
+<!-- 							<div class="col"> -->
+<!-- 								<div class="card card-searchgrid"> -->
+<!-- 									<img src="img/bookCover3.jpg" class="card-img-top" width="158" height="239"> -->
 									
-									<div class="card-body">
-										<h5 class="card-title">The Catcher in the Rye</h5>
-										<p>J.D. Salinger</p>								
-																				
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
+<!-- 									<div class="card-body"> -->
+<!-- 										<h5 class="card-title">The Catcher in the Rye</h5> -->
+<!-- 										<p>J.D. Salinger</p>								 -->
 										
-										<br/>
-										<br/>
+<!-- 										<br/> -->
+<!-- 										<br/> -->
 										
-										<p>$9.99</p>
-									</div>
-								</div>
-							</div>
+<!-- 										<p>$9.99</p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							
-							<div class="col">
-								<div class="card card-searchgrid">
-									<img src="img/bookCover4.jpg" class="card-img-top" width="158" height="239">
+<!-- 							<div class="col"> -->
+<!-- 								<div class="card card-searchgrid"> -->
+<!-- 									<img src="img/bookCover4.jpg" class="card-img-top" width="158" height="239"> -->
 									
-									<div class="card-body">
-										<h5 class="card-title">Catch-22</h5>
-										<p>Joseph Heller</p>							
-																				
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
+<!-- 									<div class="card-body"> -->
+<!-- 										<h5 class="card-title">Catch-22</h5> -->
+<!-- 										<p>Joseph Heller</p>							 -->
 										
-										<br/>
-										<br/>
+<!-- 										<br/> -->
+<!-- 										<br/> -->
 										
-										<p>$9.99</p>
-									</div>
-								</div>
-							</div>
-						</div>
+<!-- 										<p>$9.99</p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 						
-						<div class="row">			
-							<div class="col">
-								<div class="card card-searchgrid">
-									<img src="img/bookCover5.jpg" class="card-img-top" width="158" height="239">
+<!-- 						<div class="row">			 -->
+<!-- 							<div class="col"> -->
+<!-- 								<div class="card card-searchgrid"> -->
+<!-- 									<img src="img/bookCover5.jpg" class="card-img-top" width="158" height="239"> -->
 									
-									<div class="card-body">
-										<h5 class="card-title">To Kill a Mockingbird</h5>
-										<p>Harper Lee</p>				
-																				
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
+<!-- 									<div class="card-body"> -->
+<!-- 										<h5 class="card-title">To Kill a Mockingbird</h5> -->
+<!-- 										<p>Harper Lee</p>				 -->
 										
-										<br/>
-										<br/>
+<!-- 										<br/> -->
+<!-- 										<br/> -->
 										
-										<p>$9.99</p>
-									</div>
-								</div>
-							</div>
+<!-- 										<p>$9.99</p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							
-							<div class="col">
-								<div class="card card-searchgrid">
-									<img src="img/bookCover6.png" class="card-img-top" width="158" height="239">
+<!-- 							<div class="col"> -->
+<!-- 								<div class="card card-searchgrid"> -->
+<!-- 									<img src="img/bookCover6.png" class="card-img-top" width="158" height="239"> -->
 									
-									<div class="card-body">
-										<h5 class="card-title">Harry Potter and the Sorcerer's Stone</h5>
-										<p>J.K. Rowling</p>
-																				
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
+<!-- 									<div class="card-body"> -->
+<!-- 										<h5 class="card-title">Harry Potter and the Sorcerer's Stone</h5> -->
+<!-- 										<p>J.K. Rowling</p> -->
 										
-										<br/>
-										<br/>
+<!-- 										<br/> -->
+<!-- 										<br/> -->
 										
-										<p>$9.99</p>
-									</div>
-								</div>
-							</div>
+<!-- 										<p>$9.99</p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							
-							<div class="col">
-								<div class="card card-searchgrid">
-									<img src="img/bookCover7.png" class="card-img-top" width="158" height="239">
+<!-- 							<div class="col"> -->
+<!-- 								<div class="card card-searchgrid"> -->
+<!-- 									<img src="img/bookCover7.png" class="card-img-top" width="158" height="239"> -->
 									
-									<div class="card-body">
-										<h5 class="card-title">The Outsider</h5>
-										<p>Stephen King</p>
-																				
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
+<!-- 									<div class="card-body"> -->
+<!-- 										<h5 class="card-title">The Outsider</h5> -->
+<!-- 										<p>Stephen King</p>						 -->
 										
-										<br/>
-										<br/>
+<!-- 										<br/> -->
+<!-- 										<br/> -->
 										
-										<p>$9.99</p>
-									</div>
-								</div>
-							</div>
+<!-- 										<p>$9.99</p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							
-							<div class="col">
-								<div class="card card-searchgrid">
-									<img src="img/bookCover8.png" class="card-img-top" width="158" height="239">
+<!-- 							<div class="col"> -->
+<!-- 								<div class="card card-searchgrid"> -->
+<!-- 									<img src="img/bookCover8.png" class="card-img-top" width="158" height="239"> -->
 									
-									<div class="card-body">
-										<h5 class="card-title">Crazy Rich Asians</h5>
-										<p>Kevin Kwan</p>		
-																				
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
+<!-- 									<div class="card-body"> -->
+<!-- 										<h5 class="card-title">Crazy Rich Asians</h5> -->
+<!-- 										<p>Kevin Kwan</p>		 -->
 										
-										<br/>
-										<br/>
+<!-- 										<br/> -->
+<!-- 										<br/> -->
 										
-										<p>$9.99</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+<!-- 										<p>$9.99</p> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 	
 				</div>
     		</div>
-    	
+    		
+    		<!-- Modals -->
+    		<div class="modalContainer">
+    			
+    			<%
+					for(int i = 0; i < keywordBooks.size(); i++) {
+						Book currentBook = keywordBooks.get(i);
+						
+						out.println("<div class=\"modal fade\" id=\"book" + (i+1) + "\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">");
+						out.println("<div class=\"modal-dialog\">");
+						out.println("<div class=\"modal-content\">");
+						out.println("<div class=\"modal-header\">");
+						out.println("<h5 class=\"modal-title\" id=\"exampleModalLabel\">" + currentBook.getTitle() + "</h5>");
+						out.println("</div>");
+						out.println("<form id=\"book1ModalForm\" method=\"POST\" accept-charset=\"UTF-8\">");
+						out.println("<input type=\"hidden\" name=\"bookID\" value=\"" + currentBook.getBookID() + "\"/>");
+						out.println("<div class=\"modal-body\">");
+						out.println("<img width=\"" + imgWidth + "\" height=\"" + imgHeight + "\" src=\"" + currentBook.getImagePath() + "\">");
+						out.println("<p class=\"modalText\">");
+						out.println("Author: " + currentBook.getAuthor());
+						out.println("<br><br>");
+						out.println("Genre: " + currentBook.getGenre());
+						out.println("<br><br>");
+						out.println("Price: $" + currentBook.getSellingPrice());
+						out.println("<br><br>");
+						out.println("ISBN: " + currentBook.getIsbn());
+						out.println("<br><br>");
+						out.println("Description: " + currentBook.getDescription());
+						out.println("</p>");
+						out.println("</div>");
+						out.println("<div class=\"modal-footer\">");
+						out.println("<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>");
+						out.println("<button type=\"button\" class=\"btn btn-primary\" formaction=\"\">Add to cart</button>");
+						out.println("</div>");
+						out.println("</form>");
+						out.println("</div>");
+						out.println("</div>");
+						out.println("</div>");
+					}
+    			%>
+    			
+    		</div>
     		    	
 	    	<!-- Footer -->
 	     	<div class="footerContainer">
