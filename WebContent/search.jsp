@@ -259,6 +259,7 @@
 									
 									out.println("<div class=\"col\">");
 									
+									out.println("<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#book" + (index+1) + "\" style=\"background-color: transparent; border: none;\">");
 									out.println("<div class=\"card card-searchgrid\">");
 									out.println("<img src=\"" + currentBook.getImagePath() + "\" class=\"card-img-top\" width=\"" + imgWidth + "\" height=\"" + imgHeight + "\">");
 									out.println("<div class=\"card-body\">");
@@ -268,6 +269,7 @@
 									out.println("<p>$" + currentBook.getSellingPrice() + "</p>");
 									out.println("</div>");
 									out.println("</div>");
+									out.println("</button>");
 									
 									out.println("</div>");
 								}
