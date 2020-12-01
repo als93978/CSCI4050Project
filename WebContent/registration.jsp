@@ -82,7 +82,7 @@
  							</li>
  						</ul>
  						
- 						<a class="nav-link" href="shoppingCart.html">
+ 						<a class="nav-link" href="shoppingCart.jsp">
  							<i class="fas fa-shopping-cart fa-2x"></i>
  							<span class="badge badge-dark badge-pill">4</span>
  						</a>
