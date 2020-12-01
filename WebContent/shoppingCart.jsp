@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="javax.servlet.http.Cookie, dataAccess.*"
+    import="models.ErrorMessage"
+    import="models.Message"
+    import="models.User"
+    import="models.Address"
+    import="models.PaymentCard"
+    import="models.CardType"
+%>
 <!--  
 	shoppingCart.html
 	
@@ -9,6 +17,14 @@
 	on the Outline document on the Google Drive.
 -->
 
+<%
+
+	User user = (User) request.getAttribute("user");
+
+	PaymentCard paymentCard = (PaymentCard) request.getAttribute("paymentCard");
+	PaymentCardDA paymentCardDA = new PaymentCardDA();
+
+%>
 <!DOCTYPE html>
 <html>
 
@@ -262,7 +278,7 @@
 													   
 												   </div>
 		    									
-		    										<a href="#" class="btn btn-secondary editPaymentInfoBtn">Edit</a>
+		    										<button type="button" id="editCard" class="btn btn-primary center" data-toggle="modal" data-target="#editCard1" style= "border: none;">Edit</button>
 		    									</li>
 		    									
 		    									<li class="media paymentInfoItem">
@@ -279,13 +295,12 @@
 													   </p>
 												   </div>
 		    										
-		    										<a href="#" class="btn btn-secondary editPaymentInfoBtn">Edit</a>
+		    										<button type="button" id="editCard" class="btn btn-primary center" data-toggle="modal" data-target="#editCard2" style= "border: none;">Edit</button>
 		    									</li>
     										</ul>
     										
     										<hr>
-    										
-     										<a href="#" class="btn btn-primary">Add New Payment Method</a>
+    										<button type="button" id="addCard" class="btn btn-primary center" data-toggle="modal" data-target="#card1" style= "border: none;">Add New Payment Method</button>
  										</div>
  									</div>
  								</div>
@@ -313,7 +328,7 @@
 												<div class="shippingInputOptions">
 													<input type="radio" class="shippingInfoRadio" id="shippingInfo1" name="shippingInfo" value="shippingInfo1" checked>
 													
-													<a href="#" class="btn btn-secondary editShippingInfoBtn">Edit</a>
+													<button type="button" id="editAddress" class="btn btn-primary center" data-toggle="modal" data-target="#editAddress1" style= "border: none;">Edit</button>
 												</div>
 											</div>
 											
@@ -331,13 +346,13 @@
 												<div class="shippingInputOptions">
 													<input type="radio" class="shippingInfoRadio" id="shippingInfo1" name="shippingInfo" value="shippingInfo1">
 													
-													<a href="#" class="btn btn-secondary editShippingInfoBtn">Edit</a>
+													<button type="button" id="editAddress" class="btn btn-primary center" data-toggle="modal" data-target="#editAddress2" style= "border: none;">Edit</button>
 												</div>
 											</div>
     										
     										<hr>
     										
-     										<a href="#" class="btn btn-primary">Add New Shipping Address</a>
+     										<button type="button" id="addAddress" class="btn btn-primary center" data-toggle="modal" data-target="#address1" style= "border: none;">Add New Shipping Address</button>
  										</div>
  									</div>
  									
@@ -349,6 +364,186 @@
 					</div>
 				</div>
 	    	</div>
+	    	
+	    	<!-- Modals -->
+	    	<div class="modal fade" id="editCard1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit Payment Method</h5>
+                                </div>
+                                <form id="promotion" class="needs-validation" action="SendPromotion" method="POST" accept-charset="UTF-8" novalidate>
+                                    <div class="modal-body">
+                                        
+                                        <div class="form-group">
+                                            <label for="cardNumber">Card Number</label>
+                                            <input type="text" class="form-control" name="cardNumber" required>
+                                            <div class="invalid-feedback">
+											Please provide a valid card number.
+										  </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="amount">Type</label>
+                                            <input type="text" class="form-control" name="percentage" required>
+                                            <div class="invalid-feedback">
+											Please choose a card type.
+										  </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="limit">Expiration Date</label>
+                                            <input type="text" class="form-control" name="startDate" required>
+                                            <div class="invalid-feedback">
+											Please provide a valid expiration date.
+										  </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button id="add-coupon" type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </form>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="card1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Add New Payment Method</h5>
+                                </div>
+                                <form id="addCard" class="needs-validation" action="SendPromotion" method="POST" accept-charset="UTF-8" novalidate>
+                                    <div class="modal-body">
+                                        
+                                        <div class="form-group">
+                                            <label for="cardNumber">Card Number</label>
+                                            <input type="text" class="form-control" name="cardNumber" required>
+                                            <div class="invalid-feedback">
+											Please provide a valid card number.
+										  </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="amount">Type</label>
+                                            <input type="text" class="form-control" name="percentage" required>
+                                            <div class="invalid-feedback">
+											Please choose a card type.
+										  </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="limit">Expiration Date</label>
+                                            <input type="text" class="form-control" name="startDate" required>
+                                            <div class="invalid-feedback">
+											Please provide a valid expiration date.
+										  </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button id="add-coupon" type="submit" class="btn btn-primary">Add Payment Method</button>
+                                    </div>
+                                </form>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="editAddress1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit Address</h5>
+                                </div>
+                                <form id="address" class="needs-validation" action="SendPromotion" method="POST" accept-charset="UTF-8" novalidate>
+                                    <div class="modal-body">
+                                        
+                                        <div class="form-group">
+                                            <label for="cardNumber">Street</label>
+                                            <input type="text" class="form-control" name="cardNumber" required>
+                                            <div class="invalid-feedback">
+											Please provide a street address.
+										  </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="amount">City</label>
+                                            <input type="text" class="form-control" name="percentage" required>
+                                            <div class="invalid-feedback">
+											Please provide a valid city.
+										  </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="limit">State</label>
+                                            <input type="text" class="form-control" name="startDate" required>
+                                            <div class="invalid-feedback">
+											Please provide a valid state.
+										  </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="limit">Zip Code</label>
+                                            <input type="text" class="form-control" name="startDate" required>
+                                            <div class="invalid-feedback">
+											Please provide a valid zip code.
+										  </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button id="add-coupon" type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </form>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="address1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Add New Shipping Address</h5>
+                                </div>
+                                <form id="address" class="needs-validation" action="SendPromotion" method="POST" accept-charset="UTF-8" novalidate>
+                                    <div class="modal-body">
+                                        
+                                        <div class="form-group">
+                                            <label for="cardNumber">Street</label>
+                                            <input type="text" class="form-control" name="cardNumber" required>
+                                            <div class="invalid-feedback">
+											Please provide a street address.
+										  </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="amount">City</label>
+                                            <input type="text" class="form-control" name="percentage" required>
+                                            <div class="invalid-feedback">
+											Please provide a valid city.
+										  </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="limit">State</label>
+                                            <input type="text" class="form-control" name="startDate" required>
+                                            <div class="invalid-feedback">
+											Please provide a valid state.
+										  </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="limit">Zip Code</label>
+                                            <input type="text" class="form-control" name="startDate" required>
+                                            <div class="invalid-feedback">
+											Please provide a valid zip code.
+										  </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button id="add-coupon" type="submit" class="btn btn-primary">Add Address</button>
+                                    </div>
+                                </form>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 	    	
 	    	<!-- Footer -->
 	     	<div class="footerContainer">
