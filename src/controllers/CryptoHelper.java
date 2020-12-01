@@ -1,5 +1,7 @@
 package controllers;
 
+import java.security.SecureRandom;
+
 import org.jasypt.util.password.ConfigurablePasswordEncryptor;
 import org.jasypt.util.text.AES256TextEncryptor;
 
@@ -45,6 +47,20 @@ public class CryptoHelper {
 		textEncryptor = getTextEncryptor();
 		
 		return textEncryptor.decrypt(encryptedText);
+	}
+	
+	public static String generateRandomPassword(int length) {
+		SecureRandom secureRandom = new SecureRandom();
+		
+		char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-+".toCharArray();
+		
+		char[] password = new char[length];
+		
+		for(int i = 0; i < password.length; i++) {
+			password[i] = alphabet[secureRandom.nextInt(alphabet.length)];
+		}
+		
+		return new String(password);
 	}
 
 }

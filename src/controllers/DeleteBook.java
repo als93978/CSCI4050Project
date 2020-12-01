@@ -10,27 +10,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataAccess.UserDA;
+import dataAccess.BookDA;
+import models.Book;
 import models.ErrorMessage;
 import models.Message;
-import models.User;
-import models.UserType;
 
 /**
- * Servlet implementation class PromoteEmployee
+ * Servlet implementation class DeleteBook
  */
-@WebServlet("/DepromoteAdmin")
-public class DepromoteAdmin extends HttpServlet {
+@WebServlet("/DeleteBook")
+public class DeleteBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	private UserDA userDA = new UserDA();
+	private BookDA bookDA = new BookDA();
 	
-	private User user = null;
+	private Book book = null;
 	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DepromoteAdmin() {
+    public DeleteBook() {
         super();
     }
 
@@ -46,23 +45,24 @@ public class DepromoteAdmin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			depromoteAdmin(request, response);
+			deleteBook(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();
 			returnError(request, response, e.getMessage());
 		}
 	}
 	
-	private void depromoteAdmin(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-		int userID = Integer.parseInt(request.getParameter("userID"));
+	private void deleteBook(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		int bookID = Integer.parseInt(request.getParameter("bookID"));
+
+		book = bookDA.getBookByID(bookID);
 		
-		user = userDA.getUserByID(userID);
+		book.setArchived(true);
 		
-		user.setType(UserType.EMPLOYEE);
-		userDA.updateUser(user);
+		bookDA.updateBook(book);
 		
-		String depromotedMsg = "Admin successfully depromoted. (UserID: " + userID + ")";
-		returnMessage(request, response, depromotedMsg);
+		String bookDeletedMsg = "Book successfully deleted. (BookID: " + bookID + ")";
+		returnMessage(request, response, bookDeletedMsg);
 	}
 	
 	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
@@ -72,7 +72,7 @@ public class DepromoteAdmin extends HttpServlet {
 		
 		request.setAttribute("message", message);
 		
-		redirectToPage(request, response, "ManageUsers");
+		redirectToPage(request, response, "ManageBooks");
 	}
 	
 	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {
@@ -82,7 +82,7 @@ public class DepromoteAdmin extends HttpServlet {
 		
 		request.setAttribute("errorMessage", errorMessage);
 		
-		redirectToPage(request, response, "ManageUsers");
+		redirectToPage(request, response, "ManageBooks");
 	}
 	
 	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {

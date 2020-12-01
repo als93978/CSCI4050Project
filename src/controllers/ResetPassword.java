@@ -14,13 +14,12 @@ import dataAccess.UserDA;
 import models.ErrorMessage;
 import models.Message;
 import models.User;
-import models.UserType;
 
 /**
- * Servlet implementation class PromoteEmployee
+ * Servlet implementation class ResetPassword
  */
-@WebServlet("/DepromoteAdmin")
-public class DepromoteAdmin extends HttpServlet {
+@WebServlet("/ResetPassword")
+public class ResetPassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private UserDA userDA = new UserDA();
@@ -30,7 +29,7 @@ public class DepromoteAdmin extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DepromoteAdmin() {
+    public ResetPassword() {
         super();
     }
 
@@ -46,23 +45,46 @@ public class DepromoteAdmin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			depromoteAdmin(request, response);
+			verifyRecoveryCode(request, response);
+			changeToTemporaryPassword(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();
 			returnError(request, response, e.getMessage());
 		}
 	}
 	
-	private void depromoteAdmin(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-		int userID = Integer.parseInt(request.getParameter("userID"));
+	private void verifyRecoveryCode(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		String recoveryCode = request.getParameter("code");
+		String userEmail = request.getParameter("email");
 		
-		user = userDA.getUserByID(userID);
+		user = userDA.getUserByEmail(userEmail);
 		
-		user.setType(UserType.EMPLOYEE);
-		userDA.updateUser(user);
+		if(recoveryCode == null || user == null) {
+			String recoveryOrEmailInvalidMsg = "The recovery code or email was invalid. User not found.";
+			
+			returnError(request, response, recoveryOrEmailInvalidMsg);
+		}
 		
-		String depromotedMsg = "Admin successfully depromoted. (UserID: " + userID + ")";
-		returnMessage(request, response, depromotedMsg);
+		if(!recoveryCode.equals(user.getConfirmationCode())) {
+			String recoveryOrEmailInvalidMsg = "Recovery code does not match database. User not found.";
+			
+			returnError(request, response, recoveryOrEmailInvalidMsg);
+		}
+	}
+	
+	private void changeToTemporaryPassword(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		if(user != null) {
+			String newTempPassword = CryptoHelper.generateRandomPassword(25);
+			
+			user.setPassword(newTempPassword);
+			
+			userDA.updatePassword(user);
+			
+			String newTempPasswordMsg = "Your password has been changed to a temporary password. "
+					+ "Your new temporary password is: " + newTempPassword + ". You can now login and "
+					+ "change your password.";
+			returnMessage(request, response, newTempPasswordMsg);
+		}
 	}
 	
 	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
@@ -72,7 +94,7 @@ public class DepromoteAdmin extends HttpServlet {
 		
 		request.setAttribute("message", message);
 		
-		redirectToPage(request, response, "ManageUsers");
+		redirectToPage(request, response, "login.jsp");
 	}
 	
 	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {
@@ -82,7 +104,7 @@ public class DepromoteAdmin extends HttpServlet {
 		
 		request.setAttribute("errorMessage", errorMessage);
 		
-		redirectToPage(request, response, "ManageUsers");
+		redirectToPage(request, response, "forgetPassword.jsp");
 	}
 	
 	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {

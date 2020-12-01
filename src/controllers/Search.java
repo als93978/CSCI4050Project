@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,27 +11,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataAccess.UserDA;
+import dataAccess.BookDA;
+import models.Book;
 import models.ErrorMessage;
-import models.Message;
-import models.User;
-import models.UserType;
 
 /**
- * Servlet implementation class PromoteEmployee
+ * Servlet implementation class Search
  */
-@WebServlet("/DepromoteAdmin")
-public class DepromoteAdmin extends HttpServlet {
+@WebServlet("/Search")
+public class Search extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	private UserDA userDA = new UserDA();
-	
-	private User user = null;
+	private BookDA bookDA = new BookDA();
 	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DepromoteAdmin() {
+    public Search() {
         super();
     }
 
@@ -46,43 +43,41 @@ public class DepromoteAdmin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			depromoteAdmin(request, response);
+			searchBooks(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();
-			returnError(request, response, e.getMessage());
+			returnError(request, response, e.getMessage(), "search.jsp");
 		}
 	}
-	
-	private void depromoteAdmin(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-		int userID = Integer.parseInt(request.getParameter("userID"));
+
+	private void searchBooks(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		String searchKeyword = request.getParameter("keyword");
+		List<Book> keywordBooks = bookDA.getBooksByKeyword(searchKeyword);
 		
-		user = userDA.getUserByID(userID);
+		if(keywordBooks != null)
+			request.setAttribute("keywordBooks", keywordBooks);
 		
-		user.setType(UserType.EMPLOYEE);
-		userDA.updateUser(user);
-		
-		String depromotedMsg = "Admin successfully depromoted. (UserID: " + userID + ")";
-		returnMessage(request, response, depromotedMsg);
+		redirectToPage(request, response, "search.jsp");
 	}
 	
-	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
-		Message message = new Message();
-		
-		message.setMessage(messageStr);
-		
-		request.setAttribute("message", message);
-		
-		redirectToPage(request, response, "ManageUsers");
-	}
+//	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
+//		Message message = new Message();
+//		
+//		message.setMessage(messageStr);
+//		
+//		request.setAttribute("message", message);
+//		
+//		redirectToPage(request, response, "ManageBooks");
+//	}
 	
-	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {
+	private void returnError(HttpServletRequest request, HttpServletResponse response, String message, String redirectTo) {
 		ErrorMessage errorMessage = new ErrorMessage();
 		
 		errorMessage.setMessage("An error occurred: " + message);
 		
 		request.setAttribute("errorMessage", errorMessage);
 		
-		redirectToPage(request, response, "ManageUsers");
+		redirectToPage(request, response, redirectTo);
 	}
 	
 	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {
@@ -96,5 +91,4 @@ public class DepromoteAdmin extends HttpServlet {
 			e1.printStackTrace();
 		}
 	}
-
 }

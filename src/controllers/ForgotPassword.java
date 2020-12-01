@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,16 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dataAccess.UserDA;
+import models.Email;
 import models.ErrorMessage;
 import models.Message;
 import models.User;
-import models.UserType;
 
 /**
- * Servlet implementation class PromoteEmployee
+ * Servlet implementation class ForgotPassword
  */
-@WebServlet("/DepromoteAdmin")
-public class DepromoteAdmin extends HttpServlet {
+@WebServlet("/ForgotPassword")
+public class ForgotPassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private UserDA userDA = new UserDA();
@@ -30,7 +31,7 @@ public class DepromoteAdmin extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DepromoteAdmin() {
+    public ForgotPassword() {
         super();
     }
 
@@ -46,23 +47,55 @@ public class DepromoteAdmin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			depromoteAdmin(request, response);
+			checkEmailInput(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();
 			returnError(request, response, e.getMessage());
 		}
 	}
 	
-	private void depromoteAdmin(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-		int userID = Integer.parseInt(request.getParameter("userID"));
+	private void checkEmailInput(HttpServletRequest request, HttpServletResponse response) throws SQLException, MessagingException {
+		String inputEmail = request.getParameter("email");
 		
-		user = userDA.getUserByID(userID);
+		if(inputEmail.equals(null) || inputEmail.equals("") || inputEmail.indexOf('@') == -1) {
+			String invalidEmailMsg = "The email you entered is invalid. Please try again.";
+			
+			returnError(request, response, invalidEmailMsg);
+		}
 		
-		user.setType(UserType.EMPLOYEE);
+		else {
+			sendRecoveryEmail(request, response, inputEmail);
+		}
+	}
+	
+	private void sendRecoveryEmail(HttpServletRequest request, HttpServletResponse response, String inputEmail) throws SQLException, MessagingException {
+		user = userDA.getUserByEmail(inputEmail);
+		
+		if(user == null) {
+			String invalidEmailMsg = "The email you entered is invalid or does belong to a user. Please try again.";
+			
+			returnError(request, response, invalidEmailMsg);
+		}
+		
+		String confirmationCode = ConfirmUser.generateConfirmationCode();
+		
+		user.setConfirmationCode(confirmationCode);
 		userDA.updateUser(user);
 		
-		String depromotedMsg = "Admin successfully depromoted. (UserID: " + userID + ")";
-		returnMessage(request, response, depromotedMsg);
+		String fromAddress = EmailHelper.fromAddress;
+		String userEmail = user.getEmail();
+		
+		Email email = new Email();
+		
+		email.setFromAddress(fromAddress);
+		email.setToAddress(userEmail);
+		email.setBody(email.getRecoveryBody() + "?code=" + confirmationCode + "&email=" + userEmail);
+		
+		EmailHelper emailHelper = new EmailHelper();
+		emailHelper.sendConfirmationEmail(email);
+		
+		String sentRecoveryMsg = "The recovery email has been sent. Please check your email.";
+		returnMessage(request, response, sentRecoveryMsg);
 	}
 	
 	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
@@ -72,7 +105,7 @@ public class DepromoteAdmin extends HttpServlet {
 		
 		request.setAttribute("message", message);
 		
-		redirectToPage(request, response, "ManageUsers");
+		redirectToPage(request, response, "forgetPassword.jsp");
 	}
 	
 	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {
@@ -82,7 +115,7 @@ public class DepromoteAdmin extends HttpServlet {
 		
 		request.setAttribute("errorMessage", errorMessage);
 		
-		redirectToPage(request, response, "ManageUsers");
+		redirectToPage(request, response, "forgetPassword.jsp");
 	}
 	
 	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {

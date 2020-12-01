@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,16 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 import dataAccess.BookDA;
 import dataAccess.UserDA;
 import models.Book;
+import models.ErrorMessage;
 import models.User;
 import models.UserType;
 
 /**
- * Servlet implementation class Index
+ * Servlet implementation class ManageBooks
  */
-@WebServlet("/Index")
-public class Index extends HttpServlet {
+@WebServlet("/ManageBooks")
+public class ManageBooks extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+       
 	private UserDA userDA = new UserDA();
 	private BookDA bookDA = new BookDA();
 	
@@ -34,7 +34,7 @@ public class Index extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Index() {
+    public ManageBooks() {
         super();
     }
 
@@ -56,50 +56,52 @@ public class Index extends HttpServlet {
 		}
 	}
 	
-	private Cookie checkUserLoggedIn(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+	private void checkUserLoggedIn(HttpServletRequest request, HttpServletResponse response) throws NumberFormatException, Exception {
 		Cookie[] cookies = request.getCookies();
 		
-		if(cookies != null) {
-			if(cookies.length > 1) {
-				if(cookies[1].getName().equals("userID")) {
-					processSessionCookie(request, response, cookies[1]);
-				}
+		if(cookies.length > 1) {
+			if(cookies[1].getName().equals("userID")) {
+				user = userDA.getUserByID(Integer.parseInt(cookies[1].getValue()));
+				
+				processSessionCookie(request, response, cookies[1]);
 			}
-		}
-
-		// If the above fails
-		loadHomepageBooks(request, response, "index.jsp");
-		
-		return null;
-	}
-	
-	private void processSessionCookie(HttpServletRequest request, HttpServletResponse response, Cookie sessionCookie) throws SQLException, IOException {
-		int userID = Integer.parseInt(sessionCookie.getValue());
-		
-		user = userDA.getUserByID(userID);
-		
-		boolean isUserAdmin = checkUserIsAdmin();
-		
-		if(isUserAdmin) {
-			response.sendRedirect(request.getContextPath() + "/ManageBooks");
+			
+			else {
+				String mustBeLoggedInMsg = "You must be logged in to access this page.";
+				
+				returnError(request, response, mustBeLoggedInMsg, "login.jsp");			
+			}
 		}
 		
 		else {
-			loadHomepageBooks(request, response, "homepageWithUserIcon.html");
+			String mustBeLoggedInMsg = "You must be logged in to access this page.";
+			
+			returnError(request, response, mustBeLoggedInMsg, "login.jsp");
 		}
 	}
 	
-	private void loadHomepageBooks(HttpServletRequest request, HttpServletResponse response, String redirectPage) throws SQLException {
-		List<Book> featuredBooks = bookDA.getAllFeaturedBooks();
-		List<Book> topSellingBooks = bookDA.getAllTopSellingBooks();
+	private void processSessionCookie(HttpServletRequest request, HttpServletResponse response, Cookie sessionCookie) throws NumberFormatException, Exception {
+		boolean isUserAdmin = checkUserIsAdmin();
 		
-		if(featuredBooks != null)
-			request.setAttribute("featuredBooks", featuredBooks);
+		if(isUserAdmin) {
+			loadAllBooksInfo(request, response);		
+		}
 		
-		if(topSellingBooks != null)
-			request.setAttribute("topSellingBooks", topSellingBooks);
+		else {
+			String isNotAdminMsg = "You do not have permission to view this page.";
+			
+			returnError(request, response, isNotAdminMsg, "login.jsp");	
+		}
+	}
+	
+	private void loadAllBooksInfo(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		List<Book> books = bookDA.getAllBooks();
 		
-		redirectToPage(request, response, redirectPage);
+		if(books != null) {
+			request.setAttribute("books", books);
+		}
+		
+		redirectToPage(request, response, "adminManageBooks.jsp");
 	}
 	
 	private boolean checkUserIsAdmin() throws SQLException {
@@ -109,6 +111,16 @@ public class Index extends HttpServlet {
 			return true;
 		
 		return false;
+	}
+	
+	private void returnError(HttpServletRequest request, HttpServletResponse response, String message, String redirectTo) {
+		ErrorMessage errorMessage = new ErrorMessage();
+		
+		errorMessage.setMessage("An error occurred: " + message);
+		
+		request.setAttribute("errorMessage", errorMessage);
+		
+		redirectToPage(request, response, redirectTo);
 	}
 	
 	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {
@@ -124,3 +136,4 @@ public class Index extends HttpServlet {
 	}
 
 }
+

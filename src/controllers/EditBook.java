@@ -10,27 +10,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataAccess.UserDA;
+import dataAccess.BookDA;
+import models.Book;
 import models.ErrorMessage;
 import models.Message;
-import models.User;
-import models.UserType;
 
 /**
- * Servlet implementation class PromoteEmployee
+ * Servlet implementation class EditBook
  */
-@WebServlet("/DepromoteAdmin")
-public class DepromoteAdmin extends HttpServlet {
+@WebServlet("/EditBook")
+public class EditBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	private UserDA userDA = new UserDA();
+	private BookDA bookDA = new BookDA();
 	
-	private User user = null;
+	private Book book = null;
 	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DepromoteAdmin() {
+    public EditBook() {
         super();
     }
 
@@ -46,23 +45,43 @@ public class DepromoteAdmin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			depromoteAdmin(request, response);
+			editBook(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();
 			returnError(request, response, e.getMessage());
 		}
 	}
 	
-	private void depromoteAdmin(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-		int userID = Integer.parseInt(request.getParameter("userID"));
+	private void editBook(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		int bookID = Integer.parseInt(request.getParameter("bookID"));
+
+		book = bookDA.getBookByID(bookID);
 		
-		user = userDA.getUserByID(userID);
+		String title = request.getParameter("title");
+		String author = request.getParameter("author");
+		float price = Float.parseFloat(request.getParameter("price"));
+		String genre = request.getParameter("genre");
+		String description = request.getParameter("description");
+
+		if(!title.equals("") && title != null)
+			book.setTitle(title);
 		
-		user.setType(UserType.EMPLOYEE);
-		userDA.updateUser(user);
+		if(!author.equals("") && author != null)
+			book.setAuthor(author);
 		
-		String depromotedMsg = "Admin successfully depromoted. (UserID: " + userID + ")";
-		returnMessage(request, response, depromotedMsg);
+		if(price != 0.0f)
+			book.setSellingPrice(price);
+		
+		if(!genre.equals("") && genre != null)
+			book.setGenre(genre);
+		
+		if(!description.equals("") && description != null)
+			book.setDescription(description);
+
+		bookDA.updateBook(book);
+		
+		String bookUpdatedMsg = "Book successfully updated. (BookID: " + bookID + ")";
+		returnMessage(request, response, bookUpdatedMsg);
 	}
 	
 	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
@@ -72,7 +91,7 @@ public class DepromoteAdmin extends HttpServlet {
 		
 		request.setAttribute("message", message);
 		
-		redirectToPage(request, response, "ManageUsers");
+		redirectToPage(request, response, "ManageBooks");
 	}
 	
 	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {
@@ -82,7 +101,7 @@ public class DepromoteAdmin extends HttpServlet {
 		
 		request.setAttribute("errorMessage", errorMessage);
 		
-		redirectToPage(request, response, "ManageUsers");
+		redirectToPage(request, response, "ManageBooks");
 	}
 	
 	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {

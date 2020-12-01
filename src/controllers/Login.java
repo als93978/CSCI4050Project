@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import dataAccess.UserDA;
 import models.ErrorMessage;
 import models.User;
+import models.UserStatus;
 
 /**
  * Servlet implementation class Login
@@ -46,6 +47,7 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			validateLoginInformation(request, response);
+			checkInactiveOrSuspended(request, response);
 			setSessionCookie(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -64,9 +66,17 @@ public class Login extends HttpServlet {
 			
 			user = userDA.getUserByID(userID);
 			
-			String dbPassword = user.getPassword();
+			if(user == null) {
+				String wrongLoginMsg = "The email/account ID and/or password you entered was incorrect.";
 			
-			checkPassword(request, response, inputPassword, dbPassword);
+				returnError(request, response, wrongLoginMsg);
+			}
+			
+			else {
+				String dbPassword = user.getPassword();
+				
+				checkPassword(request, response, inputPassword, dbPassword);
+			}
 		}
 		
 		else {
@@ -74,9 +84,31 @@ public class Login extends HttpServlet {
 			
 			user = userDA.getUserByEmail(email);
 			
-			String dbPassword = user.getPassword();
+			if(user == null) {
+				String wrongLoginMsg = "The email/account ID and/or password you entered was incorrect.";
 			
-			checkPassword(request, response, inputPassword, dbPassword);
+				returnError(request, response, wrongLoginMsg);
+			}
+			
+			else {
+				String dbPassword = user.getPassword();
+				
+				checkPassword(request, response, inputPassword, dbPassword);
+			}
+		}
+	}
+	
+	private void checkInactiveOrSuspended(HttpServletRequest request, HttpServletResponse response) {
+		if(user.getStatus() == UserStatus.INACTIVE) {
+			String userInactiveMsg = "This account is inactive. Please verify your email and then login.";
+			
+			returnError(request, response, userInactiveMsg);
+		}
+		
+		else if(user.getStatus() == UserStatus.SUSPENDED) {
+			String userInactiveMsg = "This account is suspended. Please contact an administrator.";
+			
+			returnError(request, response, userInactiveMsg);
 		}
 	}
 	
@@ -124,9 +156,6 @@ public class Login extends HttpServlet {
 	}
 	
 	private void checkPassword(HttpServletRequest request, HttpServletResponse response, String inputPassword, String dbPassword) {
-		System.out.println("inputPassword: " + inputPassword);
-		System.out.println("dbPassword: " + dbPassword);
-		
 		if(!CryptoHelper.getPasswordEncryptor().checkPassword(inputPassword, dbPassword)) {
 			String wrongLoginMsg = "The email/account ID and/or password you entered was incorrect.";
 			

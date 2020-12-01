@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dataAccess.UserDA;
+import models.ErrorMessage;
+import models.Message;
 import models.User;
 import models.UserStatus;
 import models.UserType;
@@ -48,6 +50,7 @@ public class SuspendUser extends HttpServlet {
 			suspendUser(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();
+			returnError(request, response, e.getMessage());
 		}
 	}
 	
@@ -58,6 +61,27 @@ public class SuspendUser extends HttpServlet {
 		
 		user.setStatusID(UserStatus.SUSPENDED);
 		userDA.updateUser(user);
+		
+		String suspendedMsg = "User/Customer successfully suspended. (UserID: " + userID + ")";
+		returnMessage(request, response, suspendedMsg);
+	}
+	
+	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
+		Message message = new Message();
+		
+		message.setMessage(messageStr);
+		
+		request.setAttribute("message", message);
+		
+		redirectToPage(request, response, "ManageUsers");
+	}
+	
+	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {
+		ErrorMessage errorMessage = new ErrorMessage();
+		
+		errorMessage.setMessage("An error occurred: " + message);
+		
+		request.setAttribute("errorMessage", errorMessage);
 		
 		redirectToPage(request, response, "ManageUsers");
 	}

@@ -1,3 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="javax.servlet.http.Cookie, dataAccess.*"
+    import="models.ErrorMessage"
+    import="models.Message"
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -21,8 +28,12 @@
 			<!-- Header -->
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
- 					<a class="navbar-brand" href="index.html">
+ 					<a class="navbar-brand" href="Index">
                     <!--<img class="logoImg" src="img/bookbayLogo.png"> -->
+                    	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-book-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						  <path fill-rule="evenodd" d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+						</svg>
+						
 						BookBay
  					</a>
  					
@@ -72,7 +83,7 @@
  						
  						<ul class="navbar-nav">
  							<li>
- 								<a class="nav-link" href="login.html">Login</a>
+ 								<a class="nav-link" href="login.jsp">Login</a>
  							</li>
  							
  							<li>
@@ -88,13 +99,33 @@
  				</nav>
             </div>
             
+            			<%
+							Message message = (Message) request.getAttribute("message");
+										
+							if(message != null) {
+								out.println("<div class=\"alert alert-success\" role=\"alert\" style=\"display: block\">");
+								out.println("\t" + message.getMessage());
+								out.println("</div>");
+							}
+						%>
+					
+						<%
+							ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
+										
+							if(errorMessage != null) {
+								out.println("<div class=\"alert alert-danger\" role=\"alert\" style=\"display: block\">");
+								out.println("\t" + errorMessage.getMessage());
+								out.println("</div>");
+							}
+						%>
+            
             <main role="main" class="text-center">
                 <h1 class="font-weight-bold">Forgot your password?</h1>
                 <p class="lead">Type in your email address and a password recovery email will be sent to you.</p>
-                <form class="form-forget-password">
-                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+                <form class="form-forget-password" action="ForgotPassword" method="POST" accept-charset="UTF-8">
+                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required="" autofocus="">
                     <br>
-                    <button tabindex="0" id="send-recovery" class="btn btn-lg btn-primary form-btn btn-block" type="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" title="Password recovery sent!" data-content="Check your inbox to find the email that will allow you to recover your password.">Submit</button>
+                    <button tabindex="0" id="send-recovery" class="btn btn-lg btn-primary form-btn btn-block" type="submit" data-toggle="popover" data-trigger="focus" data-placement="bottom" title="Password recovery sent!" data-content="Check your inbox to find the email that will allow you to recover your password.">Submit</button>
                 </form>
             </main>
 				

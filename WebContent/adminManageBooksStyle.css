@@ -155,9 +155,15 @@ html, body {
             margin-top: 30%;
 		}
 		
+		.modalImgContainer {
+			text-align: center;
+		}
+		
 		.modalImg {
 			margin-bottom: 5%;
 			margin-top: 5%;
+			margin-left: auto;
+			margin-right: auto;
 		}
 		
 		.center {
@@ -168,15 +174,19 @@ html, body {
 			-ms-transform: translate(-50%, -50%);
 			transform: translate(-50%, -50%);
 		}
+		
+		.bookContainer {
+			text-align: center;
+		}
 
 		#added {
 			margin: auto !important;
-			padding-left: 300px;
+/* 			padding-left: 300px; */
 		}
 
 		#adding {
 			margin: auto !important;
-			padding-left: 55px;
+/* 			padding-left: 55px; */
 		}
 
 		#added-picture {
