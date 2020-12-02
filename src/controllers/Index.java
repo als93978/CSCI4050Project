@@ -66,8 +66,8 @@ public class Index extends HttpServlet {
 				}
 			}
 		}
-
-		// If the above fails
+		
+		request.setAttribute("userIsLoggedIn", false);
 		loadHomepageBooks(request, response, "index.jsp");
 		
 		return null;
@@ -85,7 +85,10 @@ public class Index extends HttpServlet {
 		}
 		
 		else {
-			loadHomepageBooks(request, response, "homepageWithUserIcon.html");
+//			request.setAttribute("userID", userID);
+			
+			request.setAttribute("userIsLoggedIn", true);
+			loadHomepageBooks(request, response, "index.jsp");
 		}
 	}
 	

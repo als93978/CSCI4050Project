@@ -80,15 +80,58 @@
  							<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
  						</form>
  						
- 						<ul class="navbar-nav">
- 							<li>
- 								<a class="nav-link" href="login.jsp">Login</a>
- 							</li>
+ 						<%
+ 							boolean userIsLoggedIn = (boolean) request.getAttribute("userIsLoggedIn");
+ 						
+ 							if(userIsLoggedIn) {
+ 								out.println("<div class=\"dropdown\">");
+ 								out.println("<a class=\"nav-link dropdown-toggle\" href=\"#\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">");
+ 								out.println("<img src=\"img/user-icon.png\" class=\"img-fluid user-icon\" alt=\"User Icon\">");
+ 								out.println("</a>");
+ 								out.println("<form id=\"logoutForm\" action=\"Logout\" method=\"post\">");
+ 								out.println("<div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">");
+ 								out.println("<a id=\"logoutBtn\" class=\"dropdown-item\" href=\"Logout\">Log off</a>");
+ 								out.println("<a class=\"dropdown-item\" href=\"orderhistory.html\">Order history</a>");
+ 								out.println("<a class=\"dropdown-item\" href=\"EditProfile\">Account settings</a>");
+ 								out.println("</div>");
+ 								out.println("</form>");
+ 								out.println("</div>");
+ 							}
  							
- 							<li>
- 								<a class="nav-link" href="registration.jsp">Register</a>
- 							</li>
- 						</ul>
+ 							else {
+ 								out.println("<ul class=\"navbar-nav\">");
+ 								out.println("<li>");
+ 								out.println("<a class=\"nav-link\" href=\"login.jsp\">Login</a>");
+ 								out.println("</li>");
+ 								out.println("<li>");
+ 								out.println("<a class=\"nav-link\" href=\"registration.jsp\">Register</a>");
+ 								out.println("</li>");
+ 								out.println("</ul>");
+ 							}
+ 						%>
+ 						
+<!--  						<ul class="navbar-nav"> -->
+<!--  							<li> -->
+<!--  								<a class="nav-link" href="login.jsp">Login</a> -->
+<!--  							</li> -->
+ 							
+<!--  							<li> -->
+<!--  								<a class="nav-link" href="registration.jsp">Register</a> -->
+<!--  							</li> -->
+<!--  						</ul> -->
+ 						
+<!--  						<div class="dropdown"> -->
+<!-- 							<a class="nav-link dropdown-toggle" href="#" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+<!-- 								<img src="img/user-icon.png" class="img-fluid user-icon" alt="User Icon"> -->
+<!-- 							</a> -->
+<!-- 							<form id="logoutForm" action="Logout" method="post"> -->
+<!-- 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> -->
+<!-- 									<a id="logoutBtn" class="dropdown-item" href="Logout">Log off</a> -->
+<!-- 									<a class="dropdown-item" href="orderhistory.html">Order history</a> -->
+<!-- 									<a class="dropdown-item" href="EditProfile">Account settings</a> -->
+<!-- 								</div> -->
+<!-- 							</form> -->
+<!-- 						</div> -->
  						
  						<a class="nav-link" href="shoppingCart.jsp">
 							 <i class="fas fa-shopping-cart fa-2x"></i>
