@@ -21,8 +21,9 @@
 
 	User user = (User) request.getAttribute("user");
 
-	PaymentCard paymentCard = (PaymentCard) request.getAttribute("paymentCard");
+	PaymentCard paymentCard = new PaymentCard();
 	PaymentCardDA paymentCardDA = new PaymentCardDA();
+/* 	out.println(user.getUserID()); */
 
 %>
 <!DOCTYPE html>
@@ -264,17 +265,28 @@
 												   
 												   <div class="media-body">
 													   <div>
-														   **** **** **** 8920
+<%-- 													   <%
+													   		paymentCard = paymentCardDA.getPaymentCardByUserID(user.getUserID());
+													   		if (paymentCard != null){
+													   			String fourDigits = paymentCard.getCardNum();
+													   			out.println("<p>**** **** **** " + fourDigits.substring(8) + "</p>");
+													   		}
+													   		else{
+													   			out.println("<p>No payment options</p>");
+													   		}
+													   %> --%>
+													  
 													   </div>
-													   
+													   <div>
 													   <!-- 
 														   TODO: Name get struched up when too long. I actually want
 														   it directly below the card number, but Bootstrap isn't letting
 														   that happen. Fix later.
 														-->
-													   <p>
-														   (John Doe Smith)
-													   </p>
+<%-- 													   <%
+													   		out.println("<p>" + user.getFirstName() + " " + user.getLastName() + "</p>");
+													   %> --%>
+													   </div>
 													   
 												   </div>
 		    									
@@ -372,26 +384,26 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Edit Payment Method</h5>
                                 </div>
-                                <form id="promotion" class="needs-validation" action="SendPromotion" method="POST" accept-charset="UTF-8" novalidate>
+                                <form id="editCard" class="needs-validation" action="SendPayment" method="POST" accept-charset="UTF-8" novalidate>
                                     <div class="modal-body">
                                         
                                         <div class="form-group">
-                                            <label for="cardNumber">Card Number</label>
-                                            <input type="text" class="form-control" name="cardNumber" required>
+                                            <label for="cardNum">Card Number</label>
+                                            <input type="text" class="form-control" name="cardNum" required>
                                             <div class="invalid-feedback">
 											Please provide a valid card number.
 										  </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="amount">Type</label>
-                                            <input type="text" class="form-control" name="percentage" required>
+                                            <label for="cardType">Type</label>
+                                            <input type="text" class="form-control" name="cardType" required>
                                             <div class="invalid-feedback">
 											Please choose a card type.
 										  </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="limit">Expiration Date</label>
-                                            <input type="text" class="form-control" name="startDate" required>
+                                            <label for="expDate">Expiration Date</label>
+                                            <input type="text" class="form-control" name="expDate" required>
                                             <div class="invalid-feedback">
 											Please provide a valid expiration date.
 										  </div>
@@ -413,26 +425,26 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Add New Payment Method</h5>
                                 </div>
-                                <form id="addCard" class="needs-validation" action="SendPromotion" method="POST" accept-charset="UTF-8" novalidate>
+                                <form id="addCard" class="needs-validation" action="SendPayment" method="POST" accept-charset="UTF-8" novalidate>
                                     <div class="modal-body">
                                         
                                         <div class="form-group">
-                                            <label for="cardNumber">Card Number</label>
-                                            <input type="text" class="form-control" name="cardNumber" required>
+                                            <label for="cardNum">Card Number</label>
+                                            <input type="text" class="form-control" name="cardNum" required>
                                             <div class="invalid-feedback">
 											Please provide a valid card number.
 										  </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="amount">Type</label>
-                                            <input type="text" class="form-control" name="percentage" required>
+                                            <label for="cardType">Type</label>
+                                            <input type="text" class="form-control" name="cardType" required>
                                             <div class="invalid-feedback">
 											Please choose a card type.
 										  </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="limit">Expiration Date</label>
-                                            <input type="text" class="form-control" name="startDate" required>
+                                            <label for="expDate">Expiration Date</label>
+                                            <input type="text" class="form-control" name="expDate" required>
                                             <div class="invalid-feedback">
 											Please provide a valid expiration date.
 										  </div>
@@ -454,33 +466,33 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Edit Address</h5>
                                 </div>
-                                <form id="address" class="needs-validation" action="SendPromotion" method="POST" accept-charset="UTF-8" novalidate>
+                                <form id="address" class="needs-validation" action="SendAddress" method="POST" accept-charset="UTF-8" novalidate>
                                     <div class="modal-body">
                                         
                                         <div class="form-group">
-                                            <label for="cardNumber">Street</label>
-                                            <input type="text" class="form-control" name="cardNumber" required>
+                                            <label for="street">Street</label>
+                                            <input type="text" class="form-control" name="street" required>
                                             <div class="invalid-feedback">
 											Please provide a street address.
 										  </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="amount">City</label>
-                                            <input type="text" class="form-control" name="percentage" required>
+                                            <label for="city">City</label>
+                                            <input type="text" class="form-control" name="city" required>
                                             <div class="invalid-feedback">
 											Please provide a valid city.
 										  </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="limit">State</label>
-                                            <input type="text" class="form-control" name="startDate" required>
+                                            <label for="state">State</label>
+                                            <input type="text" class="form-control" name="state" required>
                                             <div class="invalid-feedback">
 											Please provide a valid state.
 										  </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="limit">Zip Code</label>
-                                            <input type="text" class="form-control" name="startDate" required>
+                                            <label for="zipCode">Zip Code</label>
+                                            <input type="text" class="form-control" name="zipCode" required>
                                             <div class="invalid-feedback">
 											Please provide a valid zip code.
 										  </div>
@@ -502,33 +514,33 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Add New Shipping Address</h5>
                                 </div>
-                                <form id="address" class="needs-validation" action="SendPromotion" method="POST" accept-charset="UTF-8" novalidate>
+                                <form id="address" class="needs-validation" action="SendAddress" method="POST" accept-charset="UTF-8" novalidate>
                                     <div class="modal-body">
                                         
                                         <div class="form-group">
-                                            <label for="cardNumber">Street</label>
-                                            <input type="text" class="form-control" name="cardNumber" required>
+                                            <label for="street">Street</label>
+                                            <input type="text" class="form-control" name="street" required>
                                             <div class="invalid-feedback">
 											Please provide a street address.
 										  </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="amount">City</label>
-                                            <input type="text" class="form-control" name="percentage" required>
+                                            <label for="city">City</label>
+                                            <input type="text" class="form-control" name="city" required>
                                             <div class="invalid-feedback">
 											Please provide a valid city.
 										  </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="limit">State</label>
-                                            <input type="text" class="form-control" name="startDate" required>
+                                            <label for="state">State</label>
+                                            <input type="text" class="form-control" name="state" required>
                                             <div class="invalid-feedback">
 											Please provide a valid state.
 										  </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="limit">Zip Code</label>
-                                            <input type="text" class="form-control" name="startDate" required>
+                                            <label for="zipCode">Zip Code</label>
+                                            <input type="text" class="form-control" name="zipCode" required>
                                             <div class="invalid-feedback">
 											Please provide a valid zip code.
 										  </div>
