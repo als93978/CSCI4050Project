@@ -84,6 +84,17 @@ html, body {
 				color: #c0c0c0;
 			}
 			
+			.modalContainer img {
+				float: right;
+				height: 35%;
+				width: 35%;
+			}
+			
+			.modalText {
+				position: relative;
+				top: 50%;
+			}
+			
 			/* 
 				TODO: Because of these changes, the hamburger menu icon no longer
 				displays properly. Fix if time allows.

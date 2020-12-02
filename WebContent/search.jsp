@@ -39,7 +39,7 @@
 			<!-- Header -->
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
- 					<a class="navbar-brand" href="index.html">
+ 					<a class="navbar-brand" href="Index">
 						<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-book-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 						  <path fill-rule="evenodd" d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
 						</svg>
@@ -86,8 +86,8 @@
  							</li>
  						</ul>
  						
- 						<form class="form-inline mr-auto">
- 							<input class="form-control mr-sm-2" type="search" placeholder="Enter Book Name, ISBN, Genre, etc..." aria-label="Search" size="36">
+ 						<form class="form-inline mr-auto" action="Search" method="POST" accept-charset="UTF-8">
+ 							<input class="form-control mr-sm-2" type="search" name="searchInput" placeholder="Enter Book Name, ISBN, Genre, etc..." aria-label="Search" size="36">
  							<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
  						</form>
  						
@@ -114,115 +114,121 @@
 				<div class="content">
 					<div class="sidebar">
 						<div class="accordion" id="filterAccordion">
-							<div class="card">
-								<div class="card-header" id="genreHeader">
-									<h5 class="mb-0">
-										Genre
-									</h5>
-								</div>
-								
-								<div class="card-body">
-									<input type="text" class="form-control" id="filterGenre" aria-describedby="filterGenre">
-								</div>
-							</div>
-							
-							<div class="card">
-								<div class="card-header">
-									<h5 class="mb-0">
-										ISBN
-									</h5>
-								</div>
-								
-																
-								<div class="card-body">
-									<input type="number" class="form-control" id="filterISBN" aria-describedby="filterISBN">
-									<small id="filterISBN" class="form-text text-muted">Only ISBN-13 accepted.</small>
-								</div>
-							</div>
-							
-														
-							<div class="card">
-								<div class="card-header">
-									<h5 class="mb-0">
-										Author
-									</h5>
-								</div>
-								
-																
-								<div class="card-body">
-									<input type="text" class="form-control" id="filterAuthor" aria-describedby="filterAuthor">
-								</div>
-							</div>
-														
-							<div class="card">
-								<div class="card-header">
-									<h5 class="mb-0">
-										Price
-									</h5>
-								</div>
-								
-																
-								<div class="card-body">
-									<div class="input-group mb-3">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="basic-addon1">$</span>
-										</div>
-										
-										<input type="number" class="form-control" step="0.01" id="filterPriceFrom" placeholder="From" aria-label="filterPriceFrom" aria-describedby="basic-addon1">
+							<form action="Filter" method="POST" accept-charset="UTF-8">
+								<div class="card">
+									<div class="card-header" id="genreHeader">
+										<h5 class="mb-0">
+											Genre
+										</h5>
 									</div>
 									
-									<div class="input-group mb-3">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="basic-addon2">$</span>
-										</div>
-										
-										<input type="number" class="form-control" step="0.01" id="filterPriceTo" placeholder="To" aria-label="filterPriceTo" aria-describedby="basic-addon2">
+									<div class="card-body">
+										<input type="text" class="form-control" id="filterGenre" aria-describedby="filterGenre" name="genre">
 									</div>
 								</div>
-							</div>
-							
-														
-							<div class="card">
-								<div class="card-header">
-									<h5 class="mb-0">
-										Edition
-									</h5>
+								
+								<div class="card">
+									<div class="card-header">
+										<h5 class="mb-0">
+											ISBN
+										</h5>
+									</div>
+									
+																	
+									<div class="card-body">
+										<input type="number" class="form-control" id="filterISBN" aria-describedby="filterISBN" name="isbn">
+										<small id="filterISBN" class="form-text text-muted">Only ISBN-13 accepted.</small>
+									</div>
 								</div>
 								
-																
-								<div class="card-body">
-									<input type="number" class="form-control" id="filterEdition" aria-describedby="filterEdition">
-									<small id="filterEdition" class="form-text text-muted">1 indicates 1st edition, 2 indicates 2nd, etc. Leave blank if N/A.</small>
+															
+								<div class="card">
+									<div class="card-header">
+										<h5 class="mb-0">
+											Author
+										</h5>
+									</div>
+									
+																	
+									<div class="card-body">
+										<input type="text" class="form-control" id="filterAuthor" aria-describedby="filterAuthor" name="author">
+									</div>
 								</div>
-							</div>
-							
-														
-							<div class="card">
-								<div class="card-header">
-									<h5 class="mb-0">
-										Publisher
-									</h5>
+															
+								<div class="card">
+									<div class="card-header">
+										<h5 class="mb-0">
+											Price
+										</h5>
+									</div>
+									
+																	
+									<div class="card-body">
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="basic-addon1">$</span>
+											</div>
+											
+											<input type="number" class="form-control" step="0.01" id="filterPriceFrom" placeholder="From" aria-label="filterPriceFrom" aria-describedby="basic-addon1" name="fromPrice">
+										</div>
+										
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="basic-addon2">$</span>
+											</div>
+											
+											<input type="number" class="form-control" step="0.01" id="filterPriceTo" placeholder="To" aria-label="filterPriceTo" aria-describedby="basic-addon2" name="toPrice">
+										</div>
+									</div>
 								</div>
 								
-																
-								<div class="card-body">
-									<input type="text" class="form-control" id="filterPublisher" aria-describedby="filterPublisher">
-								</div>
-							</div>
-							
-														
-							<div class="card">
-								<div class="card-header">
-									<h5 class="mb-0">
-										Publication Year
-									</h5>
+															
+								<div class="card">
+									<div class="card-header">
+										<h5 class="mb-0">
+											Edition
+										</h5>
+									</div>
+									
+																	
+									<div class="card-body">
+										<input type="number" class="form-control" id="filterEdition" aria-describedby="filterEdition" name="edition">
+										<small id="filterEdition" class="form-text text-muted">1 indicates 1st edition, 2 indicates 2nd, etc. Leave blank if N/A.</small>
+									</div>
 								</div>
 								
-																
-								<div class="card-body">
-									<input type="number" class="form-control" id="filterPublicationYear" aria-describedby="filterPublicationYear">
+															
+								<div class="card">
+									<div class="card-header">
+										<h5 class="mb-0">
+											Publisher
+										</h5>
+									</div>
+									
+																	
+									<div class="card-body">
+										<input type="text" class="form-control" id="filterPublisher" aria-describedby="filterPublisher" name="publisher">
+									</div>
 								</div>
-							</div>
+								
+															
+								<div class="card">
+									<div class="card-header">
+										<h5 class="mb-0">
+											Publication Year
+										</h5>
+									</div>
+									
+																	
+									<div class="card-body">
+										<input type="number" class="form-control" id="filterPublicationYear" aria-describedby="filterPublicationYear" name="publicationYear">
+									</div>
+								</div>
+								
+<!-- 								<div style="text-align: center;"> -->
+									<button type="submit" class="btn btn-primary btn-block mt-2">Filter</button>
+<!-- 								</div> -->
+							</form>
 						</div>
 					</div>
 					
@@ -232,7 +238,7 @@
 						List<Book> keywordBooks = (List<Book>) request.getAttribute("keywordBooks");
 					%>
 				
-					<h6><b><%= keywordBooks.size() %></b> Results Found</h6>
+					<h6><b><%= keywordBooks.size() %></b> Result(s) Found</h6>
 					
 					<div class="searchResultGrid">
 					
@@ -259,17 +265,14 @@
 									
 									out.println("<div class=\"col\">");
 									
-									out.println("<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#book" + (index+1) + "\" style=\"background-color: transparent; border: none;\">");
-									out.println("<div class=\"card card-searchgrid\">");
+									out.println("<div class=\"card card-searchgrid\" data-toggle=\"modal\" data-target=\"#book" + (index+1) + "\" style=\"cursor: pointer;\">");
 									out.println("<img src=\"" + currentBook.getImagePath() + "\" class=\"card-img-top\" width=\"" + imgWidth + "\" height=\"" + imgHeight + "\">");
 									out.println("<div class=\"card-body\">");
 									out.println("<h5 class=\"card-title\">" + currentBook.getTitle() + "</h5>");
 									out.println("<p>" + currentBook.getAuthor() + "</p>");
-									out.println("<br/>");
 									out.println("<p>$" + currentBook.getSellingPrice() + "</p>");
 									out.println("</div>");
 									out.println("</div>");
-									out.println("</button>");
 									
 									out.println("</div>");
 								}
@@ -284,12 +287,11 @@
 								
 								out.println("<div class=\"col\">");
 								
-								out.println("<div class=\"card card-searchgrid\">");
+								out.println("<div class=\"card card-searchgrid\" data-toggle=\"modal\" data-target=\"#book" + (index+1) + "\" style=\"cursor: pointer;\">");
 								out.println("<img src=\"" + currentBook.getImagePath() + "\" class=\"card-img-top\" width=\"" + imgWidth + "\" height=\"" + imgHeight + "\">");
 								out.println("<div class=\"card-body\">");
 								out.println("<h5 class=\"card-title\">" + currentBook.getTitle() + "</h5>");
 								out.println("<p>" + currentBook.getAuthor() + "</p>");
-								out.println("<br/>");
 								out.println("<p>$" + currentBook.getSellingPrice() + "</p>");
 								out.println("</div>");
 								out.println("</div>");

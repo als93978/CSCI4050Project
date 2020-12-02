@@ -75,8 +75,8 @@
  							</li>
  						</ul>
  						
- 						<form class="form-inline mr-auto" action="/WebContent/search.html">
- 							<input class="form-control mr-sm-2" type="search" placeholder="Enter Book Name, ISBN, Genre, etc..." aria-label="Search" size="36">
+ 						<form class="form-inline mr-auto" action="Search" method="POST" accept-charset="UTF-8">
+ 							<input class="form-control mr-sm-2" type="search" name="searchInput" placeholder="Enter Book Name, ISBN, Genre, etc..." aria-label="Search" size="36">
  							<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
  						</form>
  						
