@@ -3,6 +3,8 @@
     import="javax.servlet.http.Cookie, dataAccess.*"
     import="java.util.List"
     import="models.Book"
+    import="models.ErrorMessage"
+    import="models.Message"
 %>
 
 <!DOCTYPE html>
@@ -143,6 +145,27 @@
 			
 			<!-- Homepage content by Jonah Kim  -->
 			<div class="contentContainer">
+			
+				<%
+					Message message = (Message) request.getAttribute("message");
+										
+					if(message != null) {
+						out.println("<div class=\"alert alert-success\" role=\"alert\" style=\"display: block\">");
+						out.println("\t" + message.getMessage());
+						out.println("</div>");
+					}
+				%>
+					
+				<%
+					ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
+										
+					if(errorMessage != null) {
+						out.println("<div class=\"alert alert-danger\" role=\"alert\" style=\"display: block\">");
+						out.println("\t" + errorMessage.getMessage());
+						out.println("</div>");
+					}
+				%>
+			
 				<div class="content">
 					<div id="featured">
 						<h1 style="text-align: center; margin-bottom: 5%;">Featured Books</h1>
@@ -316,6 +339,7 @@
 								out.println("</div>");
 								out.println("<form id=\"book1ModalForm\" method=\"POST\" accept-charset=\"UTF-8\">");
 								out.println("<input type=\"hidden\" name=\"bookID\" value=\"" + currentBook.getBookID() + "\"/>");
+								out.println("<input type=\"hidden\" name=\"requestPage\" value=\"Index\"/>");
 								out.println("<div class=\"modal-body\">");
 								out.println("<img width=\"" + imgWidth + "\" height=\"" + imgHeight + "\" src=\"" + currentBook.getImagePath() + "\">");
 								out.println("<p class=\"modalText\">");
@@ -352,6 +376,7 @@
 								out.println("</div>");
 								out.println("<form id=\"book1ModalForm\" method=\"POST\" accept-charset=\"UTF-8\">");
 								out.println("<input type=\"hidden\" name=\"bookID\" value=\"" + currentBook.getBookID() + "\"/>");
+								out.println("<input type=\"hidden\" name=\"requestPage\" value=\"Index\"/>");
 								out.println("<div class=\"modal-body\">");
 								out.println("<img width=\"" + imgWidth + "\" height=\"" + imgHeight + "\" src=\"" + currentBook.getImagePath() + "\">");
 								out.println("<p class=\"modalText\">");

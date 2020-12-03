@@ -86,5 +86,9 @@ public class ShoppingCartDA implements IShoppingCartDA {
 		PreparedStatement updateShoppingCartStmt = connection.prepareStatement(updateShoppingCartQuery);
 		updateShoppingCartStmt.setInt(1, orderID);
 		updateShoppingCartStmt.setInt(2, cartID);
+		
+		updateShoppingCartStmt.executeUpdate();
+		
+		connection.close();
 	}
 }

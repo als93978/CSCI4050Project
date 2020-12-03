@@ -11,11 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataAccess.BookDA;
 import dataAccess.OrderDA;
 import dataAccess.OrderItemDA;
 import dataAccess.ShoppingCartDA;
 import dataAccess.UserDA;
+import models.Book;
 import models.ErrorMessage;
+import models.Message;
 import models.Order;
 import models.OrderItem;
 import models.ShoppingCart;
@@ -33,6 +36,7 @@ public class AddToCart extends HttpServlet {
 	private OrderDA orderDA = new OrderDA();
 	private OrderItemDA orderItemDA = new OrderItemDA();
 	private ShoppingCartDA shoppingCartDA = new ShoppingCartDA();
+	private BookDA bookDA = new BookDA();
 	
 	private User user = null;
 	private Order order = null;
@@ -123,8 +127,6 @@ public class AddToCart extends HttpServlet {
 			cart.setOrderID(order.getOrderID());
 			
 			shoppingCartDA.updateShoppingCart(cart);
-			
-			// Shopping cart OrderID not updating
 		}
 	}
 	
@@ -136,9 +138,6 @@ public class AddToCart extends HttpServlet {
 		if(orderItem == null) {
 			orderItem = new OrderItem();
 			orderItem.setBookID(bookID);
-			
-			System.out.println("orderID in addBookToCart(): " + order.getOrderID());
-			
 			orderItem.setOrderID(order.getOrderID());
 			orderItem.setQuantity(1);
 			
@@ -146,12 +145,25 @@ public class AddToCart extends HttpServlet {
 		}
 		
 		else {
-			System.out.println("orderItem.getQuantity: " + orderItem.getQuantity());
-			
 			orderItem.setQuantity(orderItem.getQuantity() + 1);
 			
 			orderItemDA.updateOrderItem(orderItem);
 		}
+		
+		Book book = bookDA.getBookByID(bookID);
+		
+		String itemAddedMsg = "\"" + book.getTitle() + "\" successfully added to cart.";
+		returnMessage(request, response, itemAddedMsg, request.getParameter("requestPage"));
+	}
+	
+	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr, String page) {
+		Message message = new Message();
+		
+		message.setMessage(messageStr);
+		
+		request.setAttribute("message", message);
+		
+		redirectToPage(request, response, page);
 	}
 	
 	private void returnError(HttpServletRequest request, HttpServletResponse response, String message, String redirectTo) {
