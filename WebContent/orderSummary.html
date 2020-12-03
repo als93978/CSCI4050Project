@@ -31,10 +31,7 @@
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
  					<a class="navbar-brand" href="index.html">
-						<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-book-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-						  <path fill-rule="evenodd" d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
-						</svg>
-						
+<!--  						<img class="logoImg" src="img/bookbayLogo.png"> -->
 						BookBay
  					</a>
  					
@@ -103,161 +100,78 @@
 			<!-- Content  -->
 			<div class="contentContainer">
 				<div class="content">
-						<div class="shoppingCart">
-							<h5 class="d-flex justify-content-between mb-3">
-								Shopping Cart
-								<span class="badge badge-dark badge-pill">4</span>
-							</h5>
+					<div class="orderSummaryArea align-middle mx-auto">
+						<div class="card orderSummaryCard">
+							<div class="card-header">
+								Order Summary
+							</div>
 							
-							<div class="sidebar">
+							<div class="card-body">
 								<ul class="list-group">
-									<li class="list-group-item">
-										<img src="img/bookCover1.jpg" class="cart-img mr-3" alt="" width="95" height="110">
-										
-										<div class="media-body">
-											<h5 class="mt-0 mb-1">Head First Web Design</h5>
-											
-											<p>
-												Ethan Watrall, Jeff Siarto
-											</p>
-																					
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											
-											<br/>
-											<br/>
-											
-											<label for="quantity">Quantity:</label>
-											<input type="number" id="quantity1" class="quantity" name="quantity" min="1" max="50" value="1">
-											<p class="mt-2">$9.99</p>
-											
-											<button type="button" class="btn btn-outline-secondary btn-sm">Remove</button>
+									<li class="list-group-item d-flex justify-content-between lh-condensed">
+										<div>
+											<h6>Head First Web Design</h6>
+											<small class="text-muted">Ethan Watrall, Jeff Siarto</small>
 										</div>
+										<span class="text-muted">$9.99</span>
+									</li>
+
+									<li class="list-group-item d-flex justify-content-between lh-condensed">
+										<div>
+											<h6>The Great Gatsby (2)</h6>
+											<small class="text-muted">F. Scott Fitzgerald</small>
+										</div>
+										<span class="text-muted">$19.98</span>
+									</li>
+
+									<li class="list-group-item d-flex justify-content-between lh-condensed">
+										<div>
+											<h6>The Catcher in the Rye</h6>
+											<small class="text-muted">J.D. Saligner</small>
+										</div>
+										<span class="text-muted">$9.99</span>
+									</li>
+
+									<li class="list-group-item d-flex justify-content-between lh-condensed">
+										<div>
+											<h6>Catch-22</h6>
+											<small class="text-muted">Joseph Heller</small>
+										</div>
+										<span class="text-muted">$9.99</span>
+									</li>
+
+									<li class="list-group-item">
+										<h6>Subtotal: $49.95</h6>
 									</li>
 									
 									<li class="list-group-item">
-										<img src="img/bookCover2.jpg" class="cart-img mr-3" alt="" width="95" height="110">
-										
-										<div class="media-body">
-											<h5 class="mt-0 mb-1">The Great Gatsby</h5>
-											
-											<p>
-												F. Scott Fitzgerald
-											</p>
-											
-																															
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											
-											<br/>
-											<br/>
-											
-											<label for="quantity">Quantity:</label>
-											<input type="number" id="quantity2" class="quantity" name="quantity" min="1" max="50" value="1">
-											<p class="mt-2">$9.99</p>
-											
-											<button type="button" class="btn btn-outline-secondary btn-sm">Remove</button>
+										<h6>Tax: $2.80</h6>
+									</li>
+
+									<li class="list-group-item d-flex justify-content-between bg-light">
+										<div class="text-success">
+											<h6 class="my-0">Promo Code</h6>
+											<small>20OFFCOUP</small>
 										</div>
+										<span class="text-success">-$20.00</span>
 									</li>
 									
-																	
 									<li class="list-group-item">
-										<img src="img/bookCover3.jpg" class="cart-img mr-3" alt="" width="95" height="110">
-										
-										<div class="media-body">
-											<h5 class="mt-0 mb-1">The Catcher in the Rye</h5>
-											
-											<p>
-												J.D. Saligner
-											</p>
-																															
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											
-											<br/>
-											<br/>
-											
-											<label for="quantity">Quantity:</label>
-											<input type="number" id="quantity3" class="quantity" name="quantity" min="1" max="50" value="1">
-											<p class="mt-2">$9.99</p>
-											
-											<button type="button" class="btn btn-outline-secondary btn-sm">Remove</button>
-										</div>
-									</li>
-									
-																	
-									<li class="list-group-item">
-										<img src="img/bookCover4.jpg" class="cart-img mr-3" alt="" width="95" height="110">
-										
-										<div id="bot-remove" class="media-body">
-											<h5 class="mt-0 mb-1">Catch-22</h5>
-											
-											<p>
-												Joseph Heller
-											</p>
-																															
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											<i class="fas fa-star fa-xs"></i>
-											
-											<br/>
-											<br/>
-											
-											<label for="quantity">Quantity:</label>
-											<input type="number" id="quantity4" class="quantity" name="quantity" min="1" max="50" value="1">
-											<p class="mt-2">$9.99</p>
-											
-											<button type="button" class="btn btn-outline-secondary btn-sm">Remove</button>
-										</div>
+										<h6>Total: $32.75</h6>
 									</li>
 								</ul>
-							</div>
-						</div>
-						
-						<div class="orderSummaryArea align-middle">
-							<div class="card orderSummaryCard">
-								<div class="card-header">
-									Order Summary
-								</div>
 								
-								<div class="card-body">
-									<ul class="list-group">
-										<li class="list-group-item">
-											Subtotal: $39.96
-										</li>
-										
-										<li class="list-group-item">
-											Tax: $2.80
-										</li>
-										
-										<li class="list-group-item">
-											Total: 42.76
-										</li>
-									</ul>
-									
-									<div class="input-group mb-3 mt-3 promoCode">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="promoAddon">Promo Code</span>
-										</div>
-										
-										<input type="text" class="form-control" aria-label="promoCode" aria-describedby="promoAddon">
-										<button type="button" class="btn btn-secondary ml-2">Submit</button>
+								<div class="input-group mb-3 mt-3 promoCode">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="promoAddon">Promo Code</span>
 									</div>
 									
-									<button type="button" class="btn btn-success">Submit Order</button>
-									<button type="button" class="btn btn-info ml-3">Update Order</button>
+									<input type="text" class="form-control" aria-label="promoCode" aria-describedby="promoAddon">
+									<button type="button" class="btn btn-secondary ml-2">Submit</button>
 								</div>
+								
+								<button type="button" class="btn btn-success">Submit Order</button>
+								<button type="button" class="btn btn-info ml-3">Update Order</button>
 							</div>
 						</div>
 					</div>
