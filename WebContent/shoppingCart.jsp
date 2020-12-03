@@ -115,7 +115,7 @@
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 									<a id="logoutBtn" class="dropdown-item">Log off</a>
 									<a class="dropdown-item" href="orderhistory.html">Order history</a>
-									<a class="dropdown-item" href="accountSettings.html">Account settings</a>
+									<a class="dropdown-item" href="EditProfile">Account settings</a>
 								</div>
 							</form>
 						</div>
@@ -167,14 +167,7 @@
 										<p>
 											Ethan Watrall, Jeff Siarto
 										</p>
-																				
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
 										
-										<br/>
 										<br/>
 										
 										<label for="quantity">Quantity:</label>
@@ -195,14 +188,6 @@
 											F. Scott Fitzgerald
 										</p>
 										
-																														
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										
-										<br/>
 										<br/>
 										
 										<label for="quantity">Quantity:</label>
@@ -223,14 +208,7 @@
 										<p>
 											J.D. Saligner
 										</p>
-																														
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										
-										<br/>
+
 										<br/>
 										
 										<label for="quantity">Quantity:</label>
@@ -251,14 +229,7 @@
 										<p>
 											Joseph Heller
 										</p>
-																														
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										<i class="fas fa-star fa-xs"></i>
-										
-										<br/>
+
 										<br/>
 										
 										<label for="quantity">Quantity:</label>
