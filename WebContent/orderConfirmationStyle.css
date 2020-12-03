@@ -39,12 +39,109 @@
 
 }
 
+@media screen and (max-width: 600px) {
+	#navbarSupportedContent {
+		float: left;
+		display: block;
+		text-align: left;
+	}
+
+	.headerContainer {
+		float: left;
+		display: block;
+	}
+}
+  
+@media screen and (max-width: 775px) {
+
+	img {
+		width: 70%;
+		height: 70%;
+	}
+
+	.row {
+		position: relative;
+	}
+
+	#top {
+		height: 800px;
+	}
+
+	#featured {
+		height: 800px;
+	}
+
+	.book-image1 {
+		position: relative;
+		bottom: 650px;
+	}
+	.book-image2 {
+		display: flex;
+  		justify-content: center;
+		align-items: center;
+		position: relative;
+		bottom: 550px;
+	}
+
+	.book-image3 {
+		position: relative;
+		bottom: 450px;
+	}
+
+	.book-image4 {
+		position: relative;
+		bottom: 255px;
+	}
+
+}
+
 html, body {
 	margin: 0;
 	width: 100%;
 	height: 100%;
+	background-color: whitesmoke !important;
 }
-	
+
+.footer .content:after {
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	height: 142px;
+}
+
+.content:after {
+	content: "";
+  	display: block;
+}
+
+.user-icon {
+	position: relative;
+	width: 30px;
+	height: 15px;
+	top: 10%;
+}
+
+/* .book-image2 {
+	height: 239px;
+} */
+
+.book-image3 {
+	position: relative;
+	left: 8%;
+}
+
+.book {
+	position: relative;
+	bottom: 40px;
+}
+
+.shelf {
+	background-image: url(img/shelf.png);
+	background-size: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
 	.mainContainer {
 		margin: 0;
 		width: 100%;
@@ -58,23 +155,23 @@ html, body {
 /* 			height: 15%; */
 /* 			overflow: hidden; */
 		}
-		
+
 			.header {
 				display: inline-block;
 				width: 100%;
 				height: 100%;
 				overflow: hidden;
 			}
-			
+
 			.navbar {
 				max-height: 86px;
 			}
-			
+
 			.navbar-custom {
 				background-color: #4f5cbf;
-				overflow: hidden;
+				overflow: visible;
 			}
-			
+
 			.navbar-brand {
 				font-weight: bold;
 				color: #ffffff;
@@ -83,134 +180,113 @@ html, body {
 			.navbar-brand:active, .navbar-brand:hover {
 				color: #c0c0c0;
 			}
+
+			.modalContainer img {
+				float: right;
+				height: 35%;
+				width: 35%;
+			}
 			
-			/* 
+			.modalText {
+				position: relative;
+				top: 50%;
+			}
+
+			/*
 				TODO: Because of these changes, the hamburger menu icon no longer
-				displays properly. Fix if time allows.
+				displays properly.
 			*/
 			.navbar-custom .navbar-nav .nav-link {
 				color: #ffffff;
 			}
-			
+
 			.navbar-custom .navbar-text {
 				color: #ffffff;
 			}
-			
+
 			.navbar .nav-link {
 				color: #ffffff;
 			}
-			
+
 			.navbar-custom .nav-link:active,
 			.navbar-custom .nav-link:hover {
 				color: #c0c0c0;
 			}
-			
+
 			.navbar-custom .navbar-brand {
 				overflow: hidden;
 			}
-		
+
 		.contentContainer {
 /* 			background-color: #ffffff; */
 			margin: 0;
-			width: 100%;
-			height: 93%;
-		}
-		
-			.content {
-/* 				padding: 1em; */
-				width: 100%;
-				/* height: 100%; */
-				height: 1%;
-				/* margin-bottom: 0 auto -142px; */
-			}
-			
-				.shoppingCart {
-					padding: 1em;
-					width: 25%;
-					height: 100%;
-					float: left;
-				}
-			
-					.sidebar {
-						width: 100%;
-						height: 102%;
-						overflow: auto;
-					}
-					
-						.list-group-item {
-	
-						}
-					
-						.cart-img {
-							float: left;
-							width: 150px;
-							height: 250px;
-						}
-					
-						.media-body {
-							min-width: 50%;
-							max-width: 50%;
-							overflow-wrap: break-word;
-							float: right;
-						}
-						
-						.cart-item-button {
-							clear: both;
-						}
-						
-				.orderSummaryArea {
-					padding: 1em;
-					width: 75%;
-					height: 100%;
-					position: relative;
-					top: 400px;
-				}
-				
-					.orderSummaryCard {
-						min-width: 40%;
-						max-width: 40%;
-  						top: 50%;
-  						left: 50%;
-  						transform: translate(-50%, -50%);
-					}
-					
-						.promoCode {
-							max-width: 75%;
-						}
+/* 			height: 85%; */
 
-		.footerContainer {
-/* 			background-color: #4f5cbf; */
-			margin: 0;
-/* 			height: 15%; */
+		}
+
+        .content {
+			/* padding-right: 1em;
+			padding-top: 5%; */
+			width: 100%;
+			min-height: 100%;
+			margin-bottom: 0 auto -142px;
+        }
+        
+		.imgFullOpacity {
+			opacity: 1;
+		}
+
+        .searchArea {
+            display: inline;
+        }
+
+			/* .content {
+
+			} */
+
+        .footerContainer {
+    /* 		background-color: #4f5cbf; */
+    		margin: 0;
+    /* 		height: 15%; */
 			clear: both;
 			position: fixed;
     		left: 0;
     		bottom: 0;
     		width: 100%;
-		}
+    	}
 
-		.footer .content:after {
-			position: relative;
-			bottom: 0;
-			width: 100%;
-			height: 142px;
-		}
-
-		.content:after {
-			content: "";
-			display: block;
-		}
-		
-		h1, h2, h3, h4, h5, h6 {
+		h1, h3 {
 			margin: 0;
 			font-family: "robotoregular";
 		}
 
-		#bot-remove {
-			padding-bottom: 50px;
+		.center {
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-ms-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+		  }
+
+		#logoutBtn {
+			cursor: pointer !important;
+        }
+        
+        .order-confirm {
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-weight: 500;
 		}
 
-		.quantity {
-			text-align: center !important;
-			width: 25%;
+		#spacing {
+			padding-top: 80px;
 		}
+
+		.book-image {
+			height: 100px;
+			width: 50%;
+		}		

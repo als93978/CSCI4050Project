@@ -83,6 +83,7 @@ public class Index extends HttpServlet {
 		if(isUserAdmin) {
 			response.sendRedirect(request.getContextPath() + "/ManageBooks");
 		}
+
 		
 		else {
 //			request.setAttribute("userID", userID);
