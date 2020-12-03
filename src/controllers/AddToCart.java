@@ -21,6 +21,7 @@ import models.ErrorMessage;
 import models.Message;
 import models.Order;
 import models.OrderItem;
+import models.OrderStatus;
 import models.ShoppingCart;
 import models.User;
 import models.UserType;
@@ -113,15 +114,16 @@ public class AddToCart extends HttpServlet {
 	}
 	
 	private void createOrderIfNotExists() throws SQLException {
-		order = orderDA.getOrderByUserID(user.getUserID());
+		order = orderDA.getNonSubmittedOrderByUserID(user.getUserID());
 		
 		if(order == null) {
 			order = new Order();
 			order.setUserID(user.getUserID());
+			order.setOrderStatus(OrderStatus.NOTSUBMITTED);
 			
 			orderDA.createOrder(order);
 			
-			order = orderDA.getOrderByUserID(user.getUserID());
+			order = orderDA.getNonSubmittedOrderByUserID(user.getUserID());
 			
 			ShoppingCart cart = shoppingCartDA.getShoppingCartByUserID(user.getUserID());
 			cart.setOrderID(order.getOrderID());

@@ -91,7 +91,8 @@ CREATE TABLE IF NOT EXISTS `Order` (
     CardNum varchar(255),
     FOREIGN KEY(CardNum) REFERENCES PaymentCard(CardNum),
     `PromotionCode` int,
-    FOREIGN KEY(`PromotionCode`) REFERENCES Promotion(`PromotionCode`)
+    FOREIGN KEY(`PromotionCode`) REFERENCES Promotion(`PromotionCode`),
+    OrderStatus ENUM('SUBMITTED', 'NOTSUBMITTED') NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS OrderItem (

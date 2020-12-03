@@ -8,6 +8,7 @@ public class Order {
 	private String paymentMethod;
 	private String cardNum;
 	private int promotionCode;
+	private OrderStatus orderStatus;
 	
 	public int getOrderID() {
 		return orderID;
@@ -63,5 +64,13 @@ public class Order {
 	
 	public void setPromotionCode(int promotionCode) {
 		this.promotionCode = promotionCode;
+	}
+	
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
+	}
+	
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
 	}
 }
