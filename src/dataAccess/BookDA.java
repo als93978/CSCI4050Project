@@ -720,8 +720,8 @@ public class BookDA implements IBookDA {
 		updateBookStmt.setInt(12, quantity);
 		updateBookStmt.setInt(13, minThreshold);
 		updateBookStmt.setBoolean(14, archived);
-		updateBookStmt.setInt(15, bookID);
-		updateBookStmt.setString(16, marketingAttribute);
+		updateBookStmt.setString(15, marketingAttribute);
+		updateBookStmt.setInt(16, bookID);
 		
 		updateBookStmt.executeUpdate();
 		
