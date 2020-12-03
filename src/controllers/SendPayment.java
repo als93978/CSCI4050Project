@@ -7,6 +7,7 @@ import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,27 +67,22 @@ public class SendPayment extends HttpServlet {
 	}
 	
 	private PaymentCard initPaymentCard(HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+        int userID = Integer.parseInt(cookies[1].getValue());
+        
 		PaymentCard paymentCard = new PaymentCard();
 		
 		String cardNum = request.getParameter("cardNum");
-		String cardType = request.getParameter("cardType");
+		int cardTypeNum = Integer.parseInt(request.getParameter("cardType"));
 		String expDate = request.getParameter("expDate");
 		
-		CardType type = CardType.DISCOVER;
-		if (cardType == "VISA") {
-			type = CardType.VISA;
-		}
-		if (cardType == "MASTERCARD") {
-			type = CardType.MASTERCARD;
-		}
-		if (cardType == "AMERICANEXPRESS") {
-			type = CardType.AMERICANEXPRESS;
-		}
+		CardType[] cardTypeValues = CardType.values();
+		CardType cardType = cardTypeValues[cardTypeNum-1];
 		
 		paymentCard.setCardNum(cardNum);
-		paymentCard.setCardType(type);
+		paymentCard.setCardType(cardType);
 		paymentCard.setExpDate(expDate);
-		paymentCard.setUserID(1);
+		paymentCard.setUserID(userID);
 		
 		return paymentCard;
 	}
