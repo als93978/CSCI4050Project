@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="javax.servlet.http.Cookie, dataAccess.*"
+    import="java.util.List"
     import="models.ErrorMessage"
     import="models.Message"
     import="models.User"
     import="models.Address"
     import="models.PaymentCard"
     import="models.CardType"
+    import="models.OrderItem"
+    import="models.Book"
 %>
 <!--  
 	shoppingCart.html
@@ -24,6 +27,10 @@
 	
 	PaymentCardDA paymentCardDA = new PaymentCardDA();
 	AddressDA addressDA = new AddressDA();
+	
+	List<OrderItem> orderItems = (List<OrderItem>) request.getAttribute("orderItems");
+	List<Book> booksForOrderItems = (List<Book>) request.getAttribute("booksForOrderItems");
+	
 /* 	if (user != null){
 		code, user.getUserID() ...
 	}
@@ -153,92 +160,131 @@
 					<div class="shoppingCart">
 						<h5 class="d-flex justify-content-between mb-3">
 							Shopping Cart
-							<span class="badge badge-dark badge-pill">4</span>
+							
+							<%
+								if(orderItems == null)
+									out.println("<span class=\"badge badge-dark badge-pill\">0</span>");
+								else
+									out.println("<span class=\"badge badge-dark badge-pill\">" + orderItems.size() + "</span>");
+							%>
 						</h5>
 						
 						<div class="sidebar">
 							<ul class="list-group">
-								<li class="list-group-item">
-									<img src="img/bookCover1.jpg" class="cart-img mr-3" alt="" width="95" height="110">
-									
-									<div class="media-body">
-										<h5 class="mt-0 mb-1">Head First Web Design</h5>
+							
+								<%
+									if(orderItems == null) {
+										out.println("<li class=\"list-group-item\">");
 										
-										<p>
-											Ethan Watrall, Jeff Siarto
-										</p>
+										out.println("<p>Your shopping cart is empty.</p>");
 										
-										<br/>
-										
-										<label for="quantity">Quantity:</label>
-										<input type="number" id="quantity1" class="quantity" name="quantity" min="1" max="50" value="1">
-										<p class="mt-2">$9.99</p>
-										
-										<button type="button" class="btn btn-outline-secondary btn-sm">Remove</button>
-									</div>
-								</li>
+										out.println("</li>");
+									}
 								
-								<li class="list-group-item">
-									<img src="img/bookCover2.jpg" class="cart-img mr-3" alt="" width="95" height="110">
+									else {
+										for(int i = 0; i < orderItems.size(); i++) {
+											OrderItem currentOrderItem = orderItems.get(i);
+											Book currentBook = booksForOrderItems.get(i);
+											
+											out.println("<li class=\"list-group-item\">");
+											
+											out.println("<img src=\"" + currentBook.getImagePath() + "\" class=\"cart-img mr-3\" alt=\"\" width=\"95\" height=\"110\">");
+											out.println("<div class=\"media-body\">");
+											out.println("<h5 class=\"mt-0 mb-1\">" + currentBook.getTitle() + "</h5>");
+											out.println("<p>" + currentBook.getAuthor() + "</p>");
+											out.println("<br/>");
+											out.println("<label for=\"quantity\">Quantity:</label>");
+											out.println("<input type=\"number\" id=\"quantity1\" class=\"quantity\" name=\"quantity\" min=\"1\" value=\"" + currentOrderItem.getQuantity() + "\">");
+											out.println("<p class=\"mt-2\">$" + currentBook.getSellingPrice() + "</p>");
+											out.println("<button type=\"button\" class=\"btn btn-outline-secondary btn-sm\">Remove</button>");
+											out.println("</div>");
+											
+											out.println("</li>");
+										}
+									}
+								%>
+							
+<!-- 								<li class="list-group-item"> -->
+<!-- 									<img src="img/bookCover1.jpg" class="cart-img mr-3" alt="" width="95" height="110"> -->
 									
-									<div class="media-body">
-										<h5 class="mt-0 mb-1">The Great Gatsby</h5>
+<!-- 									<div class="media-body"> -->
+<!-- 										<h5 class="mt-0 mb-1">Head First Web Design</h5> -->
 										
-										<p>
-											F. Scott Fitzgerald
-										</p>
+<!-- 										<p> -->
+<!-- 											Ethan Watrall, Jeff Siarto -->
+<!-- 										</p> -->
 										
-										<br/>
+<!-- 										<br/> -->
 										
-										<label for="quantity">Quantity:</label>
-										<input type="number" id="quantity2" class="quantity" name="quantity" min="1" max="50" value="1">
-										<p class="mt-2">$9.99</p>
+<!-- 										<label for="quantity">Quantity:</label> -->
+<!-- 										<input type="number" id="quantity1" class="quantity" name="quantity" min="1" max="50" value="1"> -->
+<!-- 										<p class="mt-2">$9.99</p> -->
 										
-										<button type="button" class="btn btn-outline-secondary btn-sm">Remove</button>
-									</div>
-								</li>
+<!-- 										<button type="button" class="btn btn-outline-secondary btn-sm">Remove</button> -->
+<!-- 									</div> -->
+<!-- 								</li> -->
+								
+<!-- 								<li class="list-group-item"> -->
+<!-- 									<img src="img/bookCover2.jpg" class="cart-img mr-3" alt="" width="95" height="110"> -->
+									
+<!-- 									<div class="media-body"> -->
+<!-- 										<h5 class="mt-0 mb-1">The Great Gatsby</h5> -->
+										
+<!-- 										<p> -->
+<!-- 											F. Scott Fitzgerald -->
+<!-- 										</p> -->
+										
+<!-- 										<br/> -->
+										
+<!-- 										<label for="quantity">Quantity:</label> -->
+<!-- 										<input type="number" id="quantity2" class="quantity" name="quantity" min="1" max="50" value="1"> -->
+<!-- 										<p class="mt-2">$9.99</p> -->
+										
+<!-- 										<button type="button" class="btn btn-outline-secondary btn-sm">Remove</button> -->
+<!-- 									</div> -->
+<!-- 								</li> -->
 								
 																
-								<li class="list-group-item">
-									<img src="img/bookCover3.jpg" class="cart-img mr-3" alt="" width="95" height="110">
+<!-- 								<li class="list-group-item"> -->
+<!-- 									<img src="img/bookCover3.jpg" class="cart-img mr-3" alt="" width="95" height="110"> -->
 									
-									<div class="media-body">
-										<h5 class="mt-0 mb-1">The Catcher in the Rye</h5>
+<!-- 									<div class="media-body"> -->
+<!-- 										<h5 class="mt-0 mb-1">The Catcher in the Rye</h5> -->
 										
-										<p>
-											J.D. Saligner
-										</p>
+<!-- 										<p> -->
+<!-- 											J.D. Saligner -->
+<!-- 										</p> -->
 
-										<br/>
+<!-- 										<br/> -->
 										
-										<label for="quantity">Quantity:</label>
-										<input type="number" id="quantity3" class="quantity" name="quantity" min="1" max="50" value="1">
-										<p class="mt-2">$9.99</p>
+<!-- 										<label for="quantity">Quantity:</label> -->
+<!-- 										<input type="number" id="quantity3" class="quantity" name="quantity" min="1" max="50" value="1"> -->
+<!-- 										<p class="mt-2">$9.99</p> -->
 										
-										<button type="button" class="btn btn-outline-secondary btn-sm">Remove</button>
-									</div>
-								</li>
+<!-- 										<button type="button" class="btn btn-outline-secondary btn-sm">Remove</button> -->
+<!-- 									</div> -->
+<!-- 								</li> -->
 								
 																
-								<li class="list-group-item">
-									<img src="img/bookCover4.jpg" class="cart-img mr-3" alt="" width="95" height="110">
+<!-- 								<li class="list-group-item"> -->
+<!-- 									<img src="img/bookCover4.jpg" class="cart-img mr-3" alt="" width="95" height="110"> -->
 									
-									<div class="media-body">
-										<h5 class="mt-0 mb-1">Catch-22</h5>
+<!-- 									<div class="media-body"> -->
+<!-- 										<h5 class="mt-0 mb-1">Catch-22</h5> -->
 										
-										<p>
-											Joseph Heller
-										</p>
+<!-- 										<p> -->
+<!-- 											Joseph Heller -->
+<!-- 										</p> -->
 
-										<br/>
+<!-- 										<br/> -->
 										
-										<label for="quantity">Quantity:</label>
-										<input type="number" id="quantity4" class="quantity" name="quantity" min="1" max="50" value="1">
-										<p class="mt-2">$9.99</p>
+<!-- 										<label for="quantity">Quantity:</label> -->
+<!-- 										<input type="number" id="quantity4" class="quantity" name="quantity" min="1" max="50" value="1"> -->
+<!-- 										<p class="mt-2">$9.99</p> -->
 										
-										<button type="button" class="btn btn-outline-secondary btn-sm">Remove</button>
-									</div>
-								</li>
+<!-- 										<button type="button" class="btn btn-outline-secondary btn-sm">Remove</button> -->
+<!-- 									</div> -->
+<!-- 								</li> -->
 							</ul>
 						</div>
 						<!-- <div></div> -->

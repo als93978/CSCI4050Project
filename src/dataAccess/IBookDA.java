@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import models.Book;
+import models.OrderItem;
 import models.SearchFilter;
 
 public interface IBookDA {
@@ -14,6 +15,7 @@ public interface IBookDA {
 	public List<Book> getAllTopSellingBooks() throws SQLException;
 	public List<Book> getBooksByKeyword(String keyword) throws SQLException;
 	public List<Book> getBooksByFilter(SearchFilter filter) throws SQLException;
+	public List<Book> getBooksByOrderItems(List<OrderItem> orderItems) throws SQLException;
 	
 	public Book getBookByID(int bookID) throws SQLException;
 	public Book getBookByISBN(String isbn) throws SQLException;

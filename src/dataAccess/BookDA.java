@@ -10,6 +10,7 @@ import java.util.List;
 import controllers.CryptoHelper;
 import models.Book;
 import models.BookMarketingAttribute;
+import models.OrderItem;
 import models.SearchFilter;
 import models.User;
 import models.UserStatus;
@@ -473,6 +474,19 @@ public class BookDA implements IBookDA {
 		}
 		
 		connection.close();
+		
+		return books;
+	}
+	
+	@Override
+	public List<Book> getBooksByOrderItems(List<OrderItem> orderItems) throws SQLException {
+		List<Book> books = new ArrayList<Book>();
+		
+		for(int i = 0; i < orderItems.size(); i++) {
+			OrderItem currentOrderItem = orderItems.get(i);
+			
+			books.add(getBookByID(currentOrderItem.getBookID()));
+		}
 		
 		return books;
 	}
