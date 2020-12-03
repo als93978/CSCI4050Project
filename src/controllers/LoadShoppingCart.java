@@ -2,6 +2,8 @@ package controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,8 +13,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataAccess.BookDA;
+import dataAccess.OrderDA;
+import dataAccess.OrderItemDA;
 import dataAccess.UserDA;
+import models.Book;
 import models.ErrorMessage;
+import models.Order;
+import models.OrderItem;
 import models.User;
 import models.UserType;
 
@@ -24,8 +32,12 @@ public class LoadShoppingCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private UserDA userDA = new UserDA();
+	private OrderDA orderDA = new OrderDA();
+	private OrderItemDA orderItemDA = new OrderItemDA();
+	private BookDA bookDA = new BookDA();
 	
 	private User user = null;
+	private Order order = null;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -84,7 +96,7 @@ public class LoadShoppingCart extends HttpServlet {
 		}
 		
 		else {
-			loadShoppingCartInformation(request, response, sessionCookie);
+			loadShoppingCartInformation(request, response);
 		}
 	}
 	
@@ -97,7 +109,23 @@ public class LoadShoppingCart extends HttpServlet {
 		return false;
 	}
 	
-	private void loadShoppingCartInformation(HttpServletRequest request, HttpServletResponse response, Cookie sessionCookie) {
+	private void loadShoppingCartInformation(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		order = orderDA.getNonSubmittedOrderByUserID(user.getUserID());
+
+		if(order != null) { // user has a non-submitted order
+			List<OrderItem> orderItems = orderItemDA.getOrderItemsByOrderID(order.getOrderID());
+			
+			List<Book> booksForOrderItems = null;
+			if(orderItems != null)
+				booksForOrderItems = bookDA.getBooksByOrderItems(orderItems);
+			
+			if(orderItems != null)
+				request.setAttribute("orderItems", orderItems);
+			
+			if(booksForOrderItems != null)
+				request.setAttribute("booksForOrderItems", booksForOrderItems);
+		}
+		
 		redirectToPage(request, response, "shoppingCart.jsp");
 	}
 	
