@@ -6,10 +6,6 @@ $(document).ready(function() {
     $('#resend').on('shown.bs.popover', function() {
         setTimeout(function() {
             $('#resend').popover('hide');
-        }, 2000);
-    });
-
-    $("#submitBtn").click(function() {
-        $("#notification").toast("show");
+        }, 5000);
     });
 });

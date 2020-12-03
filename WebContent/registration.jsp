@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
+    import="models.ErrorMessage"
 %>
 
 <!DOCTYPE html>
@@ -24,8 +25,11 @@
 		
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
- 					<a class="navbar-brand" href="index.html">
-<!--  						<img class="logoImg" src="img/bookbayLogo.png"> -->
+ 					<a class="navbar-brand" href="Index">
+						<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-book-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						  <path fill-rule="evenodd" d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+						</svg>
+						
 						BookBay
  					</a>
  					
@@ -74,11 +78,11 @@
  						
  						<ul class="navbar-nav">
  							<li>
- 								<a class="nav-link" href="#">Login</a>
+ 								<a class="nav-link" href="login.jsp">Login</a>
  							</li>
  						</ul>
  						
- 						<a class="nav-link" href="#">
+ 						<a class="nav-link" href="shoppingCart.html">
  							<i class="fas fa-shopping-cart fa-2x"></i>
  							<span class="badge badge-dark badge-pill">4</span>
  						</a>
@@ -101,10 +105,21 @@
 										<a class="nav-link active text-white" href="registration.html">Registration</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="login.html">Login</a>
+										<a class="nav-link" href="login.jsp">Login</a>
 									</li>
 								</ul>
 								<form id="registration" class="needs-validation" action="Register" method="POST" accept-charset="UTF-8" novalidate>
+									
+									<%
+										ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
+										
+										if(errorMessage != null) {
+											out.println("<div class=\"alert alert-danger\" role=\"alert\" style=\"display: block\">");
+											out.println("\t" + errorMessage.getMessage());
+											out.println("</div>");
+										}
+									%>
+									
 									<br>
 									<div class="form-group row">
 										<label for="inputUser" class="col-sm-2 col-form-label">First Name:</label>
@@ -131,7 +146,7 @@
 										  <div class="invalid-feedback">
 											Enter a password that is at least 6 characters.
 										  </div>
-										  <div class="alert alert-danger" role="alert">
+										  <div id="passwordAlert1" class="alert alert-danger" role="alert">
 											<strong>Make sure Password and Confirm Password have the same input</strong>
 										  </div>
 										</div>
@@ -140,7 +155,7 @@
 										<label for="inputConfirmPassword" class="col-sm-2 col-form-label">Confirm Password:</label>
 										<div class="col-sm-10">
 										  <input type="password" class="form-control" id="inputConfirmPassword" name="confirmPassword" required>
-										  <div class="alert alert-danger" role="alert">
+										  <div id="passwordAlert2" class="alert alert-danger" role="alert">
 											<strong>Password and Confirm Password are not the same</strong>
 										  </div>
 										</div>

@@ -75,6 +75,7 @@
 		position: relative;
 		bottom: 650px;
 	}
+	
 	.book-image2 {
 		display: flex;
   		justify-content: center;
@@ -91,6 +92,11 @@
 	.book-image4 {
 		position: relative;
 		bottom: 255px;
+	}
+	
+	.bookImg {
+		width: 158px;
+		height: 239px;
 	}
 
 }
@@ -129,6 +135,11 @@ html, body {
 	background-position: center;
 	background-repeat: no-repeat;
 }
+
+	.shelfImg {
+		margin-bottom: 30%;
+        margin-top: 30%;
+	}
 
 	.mainContainer {
 		margin: 0;
@@ -213,8 +224,7 @@ html, body {
 		}
 
         .content {
-			padding-right: 1em;
-			padding-top: 5%;
+			padding: 1em;
         }
         
 		.imgFullOpacity {
@@ -252,6 +262,10 @@ html, body {
 			-ms-transform: translate(-50%, -50%);
 			transform: translate(-50%, -50%);
 		  }
+		  
+		.bookContainer {
+			text-align: center;
+		}
 
 		#logoutBtn {
 			cursor: pointer !important;

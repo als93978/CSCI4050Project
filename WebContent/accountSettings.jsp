@@ -1,3 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="javax.servlet.http.Cookie, dataAccess.*"
+    import="models.ErrorMessage"
+    import="models.Message"
+    import="models.User"
+    import="models.Address"
+    import="models.PaymentCard"
+%>
+
+<%
+	User user = (User) request.getAttribute("user");
+
+	Address address = (Address) request.getAttribute("address");
+	
+	PaymentCard paymentCard = (PaymentCard) request.getAttribute("paymentCard");
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -20,8 +38,11 @@
 
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
- 					<a class="navbar-brand" href="homepageWithUserIcon.html">
-<!--  						<img class="logoImg" src="img/bookbayLogo.png"> -->
+ 					<a class="navbar-brand" href="Index">
+						<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-book-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						  <path fill-rule="evenodd" d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+						</svg>
+						
 						BookBay
  					</a>
 
@@ -74,9 +95,9 @@
 								<img src="img/user-icon.png" class="img-fluid user-icon" alt="User Icon">
 							</a>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" href="index.html">Log off</a>
+								<a class="dropdown-item" href="Logout">Log off</a>
 								<a class="dropdown-item" href="orderhistory.html">Order history</a>
-								<a class="dropdown-item" href="accountSettings.html">Account settings</a>
+								<a class="dropdown-item" href="EditProfile">Account settings</a>
 							</div>
 						</div>
 
@@ -94,6 +115,27 @@
 					<h1 id="edit-profile-title" class="font-weight-bold">Edit Profile</h1>
 				  	<br>
 					<div class="container">
+					
+						<%
+							Message message = (Message) request.getAttribute("message");
+										
+							if(message != null) {
+								out.println("<div class=\"alert alert-success\" role=\"alert\" style=\"display: block\">");
+								out.println("\t" + message.getMessage());
+								out.println("</div>");
+							}
+						%>
+					
+						<%
+							ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
+										
+							if(errorMessage != null) {
+								out.println("<div class=\"alert alert-danger\" role=\"alert\" style=\"display: block\">");
+								out.println("\t" + errorMessage.getMessage());
+								out.println("</div>");
+							}
+						%>
+					
 						<div class="accordion" id="accordionEditAccount">
 							<div class="card">
 								<div class="card-header" id="headingOne">
@@ -121,7 +163,7 @@
                                                         <div class="form-group row">
 															<label for="inputPassword" class="col-sm-2 col-form-label">Password:</label>
 															<div class="col-sm-10">
-																<input type="password" class="form-control" id="inputPassword" pattern=".{6,}" required>
+																<input type="password" class="form-control" id="inputPassword" name="password" pattern=".{6,}" required>
 																 <div class="invalid-feedback">
 																	Enter a password that is at least 6 characters.
 										  						</div>
@@ -148,6 +190,7 @@
 									</div>
 								</div>
 							</div>
+							
 							<div class="card">
 								<div class="card-header" id="headingTwo">
 									<h2 class="mb-0">
@@ -169,11 +212,24 @@
 												</div>
 												<div id="collapseInfo2" class="collapse" aria-labelledby="headingInfo2" data-parent="#accordionInfo2">
 													<div class="card-body">
+													
+														<%
+															out.println("<div class=\"alert alert-primary\" role=\"alert\" style=\"display: block\">");
+															if(user != null) {	
+																out.println("<p>" + "Current first name: " + user.getFirstName() + "</p>");
+																out.println("<p>" + "Current last name: " + user.getLastName() + "</p>");
+															}
+															else {
+																out.println("\t" + "No current name information found.");
+															}
+															out.println("</div>");
+														%>
+													
                                                     <form action="<%= request.getContextPath() %>/UpdateName" method="post" name = "nameForm" class="needs-validation" novalidate>
                                                         <div class="form-group row">
 										<label for="inputFirstName" class="col-sm-2 col-form-label">First Name:</label>
 										<div class="col-sm-10">
-										  <input type="firstName" class="form-control" id="inputFirstName" pattern=".{1,}" required>
+										  <input type="firstName" class="form-control" id="inputFirstName" pattern=".{1,}" name="firstName" required placeholder="">
 										  <div class="invalid-feedback">
 											Please provide a valid first name that is at least 1 characters or more.
 										  </div>
@@ -182,7 +238,7 @@
 									<div class="form-group row">
 										<label for="inputLastName" class="col-sm-2 col-form-label">Last Name:</label>
 										<div class="col-sm-10">
-										  <input type="lastName" class="form-control" id="inputLastName" pattern=".{1,}" required>
+										  <input type="lastName" class="form-control" id="inputLastName" pattern=".{1,}" name="lastName" required placeholder="">
 										  <div class="invalid-feedback">
 											Please provide a valid last name that is at least 1 characters or more.
 										  </div>
@@ -205,11 +261,26 @@
 												</div>
 												<div id="collapseBook2" class="collapse" aria-labelledby="headingBook2" data-parent="#accordionBook2">
 													<div class="card-body">
+													
+														<%
+															out.println("<div class=\"alert alert-primary\" role=\"alert\" style=\"display: block\">");
+															if(address != null) {	
+																out.println("<p>" + "Current Street: " + address.getStreet() + "</p>");
+																out.println("<p>" + "Current City: " + address.getCity() + "</p>");
+																out.println("<p>" + "Current State: " + address.getState() + "</p>");
+																out.println("<p>" + "Current ZipCode: " + address.getZipCode() + "</p>");
+															}
+															else {
+																out.println("\t" + "No current address information found.");
+															}
+															out.println("</div>");
+														%>
+													
                                                     <form action="<%= request.getContextPath() %>/UpdateAddress" method="post" name = "addressForm" class="needs-validation" novalidate>
 									<div class="form-group row">
 										<label for="inputStreet" class="col-sm-2 col-form-label">Street:</label>
 										<div class="col-sm-10">
-										  <input type="street" class="form-control" id="inputStreet" required="">
+										  <input type="street" class="form-control" id="inputStreet" required="" name="street" placeholder="">
 										  <div class="invalid-feedback">
 											Please enter your shipping address.
 											</div>
@@ -218,7 +289,7 @@
                                     <div class="form-group row">
 										<label for="inputCity" class="col-sm-2 col-form-label">City:</label>
 										<div class="col-sm-10">
-										  <input type="city" class="form-control" id="inputCity" required="">
+										  <input type="city" class="form-control" id="inputCity" required="" name="city" placeholder="">
 										  <div class="invalid-feedback">
 												Please enter a valid city.
 											</div>
@@ -289,21 +360,12 @@
                                     <div class="form-group row">
 										<label for="inputZipCode" class="col-sm-2 col-form-label">Zip Code:</label>
 										<div class="col-sm-10">
-										  <input type="zipCode" class="form-control" id="inputZipCode" required="">
+										  <input type="zipCode" class="form-control" id="inputZipCode" required="" name="zipCode" placeholder="">
 										  <div class="invalid-feedback">
 												Zip code required.
 											</div>
 										</div>
 									</div>
-                                    <div class="form-group row">
-                                        <label for="inputCountry" class="col-sm-2 col-form-label">Country:</label>
-                                        <div class="col-sm-10">
-                                          <input type="country" class="form-control" id="inputCountry" required="">
-										  <div class="invalid-feedback">
-												Country required.
-											</div>
-                                        </div>
-                                    </div>
                                     <button type="submit" class="btn btn-white form-btn text-white" style="background-color:#4f5cbf">Save Changes</button>
                                     </form>
 													</div>
@@ -336,47 +398,35 @@
 												<div id="collapseInfo3" class="collapse show" aria-labelledby="headingInfo3" data-parent="#accordionInfo3">
 
 													<div class="card-body">
+													
+													   <%
+															out.println("<div class=\"alert alert-primary\" role=\"alert\" style=\"display: block\">");
+															if(paymentCard != null) {
+																String cardNum = paymentCard.getCardNum();
+													  			out.println("<p>" + "Current Card Number: **** **** **** " + cardNum.substring(cardNum.length() - 4) + "</p>");
+																out.println("<p>" + "Current Card Expiration Date: " + paymentCard.getExpDate() + "</p>");
+																out.println("<p>" + "Current Card Type: " + paymentCard.getCardType().name() + "</p>");
+															}
+															else {
+																out.println("\t" + "No current payment card information found.");
+															}
+															out.println("</div>");
+														%>
+													
                                                     <form action="<%= request.getContextPath() %>/UpdateCard" method="post" name = "cardForm" class="needs-validation" novalidate>
-                                                        <div class="form-group row">
-                    										<label for="inputFirstName" class="col-sm-2 col-form-label">First Name:</label>
-                    										<div class="col-sm-10">
-                    										  <input type="firstName" class="form-control" id="inputFirstName" pattern=".{1,}" required>
-															  <div class="invalid-feedback">
-																Please provide a valid first name that is at least 1 characters or more.
-										  						</div>
-                    										</div>
-                    									</div>
-                    									<div class="form-group row">
-                    										<label for="inputLastName" class="col-sm-2 col-form-label">Last Name:</label>
-                    										<div class="col-sm-10">
-                    										  <input type="lastName" class="form-control" id="inputLastName" pattern=".{1,}" required>
-															  <div class="invalid-feedback">
-																Please provide a valid last name that is at least 1 characters or more.
-										  						</div>
-                    										</div>
-                    									</div>
                                                         <div class="form-group row">
                     										<label for="inputCardNumber" class="col-sm-2 col-form-label">Card Number:</label>
                     										<div class="col-sm-10">
-                    										  <input type="cardNumber" class="form-control" id="inputCardNumber" required="">
+                    										  <input type="cardNumber" class="form-control" id="inputCardNumber" required="" name="cardNum" placeholder="">
 															  <div class="invalid-feedback">
 																	Credit card number is required
 																</div>
                     										</div>
                     									</div>
                                                         <div class="form-group row">
-                    										<label for="inputSecurityNumber" class="col-sm-2 col-form-label">Card Security Number:</label>
-                    										<div class="col-sm-10">
-                    										  <input type="securityNumber" class="form-control" id="inputSecurityNumber" required="">
-															  <div class="invalid-feedback">
-																	Security number is required
-																</div>
-                    										</div>
-                    									</div>
-                                                        <div class="form-group row">
                     										<label for="inputExpiration" class="col-sm-2 col-form-label">Card Expiration Date:</label>
                     										<div class="col-sm-10">
-                    										  <input type="cardExpiration" class="form-control" id="inputExpiration" required="">
+                    										  <input type="cardExpiration" class="form-control" id="inputExpiration" name="expDate" required="" placeholder="">
 															  <div class="invalid-feedback">
 																	Expiration date required
 																</div>

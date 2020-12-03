@@ -1,7 +1,11 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Properties;
 
+import javax.mail.MessagingException;
+import javax.mail.Session;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +18,8 @@ import dataAccess.PaymentCardDA;
 import dataAccess.UserDA;
 import models.Address;
 import models.CardType;
+import models.Email;
+import models.ErrorMessage;
 import models.PaymentCard;
 import models.UserStatus;
 import models.UserType;
@@ -25,7 +31,15 @@ import models.User;
 @WebServlet("/Register")
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    
+	private UserDA userDA = new UserDA();
+	private AddressDA addressDA = new AddressDA();
+	private PaymentCardDA paymentCardDA = new PaymentCardDA();
+	
+	private User user = null;
+	private Address address = null;
+	private PaymentCard paymentCard = null;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -44,39 +58,75 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User newUser = initUser(request);
+		try {
+			processUserInfo(request);
+			
+			sendConfirmationEmail(request);
+			
+			redirectToPage(request, response, "registrationConfirmation.jsp");
+		} catch(Exception e) {
+			e.printStackTrace();
+			interpretAndReturnException(request, response, e);
+		}
+	}
+	
+	private void processUserInfo(HttpServletRequest request) throws Exception {
+		user = initUser(request);
 		
-		//UserDA userDA = new UserDA();
-		UserDA.addUserToDB(newUser);
+		userDA.createUser(user);
 		
-		// Update newUser model so we don't have to read from DB for paymentInfo and shippingInfo below
-		newUser = UserDA.getLastUserFromDB();
+		user = userDA.getLastUser(); // So we can get the userID, b/c we don't necessarily know it beforehand
 		
 		boolean paymentInfoEntered = paymentInfoWasEntered(request);
 		boolean shippingInfoEntered = request.getParameter("shippingOption") != null;
 		
 		if(paymentInfoEntered) {
-			PaymentCard paymentCard = initPaymentCard(request, newUser);
+			paymentCard = initPaymentCard(request);
 			
-			PaymentCardDA.addPaymentCardToDB(paymentCard);
+			paymentCardDA.createPaymentCard(paymentCard);
 			
-			// Increment NumOfCards
-			UserDA.editUserValue(newUser.getUserID(), "NumOfCards", 1);
-			
-			newUser = UserDA.getLastUserFromDB();
+			// Set NumOfCards to 1
+//			UserDAOld.editUserValue(newUser.getUserID(), "NumOfCards", 1);
+			user.setNumOfCards(1);
+			userDA.updateUser(user);
 		}
 		
 		if(shippingInfoEntered) {
-			Address shippingInfo = initShippingInfo(request);
+			address = initShippingInfo(request);
 			
-			AddressDA.addAddressToDB(shippingInfo);
+			addressDA.createAddress(address);
 			
 			// Update shippingInfo model to get AddressID
-			shippingInfo = AddressDA.getLastAddressFromDB();
+			address = addressDA.getLastAddress();
 			
 			// Now go back to newUser and enter the addressID
-			UserDA.editUserValue(newUser.getUserID(), "AddressID", shippingInfo.getAddressID());
+//			UserDAOld.editUserValue(newUser.getUserID(), "AddressID", shippingInfo.getAddressID());
+			user.setAddressID(address.getAddressID());
+			userDA.updateUser(user);
 		}
+	}
+	
+	private void sendConfirmationEmail(HttpServletRequest request) throws SQLException, MessagingException {
+		user = userDA.getLastUser();
+		
+		String confirmationCode = ConfirmUser.generateConfirmationCode();
+		
+//		UserDAOld.editUserValue(newUser.getUserID(), "ConfirmationCode", confirmationCode);
+		
+		user.setConfirmationCode(confirmationCode);
+		userDA.updateUser(user);
+		
+		String fromAddress = EmailHelper.fromAddress;
+		String userEmail = user.getEmail();
+		
+		Email email = new Email();
+		
+		email.setFromAddress(fromAddress);
+		email.setToAddress(userEmail);
+		email.setBody(email.getConfirmationBody() + confirmationCode);
+		
+		EmailHelper emailHelper = new EmailHelper();
+		emailHelper.sendConfirmationEmail(email);
 	}
 	
 	// Set user info that was entered on registration page and return the new User
@@ -105,22 +155,23 @@ public class Register extends HttpServlet {
 	}
 	
 	// Set payment info user optionally entered on registration page and return the PaymentCard
-	private PaymentCard initPaymentCard(HttpServletRequest request, User newUser) {
+	private PaymentCard initPaymentCard(HttpServletRequest request) {
 		PaymentCard paymentCard = new PaymentCard();
 		
-		int cardNum = Integer.parseInt(request.getParameter("cardNum"));
+		String cardNum = request.getParameter("cardNum");
 		int cardNumInt = Integer.parseInt(request.getParameter("paymentMethod"));
 		
+		int cardTypeNum = Integer.parseInt(request.getParameter("paymentMethod"));
 		// Using ints seems to be easiest way to input an enum from html
 		CardType[] cardTypeValues = CardType.values();
-		CardType cardType = cardTypeValues[cardNumInt-1];
+		CardType cardType = cardTypeValues[cardTypeNum-1];
 		
 		String expDate = request.getParameter("expDate");
 		
 		// Need to read previously added user to get its userID
 //		User newUser = UserDA.getLastUserFromDB();
 //		int userID = newUser.getUserID();
-		int userID = newUser.getUserID();
+		int userID = user.getUserID();
 		
 		paymentCard.setCardNum(cardNum);
 		paymentCard.setCardType(cardType);
@@ -153,6 +204,28 @@ public class Register extends HttpServlet {
 			return true;
 		
 		return false; // Otherwise, No was chosen
+	}
+	
+	private void interpretAndReturnException(HttpServletRequest request, HttpServletResponse response, Exception e) {
+		ErrorMessage errorMessage = new ErrorMessage();
+		
+		errorMessage.setMessage("An error occurred: " + e.getMessage());
+		
+		request.setAttribute("errorMessage", errorMessage);
+		
+		redirectToPage(request, response, "registration.jsp");
+	}
+	
+	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + page);
+		
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 }

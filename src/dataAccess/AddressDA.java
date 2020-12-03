@@ -1,97 +1,175 @@
 package dataAccess;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import models.Address;
-import models.User;
-import models.UserStatus;
-import models.UserType;
 
-public class AddressDA {
+public class AddressDA implements IAddressDA {
+
+	private static final String useDBQuery = "USE BookBayDB;";
 	
-	private static String dbURL = "jdbc:mysql://localhost:3306/BookBayDB?serverTimezone=UTC";
+	private static final String addAddressQuery = "INSERT INTO Address(Street, City, State, ZipCode) "
+												+ "VALUES(?, ?, ?, ?);";
 	
-	public static void addAddressToDB(Address address) {
-		// Get all the values from Address
+	private static final String getAddressByIDQuery = "SELECT * FROM Address "
+												  + "WHERE AddressID = ?;";
+	
+	private static final String getLastAddressQuery = "SELECT * FROM Address "
+													+ "ORDER BY AddressID DESC LIMIT 1;";
+	
+	private static final String updateAddressQuery = "UPDATE Address "
+												   + "SET Street = ?,"
+												   + "City = ?,"
+												   + "State = ?,"
+												   + "ZipCode = ? "
+												   + "WHERE AddressID = ?;";
+	
+	private static String deleteAddressQuery = "DELETE FROM Address WHERE AddressID = ?;";
+	
+	@Override
+	public void createAddress(Address address) throws SQLException {
 		String street = address.getStreet();
 		String city = address.getCity();
 		String state = address.getState();
 		int zipCode = address.getZipCode();
 		
-		String useDBQuery = "USE BookBayDB;";
+		Connection connection = DataAccessHelper.getConnection();
 		
-		String addUserQuery = "INSERT INTO Address(Street, City, State, ZipCode) "
-							+ "VALUES(?, ?, ?, ?);";
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
 		
-		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
-		
-		try {
-			Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+		PreparedStatement addAddressStmt = connection.prepareStatement(addAddressQuery);
+		addAddressStmt.setString(1, street);
+		addAddressStmt.setString(2, city);
+		addAddressStmt.setString(3, state);
+		addAddressStmt.setInt(4, zipCode);
 			
-			PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
-			useDBStmt.executeQuery();
+		addAddressStmt.executeUpdate();
 			
-			PreparedStatement addUserStmt = connection.prepareStatement(addUserQuery);
-			addUserStmt.setString(1, street);
-			addUserStmt.setString(2, city);
-			addUserStmt.setString(3, state);
-			addUserStmt.setInt(4, zipCode);
-			
-			addUserStmt.executeUpdate();
-			
-			connection.close();
-			
-		} catch(SQLException e) {
-			e.printStackTrace();
-		}
+		connection.close();
 	}
-	
-	public static Address getLastAddressFromDB() {
-		Address address = new Address();
+
+	@Override
+	public Address getAddressByID(int addressID) throws SQLException {
+		Address address = null;
 		
-		String useDBQuery = "USE BookBayDB;";
+		Connection connection = DataAccessHelper.getConnection();
 		
-		String getLastAddressQuery = "SELECT * FROM Address "
-							       + "ORDER BY AddressID DESC LIMIT 1;";
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
 		
-		String dbUsername = "root";
-		String dbPassword = "ajgopattymn7890";
+		PreparedStatement getAddressPstmt = connection.prepareStatement(getAddressByIDQuery);
+		getAddressPstmt.setInt(1, addressID);    
 		
-		try {
-			Connection connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+		ResultSet addressRS = getAddressPstmt.executeQuery();
+		    
+		while(addressRS.next()) {
+			address = new Address();
 			
-		    PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
-		    useDBStmt.executeQuery();
-		    
-		    PreparedStatement getLastAddressPstmt = connection.prepareStatement(getLastAddressQuery);
-		    
-		    ResultSet lastAddressRS = getLastAddressPstmt.executeQuery();
-		    
-		    while(lastAddressRS.next()) {
-		    	int addressID = lastAddressRS.getInt(1);
-		    	String street = lastAddressRS.getString(2);
-		    	String city = lastAddressRS.getString(3);
-		    	String state = lastAddressRS.getString(4);
-		    	int zipCode = lastAddressRS.getInt(5);
+			int dbAddressID = addressRS.getInt(1);
+		    String street = addressRS.getString(2);
+		    String city = addressRS.getString(3);
+		    String state = addressRS.getString(4);
+		    int zipCode = addressRS.getInt(5);
 		    	
-		    	address.setAddressID(addressID);
-		    	address.setStreet(street);
-		    	address.setCity(city);
-		    	address.setState(state);
-		    	address.setZipCode(zipCode);
-		    }
+		    address.setAddressID(dbAddressID);
+		    address.setStreet(street);
+		    address.setCity(city);
+		    address.setState(state);
+		    address.setZipCode(zipCode);
 		    
 		    connection.close();
 		    
-		} catch(SQLException e) {
-			e.printStackTrace();
+		    return address;
 		}
+		    
+		connection.close();
+		 
 		
 		return address;
 	}
+
+	@Override
+	public Address getLastAddress() throws SQLException {
+		Address address = null;
+		
+		Connection connection = DataAccessHelper.getConnection();
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement getLastAddressPstmt = connection.prepareStatement(getLastAddressQuery);
+	    
+		ResultSet addressRS = getLastAddressPstmt.executeQuery();
+		    
+		while(addressRS.next()) {
+			address = new Address();
+			
+			int addressID = addressRS.getInt(1);
+		    String street = addressRS.getString(2);
+		    String city = addressRS.getString(3);
+		    String state = addressRS.getString(4);
+		    int zipCode = addressRS.getInt(5);
+		    	
+		    address.setAddressID(addressID);
+		    address.setStreet(street);
+		    address.setCity(city);
+		    address.setState(state);
+		    address.setZipCode(zipCode);
+		    
+		    connection.close();
+		    
+		    return address;
+		}
+		    
+		connection.close();
+		
+		return address;
+	}
+
+	@Override
+	public void updateAddress(Address address) throws SQLException {
+		int addressID = address.getAddressID();
+		String street = address.getStreet();
+		String city = address.getCity();
+		String state = address.getState();
+		int zipCode = address.getZipCode();
+		
+		Connection connection = DataAccessHelper.getConnection();
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement updateAddressStmt = connection.prepareStatement(updateAddressQuery);
+		updateAddressStmt.setString(1, street);
+		updateAddressStmt.setString(2, city);
+		updateAddressStmt.setString(3, state);
+		updateAddressStmt.setInt(4, zipCode);
+		updateAddressStmt.setInt(5, addressID);
+		
+		updateAddressStmt.executeUpdate();
+		
+		connection.close();
+	}
+
+	@Override
+	public void deleteAddress(Address address) throws SQLException {
+		int addressID = address.getAddressID();
+		
+		Connection connection = DataAccessHelper.getConnection();
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement deleteAddressStmt = connection.prepareStatement(deleteAddressQuery);
+		deleteAddressStmt.setInt(1, addressID);
+		
+		deleteAddressStmt.executeUpdate();
+		
+		connection.close();
+	}
+
 }

@@ -1,5 +1,5 @@
 package models;
 
 public enum UserType {
-	ADMIN, CUSTOMER
+	ADMIN, CUSTOMER, EMPLOYEE
 }
