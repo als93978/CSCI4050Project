@@ -14,6 +14,8 @@
     import="javax.servlet.http.Cookie, dataAccess.*"
     import="java.util.List"
     import="models.Book"
+    import="models.ErrorMessage"
+    import="models.Message"
 %>
 
 <!DOCTYPE html>
@@ -111,6 +113,27 @@
 			
 			<!-- Content  -->
 			<div class="contentContainer">
+			
+				<%
+					Message message = (Message) request.getAttribute("message");
+										
+					if(message != null) {
+						out.println("<div class=\"alert alert-success\" role=\"alert\" style=\"display: block\">");
+						out.println("\t" + message.getMessage());
+						out.println("</div>");
+					}
+				%>
+					
+				<%
+					ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
+										
+					if(errorMessage != null) {
+						out.println("<div class=\"alert alert-danger\" role=\"alert\" style=\"display: block\">");
+						out.println("\t" + errorMessage.getMessage());
+						out.println("</div>");
+					}
+				%>
+			
 				<div class="content">
 					<div class="sidebar">
 						<div class="accordion" id="filterAccordion">
@@ -453,6 +476,8 @@
 						out.println("</div>");
 						out.println("<form id=\"book1ModalForm\" method=\"POST\" accept-charset=\"UTF-8\">");
 						out.println("<input type=\"hidden\" name=\"bookID\" value=\"" + currentBook.getBookID() + "\"/>");
+						out.println("<input type=\"hidden\" name=\"requestPage\" value=\"Search\"/>");
+						out.println("<input type=\"hidden\" name=\"prevResults\" value=\"\"/>");
 						out.println("<div class=\"modal-body\">");
 						out.println("<img width=\"" + imgWidth + "\" height=\"" + imgHeight + "\" src=\"" + currentBook.getImagePath() + "\">");
 						out.println("<p class=\"modalText\">");
@@ -469,7 +494,7 @@
 						out.println("</div>");
 						out.println("<div class=\"modal-footer\">");
 						out.println("<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>");
-						out.println("<button type=\"button\" class=\"btn btn-primary\" formaction=\"\">Add to cart</button>");
+						out.println("<button type=\"submit\" class=\"btn btn-primary\" formaction=\"AddToCart\">Add to cart</button>");
 						out.println("</div>");
 						out.println("</form>");
 						out.println("</div>");

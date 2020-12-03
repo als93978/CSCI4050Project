@@ -86,7 +86,6 @@ CREATE TABLE IF NOT EXISTS `Order` (
     UserID int,
     FOREIGN KEY(UserID) REFERENCES `User`(UserID),
     TotalPrice float,
-    promoID int,
     OrderDateTime varchar(255),
     PaymentMethod varchar(255),
     CardNum varchar(255),
