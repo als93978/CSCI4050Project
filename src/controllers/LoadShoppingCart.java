@@ -20,7 +20,7 @@ import models.UserType;
  * Servlet implementation class ShoppingCart
  */
 @WebServlet("/ShoppingCart")
-public class ShoppingCart extends HttpServlet {
+public class LoadShoppingCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private UserDA userDA = new UserDA();
@@ -30,7 +30,7 @@ public class ShoppingCart extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShoppingCart() {
+    public LoadShoppingCart() {
         super();
     }
 

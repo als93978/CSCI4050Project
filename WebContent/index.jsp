@@ -332,7 +332,7 @@
 								out.println("</div>");
 								out.println("<div class=\"modal-footer\">");
 								out.println("<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>");
-								out.println("<button type=\"button\" class=\"btn btn-primary\" formaction=\"\">Add to cart</button>");
+								out.println("<button type=\"submit\" class=\"btn btn-primary\" formaction=\"AddToCart\">Add to cart</button>");
 								out.println("</div>");
 								out.println("</form>");
 								out.println("</div>");
@@ -368,7 +368,7 @@
 								out.println("</div>");
 								out.println("<div class=\"modal-footer\">");
 								out.println("<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>");
-								out.println("<button type=\"button\" class=\"btn btn-primary\" formaction=\"\">Add to cart</button>");
+								out.println("<button type=\"submit\" class=\"btn btn-primary\" formaction=\"AddToCart\">Add to cart</button>");
 								out.println("</div>");
 								out.println("</form>");
 								out.println("</div>");

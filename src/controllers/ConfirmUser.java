@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataAccess.ShoppingCartDA;
 import dataAccess.UserDA;
 import models.ErrorMessage;
 import models.Message;
+import models.ShoppingCart;
 import models.User;
 import models.UserStatus;
 
@@ -25,6 +27,7 @@ public class ConfirmUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private UserDA userDA = new UserDA();
+	private ShoppingCartDA shoppingCartDA = new ShoppingCartDA();
 	
 	private User user = null;
        
@@ -72,6 +75,8 @@ public class ConfirmUser extends HttpServlet {
 			
 			userDA.updateUser(user);
 			
+			createShoppingCart();
+			
 			String message = "You have successfully confirmed your registration. You can now login.";
 			returnMessage(request, response, message);
 		}
@@ -81,6 +86,13 @@ public class ConfirmUser extends HttpServlet {
 			
 			returnError(request, response, wrongConfirmationCodeMsg);
 		}
+	}
+	
+	private void createShoppingCart() throws SQLException {
+		ShoppingCart cart = new ShoppingCart();
+		cart.setUserID(user.getUserID());
+		
+		shoppingCartDA.createShoppingCart(cart);
 	}
 	
 	private void interpretAndReturnException(HttpServletRequest request, HttpServletResponse response, Exception e) {
