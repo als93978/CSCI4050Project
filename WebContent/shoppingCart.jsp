@@ -20,10 +20,16 @@
 <%
 
 	User user = (User) request.getAttribute("user");
-
-	PaymentCard paymentCard = new PaymentCard();
+	Address address = (Address) request.getAttribute("address");
+	
 	PaymentCardDA paymentCardDA = new PaymentCardDA();
-/* 	out.println(user.getUserID()); */
+	AddressDA addressDA = new AddressDA();
+/* 	if (user != null){
+		code, user.getUserID() ...
+	}
+	else{
+		no payment info
+	} */
 
 %>
 <!DOCTYPE html>
@@ -122,6 +128,25 @@
  				</nav>
 			</div>
 			
+			<%
+						Message message = (Message) request.getAttribute("message");
+													
+						if(message != null) {
+							out.println("<div class=\"alert alert-success\" role=\"alert\" style=\"display: block\">");
+							out.println("\t" + message.getMessage());
+							out.println("</div>");
+						}
+					%>
+									
+					<%
+						ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
+
+						if(errorMessage != null) {
+							out.println("<div class=\"alert alert-danger\" role=\"alert\" style=\"display: block\">");
+							out.println("\t" + errorMessage.getMessage());
+							out.println("</div>");
+						}
+					%>
 			<!-- Content  -->
 			<div class="contentContainer">
 				<div class="content">
@@ -260,55 +285,51 @@
  										<div class="card-body">
  											<ul class="list-unstyled">
  												<li class="media">
-													<input type="radio" class="form-check-input form-check-inline" name="paymentInfo" value="paymentInfo1">
-													<img src="img/discoverLogo.png" class="mr-3">
-												   
-												   <div class="media-body">
-													   <div>
-<%-- 													   <%
-													   		paymentCard = paymentCardDA.getPaymentCardByUserID(user.getUserID());
-													   		if (paymentCard != null){
-													   			String fourDigits = paymentCard.getCardNum();
-													   			out.println("<p>**** **** **** " + fourDigits.substring(8) + "</p>");
-													   		}
-													   		else{
-													   			out.println("<p>No payment options</p>");
-													   		}
-													   %> --%>
-													  
-													   </div>
-													   <div>
-													   <!-- 
-														   TODO: Name get struched up when too long. I actually want
-														   it directly below the card number, but Bootstrap isn't letting
-														   that happen. Fix later.
-														-->
-<%-- 													   <%
-													   		out.println("<p>" + user.getFirstName() + " " + user.getLastName() + "</p>");
-													   %> --%>
-													   </div>
-													   
-												   </div>
+ 												<%
+
+ 												PaymentCard paymentCard = new PaymentCard();
+ 												int cardCount = 0;
+
+ 				                               for (int i = 0; i < 100; i++){
+ 				                            	   paymentCard = paymentCardDA.getPaymentCardByUserID(i);
+ 				                            	   if (paymentCard != null){
+ 				                            		  	out.println("<input type=\"radio\" class=\"form-check-input form-check-inline\" name=\"paymentInfo\" value=\"paymentInfo1\" checked>");
+ 				                            		  	if (paymentCard.getCardType().equals(CardType.DISCOVER)){
+ 				                            		  		out.println("<img src=\"https://i.imgur.com/qkW8Dcz.png\" title=\"source: imgur.com\" width=\"50\" height=\"22\" />");
+ 				                            		  	}
+ 				                            		  	else if (paymentCard.getCardType().equals(CardType.VISA)){
+ 				                            		  		out.println("<img alt=\"Credit Card Logos\" title=\"Credit Card Logos\" src=\"http://www.credit-card-logos.com/images/visa_credit-card-logos/visa_logo_3.gif\" width=\"50\" height=\"22\" />");
+ 				                            		  	}
+ 				                            		  	else if (paymentCard.getCardType().equals(CardType.MASTERCARD)){
+ 				                            		  		out.println("<img alt=\"Credit Card Logos\" title=\"Credit Card Logos\" src=\"http://www.credit-card-logos.com/images/mastercard_credit-card-logos/mastercard_logo_4.gif\" width=\"50\" height=\"22\" />");
+ 				                            		  	}
+ 				                            		  	else{//American Express
+ 				                            		  		out.println("<img src=\"https://i.imgur.com/zpRZtD6.png\" title=\"source: imgur.com\" width=\"50\" height=\"22\" />");
+ 				                            		  	}
+ 	 													out.println("<div class=\"media-body\">");
+ 	 													out.println("<div>");
+ 	 													
+ 	 													String fourDigits = paymentCard.getCardNum();
+ 	 													out.println("<p>**** **** **** " + fourDigits.substring(12) + "</p>");
+ 	 													out.println("</div>");
+ 	 													out.println("<div>");
+ 	 													
+ 	 													/* out.println("<p>" + user.getFirstName() + " " + user.getLastName() + "</p>"); */
+ 	 													out.println("</div>");
+ 	 													out.println("</div>");
+ 	 													out.println("<button type=\"button\" id=\"editCard\" class=\"btn btn-primary center\" data-toggle=\"modal\" data-target=\"#editCard1\" style=\"border: none;\">Edit</button>");
+ 	 													out.println("</li>");
+ 	 													cardCount++;
+ 				                            	   }
+ 				                               }
+ 				                              if (cardCount == 0){
+			                            		  	out.println("<p>No payment options</p>");
+													out.println("</li>");
+			                            	   }
+ 												
+ 												%>
 		    									
-		    										<button type="button" id="editCard" class="btn btn-primary center" data-toggle="modal" data-target="#editCard1" style= "border: none;">Edit</button>
-		    									</li>
 		    									
-		    									<li class="media paymentInfoItem">
-													<input type="radio" class="paymentInfoRadio form-check-input" name="paymentInfo" value="paymentInfo2">
-													<img src="img/discoverLogo.png" class="mr-3">
-												   
-												   <div class="media-body">
-													   <div>
-														   **** **** **** 5673
-													   </div>
-																											   
-													   <p>
-														   (John Doe Smith)
-													   </p>
-												   </div>
-		    										
-		    										<button type="button" id="editCard" class="btn btn-primary center" data-toggle="modal" data-target="#editCard2" style= "border: none;">Edit</button>
-		    									</li>
     										</ul>
     										
     										<hr>
@@ -326,42 +347,33 @@
  										</div>
 										
  										<div class="card-body">
-											<div class="shippingInfoItem">
-												<div class="addressInfo">
-													<p>
-														Name: John Doe Smith
-													</p>
-													
-													<p>
-														Address: 3243 John Doe Blvd, Athens, GA, 30606
-													</p>
-												</div>
-												
-												<div class="shippingInputOptions">
-													<input type="radio" class="shippingInfoRadio" id="shippingInfo1" name="shippingInfo" value="shippingInfo1" checked>
-													
-													<button type="button" id="editAddress" class="btn btn-primary center" data-toggle="modal" data-target="#editAddress1" style= "border: none;">Edit</button>
-												</div>
-											</div>
-											
-											<div class="shippingInfoItem shippingInfoItemTopMargin">
-												<div class="addressInfo">
-													<p>
-														Name: John Doe Smith
-													</p>
-													
-													<p>
-														Address: 3452 Vacation Drive, Honolulu, HI, 96814
-													</p>
-												</div>
-												
-												<div class="shippingInputOptions">
-													<input type="radio" class="shippingInfoRadio" id="shippingInfo1" name="shippingInfo" value="shippingInfo1">
-													
-													<button type="button" id="editAddress" class="btn btn-primary center" data-toggle="modal" data-target="#editAddress2" style= "border: none;">Edit</button>
-												</div>
-											</div>
-    										
+ 										
+ 										<%
+
+ 												int addressCount = 0;
+
+ 				                               for (int i = 0; i < 100; i++){
+ 				                            	   address = addressDA.getAddressByID(i);
+ 				                            	   if (address != null){
+ 				                            		   out.println("<div class=\"shippingInfoItem shippingInfoItemTopMargin\">");
+ 				                            		  out.println("<div class=\"addressInfo\">");
+ 				                            		   /* out.println("<p>Name: " + user.getFirstName() + " " + user.getLastName() + "</p>"); */
+ 				                            		   out.println("<p>Address: " + address.getStreet() + ", " + address.getCity() + ", " + address.getState() + ", " + address.getZipCode() + "</p>");
+ 				                            		  out.println("</div>");
+ 				                            		 out.println("<div class=\"shippingInputOptions\">");
+ 				                            		 out.println("<input type=\"radio\" class=\"shippingInfoRadio\" id=\"shippingInfo1\" name=\"shippingInfo\" value=\"shippingInfo1\">");
+ 				                            		 out.println("<button type=\"button\" id=\"editAddress\" class=\"btn btn-primary center\" data-toggle=\"modal\" data-target=\"#editAddress1\" style=\"border: none;\">Edit</button>");
+ 				                            		 out.println("</div>");
+ 				                            		 out.println("</div>");
+ 				                            		   addressCount++;
+ 				                            	   }
+ 				                               }
+ 				                              if (addressCount == 0){
+			                            		  	out.println("<p>No shipping addresses available</p>");
+			                            	   }
+ 												
+ 												%>
+	
     										<hr>
     										
      										<button type="button" id="addAddress" class="btn btn-primary center" data-toggle="modal" data-target="#address1" style= "border: none;">Add New Shipping Address</button>
@@ -384,7 +396,7 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Edit Payment Method</h5>
                                 </div>
-                                <form id="editCard" class="needs-validation" action="SendPayment" method="POST" accept-charset="UTF-8" novalidate>
+                                <form id="editCard" class="needs-validation" action="UpdateCard" method="POST" accept-charset="UTF-8" novalidate>
                                     <div class="modal-body">
                                         
                                         <div class="form-group">
@@ -394,13 +406,39 @@
 											Please provide a valid card number.
 										  </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="cardType">Type</label>
-                                            <input type="text" class="form-control" name="cardType" required>
-                                            <div class="invalid-feedback">
-											Please choose a card type.
-										  </div>
-                                        </div>
+                                        <div class="form-group row">
+                    										<label for="cardType" class="col-sm-2 col-form-label">Card Type:</label>
+                    										<div class="col-sm-10">
+                    										  <div class="custom-control custom-radio">
+												<input id="DISCOVER" name="cardType" type="radio" class="custom-control-input" value="1" required="">
+												<label class="custom-control-label" for="DISCOVER">
+													<img src="https://i.imgur.com/qkW8Dcz.png" title="source: imgur.com" width="35" height="22" />
+													Discover
+												</label>
+											</div>
+											<div class="custom-control custom-radio">
+												<input id="VISA" name="cardType" type="radio" class="custom-control-input" value="2" required="">
+												<label class="custom-control-label" for="VISA">
+													<a href="http://www.credit-card-logos.com/"><img alt="Credit Card Logos" title="Credit Card Logos" src="http://www.credit-card-logos.com/images/visa_credit-card-logos/visa_logo_3.gif" width="35" height="22" /></a>
+													Visa
+												</label>
+											</div>
+											<div class="custom-control custom-radio">
+												<input id="MASTERCARD" name="cardType" type="radio" class="custom-control-input" value="3" required="">
+												<label class="custom-control-label" for="MASTERCARD">
+													<a href="http://www.credit-card-logos.com/"><img alt="Credit Card Logos" title="Credit Card Logos" src="http://www.credit-card-logos.com/images/mastercard_credit-card-logos/mastercard_logo_4.gif" width="35" height="22" /></a>
+													Mastercard
+												</label>
+											</div>
+											<div class="custom-control custom-radio">
+												<input id="AMERICANEXPRESS" name="cardType" type="radio" class="custom-control-input" value="4" required="">
+												<label class="custom-control-label" for="AMERICANEXPRESS">
+													<a href="https://imgur.com/zpRZtD6"><img src="https://i.imgur.com/zpRZtD6.png" title="source: imgur.com" width="35" height="22" /></a>
+													American Express
+												</label>
+											</div>
+                    						</div>
+                    					</div>
                                         <div class="form-group">
                                             <label for="expDate">Expiration Date</label>
                                             <input type="text" class="form-control" name="expDate" required>
@@ -435,13 +473,39 @@
 											Please provide a valid card number.
 										  </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="cardType">Type</label>
-                                            <input type="text" class="form-control" name="cardType" required>
-                                            <div class="invalid-feedback">
-											Please choose a card type.
-										  </div>
-                                        </div>
+                                        <div class="form-group row">
+                    										<label for="cardType" class="col-sm-2 col-form-label">Card Type:</label>
+                    										<div class="col-sm-10">
+                    										  <div class="custom-control custom-radio">
+												<input id="DISCOVER" name="cardType" type="radio" class="custom-control-input" value="1" required="">
+												<label class="custom-control-label" for="DISCOVER">
+													<img src="https://i.imgur.com/qkW8Dcz.png" title="source: imgur.com" width="35" height="22" />
+													Discover
+												</label>
+											</div>
+											<div class="custom-control custom-radio">
+												<input id="VISA" name="cardType" type="radio" class="custom-control-input" value="2" required="">
+												<label class="custom-control-label" for="VISA">
+													<a href="http://www.credit-card-logos.com/"><img alt="Credit Card Logos" title="Credit Card Logos" src="http://www.credit-card-logos.com/images/visa_credit-card-logos/visa_logo_3.gif" width="35" height="22" /></a>
+													Visa
+												</label>
+											</div>
+											<div class="custom-control custom-radio">
+												<input id="MASTERCARD" name="cardType" type="radio" class="custom-control-input" value="3" required="">
+												<label class="custom-control-label" for="MASTERCARD">
+													<a href="http://www.credit-card-logos.com/"><img alt="Credit Card Logos" title="Credit Card Logos" src="http://www.credit-card-logos.com/images/mastercard_credit-card-logos/mastercard_logo_4.gif" width="35" height="22" /></a>
+													Mastercard
+												</label>
+											</div>
+											<div class="custom-control custom-radio">
+												<input id="AMERICANEXPRESS" name="cardType" type="radio" class="custom-control-input" value="4" required="">
+												<label class="custom-control-label" for="AMERICANEXPRESS">
+													<a href="https://imgur.com/zpRZtD6"><img src="https://i.imgur.com/zpRZtD6.png" title="source: imgur.com" width="35" height="22" /></a>
+													American Express
+												</label>
+											</div>
+                    						</div>
+                    					</div>
                                         <div class="form-group">
                                             <label for="expDate">Expiration Date</label>
                                             <input type="text" class="form-control" name="expDate" required>
@@ -466,7 +530,7 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Edit Address</h5>
                                 </div>
-                                <form id="address" class="needs-validation" action="SendAddress" method="POST" accept-charset="UTF-8" novalidate>
+                                <form id="address" class="needs-validation" action="UpdateAddress" method="POST" accept-charset="UTF-8" novalidate>
                                     <div class="modal-body">
                                         
                                         <div class="form-group">

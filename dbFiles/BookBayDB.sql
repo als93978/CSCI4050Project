@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS PaymentCard (
     PRIMARY KEY(CardNum),
     `Type` ENUM('DISCOVER', 'VISA', 'MASTERCARD', 'AMERICANEXPRESS') NOT NULL,
     ExpDate varchar(255) NOT NULL,
-    UserID int UNIQUE,
+    UserID int NOT NULL,
     FOREIGN KEY(UserID) REFERENCES `User`(UserID)
 );
 
