@@ -30,7 +30,7 @@ public class OrderItemDA implements IOrderItemDA {
 													 + "WHERE BookID = ? "
 													 + "and OrderID = ?;";
 	
-	private static final String deleteOrderItemQuery = "DELETE FROM OrderItem"
+	private static final String deleteOrderItemQuery = "DELETE FROM OrderItem "
 													 + "WHERE BookID = ? "
 													 + "and OrderID = ?;";
 	
