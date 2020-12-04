@@ -29,8 +29,9 @@
 	UserDA userDA = new UserDA();
 	PaymentCardDA paymentCardDA = new PaymentCardDA();
 	AddressDA addressDA = new AddressDA();
-	Cookie[] cookies = request.getCookies();
-    int userID = Integer.parseInt(cookies[1].getValue());
+	/* Cookie[] cookies = request.getCookies();
+    int userID = Integer.parseInt(cookies[1].getValue()); */
+    int userID = 9;
     user = userDA.getUserByID(userID);
 
     int addressID = user.getAddressID();
@@ -197,9 +198,11 @@
 											out.println("<label for=\"quantity\">Quantity:</label>");
 											out.println("<input type=\"number\" id=\"quantity1\" class=\"quantity\" name=\"quantity\" min=\"1\" value=\"" + currentOrderItem.getQuantity() + "\">");
 											out.println("<p class=\"mt-2\">$" + currentBook.getSellingPrice() + "</p>");
+											out.println("<form action=\"RemoveFromCart\" method=\"POST\" accept-charset=\"UTF-8\">");
 											out.println("<input type=\"hidden\" name=\"bookID\" value=\"" + currentBook.getBookID() + "\"/>");
 											out.println("<input type=\"hidden\" name=\"orderID\" value=\"" + currentOrderItem.getOrderID() + "\"/>");
-											out.println("<button type=\"button\" class=\"btn btn-outline-secondary btn-sm\">Remove</button>");
+											out.println("<button type=\"submit\" class=\"btn btn-outline-secondary btn-sm\">Remove</button>");
+											out.println("</form>");
 											out.println("</div>");
 											out.println("</form>");
 											
