@@ -1,9 +1,7 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
-import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,35 +9,33 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
+import dataAccess.AddressDA;
 import dataAccess.PaymentCardDA;
-import dataAccess.UserDA;
+import models.Address;
 import models.CardType;
-import models.Email;
 import models.ErrorMessage;
 import models.Message;
 import models.PaymentCard;
-import models.Promotion;
+import models.UserStatus;
+import models.UserType;
 import models.User;
 
 /**
- * Servlet implementation class SendPayment
+ * Servlet implementation class SCUpdateCard
  */
-@WebServlet("/SendPayment")
-public class SendPayment extends HttpServlet {
+@WebServlet("/SCUpdateCard")
+public class SCUpdateCard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private PaymentCardDA paymentCardDA = new PaymentCardDA();
-	private UserDA userDA = new UserDA();
-	private User user = new User();
 	
 	private PaymentCard paymentCard = null;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SendPayment() {
+    public SCUpdateCard() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -56,50 +52,50 @@ public class SendPayment extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			processPaymentCard(request);
-			
-			String message = "Payment information was successfully added.";
-			returnMessage(request, response, message);
-			
+			Cookie[] cookies = request.getCookies();
+	        int userID = Integer.parseInt(cookies[1].getValue());
+	        
+	        String cardNum = request.getParameter("cardNum");
+	        
+	        int cardTypeNum = Integer.parseInt(request.getParameter("cardType"));
+	        CardType[] cardTypeValues = CardType.values();
+	        CardType cardType = cardTypeValues[cardTypeNum-1];
+	        
+	        String expDate = request.getParameter("expDate");
+	
+	        paymentCard = paymentCardDA.getPaymentCardByUserID(userID);
+	        
+	        if(paymentCard == null) {
+	        	paymentCard = new PaymentCard();
+	        	paymentCard.setCardNum(cardNum);
+	        	paymentCard.setCardType(cardType);
+	        	paymentCard.setExpDate(expDate);
+	        	paymentCard.setUserID(userID);
+	        	
+	        	paymentCardDA.createPaymentCard(paymentCard);
+	        }
+	        
+	        else {
+	        	paymentCard.setCardNum(cardNum);
+	        	paymentCard.setCardType(cardType);
+	        	paymentCard.setExpDate(expDate);
+	        	paymentCard.setUserID(userID);
+	        	
+	        	paymentCardDA.updateCardNum(paymentCard);
+	        }
+	        	
+	        String message = "Payment information changes saved.";
+	        returnMessage(request, response, message);
 		} catch(Exception e) {
 			e.printStackTrace();
-			returnError(request, response, e.getMessage());
+			interpretAndReturnException(request, response, e);
 		}
+		
 	}
-	private void processPaymentCard(HttpServletRequest request) throws Exception {
-		paymentCard = initPaymentCard(request);
-		paymentCardDA.createPaymentCard(paymentCard);
+
+	private void interpretAndReturnException(HttpServletRequest request, HttpServletResponse response, Exception e) {
+		returnError(request, response, e.getMessage());
 	}
-	
-	private PaymentCard initPaymentCard(HttpServletRequest request) {
-		Cookie[] cookies = request.getCookies();
-        int userID = Integer.parseInt(cookies[1].getValue());
-		
-		try {
-		user = userDA.getUserByID(userID);
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		int numOfCards = user.getNumOfCards() + 1;
-		user.setNumOfCards(numOfCards);
-		
-		PaymentCard paymentCard = new PaymentCard();
-		
-		String cardNum = request.getParameter("cardNum");
-		int cardTypeNum = Integer.parseInt(request.getParameter("cardType"));
-		String expDate = request.getParameter("expDate");
-		
-		CardType[] cardTypeValues = CardType.values();
-		CardType cardType = cardTypeValues[cardTypeNum-1];
-		
-		paymentCard.setCardNum(cardNum);
-		paymentCard.setCardType(cardType);
-		paymentCard.setExpDate(expDate);
-		paymentCard.setUserID(userID);
-		
-		return paymentCard;
-	}
-	
 	
 	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
 		Message message = new Message();
@@ -132,4 +128,5 @@ public class SendPayment extends HttpServlet {
 			e1.printStackTrace();
 		}
 	}
+
 }

@@ -56,7 +56,7 @@ public class UpdateCard extends HttpServlet {
 	        
 	        String cardNum = request.getParameter("cardNum");
 	        
-	        int cardTypeNum = Integer.parseInt(request.getParameter("paymentMethod"));
+	        int cardTypeNum = Integer.parseInt(request.getParameter("cardType"));
 	        CardType[] cardTypeValues = CardType.values();
 	        CardType cardType = cardTypeValues[cardTypeNum-1];
 	        

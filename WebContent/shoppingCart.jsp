@@ -188,7 +188,7 @@
 											
 											out.println("<li class=\"list-group-item\">");
 											
-											out.println("<form action=\"Search\" method=\"POST\" accept-charset=\"UTF-8\">");
+											out.println("<form action=\"RemoveFromCart\" method=\"POST\" accept-charset=\"UTF-8\">");
 											out.println("<img src=\"" + currentBook.getImagePath() + "\" class=\"cart-img mr-3\" alt=\"\" width=\"95\" height=\"110\">");
 											out.println("<div class=\"media-body\">");
 											out.println("<h5 class=\"mt-0 mb-1\">" + currentBook.getTitle() + "</h5>");
@@ -197,11 +197,9 @@
 											out.println("<label for=\"quantity\">Quantity:</label>");
 											out.println("<input type=\"number\" id=\"quantity1\" class=\"quantity\" name=\"quantity\" min=\"1\" value=\"" + currentOrderItem.getQuantity() + "\">");
 											out.println("<p class=\"mt-2\">$" + currentBook.getSellingPrice() + "</p>");
-											out.println("<form action=\"RemoveFromCart\" method=\"POST\" accept-charset=\"UTF-8\">");
 											out.println("<input type=\"hidden\" name=\"bookID\" value=\"" + currentBook.getBookID() + "\"/>");
 											out.println("<input type=\"hidden\" name=\"orderID\" value=\"" + currentOrderItem.getOrderID() + "\"/>");
 											out.println("<button type=\"submit\" class=\"btn btn-outline-secondary btn-sm\">Remove</button>");
-											out.println("</form>");
 											out.println("</div>");
 											out.println("</form>");
 											
@@ -381,7 +379,7 @@
 		                            		out.println("<p>Address: " + address.getStreet() + ", " + address.getCity() + ", " + address.getState() + ", " + address.getZipCode() + "</p>");
 		                            		out.println("</div>");
 		                            		out.println("<div class=\"shippingInputOptions\">");
-		                            		out.println("<input type=\"radio\" class=\"shippingInfoRadio\" id=\"shippingInfo1\" name=\"shippingInfo\" value=\"shippingInfo1\">");
+		                            		out.println("<input type=\"radio\" class=\"shippingInfoRadio\" id=\"shippingInfo1\" name=\"shippingInfo\" value=\"shippingInfo1\" checked>");
 		                            		out.println("<button type=\"button\" id=\"editAddress\" class=\"btn btn-primary center\" data-toggle=\"modal\" data-target=\"#editAddress1\" style=\"border: none;\">Edit</button>");
 		                            		out.println("</div>");
 		                            		out.println("</div>");
@@ -414,7 +412,7 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Edit Payment Method</h5>
                                 </div>
-                                <form id="editCard" class="needs-validation" action="UpdateCard" method="POST" accept-charset="UTF-8" novalidate>
+                                <form id="editCard" class="needs-validation" action="SCUpdateCard" method="POST" accept-charset="UTF-8" novalidate>
                                     <div class="modal-body">
                                         
                                         <div class="form-group">
@@ -548,7 +546,7 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Edit Address</h5>
                                 </div>
-                                <form id="address" class="needs-validation" action="UpdateAddress" method="POST" accept-charset="UTF-8" novalidate>
+                                <form id="address" class="needs-validation" action="SCUpdateAddress" method="POST" accept-charset="UTF-8" novalidate>
                                     <div class="modal-body">
                                         
                                         <div class="form-group">
