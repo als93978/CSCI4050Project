@@ -9,7 +9,20 @@ public class DataAccessHelper {
 	private static final String dbUsername = "root";
 	private static final String dbPassword = "*LBBVh610gX98SEYOEtEMYRo5";
 	
-	public static Connection getConnection() throws SQLException {
+	private static DataAccessHelper dataAccessHelper = null;
+	
+	private DataAccessHelper() {
+		
+	}
+	
+	public static DataAccessHelper getInstance() throws SQLException {
+		if(dataAccessHelper == null)
+			dataAccessHelper = new DataAccessHelper();
+		
+		return dataAccessHelper;
+	}
+	
+	public Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 	}
 	

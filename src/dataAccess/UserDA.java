@@ -68,7 +68,7 @@ public class UserDA implements IUserDA {
 		int numOfCards = user.getNumOfCards();
 		String type = user.getType().name();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -92,7 +92,7 @@ public class UserDA implements IUserDA {
 	public List<User> getAllUsers() throws SQLException {
 		List<User> users = new ArrayList<User>();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -141,7 +141,7 @@ public class UserDA implements IUserDA {
 	public List<User> getAllAdminUsers() throws SQLException {
 		List<User> users = new ArrayList<User>();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -190,7 +190,7 @@ public class UserDA implements IUserDA {
 	public List<User> getAllEmployeeUsers() throws SQLException {
 		List<User> users = new ArrayList<User>();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -239,7 +239,7 @@ public class UserDA implements IUserDA {
 	public List<User> getAllCustomerUsers() throws SQLException {
 		List<User> users = new ArrayList<User>();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -288,7 +288,7 @@ public class UserDA implements IUserDA {
 	public User getUserByID(int userID) throws SQLException {
 		User user = null;
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -340,7 +340,7 @@ public class UserDA implements IUserDA {
 	public User getUserByEmail(String email) throws SQLException {
 		User user = null;
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -392,7 +392,7 @@ public class UserDA implements IUserDA {
 	public User getLastUser() throws SQLException {
 		User user = null;
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -453,7 +453,7 @@ public class UserDA implements IUserDA {
 		String type = user.getType().name();
 		int addressID = user.getAddressID();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -490,7 +490,7 @@ public class UserDA implements IUserDA {
 		String password = user.getPassword();
 		int userID = user.getUserID();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -510,7 +510,7 @@ public class UserDA implements IUserDA {
 	public void deleteUser(User user) throws SQLException {
 		int userID = user.getUserID();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();

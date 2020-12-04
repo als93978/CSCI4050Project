@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"
     import="javax.servlet.http.Cookie, dataAccess.*"
     import="java.util.List"
+    import="java.text.DecimalFormat"
     import="models.Book"
     import="models.ErrorMessage"
     import="models.Message"
@@ -331,6 +332,8 @@
 							for(int i = 0; i < numOfBooksPerShelf; i++) {
 								Book currentBook = featuredBooks.get(i);
 								
+								String formattedPrice = new DecimalFormat("0.00").format(currentBook.getSellingPrice());
+								
 								out.println("<div class=\"modal fade\" id=\"book" + (i+1) + "\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">");
 								out.println("<div class=\"modal-dialog\">");
 								out.println("<div class=\"modal-content\">");
@@ -347,7 +350,7 @@
 								out.println("<br><br>");
 								out.println("Genre: " + currentBook.getGenre());
 								out.println("<br><br>");
-								out.println("Price: $" + currentBook.getSellingPrice());
+								out.println("Price: $" + formattedPrice);
 								out.println("<br><br>");
 								out.println("ISBN: " + currentBook.getIsbn());
 								out.println("<br><br>");
@@ -368,6 +371,8 @@
 							for(int i = 0; i < numOfBooksPerShelf; i++) {
 								Book currentBook = topSellingBooks.get(i);
 								
+								String formattedPrice = new DecimalFormat("0.00").format(currentBook.getSellingPrice());
+								
 								out.println("<div class=\"modal fade\" id=\"book" + (numOfBooksPerShelf + (i+1)) + "\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">");
 								out.println("<div class=\"modal-dialog\">");
 								out.println("<div class=\"modal-content\">");
@@ -384,7 +389,7 @@
 								out.println("<br><br>");
 								out.println("Genre: " + currentBook.getGenre());
 								out.println("<br><br>");
-								out.println("Price: $" + currentBook.getSellingPrice());
+								out.println("Price: $" + formattedPrice);
 								out.println("<br><br>");
 								out.println("ISBN: " + currentBook.getIsbn());
 								out.println("<br><br>");

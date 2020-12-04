@@ -36,7 +36,7 @@ public class AddressDA implements IAddressDA {
 		String state = address.getState();
 		int zipCode = address.getZipCode();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -56,7 +56,7 @@ public class AddressDA implements IAddressDA {
 	public Address getAddressByID(int addressID) throws SQLException {
 		Address address = null;
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -96,7 +96,7 @@ public class AddressDA implements IAddressDA {
 	public Address getLastAddress() throws SQLException {
 		Address address = null;
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -138,7 +138,7 @@ public class AddressDA implements IAddressDA {
 		String state = address.getState();
 		int zipCode = address.getZipCode();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -159,7 +159,7 @@ public class AddressDA implements IAddressDA {
 	public void deleteAddress(Address address) throws SQLException {
 		int addressID = address.getAddressID();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();

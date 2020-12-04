@@ -90,6 +90,8 @@ CREATE TABLE IF NOT EXISTS `Order` (
     PaymentMethod varchar(255),
     CardNum varchar(255),
     FOREIGN KEY(CardNum) REFERENCES PaymentCard(CardNum),
+    AddressID int,
+    FOREIGN KEY(AddressID) REFERENCES Address(AddressID),
     `PromotionCode` int,
     FOREIGN KEY(`PromotionCode`) REFERENCES Promotion(`PromotionCode`),
     OrderStatus ENUM('SUBMITTED', 'NOTSUBMITTED') NOT NULL

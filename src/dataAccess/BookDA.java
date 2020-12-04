@@ -98,7 +98,7 @@ public class BookDA implements IBookDA {
 		boolean archived = book.getArchived();
 		String marketingAttribute = book.getMarketingAttribute().name();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -129,7 +129,7 @@ public class BookDA implements IBookDA {
 	public List<Book> getAllBooks() throws SQLException {
 		List<Book> books = new ArrayList<Book>();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -187,7 +187,7 @@ public class BookDA implements IBookDA {
 	public List<Book> getAllFeaturedBooks() throws SQLException {
 		List<Book> books = new ArrayList<Book>();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -245,7 +245,7 @@ public class BookDA implements IBookDA {
 	public List<Book> getAllTopSellingBooks() throws SQLException {
 		List<Book> books = new ArrayList<Book>();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -309,7 +309,7 @@ public class BookDA implements IBookDA {
 		
 		List<Book> books = new ArrayList<Book>();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -384,7 +384,7 @@ public class BookDA implements IBookDA {
 	public List<Book> getBooksByFilter(SearchFilter filter) throws SQLException {
 		List<Book> books = new ArrayList<Book>();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -513,7 +513,7 @@ public class BookDA implements IBookDA {
 	public Book getBookByID(int bookID) throws SQLException {
 		Book book = null;
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -574,7 +574,7 @@ public class BookDA implements IBookDA {
 	public Book getBookByISBN(String isbn) throws SQLException {
 		Book book = null;
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -636,7 +636,7 @@ public class BookDA implements IBookDA {
 	public Book getLastBook() throws SQLException {
 		Book book = null;
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -712,8 +712,7 @@ public class BookDA implements IBookDA {
 		boolean archived = book.getArchived();
 		String marketingAttribute = book.getMarketingAttribute().name();
 
-		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -746,7 +745,7 @@ public class BookDA implements IBookDA {
 	public void deleteBook(Book book) throws SQLException {
 		int bookID = book.getBookID();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();

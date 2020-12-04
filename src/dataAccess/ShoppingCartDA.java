@@ -25,7 +25,7 @@ public class ShoppingCartDA implements IShoppingCartDA {
 	public void createShoppingCart(ShoppingCart cart) throws SQLException {
 		int userID = cart.getUserID();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -42,7 +42,7 @@ public class ShoppingCartDA implements IShoppingCartDA {
 	public ShoppingCart getShoppingCartByUserID(int userID) throws SQLException {
 		ShoppingCart cart = null;
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -78,7 +78,7 @@ public class ShoppingCartDA implements IShoppingCartDA {
 		int cartID = cart.getCartID();
 		int orderID = cart.getOrderID();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();

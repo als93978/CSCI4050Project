@@ -39,10 +39,8 @@ public class OrderItemDA implements IOrderItemDA {
 		int bookID = orderItem.getBookID();
 		int orderID = orderItem.getOrderID();
 		int quantity = orderItem.getQuantity();
-		
-		System.out.println("orderID in createOrderItem(): " + orderID);
-		
-		Connection connection = DataAccessHelper.getConnection();
+
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -61,7 +59,7 @@ public class OrderItemDA implements IOrderItemDA {
 	public List<OrderItem> getOrderItemsByOrderID(int orderID) throws SQLException {
 		List<OrderItem> orderItems = new ArrayList<OrderItem>();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -94,7 +92,7 @@ public class OrderItemDA implements IOrderItemDA {
 	public OrderItem getOrderItem(int bookID, int orderID) throws SQLException {
 		OrderItem orderItem = null;
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -132,7 +130,7 @@ public class OrderItemDA implements IOrderItemDA {
 		int orderID = orderItem.getOrderID();
 		int quantity = orderItem.getQuantity();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -152,7 +150,7 @@ public class OrderItemDA implements IOrderItemDA {
 		int bookID = orderItem.getBookID();
 		int orderID = orderItem.getOrderID();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
