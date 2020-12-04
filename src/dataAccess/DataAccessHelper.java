@@ -25,5 +25,4 @@ public class DataAccessHelper {
 	public Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(dbURL, dbUsername, dbPassword);
 	}
-	
 }

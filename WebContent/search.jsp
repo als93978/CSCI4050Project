@@ -106,7 +106,6 @@
  						
  						<a class="nav-link" href="ShoppingCart">
 							 <i class="fas fa-shopping-cart fa-2x"></i>
-							 <span class="badge badge-dark badge-pill">4</span>
  						</a>
  					</div>
  				</nav>

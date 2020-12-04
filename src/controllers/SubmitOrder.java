@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dataAccess.AddressDA;
 import dataAccess.OrderDA;
+import dataAccess.UserDA;
 import models.Address;
 import models.Book;
 import models.ErrorMessage;
@@ -21,6 +23,7 @@ import models.Order;
 import models.OrderItem;
 import models.OrderStatus;
 import models.PaymentCard;
+import models.User;
 
 /**
  * Servlet implementation class SubmitOrder
@@ -29,7 +32,9 @@ import models.PaymentCard;
 public class SubmitOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	private UserDA userDA = new UserDA();
 	private OrderDA orderDA = new OrderDA();
+	private AddressDA addressDA = new AddressDA();
 	
 	private Order order = null;
 	
@@ -62,22 +67,24 @@ public class SubmitOrder extends HttpServlet {
 		HttpSession infoSession = request.getSession();
 		
 		order = (Order) infoSession.getAttribute("order");
-		PaymentCard paymentCard = (PaymentCard) infoSession.getAttribute("paymentCard");
-		Address address = (Address) infoSession.getAttribute("address");
+		//PaymentCard paymentCard = (PaymentCard) infoSession.getAttribute("paymentCard");
+		//Address address = (Address) infoSession.getAttribute("address");
 		List<OrderItem> orderItems = (List<OrderItem>) infoSession.getAttribute("orderItems");
 		List<Book> booksForOrderItems = (List<Book>) infoSession.getAttribute("booksForOrderItems");
+		User user = userDA.getUserByID(order.getUserID());
+		Address address = addressDA.getAddressByID(user.getAddressID());
 		
 		Date dateTime = new Date();
 		order.setOrderDateTime(dateTime.toString());
 		
-		String paymentMethod = paymentCard.getCardType().name();
-		order.setPaymentMethod(paymentMethod);
+//		String paymentMethod = paymentCard.getCardType().name();
+//		order.setPaymentMethod(paymentMethod);
 		
-		String cardNum = paymentCard.getCardNum();
-		order.setCardNum(cardNum);
+//		String cardNum = paymentCard.getCardNum();
+//		order.setCardNum(cardNum);
 		
-		int addressID = address.getAddressID();
-		order.setAddressID(addressID);
+//		int addressID = address.getAddressID();
+//		order.setAddressID(addressID);
 		
 		order.setOrderStatus(OrderStatus.SUBMITTED);
 		
@@ -86,8 +93,10 @@ public class SubmitOrder extends HttpServlet {
 		request.setAttribute("order", order);
 		request.setAttribute("orderItems", orderItems);
 		request.setAttribute("booksForOrderItems", booksForOrderItems);
+		request.setAttribute("user", user);
+		request.setAttribute("address", address);
 		
-		redirectToPage(request, response, "OrderConfirmation");
+		redirectToPage(request, response, "orderConfirmation.jsp");
 	}
 	
 	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {

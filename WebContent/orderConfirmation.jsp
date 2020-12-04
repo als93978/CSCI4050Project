@@ -1,3 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="javax.servlet.http.Cookie, dataAccess.*"
+    import="java.util.List"
+    import="java.text.DecimalFormat"
+    import="models.ErrorMessage"
+    import="models.Message"
+    import="models.User"
+    import="models.Address"
+    import="models.PaymentCard"
+    import="models.CardType"
+    import="models.OrderItem"
+    import="models.Book"
+    import="models.Order"
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -21,7 +37,7 @@
 			<!-- Header -->
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
- 					<a class="navbar-brand" href="homepageWithUserIcon.html">
+ 					<a class="navbar-brand" href="Index">
 <!--  						<img class="logoImg" src="img/bookbayLogo.png"> -->
 						BookBay
  					</a>
@@ -99,7 +115,7 @@
                       <br> 
                       An order confirmation with the order details below has been sent to your email address.
                 	</p>
-                  <a href="homepageWithUserIcon.html" class="text-primary">Go to homepage</a>
+                  <a href="Index" class="text-primary">Go to homepage</a>
 				</div>
 				
 				<div class="container">
@@ -107,11 +123,33 @@
 					<h5 class="text-center">Order details</h5>
 					<br>
 					<ul class="list-group list-group-flush">
-						<li class="list-group-item">Order ID: 200152111</li>
-						<li class="list-group-item">Order Date: September 27, 2020</li>
-						<li class="list-group-item">Total Price: $6.97</li>
-						<li class="list-group-item">Customer Name: Floyd Grant</li>
-						<li class="list-group-item">Shipping Address: 1928 Hillhaven Drive, Los Angeles, CA 90046</li>
+					
+						<%
+							Order order = (Order) request.getAttribute("order");
+                    		List<OrderItem> orderItems = (List<OrderItem>) request.getAttribute("orderItems");
+                    		List<Book> booksForOrderItems = (List<Book>) request.getAttribute("booksForOrderItems");
+                    		User user = (User) request.getAttribute("user");
+                    		Address address = (Address) request.getAttribute("address");
+                    		
+                    		int orderID = order.getOrderID();
+                    		String orderDate = order.getOrderDateTime();
+                    		String totalPrice = new DecimalFormat("0.00").format(order.getTotalPrice());
+                    		String firstName = user.getFirstName();
+                    		String lastName = user.getLastName();
+                    		
+                    		String street = address.getStreet();
+                    		String city = address.getCity();
+                    		String state = address.getState();
+                    		int zipCode = address.getZipCode();
+                    		
+                    		String fullAddress = street + ", " + city + ", " + state + " " + zipCode;
+						%>
+					
+						<li class="list-group-item">Order ID: <%= orderID %></li>
+						<li class="list-group-item">Order Date: <%= orderDate %></li>
+						<li class="list-group-item">Total Price: $<%= totalPrice %></li>
+						<li class="list-group-item">Customer Name: <%= firstName %> <%= lastName %></li>
+						<li class="list-group-item">Shipping Address: <%= fullAddress %></li>
 						<li class="list-group-item">Confirmation number: 2277693063</li>
 					</ul>
 					<br>
@@ -123,9 +161,29 @@
 					<br>
 					<h6 class="text-center">Ordered Items</h6>
 					<div id="ordered-items" class="list-group">
-						<a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#item-modal">
-						  Harry Potter and the Chamber of Secrets by J.K. Rowling
-						</a>
+					
+						<%
+							for(int i = 0; i < orderItems.size(); i++) {
+								OrderItem currentOrderItem = orderItems.get(i);
+								Book currentBook = booksForOrderItems.get(i);
+								
+								out.println("<a href=\"#\" class=\"list-group-item list-group-item-action\" data-toggle=\"modal\" data-target=\"#book" + (i+1) +"\">");
+								out.println(currentBook.getTitle());
+								out.println("</a>");
+							}
+						%>
+					
+<!-- 						<a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#item-modal"> -->
+<!-- 						  Harry Potter and the Chamber of Secrets by J.K. Rowling -->
+<!-- 						</a> -->
+						
+<!-- 						<a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#item-modal"> -->
+<!-- 						  Harry Potter and the Chamber of Secrets by J.K. Rowling -->
+<!-- 						</a> -->
+						
+<!-- 						<a href="#" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#item-modal"> -->
+<!-- 						  Harry Potter and the Chamber of Secrets by J.K. Rowling -->
+<!-- 						</a> -->
 					</div>
 					<br>
 				</div>
@@ -134,37 +192,78 @@
 
 			<p id="spacing"></p>
 
-			<div class="modal fade" id="item-modal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-				  <div class="modal-content">
-					<div class="modal-header">
-					  <h5 class="modal-title" id="itemModalLabel">Harry Potter and the Chamber of Secrets</h5>
-					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					  </button>
-					</div>
-					<div class="modal-body text-center">
-						<img class="img-fluid book-image" src="img/harry potter CoS.jpg">
-						<br>
-						<br>
-						<p class="modalText">
-							Author: J.K. Rowling
-							<br>
-							Genre: Action
-							<br>
-							Price: $6.97
-							<br>
-							ISBN: 876543456
-							<br>
-							Description: Enter the world of Harry Potter.
-						</p>
-					</div>
-					<div class="modal-footer">
-					  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-					</div>
-				  </div>
-				</div>
-			</div>
+			<%
+				for(int i = 0; i < orderItems.size(); i++) {
+					OrderItem currentOrderItem = orderItems.get(i);
+					Book currentBook = booksForOrderItems.get(i);
+					
+					String formattedPrice = new DecimalFormat("0.00").format(currentBook.getSellingPrice());
+					
+					out.println("<div class=\"modal fade\" id=\"book" + (i+1) + "\" tabindex=\"-1\" aria-labelledby=\"itemModalLabel\" aria-hidden=\"true\">");
+					out.println("<div class=\"modal-dialog modal-dialog-centered\">");
+					out.println("<div class=\"modal-content\">");
+					out.println("<div class=\"modal-header\">");
+					out.println("<h5 class=\"modal-title\" id=\"itemModalLabel\">" + currentBook.getTitle() + "</h5>");
+					out.println("<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">");
+					out.println("<span aria-hidden=\"true\">&times;</span>");
+					out.println("</button>");
+					out.println("</div>");
+					out.println("<div class=\"modal-body text-center\">");
+					out.println("<img class=\"img-fluid book-image\" src=\"" + currentBook.getImagePath() + "\">");
+					out.println("<br>");
+					out.println("<br>");
+					out.println("<p class=\"modalText\">");
+					out.println("Author: " + currentBook.getAuthor());
+					out.println("<br>");
+					out.println("Genre: " + currentBook.getGenre());
+					out.println("<br>");
+					out.println("Price: $" + formattedPrice);
+					out.println("<br>");
+					out.println("ISBN: " + currentBook.getIsbn());
+					out.println("<br>");
+					out.println("Description: " + currentBook.getDescription());
+					out.println("</p>");
+					out.println("</div>");
+					out.println("<div class=\"modal-footer\">");
+					out.println("<button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button>");
+					out.println("</div>");
+					out.println("</div>");
+					out.println("</div>");
+					out.println("</div>");
+				}
+			%>
+
+<!-- 			<div class="modal fade" id="item-modal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true"> -->
+<!-- 				<div class="modal-dialog modal-dialog-centered"> -->
+<!-- 				  <div class="modal-content"> -->
+<!-- 					<div class="modal-header"> -->
+<!-- 					  <h5 class="modal-title" id="itemModalLabel">Harry Potter and the Chamber of Secrets</h5> -->
+<!-- 					  <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+<!-- 						<span aria-hidden="true">&times;</span> -->
+<!-- 					  </button> -->
+<!-- 					</div> -->
+<!-- 					<div class="modal-body text-center"> -->
+<!-- 						<img class="img-fluid book-image" src="img/harry potter CoS.jpg"> -->
+<!-- 						<br> -->
+<!-- 						<br> -->
+<!-- 						<p class="modalText"> -->
+<!-- 							Author: J.K. Rowling -->
+<!-- 							<br> -->
+<!-- 							Genre: Action -->
+<!-- 							<br> -->
+<!-- 							Price: $6.97 -->
+<!-- 							<br> -->
+<!-- 							ISBN: 876543456 -->
+<!-- 							<br> -->
+<!-- 							Description: Enter the world of Harry Potter. -->
+<!-- 						</p> -->
+<!-- 					</div> -->
+<!-- 					<div class="modal-footer"> -->
+<!-- 					  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
+<!-- 					</div> -->
+<!-- 				  </div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 
             <!-- Footer -->
 	     	<div class="footerContainer">
