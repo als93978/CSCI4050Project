@@ -13,4 +13,6 @@ public interface IOrderItemDA {
 	public OrderItem getOrderItem(int bookID, int orderID) throws SQLException;
 	
 	public void updateOrderItem(OrderItem orderItem) throws SQLException;
+	
+	public void deleteOrderItem(OrderItem orderItem) throws SQLException;
 }

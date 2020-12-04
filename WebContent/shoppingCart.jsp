@@ -188,6 +188,7 @@
 											
 											out.println("<li class=\"list-group-item\">");
 											
+											out.println("<form action=\"Search\" method=\"POST\" accept-charset=\"UTF-8\">");
 											out.println("<img src=\"" + currentBook.getImagePath() + "\" class=\"cart-img mr-3\" alt=\"\" width=\"95\" height=\"110\">");
 											out.println("<div class=\"media-body\">");
 											out.println("<h5 class=\"mt-0 mb-1\">" + currentBook.getTitle() + "</h5>");
@@ -196,8 +197,11 @@
 											out.println("<label for=\"quantity\">Quantity:</label>");
 											out.println("<input type=\"number\" id=\"quantity1\" class=\"quantity\" name=\"quantity\" min=\"1\" value=\"" + currentOrderItem.getQuantity() + "\">");
 											out.println("<p class=\"mt-2\">$" + currentBook.getSellingPrice() + "</p>");
+											out.println("<input type=\"hidden\" name=\"bookID\" value=\"" + currentBook.getBookID() + "\"/>");
+											out.println("<input type=\"hidden\" name=\"orderID\" value=\"" + currentOrderItem.getOrderID() + "\"/>");
 											out.println("<button type=\"button\" class=\"btn btn-outline-secondary btn-sm\">Remove</button>");
 											out.println("</div>");
+											out.println("</form>");
 											
 											out.println("</li>");
 										}
