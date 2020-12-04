@@ -399,6 +399,14 @@
  									</div>
  									
  									<div class="nextBtnContainer">
+ 									
+ 										<%
+ 											HttpSession infoSession = request.getSession();
+ 										
+ 											infoSession.setAttribute("orderItems", orderItems);
+ 											infoSession.setAttribute("booksForOrderItems", booksForOrderItems);
+ 										%>
+ 									
  										<form action="OrderSummary" method="POST" accept-charset="UTF-8">
 											<button type="submit" id="next" class="btn btn-primary btn-lg">Next</button>
 										</form>

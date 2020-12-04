@@ -7,6 +7,21 @@
 	the Outline document on the Google Drive.
 -->
 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="javax.servlet.http.Cookie, dataAccess.*"
+    import="java.util.List"
+    import="java.text.DecimalFormat"
+    import="models.ErrorMessage"
+    import="models.Message"
+    import="models.User"
+    import="models.Address"
+    import="models.PaymentCard"
+    import="models.CardType"
+    import="models.OrderItem"
+    import="models.Book"
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -111,44 +126,75 @@
 							
 							<div class="card-body">
 								<ul class="list-group">
-									<li class="list-group-item d-flex justify-content-between lh-condensed">
-										<div>
-											<h6>Head First Web Design</h6>
-											<small class="text-muted">Ethan Watrall, Jeff Siarto</small>
-										</div>
-										<span class="text-muted">$9.99</span>
-									</li>
+								
+									<%
+										List<OrderItem> orderItems = (List<OrderItem>) request.getAttribute("orderItems");
+										List<Book> booksForOrderItems = (List<Book>) request.getAttribute("booksForOrderItems");
+										
+										String subtotal = (String) request.getAttribute("subtotal");										
+										String tax = (String) request.getAttribute("tax");
+										String total = (String) request.getAttribute("total");
+										
+										for(int i = 0; i < orderItems.size(); i++) {
+											OrderItem currentOrderItem = orderItems.get(i);
+											Book currentBook = booksForOrderItems.get(i);
+											String totalPrice = new DecimalFormat("0.00").format(currentOrderItem.getQuantity() * currentBook.getSellingPrice());
+											
+											out.println("<li class=\"list-group-item d-flex justify-content-between lh-condensed\">");
+											
+											out.println("<div>");
+											
+											if(currentOrderItem.getQuantity() > 1)
+												out.println("<h6>" + currentBook.getTitle() + " (" + currentOrderItem.getQuantity() + ")" + "</h6>");
+											else
+												out.println("<h6>" + currentBook.getTitle() + "</h6>");
+											
+											out.println("<small class=\"text-muted\">" + currentBook.getAuthor() + "</small>");
+											out.println("</div>");
+											out.println("<span class=\"text-muted\">$" + totalPrice + "</span>");
+											
+											out.println("</li>");
+										}
+									%>
+								
+<!-- 									<li class="list-group-item d-flex justify-content-between lh-condensed"> -->
+<!-- 										<div> -->
+<!-- 											<h6>Head First Web Design</h6> -->
+<!-- 											<small class="text-muted">Ethan Watrall, Jeff Siarto</small> -->
+<!-- 										</div> -->
+<!-- 										<span class="text-muted">$9.99</span> -->
+<!-- 									</li> -->
 
-									<li class="list-group-item d-flex justify-content-between lh-condensed">
-										<div>
-											<h6>The Great Gatsby (2)</h6>
-											<small class="text-muted">F. Scott Fitzgerald</small>
-										</div>
-										<span class="text-muted">$19.98</span>
-									</li>
+<!-- 									<li class="list-group-item d-flex justify-content-between lh-condensed"> -->
+<!-- 										<div> -->
+<!-- 											<h6>The Great Gatsby (2)</h6> -->
+<!-- 											<small class="text-muted">F. Scott Fitzgerald</small> -->
+<!-- 										</div> -->
+<!-- 										<span class="text-muted">$19.98</span> -->
+<!-- 									</li> -->
 
-									<li class="list-group-item d-flex justify-content-between lh-condensed">
-										<div>
-											<h6>The Catcher in the Rye</h6>
-											<small class="text-muted">J.D. Saligner</small>
-										</div>
-										<span class="text-muted">$9.99</span>
-									</li>
+<!-- 									<li class="list-group-item d-flex justify-content-between lh-condensed"> -->
+<!-- 										<div> -->
+<!-- 											<h6>The Catcher in the Rye</h6> -->
+<!-- 											<small class="text-muted">J.D. Saligner</small> -->
+<!-- 										</div> -->
+<!-- 										<span class="text-muted">$9.99</span> -->
+<!-- 									</li> -->
 
-									<li class="list-group-item d-flex justify-content-between lh-condensed">
-										<div>
-											<h6>Catch-22</h6>
-											<small class="text-muted">Joseph Heller</small>
-										</div>
-										<span class="text-muted">$9.99</span>
-									</li>
+<!-- 									<li class="list-group-item d-flex justify-content-between lh-condensed"> -->
+<!-- 										<div> -->
+<!-- 											<h6>Catch-22</h6> -->
+<!-- 											<small class="text-muted">Joseph Heller</small> -->
+<!-- 										</div> -->
+<!-- 										<span class="text-muted">$9.99</span> -->
+<!-- 									</li> -->
 
 									<li class="list-group-item">
-										<h6>Subtotal: $49.95</h6>
+										<h6>Subtotal: $<%= subtotal %></h6>
 									</li>
 									
 									<li class="list-group-item">
-										<h6>Tax: $2.80</h6>
+										<h6>Tax: $<%= tax %></h6>
 									</li>
 
 									<li class="list-group-item d-flex justify-content-between bg-light">
@@ -160,7 +206,7 @@
 									</li>
 									
 									<li class="list-group-item">
-										<h6>Total: $32.75</h6>
+										<h6>Total: $<%= total %></h6>
 									</li>
 								</ul>
 								
