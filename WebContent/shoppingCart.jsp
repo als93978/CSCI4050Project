@@ -30,11 +30,10 @@
 	PaymentCardDA paymentCardDA = new PaymentCardDA();
 	AddressDA addressDA = new AddressDA();
 	Cookie[] cookies = request.getCookies();
-    	int userID = Integer.parseInt(cookies[1].getValue());
-    
-    	user = userDA.getUserByID(userID);
+    int userID = Integer.parseInt(cookies[1].getValue());
+    user = userDA.getUserByID(userID);
 
-    	int addressID = user.getAddressID();
+    int addressID = user.getAddressID();
 	
 	List<OrderItem> orderItems = (List<OrderItem>) request.getAttribute("orderItems");
 	List<Book> booksForOrderItems = (List<Book>) request.getAttribute("booksForOrderItems");

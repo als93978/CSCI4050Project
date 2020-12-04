@@ -7,6 +7,7 @@ import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,8 +29,11 @@ import models.User;
 @WebServlet("/SendAddress")
 public class SendAddress extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	private AddressDA addressDA = new AddressDA();
 	private UserDA userDA = new UserDA();
+	
+	private User user = null;
 	private Address address = null;
        
     /**
@@ -65,9 +69,18 @@ public class SendAddress extends HttpServlet {
 	}
 	
 	private Address initAddress(HttpServletRequest request) {
-		Address address = new Address();
+		Cookie[] cookies = request.getCookies();
+        int userID = Integer.parseInt(cookies[1].getValue());
 		
-		int addressID = 1;
+		try {
+		user = userDA.getUserByID(userID);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		Address address = new Address();
+
+		int addressID = user.getAddressID();
 		String street = request.getParameter("street");
 		String city = request.getParameter("city");
 		String state = request.getParameter("state");
