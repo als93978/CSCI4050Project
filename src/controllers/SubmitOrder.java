@@ -2,7 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,24 +14,29 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dataAccess.OrderDA;
+import models.Address;
 import models.Book;
 import models.ErrorMessage;
 import models.Order;
 import models.OrderItem;
+import models.OrderStatus;
+import models.PaymentCard;
 
 /**
- * Servlet implementation class OrderSummary
+ * Servlet implementation class SubmitOrder
  */
-@WebServlet("/OrderSummary")
-public class OrderSummary extends HttpServlet {
+@WebServlet("/SubmitOrder")
+public class SubmitOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private OrderDA orderDA = new OrderDA();
 	
+	private Order order = null;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderSummary() {
+    public SubmitOrder() {
         super();
     }
 
@@ -47,79 +52,42 @@ public class OrderSummary extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			calculateOrderValues(request, response);
+			submitOrder(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void calculateOrderValues(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	private void submitOrder(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		HttpSession infoSession = request.getSession();
 		
+		order = (Order) infoSession.getAttribute("order");
+		PaymentCard paymentCard = (PaymentCard) infoSession.getAttribute("paymentCard");
+		Address address = (Address) infoSession.getAttribute("address");
 		List<OrderItem> orderItems = (List<OrderItem>) infoSession.getAttribute("orderItems");
-		
-		if(orderItems == null) {
-			String emptyCartMsg = "Your cart is empty. Please add an item to your cart before attempting to continue.";
-			
-			returnError(request, response, emptyCartMsg);
-		}
-		
 		List<Book> booksForOrderItems = (List<Book>) infoSession.getAttribute("booksForOrderItems");
-		Order order = (Order) infoSession.getAttribute("order");
 		
-		float subtotal = 0.0f;
-		float tax = 0.0f;
-		float total = 0.0f;
+		Date dateTime = new Date();
+		order.setOrderDateTime(dateTime.toString());
 		
-		DecimalFormat decimalFormat = new DecimalFormat("0.00");
+		String paymentMethod = paymentCard.getCardType().name();
+		order.setPaymentMethod(paymentMethod);
 		
-		// Calculate subtotal (all order items price * quantity)
-		for(int i = 0; i < orderItems.size(); i++) {
-			OrderItem currentOrderItem = orderItems.get(i);
-			Book currentBook = booksForOrderItems.get(i);
-			
-			int quantity = currentOrderItem.getQuantity();
-			float price = currentBook.getSellingPrice();
-			
-			subtotal += (quantity * price);
-		}
+		String cardNum = paymentCard.getCardNum();
+		order.setCardNum(cardNum);
 		
-		// Calculate tax (subtotal * taxRate)
-		float taxRate = 0.07f;
+		int addressID = address.getAddressID();
+		order.setAddressID(addressID);
 		
-		tax = subtotal * taxRate;
+		order.setOrderStatus(OrderStatus.SUBMITTED);
 		
-		// Calculate total ((subtotal + tax) - promoDiscount)
-		int promoRawPercent = order.getPromotionCode();
-		
-		if(promoRawPercent != 0) {
-			float promoPercent = promoRawPercent / 100.0f;
-			float subtotalBeforeDiscount = subtotal + tax;
-			float promoDiscount = subtotalBeforeDiscount * promoPercent;
-			
-			total = subtotalBeforeDiscount - promoDiscount;
-			
-			request.setAttribute("promoRawPercent", promoRawPercent);
-			request.setAttribute("promoDiscount", promoDiscount);
-		}
-		
-		else {
-			total = subtotal + tax;
-		}
-		
-		// Set TotalPrice in Order in db
-		order.setTotalPrice(total);
 		orderDA.updateOrder(order);
 		
-		request.setAttribute("subtotal", decimalFormat.format(subtotal));
-		request.setAttribute("tax", decimalFormat.format(tax));
-		request.setAttribute("total", decimalFormat.format(total));
-		
+		request.setAttribute("order", order);
 		request.setAttribute("orderItems", orderItems);
 		request.setAttribute("booksForOrderItems", booksForOrderItems);
-		request.setAttribute("order", order);
 		
-		redirectToPage(request, response, "orderSummary.jsp");
+		redirectToPage(request, response, "OrderConfirmation");
 	}
 	
 	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {
@@ -129,7 +97,7 @@ public class OrderSummary extends HttpServlet {
 		
 		request.setAttribute("errorMessage", errorMessage);
 		
-		redirectToPage(request, response, "shoppingCart.jsp");
+		redirectToPage(request, response, "orderSummary.jsp");
 	}
 	
 	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {

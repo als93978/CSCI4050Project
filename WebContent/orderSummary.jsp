@@ -1,5 +1,5 @@
 <!--  
-	orderSummary.html
+	orderSummary.jsp
 	
 	Austin Schultz (als93978)
 	
@@ -20,6 +20,7 @@
     import="models.CardType"
     import="models.OrderItem"
     import="models.Book"
+    import="models.Order"
 %>
 
 <!DOCTYPE html>
@@ -45,7 +46,7 @@
 			<!-- Header -->
 			<div class="headerContainer">
  				<nav class="navbar navbar-expand-lg navbar-custom">
- 					<a class="navbar-brand" href="index.html">
+ 					<a class="navbar-brand" href="Index">
 						<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-book-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 						  <path fill-rule="evenodd" d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
 						</svg>
@@ -97,17 +98,35 @@
  							<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
  						</form>
  						
- 						<ul class="navbar-nav">
- 							<li>
- 								<a class="nav-link" href="login.html">Login</a>
- 							</li>
- 							
- 							<li>
- 								<a class="nav-link" href="registration.jsp">Register</a>
- 							</li>
- 						</ul>
+<!--  						<div class="dropdown"> -->
+<!-- 							<a class="nav-link dropdown-toggle" href="#" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+<!-- 								<img src="img/user-icon.png" class="img-fluid user-icon" alt="User Icon"> -->
+<!-- 							</a> -->
+<!-- 							<form id="logoutForm" action="Logout" method="post"> -->
+<!-- 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> -->
+<!-- 									<a id="logoutBtn" class="dropdown-item">Log off</a> -->
+<!-- 									<a class="dropdown-item" href="orderhistory.html">Order history</a> -->
+<!-- 									<a class="dropdown-item" href="EditProfile">Account settings</a> -->
+<!-- 								</div> -->
+<!-- 							</form> -->
+<!-- 						</div> -->
+
+						<%
+							out.println("<div class=\"dropdown\">");
+							out.println("<a class=\"nav-link dropdown-toggle\" href=\"#\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">");
+							out.println("<img src=\"img/user-icon.png\" class=\"img-fluid user-icon\" alt=\"User Icon\">");
+							out.println("</a>");
+							out.println("<form id=\"logoutForm\" action=\"Logout\" method=\"post\">");
+							out.println("<div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">");
+							out.println("<a id=\"logoutBtn\" class=\"dropdown-item\" href=\"Logout\">Log off</a>");
+							out.println("<a class=\"dropdown-item\" href=\"orderhistory.html\">Order history</a>");
+							out.println("<a class=\"dropdown-item\" href=\"EditProfile\">Account settings</a>");
+							out.println("</div>");
+							out.println("</form>");
+							out.println("</div>");
+						%>
  						
- 						<a class="nav-link" href="shoppingCart.jsp">
+ 						<a class="nav-link" href="ShoppingCart">
 							 <i class="fas fa-shopping-cart fa-2x"></i>
 							 <span class="badge badge-dark badge-pill">4</span>
  						</a>
@@ -118,6 +137,27 @@
 			<!-- Content  -->
 			<div class="contentContainer">
 				<div class="content">
+				
+					<%
+						Message message = (Message) request.getAttribute("message");
+										
+						if(message != null) {
+							out.println("<div class=\"alert alert-success\" role=\"alert\" style=\"display: block\">");
+							out.println("\t" + message.getMessage());
+							out.println("</div>");
+						}
+					%>
+					
+					<%
+						ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
+										
+						if(errorMessage != null) {
+							out.println("<div class=\"alert alert-danger\" role=\"alert\" style=\"display: block\">");
+							out.println("\t" + errorMessage.getMessage());
+							out.println("</div>");
+						}
+					%>
+				
 					<div class="orderSummaryArea align-middle mx-auto">
 						<div class="card orderSummaryCard">
 							<div class="card-header">
@@ -130,10 +170,18 @@
 									<%
 										List<OrderItem> orderItems = (List<OrderItem>) request.getAttribute("orderItems");
 										List<Book> booksForOrderItems = (List<Book>) request.getAttribute("booksForOrderItems");
+										Order order = (Order) request.getAttribute("order");
 										
 										String subtotal = (String) request.getAttribute("subtotal");										
 										String tax = (String) request.getAttribute("tax");
 										String total = (String) request.getAttribute("total");
+										
+										int promoRawPercent = -1;
+										float promoDiscount = -1;
+										if(order.getPromotionCode() != 0) {
+											promoRawPercent = (int) request.getAttribute("promoRawPercent");
+											promoDiscount = (float) request.getAttribute("promoDiscount");
+										}
 										
 										for(int i = 0; i < orderItems.size(); i++) {
 											OrderItem currentOrderItem = orderItems.get(i);
@@ -197,30 +245,60 @@
 										<h6>Tax: $<%= tax %></h6>
 									</li>
 
-									<li class="list-group-item d-flex justify-content-between bg-light">
-										<div class="text-success">
-											<h6 class="my-0">Promo Code</h6>
-											<small>20OFFCOUP</small>
-										</div>
-										<span class="text-success">-$20.00</span>
-									</li>
+									<%
+										if(promoRawPercent != -1 && promoDiscount != -1) {
+											out.println("<li class=\"list-group-item d-flex justify-content-between bg-light\">");
+											
+											out.println("<div class=\"text-success\">");
+											out.println("<h6 class=\"my-0\">Promo Code</h6>");
+											out.println("<small>" + promoRawPercent + "OFFCOUP</small>");
+											out.println("</div>");
+											out.println("<span class=\"text-success\">-$" + new DecimalFormat("0.00").format(promoDiscount) + "</span>");
+											
+											out.println("</li>");
+										}
+									%>
+
+<!-- 									<li class="list-group-item d-flex justify-content-between bg-light"> -->
+<!-- 										<div class="text-success"> -->
+<!-- 											<h6 class="my-0">Promo Code</h6> -->
+<!-- 											<small>20OFFCOUP</small> -->
+<!-- 										</div> -->
+<!-- 										<span class="text-success">-$20.00</span> -->
+<!-- 									</li> -->
 									
 									<li class="list-group-item">
 										<h6>Total: $<%= total %></h6>
 									</li>
 								</ul>
 								
-								<div class="input-group mb-3 mt-3 promoCode">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="promoAddon">Promo Code</span>
-									</div>
+								<%
+									HttpSession infoSession = request.getSession();
+										
+									infoSession.setAttribute("orderItems", orderItems);
+									infoSession.setAttribute("booksForOrderItems", booksForOrderItems);
+									infoSession.setAttribute("order", order);
 									
-									<input type="text" class="form-control" aria-label="promoCode" aria-describedby="promoAddon">
-									<button type="button" class="btn btn-secondary ml-2">Submit</button>
-								</div>
+									infoSession.setAttribute("subtotal", subtotal);
+									infoSession.setAttribute("tax", tax);
+									infoSession.setAttribute("total", total);
+								%>
 								
-								<button type="button" class="btn btn-success">Submit Order</button>
-								<button type="button" class="btn btn-info ml-3">Update Order</button>
+								<form action="ApplyPromo" method="POST" accept-charset="UTF-8">
+									<div class="input-group mb-3 mt-3 promoCode">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="promoAddon">Promo Code</span>
+										</div>
+											<input type="text" class="form-control" name="promoCode" aria-label="promoCode" aria-describedby="promoAddon">
+										
+											<button type="submit" class="btn btn-secondary ml-2">Submit</button>
+									</div>
+								</form>
+								
+								<form method="POST" accept-charset="UTF-8">
+									<button type="submit" class="btn btn-success" formaction="SubmitOrder">Submit Order</button>
+									<button type="submit" class="btn btn-info ml-3" formaction="ShoppingCart">Update Order</button>
+								</form>
 							</div>
 						</div>
 					</div>
