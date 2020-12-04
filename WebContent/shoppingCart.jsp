@@ -15,6 +15,7 @@
 	shoppingCart.html
 	
 	Austin Schultz (als93978)
+	Jonah Kim
 	
 	This page implements the Checkout page design found
 	on the Outline document on the Google Drive.
@@ -22,21 +23,20 @@
 
 <%
 
-	User user = (User) request.getAttribute("user");
-	Address address = (Address) request.getAttribute("address");
+	User user = null;
+	Address address = null;
 	
+	UserDA userDA = new UserDA();
 	PaymentCardDA paymentCardDA = new PaymentCardDA();
 	AddressDA addressDA = new AddressDA();
+	Cookie[] cookies = request.getCookies();
+    int userID = Integer.parseInt(cookies[1].getValue());
+    user = userDA.getUserByID(userID);
+
+    int addressID = user.getAddressID();
 	
 	List<OrderItem> orderItems = (List<OrderItem>) request.getAttribute("orderItems");
 	List<Book> booksForOrderItems = (List<Book>) request.getAttribute("booksForOrderItems");
-	
-/* 	if (user != null){
-		code, user.getUserID() ...
-	}
-	else{
-		no payment info
-	} */
 
 %>
 <!DOCTYPE html>
@@ -197,9 +197,11 @@
 											out.println("<label for=\"quantity\">Quantity:</label>");
 											out.println("<input type=\"number\" id=\"quantity1\" class=\"quantity\" name=\"quantity\" min=\"1\" value=\"" + currentOrderItem.getQuantity() + "\">");
 											out.println("<p class=\"mt-2\">$" + currentBook.getSellingPrice() + "</p>");
+											out.println("<form action=\"RemoveFromCart\" method=\"POST\" accept-charset=\"UTF-8\">");
 											out.println("<input type=\"hidden\" name=\"bookID\" value=\"" + currentBook.getBookID() + "\"/>");
 											out.println("<input type=\"hidden\" name=\"orderID\" value=\"" + currentOrderItem.getOrderID() + "\"/>");
-											out.println("<button type=\"button\" class=\"btn btn-outline-secondary btn-sm\">Remove</button>");
+											out.println("<button type=\"submit\" class=\"btn btn-outline-secondary btn-sm\">Remove</button>");
+											out.println("</form>");
 											out.println("</div>");
 											out.println("</form>");
 											
@@ -309,43 +311,39 @@
  												<%
 
  												PaymentCard paymentCard = new PaymentCard();
- 												int cardCount = 0;
 
- 				                               for (int i = 0; i < 100; i++){
- 				                            	   paymentCard = paymentCardDA.getPaymentCardByUserID(i);
- 				                            	   if (paymentCard != null){
- 				                            		  	out.println("<input type=\"radio\" class=\"form-check-input form-check-inline\" name=\"paymentInfo\" value=\"paymentInfo1\" checked>");
- 				                            		  	if (paymentCard.getCardType().equals(CardType.DISCOVER)){
- 				                            		  		out.println("<img src=\"https://i.imgur.com/qkW8Dcz.png\" title=\"source: imgur.com\" width=\"50\" height=\"22\" />");
- 				                            		  	}
- 				                            		  	else if (paymentCard.getCardType().equals(CardType.VISA)){
- 				                            		  		out.println("<img alt=\"Credit Card Logos\" title=\"Credit Card Logos\" src=\"http://www.credit-card-logos.com/images/visa_credit-card-logos/visa_logo_3.gif\" width=\"50\" height=\"22\" />");
- 				                            		  	}
- 				                            		  	else if (paymentCard.getCardType().equals(CardType.MASTERCARD)){
- 				                            		  		out.println("<img alt=\"Credit Card Logos\" title=\"Credit Card Logos\" src=\"http://www.credit-card-logos.com/images/mastercard_credit-card-logos/mastercard_logo_4.gif\" width=\"50\" height=\"22\" />");
- 				                            		  	}
- 				                            		  	else{//American Express
- 				                            		  		out.println("<img src=\"https://i.imgur.com/zpRZtD6.png\" title=\"source: imgur.com\" width=\"50\" height=\"22\" />");
- 				                            		  	}
- 	 													out.println("<div class=\"media-body\">");
- 	 													out.println("<div>");
- 	 													
- 	 													String fourDigits = paymentCard.getCardNum();
- 	 													out.println("<p>**** **** **** " + fourDigits.substring(12) + "</p>");
- 	 													out.println("</div>");
- 	 													out.println("<div>");
- 	 													
- 	 													/* out.println("<p>" + user.getFirstName() + " " + user.getLastName() + "</p>"); */
- 	 													out.println("</div>");
- 	 													out.println("</div>");
- 	 													out.println("<button type=\"button\" id=\"editCard\" class=\"btn btn-primary center\" data-toggle=\"modal\" data-target=\"#editCard1\" style=\"border: none;\">Edit</button>");
- 	 													out.println("</li>");
- 	 													cardCount++;
- 				                            	   }
- 				                               }
- 				                              if (cardCount == 0){
+			                            	   	paymentCard = paymentCardDA.getPaymentCardByUserID(userID);
+			                            	   	if (paymentCard != null){
+			                            		  	out.println("<input type=\"radio\" class=\"form-check-input form-check-inline\" name=\"paymentInfo\" value=\"paymentInfo1\" checked>");
+			                            		  	if (paymentCard.getCardType().equals(CardType.DISCOVER)){
+			                            		  		out.println("<img src=\"https://i.imgur.com/qkW8Dcz.png\" title=\"source: imgur.com\" width=\"50\" height=\"22\" />");
+			                            		  	}
+			                            		  	else if (paymentCard.getCardType().equals(CardType.VISA)){
+			                            		  		out.println("<img alt=\"Credit Card Logos\" title=\"Credit Card Logos\" src=\"http://www.credit-card-logos.com/images/visa_credit-card-logos/visa_logo_3.gif\" width=\"50\" height=\"22\" />");
+			                            		  	}
+			                            		  	else if (paymentCard.getCardType().equals(CardType.MASTERCARD)){
+			                            		  		out.println("<img alt=\"Credit Card Logos\" title=\"Credit Card Logos\" src=\"http://www.credit-card-logos.com/images/mastercard_credit-card-logos/mastercard_logo_4.gif\" width=\"50\" height=\"22\" />");
+			                            		  	}
+			                            		  	else{//American Express
+			                            		  		out.println("<img src=\"https://i.imgur.com/zpRZtD6.png\" title=\"source: imgur.com\" width=\"50\" height=\"22\" />");
+			                            		  	}
+									out.println("<div class=\"media-body\">");
+									out.println("<div>");
+
+									String fourDigits = paymentCard.getCardNum();
+									out.println("<p>**** **** **** " + fourDigits.substring(12) + "</p>");
+									out.println("</div>");
+									out.println("<div>");
+
+									out.println("<p>" + user.getFirstName() + " " + user.getLastName() + "</p>");
+									out.println("</div>");
+									out.println("</div>");
+									out.println("<button type=\"button\" id=\"editCard\" class=\"btn btn-primary center\" data-toggle=\"modal\" data-target=\"#editCard1\" style=\"border: none;\">Edit</button>");
+									out.println("</li>");
+			                            	  	 }
+			                            	   	else{
 			                            		  	out.println("<p>No payment options</p>");
-													out.println("</li>");
+									out.println("</li>");
 			                            	   }
  												
  												%>
@@ -371,27 +369,26 @@
  										
  										<%
 
- 												int addressCount = 0;
-
- 				                               for (int i = 0; i < 100; i++){
- 				                            	   address = addressDA.getAddressByID(i);
- 				                            	   if (address != null){
- 				                            		   out.println("<div class=\"shippingInfoItem shippingInfoItemTopMargin\">");
- 				                            		  out.println("<div class=\"addressInfo\">");
- 				                            		   /* out.println("<p>Name: " + user.getFirstName() + " " + user.getLastName() + "</p>"); */
- 				                            		   out.println("<p>Address: " + address.getStreet() + ", " + address.getCity() + ", " + address.getState() + ", " + address.getZipCode() + "</p>");
- 				                            		  out.println("</div>");
- 				                            		 out.println("<div class=\"shippingInputOptions\">");
- 				                            		 out.println("<input type=\"radio\" class=\"shippingInfoRadio\" id=\"shippingInfo1\" name=\"shippingInfo\" value=\"shippingInfo1\">");
- 				                            		 out.println("<button type=\"button\" id=\"editAddress\" class=\"btn btn-primary center\" data-toggle=\"modal\" data-target=\"#editAddress1\" style=\"border: none;\">Edit</button>");
- 				                            		 out.println("</div>");
- 				                            		 out.println("</div>");
- 				                            		   addressCount++;
- 				                            	   }
- 				                               }
- 				                              if (addressCount == 0){
-			                            		  	out.println("<p>No shipping addresses available</p>");
-			                            	   }
+ 												try{
+		                            		address = addressDA.getAddressByID(addressID);
+ 										} catch(Exception e){
+ 											e.printStackTrace();
+ 										}
+		                            	if (address != null){
+		                            		out.println("<div class=\"shippingInfoItem shippingInfoItemTopMargin\">");
+		                            		out.println("<div class=\"addressInfo\">");
+		                            		out.println("<p>Name: " + user.getFirstName() + " " + user.getLastName() + "</p>");
+		                            		out.println("<p>Address: " + address.getStreet() + ", " + address.getCity() + ", " + address.getState() + ", " + address.getZipCode() + "</p>");
+		                            		out.println("</div>");
+		                            		out.println("<div class=\"shippingInputOptions\">");
+		                            		out.println("<input type=\"radio\" class=\"shippingInfoRadio\" id=\"shippingInfo1\" name=\"shippingInfo\" value=\"shippingInfo1\">");
+		                            		out.println("<button type=\"button\" id=\"editAddress\" class=\"btn btn-primary center\" data-toggle=\"modal\" data-target=\"#editAddress1\" style=\"border: none;\">Edit</button>");
+		                            		out.println("</div>");
+		                            		out.println("</div>");
+		                            	}
+		                            	else{
+                            		  	out.println("<p>No shipping addresses available</p>");
+                            	   		}
  												
  												%>
 	
