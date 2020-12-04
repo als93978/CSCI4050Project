@@ -29,7 +29,9 @@ import models.User;
 @WebServlet("/SendPayment")
 public class SendPayment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	private PaymentCardDA paymentCardDA = new PaymentCardDA();
+	private UserDA userDA = new UserDA();
 	private User user = new User();
 	
 	private PaymentCard paymentCard = null;
@@ -69,7 +71,15 @@ public class SendPayment extends HttpServlet {
 	private PaymentCard initPaymentCard(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
         int userID = Integer.parseInt(cookies[1].getValue());
-        
+		
+		try {
+		user = userDA.getUserByID(userID);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		int numOfCards = user.getNumOfCards() + 1;
+		user.setNumOfCards(numOfCards);
+		
 		PaymentCard paymentCard = new PaymentCard();
 		
 		String cardNum = request.getParameter("cardNum");
