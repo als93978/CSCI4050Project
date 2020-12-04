@@ -30,6 +30,10 @@ public class OrderItemDA implements IOrderItemDA {
 													 + "WHERE BookID = ? "
 													 + "and OrderID = ?;";
 	
+	private static final String deleteOrderItemQuery = "DELETE FROM OrderItem"
+													 + "WHERE BookID = ? "
+													 + "and OrderID = ?;";
+	
 	@Override
 	public void createOrderItem(OrderItem orderItem) throws SQLException {
 		int bookID = orderItem.getBookID();
@@ -139,6 +143,25 @@ public class OrderItemDA implements IOrderItemDA {
 		updateOrderItemStmt.setInt(3, orderID);
 		
 		updateOrderItemStmt.executeUpdate();
+		
+		connection.close();
+	}
+	
+	@Override
+	public void deleteOrderItem(OrderItem orderItem) throws SQLException {
+		int bookID = orderItem.getBookID();
+		int orderID = orderItem.getOrderID();
+		
+		Connection connection = DataAccessHelper.getConnection();
+		
+		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
+		useDBStmt.executeQuery();
+		
+		PreparedStatement deleteOrderItemStmt = connection.prepareStatement(deleteOrderItemQuery);
+		deleteOrderItemStmt.setInt(1, bookID);
+		deleteOrderItemStmt.setInt(2, orderID);
+		
+		deleteOrderItemStmt.executeUpdate();
 		
 		connection.close();
 	}
