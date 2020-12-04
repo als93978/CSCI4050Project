@@ -402,7 +402,9 @@
  									</div>
  									
  									<div class="nextBtnContainer">
-										<a href="orderSummary.html" id="next" class="btn btn-primary btn-lg">Next</a>
+ 										<form action="OrderSummary" method="POST" accept-charset="UTF-8">
+											<button type="submit" id="next" class="btn btn-primary btn-lg">Next</button>
+										</form>
  									</div>
  							</div>
 						</div>
