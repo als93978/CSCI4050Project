@@ -58,6 +58,9 @@ public class SendAddress extends HttpServlet {
 		try {
 			processAddress(request);
 			
+			String message = "Address was successfully added.";
+			returnMessage(request, response, message);
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 			returnError(request, response, e.getMessage());
@@ -66,6 +69,18 @@ public class SendAddress extends HttpServlet {
 	private void processAddress(HttpServletRequest request) throws Exception {
 		address = initAddress(request);
 		addressDA.createAddress(address);
+		
+		Cookie[] cookies = request.getCookies();
+        int userID = Integer.parseInt(cookies[1].getValue());
+		
+		try {
+		user = userDA.getUserByID(userID);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		address = addressDA.getLastAddress();
+		user.setAddressID(address.getAddressID());
+		userDA.updateUser(user);
 	}
 	
 	private Address initAddress(HttpServletRequest request) {
@@ -80,13 +95,11 @@ public class SendAddress extends HttpServlet {
 
 		Address address = new Address();
 
-		int addressID = user.getAddressID();
 		String street = request.getParameter("street");
 		String city = request.getParameter("city");
 		String state = request.getParameter("state");
 		int zipCode = Integer.parseInt(request.getParameter("zipCode"));
-		
-		address.setAddressID(addressID);
+
 		address.setStreet(street);
 		address.setCity(city);
 		address.setState(state);

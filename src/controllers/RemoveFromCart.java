@@ -47,7 +47,7 @@ public class RemoveFromCart extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		doPost(request, response);
 	}
 
 	/**
@@ -58,8 +58,44 @@ public class RemoveFromCart extends HttpServlet {
 			int bookID = Integer.parseInt(request.getParameter("bookID"));
 			int orderID = Integer.parseInt(request.getParameter("orderID"));
 			orderItemDA.deleteOrderItem(orderItemDA.getOrderItem(bookID, orderID));
+			
+			String message = "Successfully removed book.";
+			returnMessage(request, response, message);
 		}catch(Exception e) {
 			e.printStackTrace();
+			returnError(request, response, e.getMessage());
+		}
+	}
+	
+	private void returnMessage(HttpServletRequest request, HttpServletResponse response, String messageStr) {
+		Message message = new Message();
+		
+		message.setMessage(messageStr);
+		
+		request.setAttribute("message", message);
+		
+		redirectToPage(request, response, "shoppingCart.jsp");
+	}
+	
+	private void returnError(HttpServletRequest request, HttpServletResponse response, String message) {
+		ErrorMessage errorMessage = new ErrorMessage();
+		
+		errorMessage.setMessage("An error occurred: " + message);
+		
+		request.setAttribute("errorMessage", errorMessage);
+		
+		redirectToPage(request, response, "shoppingCart.jsp");
+	}
+	
+	private void redirectToPage(HttpServletRequest request, HttpServletResponse response, String page) {
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + page);
+		
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 	}
 
