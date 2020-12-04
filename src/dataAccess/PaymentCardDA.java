@@ -45,7 +45,7 @@ public class PaymentCardDA implements IPaymentCardDA {
 		String expDate = paymentCard.getExpDate();
 		int userID = paymentCard.getUserID();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -65,7 +65,7 @@ public class PaymentCardDA implements IPaymentCardDA {
 	public PaymentCard getPaymentCardByUserID(int userID) throws SQLException {
 		PaymentCard paymentCard = null;
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -103,7 +103,7 @@ public class PaymentCardDA implements IPaymentCardDA {
 	public PaymentCard getPaymentCardByCardNum(String cardNum) throws SQLException {
 		PaymentCard paymentCard = null;
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -141,7 +141,7 @@ public class PaymentCardDA implements IPaymentCardDA {
 	public PaymentCard getLastPaymentCard() throws SQLException {
 		PaymentCard paymentCard = null;
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -181,7 +181,7 @@ public class PaymentCardDA implements IPaymentCardDA {
 		String expDate = paymentCard.getExpDate();
 		int userID = paymentCard.getUserID();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -202,7 +202,7 @@ public class PaymentCardDA implements IPaymentCardDA {
 		String cardNum = paymentCard.getCardNum();
 		int userID = paymentCard.getUserID();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -222,7 +222,7 @@ public class PaymentCardDA implements IPaymentCardDA {
 	public void deletePaymentCard(PaymentCard paymentCard) throws SQLException {
 		String cardNum = paymentCard.getCardNum();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();

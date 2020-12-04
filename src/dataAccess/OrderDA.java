@@ -36,7 +36,7 @@ public class OrderDA implements IOrderDA {
 		int userID = order.getUserID();
 		String orderStatus = order.getOrderStatus().name();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -54,7 +54,7 @@ public class OrderDA implements IOrderDA {
 	public Order getNonSubmittedOrderByUserID(int userID) throws SQLException {
 		Order order = null;
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
@@ -110,7 +110,7 @@ public class OrderDA implements IOrderDA {
 		int promotionCode = order.getPromotionCode();
 		String orderStatus = order.getOrderStatus().name();
 	
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();

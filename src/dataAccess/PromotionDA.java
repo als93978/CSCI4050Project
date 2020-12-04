@@ -28,7 +28,8 @@ public class PromotionDA implements IPromotionDA {
 		String expDate = promotion.getExpDate();
 		String startDate = promotion.getStartDate();
 		
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
+		
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
 		PreparedStatement addPromotionStmt = connection.prepareStatement(addPromotionQuery);
@@ -45,7 +46,7 @@ public class PromotionDA implements IPromotionDA {
 	@Override
 	public List<Promotion> getAllPromotions() throws SQLException {
 		List<Promotion> promotions = new ArrayList<Promotion>();
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
 		PreparedStatement getAllPromotionsStmt = connection.prepareStatement(getAllPromotionsQuery);
@@ -75,7 +76,7 @@ public class PromotionDA implements IPromotionDA {
 	@Override
 	public Promotion getPromotionByCode(int promotionCode) throws SQLException {
 		Promotion promotion = null;
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
 		PreparedStatement getPromotionByCodePstmt = connection.prepareStatement(getPromotionByCodeQuery);
@@ -109,7 +110,7 @@ public class PromotionDA implements IPromotionDA {
 	@Override
 	public Promotion getLastPromotion() throws SQLException {
 		Promotion promotion = null;
-		Connection connection = DataAccessHelper.getConnection();
+		Connection connection = DataAccessHelper.getInstance().getConnection();
 		PreparedStatement useDBStmt = connection.prepareStatement(useDBQuery);
 		useDBStmt.executeQuery();
 		PreparedStatement getLastPromotionPstmt = connection.prepareStatement(getLastPromotionQuery);
