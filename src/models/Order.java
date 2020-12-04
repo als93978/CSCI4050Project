@@ -7,6 +7,7 @@ public class Order {
 	private String orderDateTime;
 	private String paymentMethod;
 	private String cardNum;
+	private int addressID;
 	private int promotionCode;
 	private OrderStatus orderStatus;
 	
@@ -56,6 +57,14 @@ public class Order {
 	
 	public void setCardNum(String cardNum) {
 		this.cardNum = cardNum;
+	}
+	
+	public int getAddressID() {
+		return addressID;
+	}
+	
+	public void setAddressID(int addressID) {
+		this.addressID = addressID;
 	}
 	
 	public int getPromotionCode() {

@@ -13,6 +13,7 @@
     pageEncoding="UTF-8"
     import="javax.servlet.http.Cookie, dataAccess.*"
     import="java.util.List"
+    import="java.text.DecimalFormat"
     import="models.Book"
     import="models.ErrorMessage"
     import="models.Message"
@@ -103,7 +104,7 @@
  							</li>
  						</ul>
  						
- 						<a class="nav-link" href="shoppingCart.html">
+ 						<a class="nav-link" href="ShoppingCart">
 							 <i class="fas fa-shopping-cart fa-2x"></i>
 							 <span class="badge badge-dark badge-pill">4</span>
  						</a>
@@ -286,6 +287,8 @@
 									int index = (booksPerRow * i) + j;
 									Book currentBook = keywordBooks.get(index);
 									
+									String formattedPrice = new DecimalFormat("0.00").format(currentBook.getSellingPrice());
+									
 									out.println("<div class=\"col\">");
 									
 									out.println("<div class=\"card card-searchgrid\" data-toggle=\"modal\" data-target=\"#book" + (index+1) + "\" style=\"cursor: pointer;\">");
@@ -293,7 +296,7 @@
 									out.println("<div class=\"card-body\">");
 									out.println("<h5 class=\"card-title\">" + currentBook.getTitle() + "</h5>");
 									out.println("<p>" + currentBook.getAuthor() + "</p>");
-									out.println("<p>$" + currentBook.getSellingPrice() + "</p>");
+									out.println("<p>$" + formattedPrice + "</p>");
 									out.println("</div>");
 									out.println("</div>");
 									
@@ -308,6 +311,8 @@
 								int index = (booksPerRow * numOfRows) + k;
 								Book currentBook = keywordBooks.get(index);
 								
+								String formattedPrice = new DecimalFormat("0.00").format(currentBook.getSellingPrice());
+								
 								out.println("<div class=\"col\">");
 								
 								out.println("<div class=\"card card-searchgrid\" data-toggle=\"modal\" data-target=\"#book" + (index+1) + "\" style=\"cursor: pointer;\">");
@@ -315,7 +320,7 @@
 								out.println("<div class=\"card-body\">");
 								out.println("<h5 class=\"card-title\">" + currentBook.getTitle() + "</h5>");
 								out.println("<p>" + currentBook.getAuthor() + "</p>");
-								out.println("<p>$" + currentBook.getSellingPrice() + "</p>");
+								out.println("<p>$" + formattedPrice + "</p>");
 								out.println("</div>");
 								out.println("</div>");
 								
@@ -468,6 +473,8 @@
 					for(int i = 0; i < keywordBooks.size(); i++) {
 						Book currentBook = keywordBooks.get(i);
 						
+						String formattedPrice = new DecimalFormat("0.00").format(currentBook.getSellingPrice());
+						
 						out.println("<div class=\"modal fade\" id=\"book" + (i+1) + "\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">");
 						out.println("<div class=\"modal-dialog\">");
 						out.println("<div class=\"modal-content\">");
@@ -485,7 +492,7 @@
 						out.println("<br><br>");
 						out.println("Genre: " + currentBook.getGenre());
 						out.println("<br><br>");
-						out.println("Price: $" + currentBook.getSellingPrice());
+						out.println("Price: $" + formattedPrice);
 						out.println("<br><br>");
 						out.println("ISBN: " + currentBook.getIsbn());
 						out.println("<br><br>");

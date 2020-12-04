@@ -124,6 +124,8 @@ public class LoadShoppingCart extends HttpServlet {
 			
 			if(booksForOrderItems != null)
 				request.setAttribute("booksForOrderItems", booksForOrderItems);
+			
+			request.setAttribute("order", order);
 		}
 		
 		redirectToPage(request, response, "shoppingCart.jsp");
