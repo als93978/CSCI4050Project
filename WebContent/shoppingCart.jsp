@@ -29,9 +29,8 @@
 	UserDA userDA = new UserDA();
 	PaymentCardDA paymentCardDA = new PaymentCardDA();
 	AddressDA addressDA = new AddressDA();
-	/* Cookie[] cookies = request.getCookies();
-    int userID = Integer.parseInt(cookies[1].getValue()); */
-    int userID = 9;
+	Cookie[] cookies = request.getCookies();
+    int userID = Integer.parseInt(cookies[1].getValue());
     user = userDA.getUserByID(userID);
 
     int addressID = user.getAddressID();
